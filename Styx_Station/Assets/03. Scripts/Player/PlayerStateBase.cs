@@ -6,4 +6,8 @@ public abstract class PlayerStateBase : StateBase
 {
     protected PlayerController playertController;
 
+    public PlayerStateBase(PlayerController playertController)
+    {
+        this.playertController = playertController;
+    }
 }

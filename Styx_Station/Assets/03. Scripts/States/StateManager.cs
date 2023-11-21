@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StateManager
 {
-    private StateBase currentState; //현재 상태
+    private StateBase currentState; 
     public void ChangeState(StateBase newState)
     {
         if(currentState != null)

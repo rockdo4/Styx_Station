@@ -18,7 +18,6 @@ public class StateManager
 
     public void Update()
     {
-        Debug.Log(currentState.ToString());
         if (currentState != null)
         {
             currentState.Update();

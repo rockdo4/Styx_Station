@@ -38,3 +38,10 @@ public enum FloatingOptionString
     SkillDamage,
     BossDamage,
 }
+public enum States
+{
+    Idle,
+    Move,
+    Attack,
+    Die,
+}

@@ -28,7 +28,7 @@ public enum FloatingOptionString
     Attack,
     Health,
     AttackSpeed,
-    HeelingHealth,
+    HealingHealth,
     AttackPer,
     Evade,
     DamageReduction,
@@ -37,4 +37,10 @@ public enum FloatingOptionString
     NormalDamage,
     SkillDamage,
     BossDamage,
+}
+public enum States
+{
+    Move,
+    Attack,
+    Die,
 }

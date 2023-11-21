@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : ScriptableObject
+public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
 {
     [Tooltip("아이템 이름")]
     public string name;
@@ -22,4 +22,46 @@ public class Item : ScriptableObject
 
     [Tooltip("아이템 장착 옵션")]
     public List<Option> options = new List<Option>();
+
+    public void OnEquip(Inventory inventory, int upgadeLev)
+    {
+        if (options == null)
+            return;
+
+        if (options.Count <= 0)
+            return;
+
+        foreach(var option in options)
+        {
+            switch(option.option)
+            {
+                case ItemOptionString.Attack:
+                    break;
+
+                case ItemOptionString.Health:
+                    break;
+            }
+        }
+    }
+
+    public void OnDequip(Inventory inventory, int upgadeLev)
+    {
+        if (options == null)
+            return;
+
+        if (options.Count <= 0)
+            return;
+
+        foreach (var option in options)
+        {
+            switch (option.option)
+            {
+                case ItemOptionString.Attack:
+                    break;
+
+                case ItemOptionString.Health:
+                    break;
+            }
+        }
+    }
 }

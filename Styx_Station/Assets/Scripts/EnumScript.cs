@@ -25,23 +25,15 @@ public enum FloatingItemType
 
 public enum FloatingOptionString
 {
-    Evade,
-    DamageReduction,
-    CoinAcquire,
-    Health,
-    SkillDamage,
-    BossDamage,
-    Bloodsucking,
-    Attack,
-}
-
-public enum FixedOptionString
-{
     Attack,
     Health,
     AttackSpeed,
     HeelingHealth,
-    AttackUp,
+    AttackPer,
+    Evade,
+    DamageReduction,
+    Bloodsucking,
+    CoinAcquire,
     NormalDamage,
     SkillDamage,
     BossDamage,

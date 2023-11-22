@@ -22,17 +22,13 @@ public class MonsterMoveState : MonsterStateBase
 
     public override void Update()
     {
-        //Vector2 pos = monsterCtrl.transform.position;
-        //pos.x -= 0.05f;
-        //monsterCtrl.rigid.MovePosition(pos);
-
         if(monsterStats.currHealth <= 0)
         {
             monsterCtrl.SetState(States.Die);
             return;
         }
 
-        if(DistanceToPlayer <= monsterCtrl.range)
+        if(DistanceToPlayer <= monsterCtrl.weapon.range)
         {
             monsterCtrl.SetState(States.Attack);
             return;

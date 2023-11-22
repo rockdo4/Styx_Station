@@ -8,4 +8,5 @@ public class MonsterTypeBase : ScriptableObject
     public AttackType attackType;
     public GameObject prefab;
     public float speed;
+    public AttackDefinition weapon;
 }

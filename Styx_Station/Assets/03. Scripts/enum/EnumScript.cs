@@ -49,3 +49,12 @@ public enum AttackType
     Melee, 
     None,
 }
+
+public enum PlayerTier
+{
+    one,
+    two,
+    three,
+    four,
+    five,
+}

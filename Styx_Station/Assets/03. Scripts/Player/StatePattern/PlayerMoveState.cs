@@ -17,20 +17,26 @@ public class PlayerMoveState : PlayerStateBase
         nowTime = Time.time;
         stateDuration = playertController.backgroundLength /playertController.playerMoveSpeed;
 
-        Debug.Log("Player Moving");
+        playertController.GetAnimator().SetTrigger("Run");
     }
 
     public override void Exit()
     {
         nowTime = 0f;
-        Debug.Log("Player Not Moving");
     }
 
     public override void Update()
     {
-        if(Time.time >  nowTime + stateDuration) 
+        if(Time.time >  nowTime + stateDuration && playertController.IsStartTarget) 
+        {
+            playertController.SetState(States.Idle);
+            playertController.GetAnimator().SetTrigger("Idle");
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             playertController.SetState(States.Attack);
+            playertController.GetAnimator().SetTrigger("Attack");
         }
     }
 }

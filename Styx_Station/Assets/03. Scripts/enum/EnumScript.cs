@@ -46,12 +46,9 @@ public enum States
     Die,
 }
 
-//231121Ãß°¡
 public enum AttackType
 {
     Ranged, //¿øµô
     Melee, //±Ùµô
     None,
 }
-
-//231121Ãß°¡³¡

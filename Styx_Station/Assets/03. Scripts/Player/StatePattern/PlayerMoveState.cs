@@ -27,7 +27,7 @@ public class PlayerMoveState : PlayerStateBase
 
     public override void Update()
     {
-        if(Time.time >  nowTime + stateDuration && playertController.IsAtTarget) 
+        if(Time.time >  nowTime + stateDuration && playertController.IsStartTarget) 
         {
             playertController.SetState(States.Idle);
             playertController.GetAnimator().SetTrigger("Idle");

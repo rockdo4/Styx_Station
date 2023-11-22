@@ -13,7 +13,7 @@ public class MonsterAttackState : MonsterStateBase
 
     public override void Enter()
     {
-        lastAttackTime = Time.time;
+        lastAttackTime = 0;
     }
 
     public override void Exit()
@@ -23,9 +23,14 @@ public class MonsterAttackState : MonsterStateBase
 
     public override void Update()
     {
-        if(Time.time - lastAttackTime < AttackBet)
+        if (monsterStats.currHealth <= 0)
+        {
+            monsterCtrl.SetState(States.Die);
+        }
+        if (Time.time - lastAttackTime > AttackBet)
         {
             monsterCtrl.animator.SetTrigger("Attack");
+            lastAttackTime = Time.time;
         }
     }
 }

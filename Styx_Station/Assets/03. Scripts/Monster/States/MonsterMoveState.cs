@@ -26,6 +26,12 @@ public class MonsterMoveState : MonsterStateBase
         //pos.x -= 0.05f;
         //monsterCtrl.rigid.MovePosition(pos);
 
+        if(monsterStats.currHealth <= 0)
+        {
+            monsterCtrl.SetState(States.Die);
+            return;
+        }
+
         if(DistanceToPlayer <= monsterCtrl.range)
         {
             monsterCtrl.SetState(States.Attack);

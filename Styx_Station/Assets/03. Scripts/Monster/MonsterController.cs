@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterController : MonoBehaviour
+public class MonsterController : PoolAble //MonoBehaviour
 {
     private StateManager stateManager = new StateManager();
     private List<StateBase> states = new List<StateBase>();
@@ -30,8 +30,13 @@ public class MonsterController : MonoBehaviour
         states.Add(new MonsterIdleState(this));
         states.Add(new MonsterMoveState(this));
         states.Add(new MonsterAttackState(this));
-
+        states.Add(new MonsterDieState(this));
         SetState(States.Idle);
+    }
+
+    private void OnEnable()
+    {
+
     }
 
     private void Update()

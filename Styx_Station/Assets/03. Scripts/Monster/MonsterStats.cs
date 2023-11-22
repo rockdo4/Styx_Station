@@ -6,7 +6,8 @@ public class MonsterStats : MonoBehaviour
 {
     [Header("몬스터 최대 체력")]
     public float maxHp;
-    private float currHealth { get; set; }
+
+    public float currHealth { get; set; }
 
     [Header("몬스터 데미지")]
     public float damage;
@@ -16,6 +17,11 @@ public class MonsterStats : MonoBehaviour
 
     [Header("몬스터 이동속도")]
     public float speed;
+
+    private void OnEnable()
+    {
+        currHealth = maxHp;
+    }
     public void SetStats(float maxH, float d, AttackType attackT, float s)
     {
         maxHp = maxH;

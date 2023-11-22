@@ -6,6 +6,7 @@ public abstract class MonsterStateBase : StateBase
 {
     protected MonsterController monsterCtrl;
     protected GameObject player;
+    protected MonsterStats monsterStats;
     //protected Animator animator;
     //protected Rigidbody2D rigidbody;
 
@@ -25,6 +26,7 @@ public abstract class MonsterStateBase : StateBase
     {
         this.monsterCtrl = monsterCtrl;
         player = GameObject.FindGameObjectWithTag("Player");
+        monsterStats = monsterCtrl.GetComponent<MonsterStats>();
         //animator = monsterCtrl.GetComponentInChildren<Animator>();
         //rigidbody = monsterCtrl.GetComponent<Rigidbody2D>();
     }

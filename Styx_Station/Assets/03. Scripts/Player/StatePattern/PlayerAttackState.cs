@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerAttackState : PlayerStateBase
 {
@@ -14,7 +15,7 @@ public class PlayerAttackState : PlayerStateBase
     public override void Enter()
     {
         var spped = defaultSpeed + ((SharedPlayerStats.GetAttackSpeed()-1)* increaseAttackSpeed);
-        playertController.GetAnimator().speed = spped; 
+        playertController.GetAnimator().speed = spped;
         playertController.GetAnimator().SetTrigger("Attack");
     }
 

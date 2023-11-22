@@ -13,6 +13,9 @@ public class MonsterController : PoolAble //MonoBehaviour
     public MonsterStats monsterStats { get; private set; }
 
     public float range; //임시사용 - 공격 사거리
+    public AttackDefinition weapon;
+    public GameObject target;
+    public ExecuteHit executeHit;
 
     public void SetState(States newState)
     {
@@ -24,6 +27,8 @@ public class MonsterController : PoolAble //MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         monsterStats = GetComponentInChildren<MonsterStats>();
+        target = GameObject.FindGameObjectWithTag("Player");
+        executeHit = GetComponentInChildren<ExecuteHit>();
     }
     private void Start()
     {
@@ -31,16 +36,27 @@ public class MonsterController : PoolAble //MonoBehaviour
         states.Add(new MonsterMoveState(this));
         states.Add(new MonsterAttackState(this));
         states.Add(new MonsterDieState(this));
+
         SetState(States.Idle);
     }
 
-    private void OnEnable()
+    public void SetExcuteHit()
     {
-
+        executeHit.weapon = weapon;
+        executeHit.target = target;
+        executeHit.attacker = gameObject;
     }
-
     private void Update()
     {
         stateManager.Update();
     }
+
+    //public void Hit()
+    //{
+    //    if(weapon == null || target == null)
+    //    {
+    //        return;
+    //    }
+    //    weapon.ExecuteAttack(gameObject, target);
+    //}
 }

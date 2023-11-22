@@ -41,7 +41,6 @@ public class MonsterAttackState : MonsterStateBase
         if (Time.time - lastAttackTime > attackBet)
         {
             monsterCtrl.animator.SetTrigger("Attack");
-            //monsterCtrl.weapon.ExecuteAttack(monsterCtrl.gameObject, monsterCtrl.target);
             lastAttackTime = Time.time;
         }
     }

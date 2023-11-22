@@ -30,7 +30,7 @@ public class PlayerUpgradeStats : MonoBehaviour
 
     private void Awake()
     {
-        UnitConverter.InitUnitConverter();
+        //UnitConverter.InitUnitConverter();
     }
     private void Start()
     {

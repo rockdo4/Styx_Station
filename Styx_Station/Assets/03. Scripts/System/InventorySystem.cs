@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class InventorySystem : MonoBehaviour
 {
@@ -25,18 +24,26 @@ public class InventorySystem : MonoBehaviour
     private ItemTable item;
     private Inventory inventory;
 
-    public void FixedInventoryImport()
+    public void Setting()
     {
-        if (item.GetFixedItemCount() <= 0)
+        for (int i = 0; i < item.GetTableSize(); ++i)
         {
-            return;
+            var addItem = item.GetItemList(i);
+            inventory.AddItem(addItem);
         }
 
-        int index = item.GetFixedItemCount();
+        inventory.EquipItem(inventory.weapons[0], 0);
+        inventory.EquipItem(inventory.armors[0], 1);
+    }
 
-        for(int i=0; i<index; ++i)
-        {
-            inventory.AddFixedInventory(i, item.GetFixedItem(i), 0);
-        }
+    public void test()
+    {
+        inventory.DequipItem(inventory.weapons[0], 0);
+        inventory.EquipItem(inventory.armors[1], 1);
+    }
+    public void test1()
+    {
+        inventory.EquipItem(inventory.weapons[0], 0);
+        inventory.EquipItem(inventory.armors[0], 1);
     }
 }

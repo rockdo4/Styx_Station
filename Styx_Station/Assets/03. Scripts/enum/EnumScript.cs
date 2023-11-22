@@ -12,18 +12,15 @@ public enum ItemTier
     Unique,
     Legendry,
 }
-public enum FixedItemType
+public enum ItemType
 {
     Weapon,
     Armor,
-}
-public enum FloatingItemType
-{
     Ring,
-    Symbol
+    Symbol,
 }
 
-public enum FloatingOptionString
+public enum AddOptionString
 {
     Attack,
     Health,

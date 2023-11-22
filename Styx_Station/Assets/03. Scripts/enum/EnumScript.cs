@@ -12,23 +12,20 @@ public enum ItemTier
     Unique,
     Legendry,
 }
-public enum FixedItemType
+public enum ItemType
 {
     Weapon,
     Armor,
-}
-public enum FloatingItemType
-{
     Ring,
-    Symbol
+    Symbol,
 }
 
-public enum FloatingOptionString
+public enum AddOptionString
 {
     Attack,
     Health,
     AttackSpeed,
-    HeelingHealth,
+    HealingHealth,
     AttackPer,
     Evade,
     DamageReduction,
@@ -48,7 +45,7 @@ public enum States
 
 public enum AttackType
 {
-    Ranged, //¿øµô
-    Melee, //±Ùµô
+    Ranged, 
+    Melee, 
     None,
 }

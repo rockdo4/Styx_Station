@@ -17,6 +17,14 @@ public class PlayerAttributes : MonoBehaviour
 
     [Header("공격 범위 ")]
     [SerializeField, Range(0, 5)]
-    public float playerAttackRange; 
+    public float playerAttackRange;
+
+    private void Update()
+    {
+        if(hp <= 0 )
+        {
+            GameManager.instance.ReStart();
+        }
+    }
 }
 // 유림이랑애기해서 hp 부분 변경해야할듯 maxHp와 별개로 동작해야하기때문

@@ -21,6 +21,11 @@ public class MonsterIdleState : MonsterStateBase
 
     }
 
+    public override void FixedUpate()
+    {
+
+    }
+
     public override void Update()
     {
         timer += Time.deltaTime;

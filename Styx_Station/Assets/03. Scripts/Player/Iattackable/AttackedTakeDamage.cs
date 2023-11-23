@@ -16,12 +16,12 @@ public class AttackedTakeDamage : MonoBehaviour, IAttackable
         if (stats.hp <= 0)
         {
             stats.hp = 0;
-            gameObject.transform.GetComponent<Animator>().SetTrigger("Die");
-            var destructables = GetComponents<IDestructable>();
-            foreach (var destructable in destructables)
-            {
-                destructable.OnDestruction(attacker);
-            }
+            //gameObject.transform.GetComponent<Animator>().SetTrigger("Die");
+            //var destructables = GetComponents<IDestructable>();
+            //foreach (var destructable in destructables)
+            //{
+            //    destructable.OnDestruction(attacker);
+            //}
         }
     }
 }

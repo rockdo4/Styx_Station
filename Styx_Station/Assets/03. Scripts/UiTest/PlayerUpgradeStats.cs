@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Numerics;
-using UnityEditor.Animations;
 
 public class PlayerUpgradeStats : MonoBehaviour
 {
@@ -12,37 +11,31 @@ public class PlayerUpgradeStats : MonoBehaviour
     // test code
 
     private float nowTime;
+    private int Money1=0;
+    private int Money2=0;
+    private int Money3=0;
 
     public TextMeshProUGUI moneyText1;
     private BigInteger money1 = new BigInteger();
     private bool isMoney1Click;
+
     public float money1CkickTime = 0.2f;
-
     public TextMeshProUGUI moneyText2;
-    private BigInteger money2 = new BigInteger();
-    private bool isMoney2Click;
-    public float money2CkickTime = 0.2f;
-
+    private int money2;
     public TextMeshProUGUI moneyText3;
-    private BigInteger money3 = new BigInteger();
-    private bool isMoney3Click;
-    public float money3CkickTime = 0.2f;
+    private int money3;
 
-    private readonly BigInteger percentage = new BigInteger(100);
-    public int money1GainRate;
-    private BigInteger test = new BigInteger(500000000); // test code 이후 제거 예정
+    public UnityEvent<int,float> onClickAttackable;
 
-    [Tooltip("게임매니저 생기면 글로 옮길거임")]
-    public RuntimeAnimatorController playerAnimator;
 
     private void Awake()
     {
-        UnitConverter.InitUnitConverter();
-        IncreaseMoney1(0);
-        IncreaseMoney2(0);
-        IncreaseMoney3(0);
+        //UnitConverter.InitUnitConverter();
     }
-
+    private void Start()
+    {
+        PrintMoney1();
+    }
 
     // UI매니저에 옮겨야함
     public void PowerUpgrade()
@@ -99,24 +92,39 @@ public class PlayerUpgradeStats : MonoBehaviour
             $"critcalPower : {SharedPlayerStats.GetAttackCriticlaPower()} \t monsterDamage :{SharedPlayerStats.GetMonsterDamagePower()}\n" +
             $"Hp : {SharedPlayerStats.GetHp()} \t healing:{SharedPlayerStats.GetHealing()}");
     }
-    
-    public void IncreaseMoney1(BigInteger money)
+    public float n;
+    public void IncreaseMoney1(int money)
     {
         // n강화 확률이라 어디서 할지 몰라서 일단 이렇게 해둠
-        money1 += money *( money * money1GainRate/ percentage) ;
-        moneyText1.text = UnitConverter.OutString(money1);
-    }
-    public void IncreaseMoney2(BigInteger money)
-    {
-        money2 += money * (money * money1GainRate / percentage);
-        moneyText2.text = UnitConverter.OutString(money2);
-    }
-    public void IncreaseMoney3(BigInteger money)
-    {
-        money3 += money * (money * money1GainRate / percentage);
-        moneyText3.text = UnitConverter.OutString(money3);
+
+        money1 += money + (int)(money * (n / 100));
+        PrintMoney1();
     }
 
+    private void PrintMoney1()
+    {
+
+        //if (money1 < UnitConverter.A1)
+        //{
+        //    moneyText1.text = $"{money1}";
+        //}
+        //else if (money1 > UnitConverter.A1 && money1 < UnitConverter.B1)
+        //{
+        //    var temp = money1;
+        //    var result = temp / UnitConverter.A1;
+        //    var result1 = temp % UnitConverter.A1 / 10;
+        //    moneyText1.text = $"{result}.{result1}A";
+        //}
+        //else if (money1 > UnitConverter.B1 && money1 < UnitConverter.C1)
+        //{
+        //    var temp = money1;
+        //    var result = temp / UnitConverter.B1;
+        //    var result1 = temp % UnitConverter.B1 / (UnitConverter.A1 * 10);
+        //    moneyText1.text = $"{result}.{result1}B";
+        //}
+    }
+
+    public int test;
     public void UPMoney1TestButton()
     {
         isMoney1Click = true;
@@ -124,24 +132,6 @@ public class PlayerUpgradeStats : MonoBehaviour
     public void UpMoney1TestButtonUp()
     {
         isMoney1Click = false;
-    }
-
-    public void UPMoney2TestButton()
-    {
-        isMoney2Click = true;
-    }
-    public void UpMoney2TestButtonUp()
-    {
-        isMoney2Click = false;
-    }
-
-    public void UPMoney3TestButton()
-    {
-        isMoney3Click = true;
-    }
-    public void UpMoney3TestButtonUp()
-    {
-        isMoney3Click = false;
     }
 
     private void Update()
@@ -154,22 +144,5 @@ public class PlayerUpgradeStats : MonoBehaviour
                 IncreaseMoney1(test);
             }
         }
-        if (isMoney2Click)
-        {
-            if (Time.time > nowTime + money2CkickTime)
-            {
-                nowTime = Time.time;
-                IncreaseMoney2(test);
-            }
-        }
-        if (isMoney3Click)
-        {
-            if (Time.time > nowTime + money3CkickTime)
-            {
-                nowTime = Time.time;
-                IncreaseMoney3(test);
-            }
-        }
-
     }
 }

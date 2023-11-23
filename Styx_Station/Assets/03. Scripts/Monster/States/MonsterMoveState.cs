@@ -20,6 +20,12 @@ public class MonsterMoveState : MonsterStateBase
         monsterCtrl.animator.SetFloat("RunState", 0f);
     }
 
+    public override void FixedUpate()
+    {
+        Vector2 moveVelocity = moveDir.normalized * monsterCtrl.monsterStats.speed;
+        monsterCtrl.rigid.MovePosition(monsterCtrl.rigid.position + moveVelocity * Time.deltaTime);
+    }
+
     public override void Update()
     {
         if(monsterStats.currHealth <= 0)
@@ -34,7 +40,5 @@ public class MonsterMoveState : MonsterStateBase
             return;
         }
 
-        Vector2 moveVelocity = moveDir.normalized * monsterCtrl.monsterStats.speed;
-        monsterCtrl.rigid.MovePosition(monsterCtrl.rigid.position + moveVelocity * Time.deltaTime);
     }
 }

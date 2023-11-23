@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MonsterController : PoolAble //MonoBehaviour
 {
@@ -45,6 +47,26 @@ public class MonsterController : PoolAble //MonoBehaviour
         executeHit.weapon = weapon;
         executeHit.target = target;
         executeHit.attacker = gameObject;
+    }
+
+    public void SetSpawnPosition(int spawnYPosCount, float spawnYPosSpacing)
+    {
+        int randNum = Random.Range(0, spawnYPosCount);
+        float newYPos = transform.position.y - randNum * spawnYPosSpacing;
+        transform.position = new Vector3(transform.position.x, newYPos, transform.position.z);
+        SortingGroup sortingGroup = GetComponentInChildren<SortingGroup>();
+        if(sortingGroup!=null)
+        {
+            sortingGroup.sortingOrder += randNum;
+        }
+        else
+        {
+            Debug.Log("ERR: No SortingGroup");
+        }
+    }
+    private void FixedUpdate()
+    {
+        stateManager.FixedUpdate();
     }
     private void Update()
     {

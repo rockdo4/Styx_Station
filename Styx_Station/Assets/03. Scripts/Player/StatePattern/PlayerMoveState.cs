@@ -25,6 +25,11 @@ public class PlayerMoveState : PlayerStateBase
         nowTime = 0f;
     }
 
+    public override void FixedUpate()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void Update()
     {
         if(Time.time >  nowTime + stateDuration && playertController.IsStartTarget) 

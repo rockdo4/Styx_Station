@@ -12,6 +12,14 @@ public class StateManager
         currentState.Enter();
     }
 
+    public void FixedUpdate()
+    {
+        if (currentState != null)
+        {
+            currentState.FixedUpate();
+        }
+    }
+
     public void Update()
     {
         if (currentState != null)

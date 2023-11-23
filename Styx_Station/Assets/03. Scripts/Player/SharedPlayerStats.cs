@@ -7,8 +7,11 @@ using UnityEngine;
 public static class SharedPlayerStats 
 {
     private static int playerPower=1;
+    public static int PlayerPower { set { playerPower = value; } }
 
     private static int playerPowerBoost=1;
+    public static int PlayerPowerBoost { set { playerPowerBoost = value; } }
+
     private static int playerPowerBoostMax = 4440;
     private static bool isPlayerPowerBoostMax = false;
     public static bool IsPlayerPowerBoostMax
@@ -16,7 +19,8 @@ public static class SharedPlayerStats
         get { return isPlayerPowerBoostMax; }
     }
 
-    private static int attackSpeed=1;
+    private static int playerAttackSpeed=1;
+    public static int PlayerAttackSpeed { set { playerAttackSpeed = value; } }
     private static int attackSpeedMax = 3000;
     private static bool isAttackSpeedMax = false;
     public static bool IsAttackSpeedMax
@@ -24,7 +28,8 @@ public static class SharedPlayerStats
         get { return isAttackSpeedMax; }
     }
 
-    private static int attackCritical=1;
+    private static int critical=1;
+    public static int Critical { set { critical = value; } }
     private static int attackCriticalMax = 1000;
     private static bool isAttackCriticalMax = false;
     public static bool IsAttackCriticalMax
@@ -32,10 +37,11 @@ public static class SharedPlayerStats
         get { return isAttackCriticalMax; }
     }
 
-    private static int attackCriticalPower = 1;
+    private static int criticalPower = 1;
+    public static int CriticalPower { set { criticalPower = value; } }
 
-
-    private static int monsterDamagePower=1;
+    private static int monsterDamage=1;
+    public static int MonsterDamage { set { monsterDamage = value; } }
     private static int monsterDamagePowerMax = 4440;
     private static bool isMonsterDamagePowerMax = false;
     public static bool IsMonsterDamagePowerMax
@@ -44,8 +50,11 @@ public static class SharedPlayerStats
     }
 
 
-    private static int hp = 1;
+    private static int maxHp = 1;
+    public static int MaxHp { set { maxHp = value; } }
+
     private static int healing =1 ;
+    public static int Healing { set { healing = value; } }
 
     public static void IncreasePlayerPower()
     {
@@ -79,17 +88,17 @@ public static class SharedPlayerStats
     public static void IncreaseAttackSpeed()
     {
         if(!isAttackSpeedMax)
-            attackSpeed++;
+            playerAttackSpeed++;
 
-        if(attackSpeed >= attackSpeedMax)
+        if(playerAttackSpeed >= attackSpeedMax)
         {
             isAttackSpeedMax = true;
-            attackSpeed = attackSpeedMax;
+            playerAttackSpeed = attackSpeedMax;
         }
     }
     public static int GetAttackSpeed()
     {
-        return attackSpeed;
+        return playerAttackSpeed;
     }
 
 
@@ -97,54 +106,54 @@ public static class SharedPlayerStats
     public static void IncreaseAttackCritical()
     {
         if(!isAttackCriticalMax)
-            attackCritical++;
+            critical++;
 
-        if(attackCritical >= attackCriticalMax)
+        if(critical >= attackCriticalMax)
         {
             isAttackCriticalMax = true;
-            attackCritical = attackCriticalMax;
+            critical = attackCriticalMax;
         }
     }
     public static int GetAttackCritical()
     {
-        return attackCritical;
+        return critical;
     }
 
 
     public static void IncreaseAttackCriticalPower()
     {
-        attackCriticalPower++;
+        criticalPower++;
     }
     public static int GetAttackCriticlaPower()
     {
-        return attackCriticalPower;
+        return criticalPower;
     }
 
 
     public static void IncreaseMonsterDamagePower()
     {
         if(!isMonsterDamagePowerMax)
-            monsterDamagePower++;
+            monsterDamage++;
 
-        if(monsterDamagePower >= monsterDamagePowerMax)
+        if(monsterDamage >= monsterDamagePowerMax)
         {
             isMonsterDamagePowerMax = true;
-            monsterDamagePower = monsterDamagePowerMax;
+            monsterDamage = monsterDamagePowerMax;
         }
     }
     public static int GetMonsterDamagePower()
     { 
-        return monsterDamagePower;
+        return monsterDamage;
     }
 
 
     public static void IncreaseHp()
     {
-        hp++;
+        maxHp++;
     }
     public static int GetHp()
     {
-        return hp;
+        return maxHp;
     }
 
 

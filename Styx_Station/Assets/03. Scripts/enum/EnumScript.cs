@@ -58,3 +58,9 @@ public enum PlayerTier
     four,
     five,
 }
+
+public enum Language
+{
+    ENG,
+    KOR,
+}

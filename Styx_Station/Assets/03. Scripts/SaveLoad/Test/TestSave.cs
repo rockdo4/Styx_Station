@@ -8,15 +8,21 @@ using UnityEngine;
 
 
 using SaveDataVersionCurrent = SaveDataV1;
+using System.Numerics;
+
 public class TestSave : MonoBehaviour
 {
+    private void Awake()
+    {
+        Load();
+    }
     public void Save()
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
 
         data.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
         data.playerdata.playerPowerboost = SharedPlayerStats.GetPlayerPowerBoost();
-        data.playerdata.playerAttackSpeed = SharedPlayerStats.GetAttackSpeed();
+        data.playerdata.playerAttackSpeed = SharedPlayerStats.GetPlayerAttackSpeed();
         data.playerdata.critical=SharedPlayerStats.GetAttackCritical();
         data.playerdata.criticalPower =SharedPlayerStats.GetAttackCriticlaPower();
         data.playerdata.monsterDamage = SharedPlayerStats.GetMonsterDamagePower();
@@ -31,9 +37,9 @@ public class TestSave : MonoBehaviour
 
         // meta 파일 오류 발생으로 추후 작업 더 진행 필요해보임 임시로 작업진행
 
-        data.playerdata.money1 = "598000";
-        data.playerdata.money2 = "988000000";
-        data.playerdata.money3 = "500";
+        data.playerdata.money1 = SharedPlayerStats.money1.ToString();
+        data.playerdata.money2 = SharedPlayerStats.money2.ToString();
+        data.playerdata.money3 = SharedPlayerStats.money3.ToString();
 
         SaveLoad.JsonSave(data, "Test.json");
         Debug.Log("Save ");
@@ -59,7 +65,14 @@ public class TestSave : MonoBehaviour
             SharedPlayerStats.MonsterDamage = data.monsterDamage;
             SharedPlayerStats.MaxHp = data.maxHp;
             SharedPlayerStats.Healing = data.healing;
-        }
 
+            SharedPlayerStats.money1 = BigInteger.Parse(data.money1);
+            SharedPlayerStats.money2 = BigInteger.Parse(data.money2);
+            SharedPlayerStats.money3 = BigInteger.Parse(data.money3);
+        }
+    }
+
+    public void ReSetPlayerMaxHP()
+    {
     }
 }

@@ -32,6 +32,11 @@ public class MonsterAttackState : MonsterStateBase
 
     }
 
+    public override void FixedUpate()
+    {
+
+    }
+
     public override void Update()
     {
         if (monsterStats.currHealth <= 0)

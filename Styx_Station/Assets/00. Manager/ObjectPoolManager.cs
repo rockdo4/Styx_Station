@@ -1,8 +1,6 @@
 using UnityEngine.Pool;
 using UnityEngine;
 using System.Collections.Generic;
-using System;
-using System.Xml.Linq;
 
 public class ObjectPoolManager : MonoBehaviour
 {

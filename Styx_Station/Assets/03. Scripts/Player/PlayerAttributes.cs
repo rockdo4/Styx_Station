@@ -17,6 +17,14 @@ public class PlayerAttributes : MonoBehaviour
 
     [Header("공격 범위 ")]
     [SerializeField, Range(0, 5)]
-    public float playerAttackRange; 
+    public float playerAttackRange;
+
+    private void Update()
+    {
+        if(hp <= 0 )
+        {
+            GameManager.instance.ReStart();
+        }
+    }
 }
 

@@ -18,6 +18,11 @@ public class MonsterDieState : MonsterStateBase
 
     }
 
+    public override void FixedUpate()
+    {
+    
+    }
+
     public override void Update()
     {
 

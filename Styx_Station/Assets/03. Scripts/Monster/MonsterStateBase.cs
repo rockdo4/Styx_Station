@@ -18,7 +18,8 @@ public abstract class MonsterStateBase : StateBase
             {
                 return 0f;
             }
-            return Vector2.Distance(player.transform.position, monsterCtrl.transform.position);
+            return monsterCtrl.transform.position.x - player.transform.position.x;  
+            //return Vector2.Distance(player.transform.position, monsterCtrl.transform.position);
         }
     }
 

@@ -3186,6 +3186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
   target: {fileID: 0}
+  attacker: {fileID: 0}
 --- !u!1 &7363310989289243789
 GameObject:
   m_ObjectHideFlags: 0
@@ -3353,7 +3354,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.01, y: -2.35}
+  m_AnchoredPosition: {x: 7.01, y: -1.7}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2693821911437994897
@@ -3410,6 +3411,7 @@ MonoBehaviour:
   range: 1
   weapon: {fileID: 0}
   target: {fileID: 0}
+  executeHit: {fileID: 0}
 --- !u!50 &533419334513617967
 Rigidbody2D:
   serializedVersion: 4

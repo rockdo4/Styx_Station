@@ -33,7 +33,6 @@ public static class UnitConverter
             }
             IsInit = true;
         }
-        Debug.Log(units[51]);
     }
 
     public static BigInteger A1

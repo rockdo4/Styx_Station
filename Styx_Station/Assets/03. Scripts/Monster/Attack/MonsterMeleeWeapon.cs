@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -20,14 +18,6 @@ public class MonsterMeleeWeapon : AttackDefinition
             return;
         }
 
-        ////방향 검사
-        //var dir = defender.transform.position - attacker.transform.position;
-        //dir.Normalize();
-        //var dot = Vector3.Dot(dir, attacker.transform.forward);
-        //if (dot < 0.5f)
-        //    return;
-        
-        
         var characterStats = attacker.GetComponent<MonsterStats>();
         var targetStats = defender.GetComponent<ResultPlayerStats>();
         Attack attack = CreateAttackToPlayer(characterStats, targetStats);

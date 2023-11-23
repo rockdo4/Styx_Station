@@ -16,30 +16,25 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Start()
     {
-        //WaitSecond = new WaitForSeconds(spawnTimeBat);
-        //StartCoroutine(SpawnMonster());
         timer = 0;
     }
 
     private void Update()
     {
-        //if(spawnMonstercount>0)
-        //{
-            if (timer + spawnTimeBat <= Time.time)
-            {
-                //spawnMonstercount--;
-                timer = Time.time;
-                GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[0].name);
+        if (timer + spawnTimeBat <= Time.time)
+        {
+            int randNum = Random.Range(0, MonsterTypes.Count);
+            Debug.Log(randNum);
+            timer = Time.time;
+            GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[randNum].name);
 
-                monster.GetComponent<MonsterStats>().SetStats(
-                    MonsterTypes[0].maxHealth, MonsterTypes[0].damage, MonsterTypes[0].attackType, MonsterTypes[0].speed);
-                monster.GetComponent<MonsterController>().weapon = MonsterTypes[0].weapon;
+            monster.GetComponent<MonsterStats>().SetStats(
+                MonsterTypes[randNum].maxHealth, MonsterTypes[randNum].damage, MonsterTypes[randNum].attackType, MonsterTypes[randNum].speed);
+            monster.GetComponent<MonsterController>().weapon = MonsterTypes[randNum].weapon;
 
-                monster.GetComponent<MonsterController>().SetExcuteHit();
-                monster.GetComponent<MonsterController>().SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
-            }
-        //}
-        
+            monster.GetComponent<MonsterController>().SetExcuteHit();
+            monster.GetComponent<MonsterController>().SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
+        }
     }
     IEnumerator SpawnMonster()
     {

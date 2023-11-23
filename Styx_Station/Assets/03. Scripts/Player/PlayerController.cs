@@ -69,6 +69,11 @@ public class PlayerController : MonoBehaviour
     
     private void StartMove()
     {
+        if(destinationPoint == null)
+        {
+            IsStartTarget = true;
+            return;
+        }
         playerStartTimer += Time.deltaTime;
         if (playerStartTimer > playerStartTime)
         {

@@ -448,6 +448,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster
       objectReference: {fileID: 0}
+    - target: {fileID: 7677464637611367391, guid: 0f7ecf08f5569174a8990cdd984f32e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -577,8 +581,8 @@ MonoBehaviour:
   objectInfos:
   - objectName: ProtoMonster
     prefab: {fileID: 7677464637611367391, guid: 0f7ecf08f5569174a8990cdd984f32e3, type: 3}
-    count: 10
-    maxCount: 20
+    count: 50
+    maxCount: 100
 --- !u!4 &1962369905
 Transform:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class PlayerUpgradeStats : MonoBehaviour
 
     private readonly BigInteger percentage = new BigInteger(100);
     public int money1GainRate;
-    private BigInteger test = new BigInteger(500); // test code 이후 제거 예정
+    private BigInteger test = new BigInteger(500000000); // test code 이후 제거 예정
 
     [Tooltip("게임매니저 생기면 글로 옮길거임")]
     public RuntimeAnimatorController playerAnimator;

@@ -2246,6 +2246,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6875610749179494653}
   - component: {fileID: 4731901942061319029}
+  - component: {fileID: 79312552620135573}
+  - component: {fileID: -4179526462329025385}
+  - component: {fileID: 886782984583894563}
   m_Layer: 5
   m_Name: Unit000 2
   m_TagString: Untagged
@@ -2295,6 +2298,53 @@ MonoBehaviour:
   UnitTypeChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &79312552620135573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4384368459277423923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8051fd01737cd7642bf85c0492639793, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMoveSpeed: 3
+  backgroundLength: 6
+  destinationPoint: {fileID: 8474209686903809215, guid: 40faeda94f914654480462b032635817, type: 3}
+  playerStartTime: 0.2
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 65536
+--- !u!114 &-4179526462329025385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4384368459277423923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7f8f2e7ed41fb44bbb23380d9d8d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 709
+  attackPower: 350
+  attackSpeed: 3.15
+  playerAttackRange: 2.17
+--- !u!114 &886782984583894563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4384368459277423923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 961abf53827dae740afd23d95f755a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4427702834397907397
 GameObject:
   m_ObjectHideFlags: 0
@@ -3745,7 +3795,7 @@ Animator:
   m_GameObject: {fileID: 7492683129659689969}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2fc0aafc4ba14749a6cc196ffeb52b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0f331cc45ff3dbc48a62c251351becb1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

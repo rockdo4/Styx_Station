@@ -19,7 +19,7 @@ public class CustomButton : MonoBehaviour
         if (item.item == null)
             return;
 
-        var equip = baseUi.customBase.GetComponent<BaseCustomButton>();
+        var equip = baseUi.customWindow.GetComponent<CustomWindow>().customBase.GetComponent<BaseCustomButton>();
         equip.item = item;
         equip.itemname.text = item.item.itemName;
     }

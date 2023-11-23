@@ -60,8 +60,10 @@ public class CustomOption : ScriptableObject
         option.option = AddOptionString.None;
         option.weight = 0f;
 
-        if(PickOption() != null)
-            option = PickOption();
+        var pickOption = PickOption();
+
+        if (pickOption != null)
+            option = pickOption;
 
         return option;
     }

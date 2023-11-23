@@ -37,15 +37,15 @@ public class PlayerScriptObjectEditor :Editor
                         player.layerMask = 1 << 16;
                         var ani = player.GetComponentInChildren<Animator>();
                         var find = GameObject.Find("Ui").GetComponent<PlayerUpgradeStats>();
-                        if(find !=null)
-                        {
-                            if(find.playerAnimator != ani.runtimeAnimatorController)
-                                ani.runtimeAnimatorController = find.playerAnimator;
-                            else
-                            {
-                                Debug.Log("애니메이션 컨트롤러가 같음");
-                            }
-                        }
+                        //if(find !=null)
+                        //{
+                        //    if(find.playerAnimator != ani.runtimeAnimatorController)
+                        //        ani.runtimeAnimatorController = find.playerAnimator;
+                        //    else
+                        //    {
+                        //        Debug.Log("애니메이션 컨트롤러가 같음");
+                        //    }
+                        //}
 
                         Debug.Log("Done make by PlayerController");
                     }

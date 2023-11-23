@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8474209686903809215, guid: 40faeda94f914654480462b032635817, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.35
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8474209686903809215, guid: 40faeda94f914654480462b032635817, type: 3}
       propertyPath: m_LocalPosition.z
@@ -254,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 742424076598471366, guid: e6b3b122bc1435546a29e5fb872feb17, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.35
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 742424076598471366, guid: e6b3b122bc1435546a29e5fb872feb17, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -336,9 +336,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36724f7dbf2a8c649b4824eb83aa4639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
   MonsterTypes:
   - {fileID: 11400000, guid: 86d6c6b5884d55f42af696f5e607dac8, type: 2}
   spawnTimeBat: 3
+  spawnYPosSpacing: 0
+  spawnYPosCount: 0
 --- !u!1 &1236805164 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1893030907897367957, guid: e6b3b122bc1435546a29e5fb872feb17, type: 3}
@@ -581,8 +584,8 @@ MonoBehaviour:
   objectInfos:
   - objectName: ProtoMonster
     prefab: {fileID: 7677464637611367391, guid: 0f7ecf08f5569174a8990cdd984f32e3, type: 3}
-    count: 50
-    maxCount: 100
+    count: 20
+    maxCount: 40
 --- !u!4 &1962369905
 Transform:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="item")]
+[CreateAssetMenu(menuName ="Items/Item")]
 public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
 {
     [Tooltip("아이템 이름 - Inspector 창에서만 적용")]

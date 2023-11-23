@@ -22,6 +22,7 @@ public enum ItemType
 
 public enum AddOptionString
 {
+    None = -1,
     Attack,
     Health,
     AttackSpeed,

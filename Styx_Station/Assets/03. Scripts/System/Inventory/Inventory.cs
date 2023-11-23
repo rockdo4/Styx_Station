@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -36,14 +34,32 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    [System.Serializable]
+    public class CustomInventoryItem
+    {
+        public InventoryItem item;
+        public Item copyData;
+
+        public CustomInventoryItem(InventoryItem item, Item copyData)
+        {
+            this.item = item;
+            this.copyData = copyData;
+        }
+    }
+
     public List<InventoryItem> weapons {  get; private set; } = new List<InventoryItem>();
     public List<InventoryItem> armors { get; private set; } = new List<InventoryItem>();
     public List<InventoryItem> rings  { get; private set; } = new List<InventoryItem>();
-    public List<InventoryItem> customRings { get; private set; } = new List<InventoryItem>();
+    public List<CustomInventoryItem> customRings { get; private set; } = new List<CustomInventoryItem>();
     public List<InventoryItem> symbols { get; private set; } = new List<InventoryItem>();
-    public List<InventoryItem> customSymbols { get; private set; } = new List<InventoryItem>();
+    public List<CustomInventoryItem> customSymbols { get; private set; } = new List<CustomInventoryItem>();
 
     private InventoryItem[] equipItems  = new InventoryItem[4];
+
+    public int GetEquipItemsLength()
+    {
+        return equipItems.Length;
+    }
 
     public void AddItem(Item item)
     {
@@ -97,10 +113,11 @@ public class Inventory : MonoBehaviour
     private void CustomRing(Item item)
     {
         var dummy = new InventoryItem(item, 0, true, false);
+        var dummyItem = new CustomInventoryItem(dummy, item);
 
-        customRings.Add(dummy);
+        customRings.Add(dummyItem);
 
-        item.name = customRings.IndexOf(dummy).ToString();
+        item.name = customRings.IndexOf(dummyItem).ToString();
     }
     
     private void AddSymbol(Item item)
@@ -115,13 +132,14 @@ public class Inventory : MonoBehaviour
     private void CustomSymbol(Item item)
     {
         var dummy = new InventoryItem(item, 0, true, false);
+        var dummyItem = new CustomInventoryItem(dummy, item);
 
-        customSymbols.Add(dummy);
+        customSymbols.Add(dummyItem);
 
-        item.name = customSymbols.IndexOf(dummy).ToString();
+        item.name = customSymbols.IndexOf(dummyItem).ToString();
     }
 
-    private Item CreateDummy(Item dummyDate)
+    public Item CreateDummy(Item dummyDate)
     {
         Item dummy = ScriptableObject.CreateInstance<Item>();
 
@@ -198,8 +216,16 @@ public class Inventory : MonoBehaviour
         else if (equipItems[0].item == null)
             equipItems[0] = item;
 
-        else if(equipItems[0] != null)
+        else if (equipItems[0] != null)
+        {
+            equipItems[0].equip = false;
             equipItems[0].item.OnDequip(this, equipItems[0].upgradeLev);
+        }
+        else if (equipItems[0].item != null)
+        {
+            equipItems[0].equip = false;
+            equipItems[0].item.OnDequip(this, equipItems[0].upgradeLev);
+        }
 
         equipItems[0] = item;
         item.equip = true;
@@ -215,7 +241,15 @@ public class Inventory : MonoBehaviour
             equipItems[1] = item;
 
         else if (equipItems[1] != null)
+        {
+            equipItems[1].equip = false;
             equipItems[1].item.OnDequip(this, equipItems[1].upgradeLev);
+        }
+        else if (equipItems[1].item != null)
+        {
+            equipItems[1].equip = false;
+            equipItems[1].item.OnDequip(this, equipItems[1].upgradeLev);
+        }
 
         equipItems[1] = item;
         item.equip = true;
@@ -231,7 +265,15 @@ public class Inventory : MonoBehaviour
             equipItems[2] = item;
 
         else if (equipItems[2] != null)
+        {
+            equipItems[2].equip = false;
             equipItems[2].item.OnDequip(this, equipItems[2].upgradeLev);
+        }
+        else if (equipItems[2].item != null)
+        {
+            equipItems[2].equip = false;
+            equipItems[2].item.OnDequip(this, equipItems[2].upgradeLev);
+        }
 
         equipItems[2] = item;
         item.equip = true;
@@ -247,7 +289,15 @@ public class Inventory : MonoBehaviour
             equipItems[3] = item;
 
         else if (equipItems[3] != null)
+        {
+            equipItems[3].equip = false;
             equipItems[3].item.OnDequip(this, equipItems[3].upgradeLev);
+        }
+        else if (equipItems[3].item != null)
+        {
+            equipItems[3].equip = false;
+            equipItems[3].item.OnDequip(this, equipItems[3].upgradeLev);
+        }
 
         equipItems[3] = item;
         item.equip = true;

@@ -89,7 +89,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        weapons.Add(new InventoryItem(item, 3, true, false));
+        weapons.Add(new InventoryItem(item, 0, true, false));
     }
 
     private void AddArmor(Item item)
@@ -98,7 +98,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        armors.Add(new InventoryItem(item, 0, false, false));
+        armors.Add(new InventoryItem(item, 0, true, false));
     }
 
     private void AddRing(Item item)
@@ -110,14 +110,34 @@ public class Inventory : MonoBehaviour
         rings.Add(new InventoryItem(item, 0, false, false));
     }
 
-    private void CustomRing(Item item)
+    public InventoryItem AddCustom(Item item, Item dummy)
     {
-        var dummy = new InventoryItem(item, 0, true, false);
-        var dummyItem = new CustomInventoryItem(dummy, item);
+        switch (item.type)
+        {
+            case ItemType.Ring:
+                
+                    var dummys = CustomRing(item, dummy);
+                    return dummys;
+                
+            case ItemType.Symbol:
+                
+                    var dummys_1 = CustomSymbol(item, dummy);
+                    return dummys_1;
+
+        }
+        return null;
+    }
+
+    private InventoryItem CustomRing(Item item, Item dummy)
+    {
+        var dummys = new InventoryItem(dummy, 0, true, false);
+        var dummyItem = new CustomInventoryItem(dummys, item);
 
         customRings.Add(dummyItem);
 
-        item.name = customRings.IndexOf(dummyItem).ToString();
+        dummy.name = customRings.IndexOf(dummyItem).ToString();
+
+        return dummys;
     }
     
     private void AddSymbol(Item item)
@@ -129,14 +149,16 @@ public class Inventory : MonoBehaviour
         symbols.Add(new InventoryItem(item, 0, false, false));
     }
 
-    private void CustomSymbol(Item item)
-    {
-        var dummy = new InventoryItem(item, 0, true, false);
-        var dummyItem = new CustomInventoryItem(dummy, item);
+    private InventoryItem CustomSymbol(Item item, Item dummy)
+    { 
+        var dummys = new InventoryItem(dummy, 0, true, false);
+        var dummyItem = new CustomInventoryItem(dummys, item);
 
         customSymbols.Add(dummyItem);
 
-        item.name = customSymbols.IndexOf(dummyItem).ToString();
+        dummy.name = customRings.IndexOf(dummyItem).ToString();
+
+        return dummys;
     }
 
     public Item CreateDummy(Item dummyDate)

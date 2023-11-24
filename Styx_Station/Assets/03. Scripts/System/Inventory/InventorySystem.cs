@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static Inventory;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -25,33 +26,20 @@ public class InventorySystem : MonoBehaviour
 
     private ItemTable item;
     public Inventory inventory;
-    private CustomOptionTable optionTable;
+    public CustomOptionTable optionTable { get; private set; }
 
-    public Item GetRingCustomItem(int index)
-    {
-        if (inventory == null)
-            return null;
-
-        if (inventory.rings.Count < index)
-            return null;
-
-        return inventory.rings[index].item;
-    }
-
-    public Item GetSymbolCustomItem(int index)
-    {
-        if (inventory == null)
-            return null;
-
-        if (inventory.symbols.Count < index)
-            return null;
-
-        return inventory.symbols[index].item;
-    }
-
-    public void RingCustom(Item item)
+    public InventoryItem Custom(Item item, int index, string table)
     {
         var dummy = inventory.CreateDummy(item);
+
+        for (int i = 0; i < index; ++i)
+        {
+            OptionCustom(dummy, table);
+        }
+
+        var dummys = inventory.AddCustom(item, dummy);
+
+        return dummys;
     }
 
     public void OptionCustom(Item item, string tableName)
@@ -69,6 +57,7 @@ public class InventorySystem : MonoBehaviour
 
         item.AddOptions(option.optionName, option.value);
     }
+
     public void Setting()
     {
         for (int i = 0; i < item.GetTableSize(); ++i)

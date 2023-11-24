@@ -21,6 +21,6 @@ public class EquipButton : MonoBehaviour
         item = null;
         itemname.text = "None";
 
-        baseUi.GetState();
+        baseUi.stateWindow.GetComponent<StateWindow>().GetState();
     }
 }

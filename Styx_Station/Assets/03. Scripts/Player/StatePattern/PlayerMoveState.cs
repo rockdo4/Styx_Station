@@ -17,17 +17,19 @@ public class PlayerMoveState : PlayerStateBase
         nowTime = Time.time;
         stateDuration = playertController.backgroundLength /playertController.playerMoveSpeed;
 
-        playertController.GetAnimator().SetTrigger("Run");
+        playertController.GetAnimator().SetFloat("RunState", 0.15f);
+        //playertController.GetAnimator().SetTrigger("Run");
     }
 
     public override void Exit()
     {
         nowTime = 0f;
+        playertController.GetAnimator().SetFloat("RunState", 0f);
     }
 
     public override void FixedUpate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void Update()
@@ -36,12 +38,6 @@ public class PlayerMoveState : PlayerStateBase
         {
             playertController.SetState(States.Idle);
             playertController.GetAnimator().SetTrigger("Idle");
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            playertController.SetState(States.Attack);
-            playertController.GetAnimator().SetTrigger("Attack");
         }
     }
 }

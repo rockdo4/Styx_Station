@@ -17,6 +17,7 @@ public class PlayerAttackState : PlayerStateBase
         var spped = defaultSpeed + ((SharedPlayerStats.GetPlayerAttackSpeed()-1)* increaseAttackSpeed);
         playertController.GetAnimator().speed = spped;
         playertController.GetAnimator().SetTrigger("Attack");
+        playertController.GetAnimator().SetFloat("NormalState", 0.5f);
     }
 
     public override void Exit()

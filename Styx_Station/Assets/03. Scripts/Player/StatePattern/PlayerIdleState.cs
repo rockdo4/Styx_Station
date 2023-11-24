@@ -12,7 +12,8 @@ public class PlayerIdleState : PlayerStateBase
 
     public override void Enter()
     {
-        playertController.GetAnimator().SetTrigger("Idle");
+        //playertController.GetAnimator().SetTrigger("Idle");
+        playertController.GetAnimator().SetFloat("RunState", 0f);
     }
 
     public override void Exit()

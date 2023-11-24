@@ -14,17 +14,17 @@ public class PlayerUpgradeStats : MonoBehaviour
     private float nowTime;
 
     public TextMeshProUGUI moneyText1;
-    private BigInteger money1 = new BigInteger();
+    //private BigInteger money1 = new BigInteger();
     private bool isMoney1Click;
     public float money1CkickTime = 0.2f;
 
     public TextMeshProUGUI moneyText2;
-    private BigInteger money2 = new BigInteger();
+    //private BigInteger money2 = new BigInteger();
     private bool isMoney2Click;
     public float money2CkickTime = 0.2f;
 
     public TextMeshProUGUI moneyText3;
-    private BigInteger money3 = new BigInteger();
+    //private BigInteger money3 = new BigInteger();
     private bool isMoney3Click;
     public float money3CkickTime = 0.2f;
 
@@ -58,7 +58,7 @@ public class PlayerUpgradeStats : MonoBehaviour
     public void AttackSpeedUpgrade()
     {
 
-        SharedPlayerStats.IncreaseAttackSpeed();
+        SharedPlayerStats.IncreasePlayerAttackSpeed();
     }
 
     public void CritcalUpgrade()
@@ -93,25 +93,37 @@ public class PlayerUpgradeStats : MonoBehaviour
     public void AllStats()
     {
         Debug.Log($"power :{SharedPlayerStats.GetPlayerPower()} \t powerBoost :{SharedPlayerStats.GetPlayerPowerBoost()}\n" +
-            $"attackSpeed :{SharedPlayerStats.GetAttackSpeed()} \t critical :{SharedPlayerStats.GetAttackCritical()} \n" +
+            $"attackSpeed :{SharedPlayerStats.GetPlayerAttackSpeed()} \t critical :{SharedPlayerStats.GetAttackCritical()} \n" +
             $"critcalPower : {SharedPlayerStats.GetAttackCriticlaPower()} \t monsterDamage :{SharedPlayerStats.GetMonsterDamagePower()}\n" +
             $"Hp : {SharedPlayerStats.GetHp()} \t healing:{SharedPlayerStats.GetHealing()}");
     }
 
     public void IncreaseMoney1(BigInteger money)
     {
-        money1 += money * (money * money1GainRate / percentage);
-        moneyText1.text = UnitConverter.OutString(money1);
+        SharedPlayerStats.money1 += money * (money * money1GainRate / percentage);
+        moneyText1.text = UnitConverter.OutString(SharedPlayerStats.money1);
+    }
+    public void OutPutMoney1()
+    {
+        moneyText1.text = UnitConverter.OutString(SharedPlayerStats.money1);
     }
     public void IncreaseMoney2(BigInteger money)
     {
-        money2 += money * (money * money1GainRate / percentage);
-        moneyText2.text = UnitConverter.OutString(money2);
+        SharedPlayerStats.money2 += money * (money * money1GainRate / percentage);
+        moneyText2.text = UnitConverter.OutString(SharedPlayerStats.money2);
+    }
+    public void OutPutMoney2()
+    {
+        moneyText2.text = UnitConverter.OutString(SharedPlayerStats.money2);
     }
     public void IncreaseMoney3(BigInteger money)
     {
-        money3 += money * (money * money1GainRate / percentage);
-        moneyText3.text = UnitConverter.OutString(money3);
+        SharedPlayerStats.money3 += money * (money * money1GainRate / percentage);
+        moneyText3.text = UnitConverter.OutString(SharedPlayerStats.money3);
+    }
+    public void OutPutMoney3()
+    {
+        moneyText3.text = UnitConverter.OutString(SharedPlayerStats.money3);
     }
 
     public void UPMoney1TestButton()
@@ -170,3 +182,5 @@ public class PlayerUpgradeStats : MonoBehaviour
 
     }
 }
+
+

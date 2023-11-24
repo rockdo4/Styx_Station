@@ -15,9 +15,9 @@ public class QuestSystem : MonoBehaviour
     private void Awake()
     {
         clearIndex = 0; // 추후 데이터 읽어서 바꿔야함
-        QusetSystemData qusetSystemData1 = new QusetSystemData(false, "윤유림", 0,0,false,1000);
-        QusetSystemData qusetSystemData2 = new QusetSystemData(false, "함익주", 0, 0, false, 1000);
-        QusetSystemData qusetSystemData3 = new QusetSystemData(false, "이승우", 0, 0, false, 1000);
+        QusetSystemData qusetSystemData1 = new QusetSystemData(false, "윤유림", 0,0,false,1000000000000000000);
+        QusetSystemData qusetSystemData2 = new QusetSystemData(false, "함익주", 0, 0, false, 1000000000000000000);
+        QusetSystemData qusetSystemData3 = new QusetSystemData(false, "이승우", 0, 0, false, 1000000000000000000);
         questSystem.Add(qusetSystemData1);
         questSystem.Add(qusetSystemData2);
         questSystem.Add(qusetSystemData3);
@@ -31,6 +31,7 @@ public class QuestSystem : MonoBehaviour
         if(a == questSystem[clearIndex].intByClearCondition)
         {
             Debug.Log($"Get Money{questSystem[clearIndex].clearCompensation}");
+            SharedPlayerStats.money1 += questSystem[clearIndex].clearCompensation;
             clearIndex++;
             SetString();
         }

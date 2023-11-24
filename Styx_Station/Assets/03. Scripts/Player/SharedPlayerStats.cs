@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Numerics;
 using UnityEngine;
 
 
@@ -58,7 +60,14 @@ public static class SharedPlayerStats
 
     public static void IncreasePlayerPower()
     {
-        playerPower++;
+        price = 5000000000000;
+        price *= playerPower;
+
+        if (money1 > price)
+        {
+            money1 -= price;
+            playerPower++;
+        }
     }
     public static int GetPlayerPower()
     {
@@ -69,8 +78,18 @@ public static class SharedPlayerStats
 
     public static void IncreasePlayerPowerBoost()
     {
-        if(!isPlayerPowerBoostMax)
-            playerPowerBoost++;
+        if (!isPlayerPowerBoostMax)
+        {
+            price = 5000000000000;
+            price *= playerPower;
+
+            if (money1 > price)
+            {
+                money1 -= price;
+                playerPowerBoost++;
+            }
+        }
+
 
         if (playerPowerBoost >= playerPowerBoostMax) 
         {
@@ -85,10 +104,19 @@ public static class SharedPlayerStats
 
 
 
-    public static void IncreaseAttackSpeed()
+    public static void IncreasePlayerAttackSpeed()
     {
-        if(!isAttackSpeedMax)
-            playerAttackSpeed++;
+        if (!isAttackSpeedMax)
+        {
+            price = 5000000000000;
+            price *= playerPower;
+
+            if (money1 > price)
+            {
+                money1 -= price;
+                playerAttackSpeed++;
+            }
+        }
 
         if(playerAttackSpeed >= attackSpeedMax)
         {
@@ -96,7 +124,7 @@ public static class SharedPlayerStats
             playerAttackSpeed = attackSpeedMax;
         }
     }
-    public static int GetAttackSpeed()
+    public static int GetPlayerAttackSpeed()
     {
         return playerAttackSpeed;
     }
@@ -105,8 +133,18 @@ public static class SharedPlayerStats
 
     public static void IncreaseAttackCritical()
     {
-        if(!isAttackCriticalMax)
-            critical++;
+        if (!isAttackCriticalMax)
+        {
+            price = 5000000000000;
+            price *= playerPower;
+
+            if (money1 > price)
+            {
+                money1 -= price;
+
+                critical++;
+            }
+        }
 
         if(critical >= attackCriticalMax)
         {
@@ -122,7 +160,15 @@ public static class SharedPlayerStats
 
     public static void IncreaseAttackCriticalPower()
     {
-        criticalPower++;
+        price = 5000000000000;
+        price *= playerPower;
+
+        if (money1 > price)
+        {
+            money1 -= price;
+            criticalPower++;
+        }
+
     }
     public static int GetAttackCriticlaPower()
     {
@@ -132,8 +178,18 @@ public static class SharedPlayerStats
 
     public static void IncreaseMonsterDamagePower()
     {
-        if(!isMonsterDamagePowerMax)
-            monsterDamage++;
+        if (!isMonsterDamagePowerMax)
+        {
+            price = 5000000000000;
+            price *= playerPower;
+
+            if (money1 > price)
+            {
+                money1 -= price;
+
+                monsterDamage++;
+            }
+        }
 
         if(monsterDamage >= monsterDamagePowerMax)
         {
@@ -149,7 +205,15 @@ public static class SharedPlayerStats
 
     public static void IncreaseHp()
     {
-        maxHp++;
+        price = 5000000000000;
+        price *= playerPower;
+
+        if (money1 > price)
+        {
+            money1 -= price;
+
+            maxHp++;
+        }
     }
     public static int GetHp()
     {
@@ -159,10 +223,26 @@ public static class SharedPlayerStats
 
     public static void IncreaseHealing()
     {
-        healing++;
+        price = 5000000000000;
+        price *= playerPower;
+
+        if (money1 > price)
+        {
+            money1 -= price;
+
+            healing++;
+        }
     }
     public static int GetHealing()
     {
         return healing;
     }
+
+
+    public static BigInteger money1 = new BigInteger();
+    public static BigInteger money2 = new BigInteger();
+    public static BigInteger money3 = new BigInteger();
+    private static BigInteger price = new BigInteger();
+
+    public static int playerMaxHp = 0;
 }

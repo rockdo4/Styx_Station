@@ -8,6 +8,9 @@ public class PlayerAttributes : MonoBehaviour
     [SerializeField,Range(0,1000)]
     [Header("HP")]
     public int hp;
+
+    public int MaxHp;
+
     [SerializeField, Range(0, 500)]
     [Header("°ø°Ý·Â")]
     public int attackPower; 
@@ -19,6 +22,22 @@ public class PlayerAttributes : MonoBehaviour
     [SerializeField, Range(0, 5)]
     public float playerAttackRange;
 
+    private void Awake()
+    {
+        if(MaxHp != hp)
+        {
+            if(hp > MaxHp)
+            {
+                MaxHp = hp; 
+            }
+            else
+            {
+                hp = MaxHp; 
+            }
+        }
+
+        SharedPlayerStats.playerMaxHp = MaxHp + (SharedPlayerStats.GetHp() * 10);
+    }
     private void Update()
     {
         if(hp <= 0 )

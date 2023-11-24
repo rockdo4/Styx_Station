@@ -1410,6 +1410,7 @@ GameObject:
   - component: {fileID: 7262359533146856225}
   - component: {fileID: 8394718759684529140}
   - component: {fileID: 3496069621082814254}
+  - component: {fileID: 210644637700517777}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1447,7 +1448,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893030907897367957}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1565,6 +1566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 500
+  MaxHp: 0
   attackPower: 10
   attackSpeed: 0.5
   playerAttackRange: 4
@@ -1578,6 +1580,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 961abf53827dae740afd23d95f755a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &210644637700517777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893030907897367957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d356cf5bf52c144189d5746acef635d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2139545366325245941

@@ -1,9 +1,9 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+버그이름: 
+내용: 
 title: ''
 labels: ''
-assignees: ''
+작성자: ''
 
 ---
 

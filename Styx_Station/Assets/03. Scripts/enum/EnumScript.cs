@@ -65,3 +65,9 @@ public enum Language
     ENG,
     KOR,
 }
+
+public enum AttackerType
+{
+    Enemy,
+    Player
+}

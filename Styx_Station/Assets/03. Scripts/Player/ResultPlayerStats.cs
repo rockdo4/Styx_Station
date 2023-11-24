@@ -156,4 +156,9 @@ public class ResultPlayerStats : MonoBehaviour
     }
 
     // 보스피해량은 현재 일반 몬스터 피해량과 같게 해둔 상태 공식이 보이지가 않음
+
+    public float GetCritical()
+    {
+        return (SharedPlayerStats.GetAttackCritical() - 1) * 0.1f;
+    }
 }

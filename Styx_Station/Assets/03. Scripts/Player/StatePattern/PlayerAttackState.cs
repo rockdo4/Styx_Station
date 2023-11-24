@@ -35,7 +35,7 @@ public class PlayerAttackState : PlayerStateBase
             playertController.SetState(States.Move);
             playertController.GetAnimator().SetTrigger("Run");
         }
-        Debug.Log(playertController.GetAnimator().speed);
+        //Debug.Log(playertController.GetAnimator().speed);
     }
 
     public override void FixedUpate()

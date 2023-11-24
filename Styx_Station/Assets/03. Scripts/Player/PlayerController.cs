@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private StateManager playerStateManager = new StateManager();
     private List<StateBase> playerStateBases = new List<StateBase>();
     private Animator animator;
+    private ExcuteAttackPlayer executeHit;
+    public AttackDefinition weapon;
 
     // ?? 
     [Header("플레이어 1초당 이동하는 속도")]
@@ -26,7 +29,6 @@ public class PlayerController : MonoBehaviour
     
 
     public bool IsStartTarget { get; set; } 
-
     public void Awake()
     {
         playerStateBases.Add(new PlayerIdleState(this));
@@ -40,10 +42,7 @@ public class PlayerController : MonoBehaviour
 
         SetState(States.Move);
 
-    }
-    private void Start()
-    {
-        
+        executeHit = GetComponentInChildren<ExcuteAttackPlayer>();
 
     }
     private void FixedUpdate()
@@ -62,11 +61,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SetExcuteHit()
+    {
+        executeHit.weapon = weapon;
+        executeHit.attacker = gameObject;
+        var target = Physics2D.Raycast(gameObject.transform.position, Vector2.right, range);
+        executeHit.target = target.transform.gameObject;
+    }
 
     /// <summary>
     /// private
     /// <summary>
-    
+
     private void StartMove()
     {
         if(destinationPoint == null)

@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 
-public static class SaveLoad
+public static class SaveLoadSystem
 {
     public static int SaveDataVersion { get; private set; } = 1;
     public static string SaveDirectory

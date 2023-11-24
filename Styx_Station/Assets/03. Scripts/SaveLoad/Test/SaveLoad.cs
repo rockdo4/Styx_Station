@@ -4,12 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
-
 using SaveDataVersionCurrent = SaveDataV1;
 using System.Numerics;
 
-public class TestSave : MonoBehaviour
+public class SaveLoad : MonoBehaviour
 {
     private void Awake()
     {
@@ -40,7 +38,7 @@ public class TestSave : MonoBehaviour
         data.playerdata.money2 = SharedPlayerStats.money2.ToString();
         data.playerdata.money3 = SharedPlayerStats.money3.ToString();
 
-        SaveLoad.JsonSave(data, "Test.json");
+        SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
     }
 
@@ -71,7 +69,4 @@ public class TestSave : MonoBehaviour
         }
     }
 
-    public void ReSetPlayerMaxHP()
-    {
-    }
 }

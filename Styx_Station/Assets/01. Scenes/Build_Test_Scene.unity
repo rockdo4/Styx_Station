@@ -1151,6 +1151,7 @@ GameObject:
   - component: {fileID: 272747964}
   - component: {fileID: 272747963}
   - component: {fileID: 272747962}
+  - component: {fileID: 272747965}
   m_Layer: 5
   m_Name: AttakSpeed
   m_TagString: Untagged
@@ -1175,7 +1176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -76.999985, y: 36}
+  m_AnchoredPosition: {x: -76.999985, y: 43.3}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &272747962
@@ -1221,43 +1222,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 272747963}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1964913790}
-        m_TargetAssemblyTypeName: LswTestUi, Assembly-CSharp
-        m_MethodName: PlayerStatsStringUpdate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1964913789}
-        m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
-        m_MethodName: AttackSpeedUpgrade
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1964913789}
-        m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
-        m_MethodName: OutPutMoney1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &272747963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1296,6 +1261,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272747960}
   m_CullTransparentMesh: 1
+--- !u!114 &272747965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272747960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1964913789}
+          m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
+          m_MethodName: AttackSpeedButtonDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1964913789}
+          m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
+          m_MethodName: AttackSpeedButtonUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 19409143}
+          m_TargetAssemblyTypeName: TestSave, Assembly-CSharp
+          m_MethodName: Save
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &288498578
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,7 +1488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -76.999985, y: -34.1}
+  m_AnchoredPosition: {x: -76.999985, y: -45.9}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &298125918
@@ -1675,6 +1697,18 @@ MonoBehaviour:
         - m_Target: {fileID: 1964913789}
           m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
           m_MethodName: UpMoney1TestButtonUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 19409143}
+          m_TargetAssemblyTypeName: TestSave, Assembly-CSharp
+          m_MethodName: Save
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2883,7 +2917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 83.1, y: 0.6}
+  m_AnchoredPosition: {x: 83.1, y: 1.4999838}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &711124095
@@ -3080,6 +3114,18 @@ MonoBehaviour:
         - m_Target: {fileID: 1964913789}
           m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
           m_MethodName: UpMoney3TestButtonUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 19409143}
+          m_TargetAssemblyTypeName: TestSave, Assembly-CSharp
+          m_MethodName: Save
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3690,6 +3736,7 @@ GameObject:
   - component: {fileID: 920660185}
   - component: {fileID: 920660184}
   - component: {fileID: 920660183}
+  - component: {fileID: 920660186}
   m_Layer: 5
   m_Name: AttakPower
   m_TagString: Untagged
@@ -3714,7 +3761,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -76.999985, y: 75}
+  m_AnchoredPosition: {x: -76.999985, y: 85}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &920660183
@@ -3760,43 +3807,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 920660184}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1964913790}
-        m_TargetAssemblyTypeName: LswTestUi, Assembly-CSharp
-        m_MethodName: PlayerStatsStringUpdate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1964913789}
-        m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
-        m_MethodName: PowerUpgrade
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1964913789}
-        m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
-        m_MethodName: OutPutMoney1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &920660184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3835,6 +3846,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920660181}
   m_CullTransparentMesh: 1
+--- !u!114 &920660186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920660181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1964913789}
+          m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
+          m_MethodName: PowerUpButtonDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1964913789}
+          m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
+          m_MethodName: PowerUpButtonUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 19409143}
+          m_TargetAssemblyTypeName: TestSave, Assembly-CSharp
+          m_MethodName: Save
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &944146130
 GameObject:
   m_ObjectHideFlags: 0
@@ -4008,7 +4076,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000091552734, y: 0}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &966461813
@@ -4524,7 +4592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -68}
+  m_AnchoredPosition: {x: 0, y: -88.89998}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116706695
@@ -4884,8 +4952,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 243, y: 119}
-  m_SizeDelta: {x: 210.9217, y: 90}
+  m_AnchoredPosition: {x: 234.6, y: 134.8765}
+  m_SizeDelta: {x: 227.73, y: 121.7531}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1227250180
 MonoBehaviour:
@@ -5011,6 +5079,18 @@ MonoBehaviour:
       - m_Target: {fileID: 19409143}
         m_TargetAssemblyTypeName: TestSave, Assembly-CSharp
         m_MethodName: Load
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1964913790}
+        m_TargetAssemblyTypeName: LswTestUi, Assembly-CSharp
+        m_MethodName: PlayerStatsStringUpdate
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5602,6 +5682,7 @@ GameObject:
   - component: {fileID: 1341038114}
   - component: {fileID: 1341038113}
   - component: {fileID: 1341038112}
+  - component: {fileID: 1341038115}
   m_Layer: 5
   m_Name: Power Boost
   m_TagString: Untagged
@@ -5626,7 +5707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 85, y: 75}
+  m_AnchoredPosition: {x: 85, y: 85.00001}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1341038112
@@ -5672,43 +5753,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1341038113}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1964913790}
-        m_TargetAssemblyTypeName: LswTestUi, Assembly-CSharp
-        m_MethodName: PlayerStatsStringUpdate
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1964913789}
-        m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
-        m_MethodName: PowerBoostUpgrade
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1964913789}
-        m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
-        m_MethodName: OutPutMoney1
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1341038113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5747,6 +5792,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341038110}
   m_CullTransparentMesh: 1
+--- !u!114 &1341038115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341038110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1964913789}
+          m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
+          m_MethodName: PowerUpBoostDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1964913789}
+          m_TargetAssemblyTypeName: PlayerUpgradeStats, Assembly-CSharp
+          m_MethodName: PowerUpBoostUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 19409143}
+          m_TargetAssemblyTypeName: TestSave, Assembly-CSharp
+          m_MethodName: Save
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1387591749
 GameObject:
   m_ObjectHideFlags: 0
@@ -6272,6 +6374,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 19409143}
+          m_TargetAssemblyTypeName: TestSave, Assembly-CSharp
+          m_MethodName: Save
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &1473407157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6524,7 +6638,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 85, y: 36.9}
+  m_AnchoredPosition: {x: 85, y: 44.20001}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1520088481
@@ -7068,7 +7182,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 83.2, y: -34.1}
+  m_AnchoredPosition: {x: 83.2, y: -45.900024}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1571419126
@@ -8148,7 +8262,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -76.999985, y: 0.6}
+  m_AnchoredPosition: {x: -76.999985, y: 1.5}
   m_SizeDelta: {x: 118.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1805295527
@@ -8786,7 +8900,8 @@ MonoBehaviour:
   moneyText3: {fileID: 683061942}
   money3CkickTime: 0.01
   money1GainRate: 10
-  playerAnimator: {fileID: 9100000, guid: 0f331cc45ff3dbc48a62c251351becb1, type: 2}
+  attackSpeed: 0
+  criticalUp: 0
 --- !u!114 &1964913790
 MonoBehaviour:
   m_ObjectHideFlags: 0

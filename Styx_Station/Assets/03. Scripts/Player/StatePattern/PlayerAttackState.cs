@@ -14,7 +14,7 @@ public class PlayerAttackState : PlayerStateBase
     private float increaseAttackSpeed = 0.01f;
     public override void Enter()
     {
-        var spped = defaultSpeed + ((SharedPlayerStats.GetPlayerAttackSpeed()-1)* increaseAttackSpeed);
+        var spped = defaultSpeed + ((SharedPlayerStats.GetPlayerAttackSpeed()-1)* increaseAttackSpeed); 
         playertController.GetAnimator().speed = spped;
         playertController.GetAnimator().SetTrigger("Attack");
     }

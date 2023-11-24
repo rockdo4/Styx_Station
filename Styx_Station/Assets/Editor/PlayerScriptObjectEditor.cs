@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 [CustomEditor(typeof(PlayerObject))]
 public class PlayerScriptObjectEditor :Editor
 {
+    public RuntimeAnimatorController animator;
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
@@ -36,17 +37,7 @@ public class PlayerScriptObjectEditor :Editor
                         var player = playerObject.playerCharacter.AddComponent<PlayerController>();
                         player.layerMask = 1 << 16;
                         var ani = player.GetComponentInChildren<Animator>();
-                        var find = GameObject.Find("Ui").GetComponent<PlayerUpgradeStats>();
-                        //if(find !=null)
-                        //{
-                        //    if(find.playerAnimator != ani.runtimeAnimatorController)
-                        //        ani.runtimeAnimatorController = find.playerAnimator;
-                        //    else
-                        //    {
-                        //        Debug.Log("애니메이션 컨트롤러가 같음");
-                        //    }
-                        //}
-
+                        ani.runtimeAnimatorController = animator;
                         Debug.Log("Done make by PlayerController");
                     }
                     else

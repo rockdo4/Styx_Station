@@ -29,32 +29,57 @@ public class PlayerUpgradeStats : MonoBehaviour
     private BigInteger test = new BigInteger(500000000); // test code               
 
     //[Tooltip("a")]
-    public RuntimeAnimatorController playerAnimator;
-
+    private LswTestUi lswtest;
+    
     private void Awake()
     {
         UnitConverter.InitUnitConverter();
         IncreaseMoney1(0);
         IncreaseMoney2(0);
         IncreaseMoney3(0);
+
+        lswtest = GetComponent<LswTestUi>();
+    }
+    private bool powerUp;
+
+    public void PowerUpButtonDown()
+    {
+        powerUp = true;
+    }
+    public void PowerUpButtonUp()
+    {
+        powerUp = false;
     }
 
-    public void PowerUpgrade()
+    private bool powerUpBoost;
+    public void PowerUpBoostDown()
     {
-
-        SharedPlayerStats.IncreasePlayerPower();
+        powerUpBoost = true;
+    }
+    public void PowerUpBoostUp()
+    {
+        powerUpBoost = false;
     }
 
-    public void PowerBoostUpgrade()
+    public bool attackSpeed;
+    public void AttackSpeedButtonDown()
     {
-
-        SharedPlayerStats.IncreasePlayerPowerBoost();
+        attackSpeed = true;
+    }
+    public void AttackSpeedButtonUp()
+    {
+        attackSpeed = false;
     }
 
-    public void AttackSpeedUpgrade()
-    {
 
-        SharedPlayerStats.IncreasePlayerAttackSpeed();
+    public bool criticalUp;
+    public void ciritcalUpButtonDown()
+    {
+        criticalUp = true;
+    }
+    public void ciritcalUpButtonUp()
+    {
+        criticalUp = false;
     }
 
     public void CritcalUpgrade()
@@ -147,6 +172,7 @@ public class PlayerUpgradeStats : MonoBehaviour
     public void UpMoney3TestButtonUp()
     {
         isMoney3Click = false;
+        
     }
 
     private void Update()
@@ -175,7 +201,33 @@ public class PlayerUpgradeStats : MonoBehaviour
                 IncreaseMoney3(test);
             }
         }
-
+        if (powerUp)
+        {
+            if (Time.time > nowTime + money3CkickTime)
+            {
+                SharedPlayerStats.IncreasePlayerPower();
+                lswtest.PlayerStatsStringUpdate();
+                OutPutMoney1();
+            }
+        }
+        if (powerUpBoost)
+        {
+            if (Time.time > nowTime + money3CkickTime)
+            {
+                SharedPlayerStats.IncreasePlayerPowerBoost();
+                lswtest.PlayerStatsStringUpdate();
+                OutPutMoney1();
+            }
+        }
+        if (attackSpeed)
+        {
+            if (Time.time > nowTime + money3CkickTime)
+            {
+                SharedPlayerStats.IncreasePlayerAttackSpeed();
+                lswtest.PlayerStatsStringUpdate();
+                OutPutMoney1();
+            }
+        }
     }
 }
 

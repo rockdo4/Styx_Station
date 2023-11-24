@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using System.Numerics;
-using UnityEditor.Animations;
 
 public class PlayerUpgradeStats : MonoBehaviour
 {

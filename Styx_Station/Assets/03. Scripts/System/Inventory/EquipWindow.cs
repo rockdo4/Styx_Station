@@ -123,6 +123,7 @@ public class EquipWindow : MonoBehaviour
         Button.onClick.AddListener(ui.OnClickEquip);
         Button.gameObject.SetActive(false);
         customRingButtons.Add(Button);
+        GetTypeEvent(ItemType.Ring);
     }
 
     public void AddSymbol(InventoryItem item) 
@@ -137,6 +138,7 @@ public class EquipWindow : MonoBehaviour
         Button.onClick.AddListener(ui.OnClickEquip);
         Button.gameObject.SetActive(false);
         customSymbolButtons.Add(Button);
+        GetTypeEvent(ItemType.Symbol);
     }
     public void GetTypeEvent(ItemType type)
     {

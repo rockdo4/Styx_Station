@@ -58,6 +58,11 @@ public static class SharedPlayerStats
     private static int healing =1 ;
     public static int Healing { set { healing = value; } }
 
+    public static BigInteger money1 = new BigInteger();
+    public static BigInteger money2 = new BigInteger();
+    public static BigInteger money3 = new BigInteger();
+    private static BigInteger price = new BigInteger();
+
     public static void IncreasePlayerPower()
     {
         price = 5000000000000;
@@ -238,11 +243,9 @@ public static class SharedPlayerStats
         return healing;
     }
 
-
-    public static BigInteger money1 = new BigInteger();
-    public static BigInteger money2 = new BigInteger();
-    public static BigInteger money3 = new BigInteger();
-    private static BigInteger price = new BigInteger();
-
-    public static int playerMaxHp = 0;
+    public static void IncreaseMoney(BigInteger imoney)
+    {
+        imoney = 1000000000;
+        money1 += imoney * imoney;
+    }
 }

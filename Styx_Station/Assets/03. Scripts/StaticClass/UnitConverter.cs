@@ -26,7 +26,6 @@ public static class UnitConverter
         if (!IsInit)
         {
             units[0] = a1;
-            
             for (int i = 1; i < units.Length; i++)
             {
                 units[i] = units[i - 1] * a1;

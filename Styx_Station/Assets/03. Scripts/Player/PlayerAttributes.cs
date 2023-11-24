@@ -35,8 +35,6 @@ public class PlayerAttributes : MonoBehaviour
                 hp = MaxHp; 
             }
         }
-
-        SharedPlayerStats.playerMaxHp = MaxHp + (SharedPlayerStats.GetHp() * 10);
     }
     private void Update()
     {

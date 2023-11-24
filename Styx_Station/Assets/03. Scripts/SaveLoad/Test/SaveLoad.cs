@@ -25,15 +25,6 @@ public class SaveLoad : MonoBehaviour
         data.playerdata.monsterDamage = SharedPlayerStats.GetMonsterDamagePower();
         data.playerdata.maxHp = SharedPlayerStats.GetHp();
         data.playerdata.healing = SharedPlayerStats.GetHealing();
-
-        //var find = GameObject.Find("Ui").GetComponent<PlayerUpgradeStats>();
-        //if(find != null )
-        //{
-        //    find.money
-        //}
-
-        // meta 파일 오류 발생으로 추후 작업 더 진행 필요해보임 임시로 작업진행
-
         data.playerdata.money1 = SharedPlayerStats.money1.ToString();
         data.playerdata.money2 = SharedPlayerStats.money2.ToString();
         data.playerdata.money3 = SharedPlayerStats.money3.ToString();
@@ -53,7 +44,6 @@ public class SaveLoad : MonoBehaviour
             JObject jsonObject = JObject.Parse(json);
             string dataString = jsonObject["playerdata"].ToString();
             var data = JsonConvert.DeserializeObject<PlayerData>(dataString);
-            Debug.Log(data);
             SharedPlayerStats.PlayerPower = data.playerPower;
             SharedPlayerStats.PlayerPowerBoost = data.playerPowerboost;
             SharedPlayerStats.PlayerAttackSpeed = data.playerAttackSpeed;

@@ -97,83 +97,98 @@ public class SaveLoad : MonoBehaviour
 
             var inventory = InventorySystem.Instance.inventory;
 
-            string weapons = jsonObject["weaponData"].ToString();
-            var wData = JsonConvert.DeserializeObject<List<InventoryData>>(weapons);
-            foreach (var item in wData)
+
+            if (jsonObject.TryGetValue("weaponData", out JToken weaponToken))
             {
-                var itemData = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                if (itemData != null)
+                string weapons = weaponToken.ToString();
+                var wData = JsonConvert.DeserializeObject<List<InventoryData>>(weapons);
+                foreach (var item in wData)
                 {
-                    itemData.upgradeLev = item.upgradeLev;
-                    itemData.acquire = item.acquire;
-                    itemData.equip = item.equip;
-                    itemData.stock = item.stock;
+                    var itemData = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                    if (itemData != null)
+                    {
+                        itemData.upgradeLev = item.upgradeLev;
+                        itemData.acquire = item.acquire;
+                        itemData.equip = item.equip;
+                        itemData.stock = item.stock;
+                    }
                 }
             }
 
-            string armors = jsonObject["armorData"].ToString();
-            var aData = JsonConvert.DeserializeObject<List<InventoryData>>(armors);
-            foreach (var item in aData)
+            if (jsonObject.TryGetValue("armorData", out JToken armorToken))
             {
-                var itemData = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                if (itemData != null)
+                string armors = armorToken.ToString();
+                var aData = JsonConvert.DeserializeObject<List<InventoryData>>(armors);
+                foreach (var item in aData)
                 {
-                    itemData.upgradeLev = item.upgradeLev;
-                    itemData.acquire = item.acquire;
-                    itemData.equip = item.equip;
-                    itemData.stock = item.stock;
+                    var itemData = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                    if (itemData != null)
+                    {
+                        itemData.upgradeLev = item.upgradeLev;
+                        itemData.acquire = item.acquire;
+                        itemData.equip = item.equip;
+                        itemData.stock = item.stock;
+                    }
                 }
             }
 
-            string customRings = jsonObject["customRingData"].ToString();
-            var rData = JsonConvert.DeserializeObject<List<CustomData>>(customRings);
-            foreach(var item in rData)
+            if (jsonObject.TryGetValue("customRingData", out JToken ringToken))
             {
-                var baseItem = inventory.rings.Where(x=> x.item.name == item.baseName).FirstOrDefault();
-                var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
-                dummy.upgradeLev = item.upgradeLev;
-            }
-            
-
-            string customSymbols = jsonObject["customSymbolData"].ToString();
-            var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);
-            foreach(var item in sData)
-            {
-                var baseItem = inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
-                var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
-                dummy.upgradeLev = item.upgradeLev;
-            }
-
-            string equipItem = jsonObject["equipItem"].ToString();
-            var equipItemData = JsonConvert.DeserializeObject<List<EquipData>>(equipItem);
-
-            foreach(var item in equipItemData)
-            {
-                switch (item.itemType)
+                string customRings = ringToken.ToString();
+                var rData = JsonConvert.DeserializeObject<List<CustomData>>(customRings);
+                foreach (var item in rData)
                 {
-                    case ItemType.Weapon:
-                        var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                        if (weapon != null)
-                            inventory.EquipItem(weapon, 0);
-                        break;
+                    var baseItem = inventory.rings.Where(x => x.item.name == item.baseName).FirstOrDefault();
+                    var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
+                    dummy.upgradeLev = item.upgradeLev;
+                }
+            }
 
-                    case ItemType.Armor:
-                        var aromr = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                        if (aromr != null)
-                            inventory.EquipItem(aromr, 1);
-                        break;
+            if (jsonObject.TryGetValue("customSymbolData", out JToken symbolToken))
+            {
+                string customSymbols = symbolToken.ToString();
+                var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);
+                foreach (var item in sData)
+                {
+                    var baseItem = inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
+                    var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
+                    dummy.upgradeLev = item.upgradeLev;
+                }
+            }
 
-                    case ItemType.Ring:
-                        var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
-                        if (ring != null)
-                            inventory.EquipItem(ring.item, 2);
-                        break;
+            if (jsonObject.TryGetValue("equipItem", out JToken equipToken))
+            {
+                string equipItem = equipToken.ToString();
+                var equipItemData = JsonConvert.DeserializeObject<List<EquipData>>(equipItem);
 
-                    case ItemType.Symbol:
-                        var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
-                        if (symbol != null)
-                            inventory.EquipItem(symbol.item, 3);
-                        break;
+                foreach (var item in equipItemData)
+                {
+                    switch (item.itemType)
+                    {
+                        case ItemType.Weapon:
+                            var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                            if (weapon != null)
+                                inventory.EquipItem(weapon, 0);
+                            break;
+
+                        case ItemType.Armor:
+                            var aromr = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                            if (aromr != null)
+                                inventory.EquipItem(aromr, 1);
+                            break;
+
+                        case ItemType.Ring:
+                            var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
+                            if (ring != null)
+                                inventory.EquipItem(ring.item, 2);
+                            break;
+
+                        case ItemType.Symbol:
+                            var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
+                            if (symbol != null)
+                                inventory.EquipItem(symbol.item, 3);
+                            break;
+                    }
                 }
             }
 

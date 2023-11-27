@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using Unity.Android.Types;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -17,6 +18,7 @@ public class PlayerBow : PoolAble
     private GameObject caster; //°ø°ÝÀÚ
     private float increaseAttackSpeed = 0.01f;
     private bool isRelease = false;
+    private ContactFilter2D filter2D = new ContactFilter2D();
 
 
     private void Awake()
@@ -49,20 +51,30 @@ public class PlayerBow : PoolAble
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Collider2D[] colliders = GetComponents<Collider2D>();
+        //Collider2D[] colliders = other.GetComponents<Collider2D>();
+
+        Collider2D[] colliders = new Collider2D[20];
+        int count =  Physics2D.OverlapCollider(gameObject.GetComponent<Collider2D>(), filter2D, colliders);
         Collider2D attackedMon = colliders[0];
         if(colliders.Length > 1)
         {
-            foreach(Collider2D collider in colliders)
+            for(int i = 0; i < count; i++)
             {
-                if (collider.gameObject.GetComponentInChildren<SortingGroup>().sortingOrder > attackedMon.GetComponentInChildren<SortingGroup>().sortingOrder)
+                if (colliders[i].gameObject.GetComponentInChildren<SortingGroup>().sortingOrder > attackedMon.GetComponentInChildren<SortingGroup>().sortingOrder)
                 {
-                    attackedMon = collider;
+                    attackedMon = colliders[i];
                 }
             }
         }
         if (OnCollided != null)
+        {
+            if(attackedMon == null)
+            {
+                Debug.Log("ERR: attackedMon Null");
+                return;
+            }
             OnCollided(caster, attackedMon.gameObject);
+        }
         //Debug.Log(other.name);
         if (!isRelease)
         {

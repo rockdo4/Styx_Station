@@ -45,22 +45,27 @@ public class RangeWeapon : AttackDefinition
             return;
         }
 
-        Attack attack = new Attack();
-        switch(attackerType)
-        {
-            case AttackerType.Enemy:
-                var characterStats = attacker.GetComponent<MonsterStats>();
-                var targetStats = defender.GetComponent<ResultPlayerStats>();
-                attack = CreateAttackToPlayer(characterStats, targetStats);
-                break;
-            case AttackerType.Player:
-                var attackerStats = attacker.GetComponent<ResultPlayerStats>();
-                var target = defender.GetComponent<MonsterStats>();
-                attack = CreateAttackToMonster(attackerStats, target);
-                break;
-            default:
-                break;
-        }
+        //Attack attack = new Attack();
+        //switch(attackerType)
+        //{
+        //    case AttackerType.Enemy:
+        //        var characterStats = attacker.GetComponent<MonsterStats>();
+        //        var targetStats = defender.GetComponent<ResultPlayerStats>();
+        //        attack = CreateAttackToPlayer(characterStats, targetStats);
+        //        break;
+        //    case AttackerType.Player:
+        //        var attackerStats = attacker.GetComponent<ResultPlayerStats>();
+        //        var target = defender.GetComponent<MonsterStats>();
+        //        attack = CreateAttackToMonster(attackerStats, target);
+        //        break;
+        //    default:
+        //        break;
+        //}
+
+        var attackerStats = attacker.GetComponent<ResultPlayerStats>();
+        var target = defender.GetComponent<MonsterStats>();
+        Attack attack = CreateAttackToMonster(attackerStats, target);
+
         //Iattackable을 상속 받은 것이 여러개 일 수도 있기 때문에 모두 호출
         var attackables = defender.GetComponents<IAttackable>();
         foreach (var attackable in attackables)

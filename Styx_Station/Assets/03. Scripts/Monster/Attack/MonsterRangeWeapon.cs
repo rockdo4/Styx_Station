@@ -34,7 +34,6 @@ public class MonsterRangeWeapon : AttackDefinition
 
         projectileBow.OnCollided += OnBowCollided;
         projectileBow.Fire(attacker, speed, targetPos, rects[1].transform.position);
-        
     }
 
     private void OnBowCollided(GameObject attacker, GameObject defender)

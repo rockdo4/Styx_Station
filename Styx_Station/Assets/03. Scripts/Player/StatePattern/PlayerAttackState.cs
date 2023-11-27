@@ -10,13 +10,17 @@ public class PlayerAttackState : PlayerStateBase
     {
 
     }
+
     private float defaultSpeed = 1f;
     private float increaseAttackSpeed = 0.01f;
+    private float attackSpeed = 1f;
+
     public override void Enter()
     {
-        var spped = defaultSpeed + ((SharedPlayerStats.GetPlayerAttackSpeed()-1)* increaseAttackSpeed); 
+        var spped = defaultSpeed + ((SharedPlayerStats.GetPlayerAttackSpeed() - 1) * increaseAttackSpeed);
         playertController.GetAnimator().speed = spped;
         playertController.GetAnimator().SetTrigger("Attack");
+        playertController.GetAnimator().SetFloat("NormalState", 0.5f);
     }
 
     public override void Exit()
@@ -26,16 +30,16 @@ public class PlayerAttackState : PlayerStateBase
 
     public override void Update()
     {
-        //웨이브 클리어 자료 받아서 이동 패턴으로 변경 코드 추가 필요
         if(Input.GetKeyUp(KeyCode.Return)) 
         {
             playertController.SetState(States.Move);
             playertController.GetAnimator().SetTrigger("Run");
         }
+        //Debug.Log(playertController.GetAnimator().speed);
     }
 
     public override void FixedUpate()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

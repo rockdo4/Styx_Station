@@ -24,7 +24,6 @@ public class MonsterSpawner : MonoBehaviour
         if (timer + spawnTimeBat <= Time.time)
         {
             int randNum = Random.Range(0, MonsterTypes.Count);
-            Debug.Log(randNum);
             timer = Time.time;
             GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[randNum].name);
 

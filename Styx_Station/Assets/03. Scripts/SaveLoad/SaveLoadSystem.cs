@@ -6,11 +6,12 @@ using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using static SoonsoonData;
 
 
 public static class SaveLoadSystem
 {
-    public static int SaveDataVersion { get; private set; } = 1;
+    public static int SaveDataVersion { get; private set; } = 2;
     public static string SaveDirectory
     {
         get
@@ -24,10 +25,12 @@ public static class SaveLoadSystem
         {
             Directory.CreateDirectory(SaveDirectory);
         }
+
         var path = Path.Combine(SaveDirectory, fileName);
         using (var writer = new JsonTextWriter(new StreamWriter(path)))
         {
             var serialize = new JsonSerializer();
+
             serialize.Serialize(writer, data);
         }
     }
@@ -55,18 +58,18 @@ public static class SaveLoadSystem
                 case 1:
                     data = serializer.Deserialize<SaveDataV1>(reader);
                     break;
-                //case 2:
-                //    data = serializer.Deserialize<SaveDataV2>(reader);
-                //    break;
-                //case 3:
-                //    data = serializer.Deserialize<SaveDataV3>(reader);
-                //    break;
+                case 2:
+                    data = serializer.Deserialize<SaveDataV2>(reader);
+                    break;
+                    //case 3:
+                    //    data = serializer.Deserialize<SaveDataV3>(reader);
+                    //    break;
             }
 
-            //while (data.Version < SaveDataVersion)
-            //{
-            //    data = data.VersionUp();
-            //}
+            while (data.Version < SaveDataVersion)
+            {
+                data = data.VersionUp();
+            }
         }
         return data;
     }

@@ -1,18 +1,18 @@
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using SaveDataVersionCurrent = SaveDataV1;
+using SaveDataVersionCurrent = SaveDataV2;
 using System.Numerics;
+using System.Linq;
+using UnityEngine.Rendering;
 
 public class SaveLoad : MonoBehaviour
 {
-    private void Awake()
-    {
-        Load();
-    }
+    public InventoryUI temp;
+
+
     public void Save()
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
@@ -26,6 +26,7 @@ public class SaveLoad : MonoBehaviour
         data.playerdata.maxHp = SharedPlayerStats.GetHp();
         data.playerdata.healing = SharedPlayerStats.GetHealing();
 
+
         //var find = GameObject.Find("Ui").GetComponent<PlayerUpgradeStats>();
         //if(find != null )
         //{
@@ -37,6 +38,43 @@ public class SaveLoad : MonoBehaviour
         data.playerdata.money1 = SharedPlayerStats.money1.ToString();
         data.playerdata.money2 = SharedPlayerStats.money2.ToString();
         data.playerdata.money3 = SharedPlayerStats.money3.ToString();
+
+        var inventory = InventorySystem.Instance.inventory;
+
+        foreach (var item in inventory.weapons)
+        {
+            InventoryData weapon = new InventoryData(item.item.name, item.upgradeLev, item.acquire, item.equip, item.stock);
+            data.weaponData.Add(weapon);
+        }
+
+        foreach (var item in inventory.armors)
+        {
+            InventoryData aromr = new InventoryData(item.item.name, item.upgradeLev, item.acquire, item.equip, item.stock);
+            data.armorData.Add(aromr);
+        }
+
+        foreach(var item in inventory.customRings)
+        {
+            CustomData ring = new CustomData(item.copyData.name, item.item.upgradeLev, item.item.item.addOptions);
+            data.customRingData.Add(ring);
+        }
+
+        foreach (var item in inventory.customSymbols)
+        {
+            CustomData symbol = new CustomData(item.copyData.name, item.item.upgradeLev, item.item.item.addOptions);
+            data.customSymbolData.Add(symbol);
+        }
+
+        for (int i = 0; i < inventory.GetEquipItemsLength(); ++i)
+        {
+            var equip = inventory.GetEquipItem(i);
+
+            if(equip == null)
+                continue; 
+
+            EquipData equips = new EquipData(equip.item.name, equip.item.type);
+            data.equipItem.Add(equips);
+        }
 
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
@@ -53,6 +91,7 @@ public class SaveLoad : MonoBehaviour
             JObject jsonObject = JObject.Parse(json);
             string dataString = jsonObject["playerdata"].ToString();
             var data = JsonConvert.DeserializeObject<PlayerData>(dataString);
+
             Debug.Log(data);
             SharedPlayerStats.PlayerPower = data.playerPower;
             SharedPlayerStats.PlayerPowerBoost = data.playerPowerboost;
@@ -66,7 +105,105 @@ public class SaveLoad : MonoBehaviour
             SharedPlayerStats.money1 = BigInteger.Parse(data.money1);
             SharedPlayerStats.money2 = BigInteger.Parse(data.money2);
             SharedPlayerStats.money3 = BigInteger.Parse(data.money3);
+
+
+            var inventory = InventorySystem.Instance.inventory;
+
+            string weapons = jsonObject["weaponData"].ToString();
+            var wData = JsonConvert.DeserializeObject<List<InventoryData>>(weapons);
+            foreach (var item in wData)
+            {
+                var itemData = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                if (itemData != null)
+                {
+                    itemData.upgradeLev = item.upgradeLev;
+                    itemData.acquire = item.acquire;
+                    itemData.equip = item.equip;
+                    itemData.stock = item.stock;
+                }
+            }
+
+            string armors = jsonObject["armorData"].ToString();
+            var aData = JsonConvert.DeserializeObject<List<InventoryData>>(armors);
+            foreach (var item in aData)
+            {
+                var itemData = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                if (itemData != null)
+                {
+                    itemData.upgradeLev = item.upgradeLev;
+                    itemData.acquire = item.acquire;
+                    itemData.equip = item.equip;
+                    itemData.stock = item.stock;
+                }
+            }
+
+            string customRings = jsonObject["customRingData"].ToString();
+            var rData = JsonConvert.DeserializeObject<List<CustomData>>(customRings);
+            foreach(var item in rData)
+            {
+                var baseItem = inventory.rings.Where(x=> x.item.name == item.baseName).FirstOrDefault();
+                var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
+                dummy.upgradeLev = item.upgradeLev;
+            }
+            
+
+            string customSymbols = jsonObject["customSymbolData"].ToString();
+            var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);
+            foreach(var item in sData)
+            {
+                var baseItem = inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
+                var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
+                dummy.upgradeLev = item.upgradeLev;
+            }
+
+            string equipItem = jsonObject["equipItem"].ToString();
+            var equipItemData = JsonConvert.DeserializeObject<List<EquipData>>(equipItem);
+
+            foreach(var item in equipItemData)
+            {
+                switch (item.itemType)
+                {
+                    case ItemType.Weapon:
+                        var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                        if (weapon != null)
+                            inventory.EquipItem(weapon, 0);
+                        break;
+
+                    case ItemType.Armor:
+                        var aromr = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                        if (aromr != null)
+                            inventory.EquipItem(aromr, 1);
+                        break;
+
+                    case ItemType.Ring:
+                        var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
+                        if (ring != null)
+                            inventory.EquipItem(ring.item, 2);
+                        break;
+
+                    case ItemType.Symbol:
+                        var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
+                        if (symbol != null)
+                            inventory.EquipItem(symbol.item, 3);
+                        break;
+                }
+            }
+
         }
     }
 
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Save();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            InventorySystem.Instance.Setting();
+            Load();
+            temp.Setting();
+        }
+    }
 }

@@ -17,6 +17,19 @@ public class Inventory : MonoBehaviour
     public float t_SkillDamage;
     public float t_BossDamage;
 
+    public float a_Attack;
+    public float a_Health;
+    public float a_AttackSpeed;
+    public float a_HealHealth;
+    public float a_AttackPer;
+    public float a_Evade;
+    public float a_DamageReduction;
+    public float a_BloodSucking;
+    public float a_CoinAcquire;
+    public float a_NormalDamage;
+    public float a_SkillDamage;
+    public float a_BossDamage;
+
     [System.Serializable]
     public class InventoryItem
     {
@@ -24,13 +37,15 @@ public class Inventory : MonoBehaviour
         public int upgradeLev;
         public bool acquire;
         public bool equip;
+        public int stock;
 
-        public InventoryItem(Item item, int upgradeLev, bool acquire, bool equip)
+        public InventoryItem(Item item, int upgradeLev, bool acquire, bool equip, int stock)
         {
             this.item = item;
             this.upgradeLev = upgradeLev;
             this.acquire = acquire;
             this.equip = equip;
+            this.stock = stock;
         }
     }
 
@@ -47,18 +62,23 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public List<InventoryItem> weapons {  get; private set; } = new List<InventoryItem>();
-    public List<InventoryItem> armors { get; private set; } = new List<InventoryItem>();
-    public List<InventoryItem> rings  { get; private set; } = new List<InventoryItem>();
-    public List<CustomInventoryItem> customRings { get; private set; } = new List<CustomInventoryItem>();
-    public List<InventoryItem> symbols { get; private set; } = new List<InventoryItem>();
-    public List<CustomInventoryItem> customSymbols { get; private set; } = new List<CustomInventoryItem>();
+    public List<InventoryItem> weapons {  get; set; } = new List<InventoryItem>();
+    public List<InventoryItem> armors { get;  set; } = new List<InventoryItem>();
+    public List<InventoryItem> rings  { get;  set; } = new List<InventoryItem>();
+    public List<CustomInventoryItem> customRings { get; set; } = new List<CustomInventoryItem>();
+    public List<InventoryItem> symbols { get;  set; } = new List<InventoryItem>();
+    public List<CustomInventoryItem> customSymbols { get;  set; } = new List<CustomInventoryItem>();
 
     private InventoryItem[] equipItems  = new InventoryItem[4];
 
     public int GetEquipItemsLength()
     {
         return equipItems.Length;
+    }
+
+    public InventoryItem GetEquipItem(int index)
+    {
+        return equipItems[index];
     }
 
     public void AddItem(Item item)
@@ -89,7 +109,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        weapons.Add(new InventoryItem(item, 0, true, false));
+        weapons.Add(new InventoryItem(item,0, true, false, 0));
     }
 
     private void AddArmor(Item item)
@@ -98,7 +118,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        armors.Add(new InventoryItem(item, 0, true, false));
+        armors.Add(new InventoryItem(item, 0, true, false, 0));
     }
 
     private void AddRing(Item item)
@@ -107,7 +127,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        rings.Add(new InventoryItem(item, 0, false, false));
+        rings.Add(new InventoryItem(item, 0, false, false, 0));
     }
 
     public InventoryItem AddCustom(Item item, Item dummy)
@@ -130,7 +150,7 @@ public class Inventory : MonoBehaviour
 
     private InventoryItem CustomRing(Item item, Item dummy)
     {
-        var dummys = new InventoryItem(dummy, 0, true, false);
+        var dummys = new InventoryItem(dummy, 0, true, false, 0);
         var dummyItem = new CustomInventoryItem(dummys, item);
 
         customRings.Add(dummyItem);
@@ -146,17 +166,17 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        symbols.Add(new InventoryItem(item, 0, false, false));
+        symbols.Add(new InventoryItem(item, 0, false, false, 0));
     }
 
     private InventoryItem CustomSymbol(Item item, Item dummy)
     { 
-        var dummys = new InventoryItem(dummy, 0, true, false);
+        var dummys = new InventoryItem(dummy, 0, true, false,0);
         var dummyItem = new CustomInventoryItem(dummys, item);
 
         customSymbols.Add(dummyItem);
 
-        dummy.name = customRings.IndexOf(dummyItem).ToString();
+        dummy.name = customSymbols.IndexOf(dummyItem).ToString();
 
         return dummys;
     }
@@ -376,5 +396,18 @@ public class Inventory : MonoBehaviour
         equipItems[3].item.OnDequip(this, equipItems[3].upgradeLev);
         item.equip = false;
         equipItems[3] = null;
+    }
+
+    public void AcquireState()
+    {
+        foreach(var item in weapons)
+        {
+            item.item.AcquireValue();
+        }
+
+        foreach(var item in armors)
+        {
+            item.item.AcquireValue();
+        }
     }
 }

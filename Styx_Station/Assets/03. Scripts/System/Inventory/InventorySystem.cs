@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static Inventory;
+using System.Collections.Generic;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -28,6 +29,19 @@ public class InventorySystem : MonoBehaviour
     public Inventory inventory;
     public CustomOptionTable optionTable { get; private set; }
 
+    public InventoryItem LoadCustom(Item item, List<Item.AddOption> options)
+    {
+        var dummy = inventory.CreateDummy(item);
+
+        foreach(var option in options)
+        {
+            dummy.addOptions.Add(option);
+        }
+
+        var dummys = inventory.AddCustom(item, dummy);
+
+        return dummys;
+    }
     public InventoryItem Custom(Item item, int index, string table)
     {
         var dummy = inventory.CreateDummy(item);

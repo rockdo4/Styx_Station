@@ -35,14 +35,13 @@ public class CreateCustom : MonoBehaviour
         switch(item.item.item.tier)
         {
             case ItemTier.Common:
+                optionCount = 1;
+                break;
             case ItemTier.Uncommon:
-                optionCount = 1; 
+                optionCount = 2; 
                 break;
 
             case ItemTier.Rare:
-                optionCount = 2;
-                break;
-
             case ItemTier.Unique:
                 optionCount = 3;
                 break;

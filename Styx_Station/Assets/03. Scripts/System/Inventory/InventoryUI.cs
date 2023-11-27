@@ -6,7 +6,7 @@ public class InventoryUI : MonoBehaviour
     public StateWindow stateWindow;
     public CustomWindow customWindow;
 
-    public void Awake()
+    public void Setting()
     {
         equipWindow.Setting();
         customWindow.Setting();

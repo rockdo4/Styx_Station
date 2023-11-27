@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 using static Inventory;
 
 public class EquipWindow : MonoBehaviour
@@ -26,23 +25,37 @@ public class EquipWindow : MonoBehaviour
 
     public void Setting()
     {
-        InventorySystem.Instance.Setting();
-
-        int length = InventorySystem.Instance.inventory.GetEquipItemsLength();
-        int weaponsLeng = InventorySystem.Instance.inventory.weapons.Count;
-        int armorsLeng = InventorySystem.Instance.inventory.armors.Count;
-        int customRingLeng = InventorySystem.Instance.inventory.customRings.Count;
-        int customSymbolLeng = InventorySystem.Instance.inventory.customSymbols.Count;
+        var inventory = InventorySystem.Instance.inventory;
+        int length = inventory.GetEquipItemsLength();
+        int weaponsLeng = inventory.weapons.Count;
+        int armorsLeng = inventory.armors.Count;
+        int customRingLeng = inventory.customRings.Count;
+        int customSymbolLeng = inventory.customSymbols.Count;
 
         for (int i = 0; i < length; i++)
         {
             Button equipButton = Instantiate(equipPrefabs, equip.transform);
             var equipUi = equipButton.GetComponent<EquipButton>();
-            equipUi.baseUi = baseInventory;
-            equipUi.itemname.text = "None";
+            var equipItem = inventory.GetEquipItem(i);
+            if (equipItem != null)
+            {
+                equipUi.item = equipItem;
+                equipUi.baseUi = baseInventory;
+                equipUi.itemname.text = equipItem.item.itemName;
+            }
+            else
+            {
+                equipUi.baseUi = baseInventory;
+                equipUi.itemname.text = "None";
+            }
             equipUi.equipIndex = i;
             equipButton.onClick.AddListener(equipUi.OnClickDequip);
             equipButtons.Add(equipButton);
+
+            if(i!=0)
+            {
+                equipButton.gameObject.SetActive(false);
+            }
         }
 
         for (int i = 0; i < length; i++)
@@ -100,7 +113,7 @@ public class EquipWindow : MonoBehaviour
         {
             Button Button = Instantiate(itemPrefabs, itemScroll.transform);
             var ui = Button.GetComponent<ItemButton>();
-            ui.item = InventorySystem.Instance.inventory.customRings[i].item;
+            ui.item = InventorySystem.Instance.inventory.customSymbols[i].item;
             ui.baseUi = baseInventory;
             ui.itemname.text = ui.item.item.itemName;
             ui.equipIndex = 3;
@@ -169,6 +182,17 @@ public class EquipWindow : MonoBehaviour
             }
         }
 
+        foreach(var equip in equipButtons)
+        {
+            var equipUi = equip.GetComponent<EquipButton>();
+            if(equipUi.equipIndex == 0)
+            {
+                equip.gameObject.SetActive(true);
+                continue;
+            }
+
+            equip.gameObject.SetActive(false);
+        }
 
         foreach (var weapon in weaponButtons)
         {
@@ -184,6 +208,18 @@ public class EquipWindow : MonoBehaviour
             {
                 go.SetActive(false);
             }
+        }
+
+        foreach (var equip in equipButtons)
+        {
+            var equipUi = equip.GetComponent<EquipButton>();
+            if (equipUi.equipIndex == 1)
+            {
+                equip.gameObject.SetActive(true);
+                continue;
+            }
+
+            equip.gameObject.SetActive(false);
         }
 
         foreach (var aromr in armorButtons)
@@ -202,6 +238,18 @@ public class EquipWindow : MonoBehaviour
             }
         }
 
+        foreach (var equip in equipButtons)
+        {
+            var equipUi = equip.GetComponent<EquipButton>();
+            if (equipUi.equipIndex == 2)
+            {
+                equip.gameObject.SetActive(true);
+                continue;
+            }
+
+            equip.gameObject.SetActive(false);
+        }
+
         foreach (var ring in customRingButtons)
         {
             ring.gameObject.SetActive(true);
@@ -218,6 +266,17 @@ public class EquipWindow : MonoBehaviour
             }
         }
 
+        foreach (var equip in equipButtons)
+        {
+            var equipUi = equip.GetComponent<EquipButton>();
+            if (equipUi.equipIndex == 3)
+            {
+                equip.gameObject.SetActive(true);
+                continue;
+            }
+
+            equip.gameObject.SetActive(false);
+        }
 
         foreach (var symbol in customSymbolButtons)
         {

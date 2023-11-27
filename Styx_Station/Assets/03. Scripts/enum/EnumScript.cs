@@ -64,7 +64,6 @@ public enum Language
 {
     KOR,
     ENG,
-    KOR,
 }
 
 public enum AttackerType

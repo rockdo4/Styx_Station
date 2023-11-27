@@ -62,6 +62,6 @@ public enum PlayerTier
 
 public enum Language
 {
-    ENG,
     KOR,
+    ENG,
 }

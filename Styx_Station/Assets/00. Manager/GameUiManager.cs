@@ -79,6 +79,8 @@ public class GameUiManager : Singleton<GameUiManager>
             isPlayerStatsButtonDown.Add(false);
         }
         UnitConverter.InitUnitConverter();
+        var lo = GetComponent<SaveLoad>();
+        lo.Load();
     }
 
     private void Start()
@@ -148,7 +150,7 @@ public class GameUiManager : Singleton<GameUiManager>
                 prevUpgradeValue = value;
                 string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
                 log = $"{currentTime}  : {upgradeType}를  시작했습니다.";
-                var findLog = GetComponentInChildren<Log>();
+                var findLog = Log.Instance;
                 if (findLog.parent == null)
                 {
                     findLog.parent = logScrollView;
@@ -165,7 +167,7 @@ public class GameUiManager : Singleton<GameUiManager>
             var upgradeValue = nowUpgrdaeValue - prevUpgradeValue;
             string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
             log = $"{currentTime}  : {upgradeType}를 {upgradeValue} 만큼 했습니다.";
-            var findLog = GetComponentInChildren<Log>();
+            var findLog = Log.Instance;
             if (findLog.parent == null)
             {
                 findLog.parent = logScrollView;

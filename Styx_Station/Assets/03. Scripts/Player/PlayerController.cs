@@ -107,9 +107,9 @@ public class PlayerController : MonoBehaviour
 
     private void ShootLayMaskCircle()
     {
-        var test = Physics2D.OverlapCircle(transform.position, range, layerMask);
+        var findEnemey = Physics2D.OverlapCircle(transform.position, range, layerMask);
 
-        if (test != null)
+        if (findEnemey != null)
             SetState(States.Attack);
     }
 

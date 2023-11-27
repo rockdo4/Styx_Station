@@ -19,6 +19,7 @@ public class PlayerMoveState : PlayerStateBase
 
         playertController.GetAnimator().SetFloat("RunState", 0.15f);
         //playertController.GetAnimator().SetTrigger("Run");
+
     }
 
     public override void Exit()

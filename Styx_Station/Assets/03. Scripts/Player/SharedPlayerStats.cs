@@ -1,7 +1,5 @@
 using System.Numerics;
 
-
-
 public static class SharedPlayerStats 
 {
     private static int playerPower=1;

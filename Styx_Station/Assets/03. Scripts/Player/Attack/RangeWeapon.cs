@@ -4,36 +4,36 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Attack/RangeWeapon")]
 public class RangeWeapon : AttackDefinition
 {
-    public ProjectileBow bowPrefab;
+    public PlayerBow bowPrefab;
     public float speed; //발사체 이동 속도
     public AttackerType attackerType;
+    public int maxShotAngle;
+    public int minShotAngle;
+    public int shotAngleOffset;
 
     public override void ExecuteAttack(GameObject attacker, GameObject defender)
     {
         var rects = attacker.GetComponentsInChildren<RectTransform>();
         if (rects[1] == null)
         {
-            Debug.Log("ERR: No BezierPoint");
-            return;
-        }
-        if (rects[2] == null)
-        {
             Debug.Log("ERR: No FirePoint");
             return;
         }
 
-        var startPos = rects[2].transform.position;
-        var targetPos = defender.transform.position;
-        targetPos.y = startPos.y;
+        var startPos = rects[1].transform.position;
 
-        var direction = Vector2.left;
-        //var bow = Instantiate(bowPrefab, startPos, Quaternion.identity);
+        var angle = Random.Range(minShotAngle, maxShotAngle + 1);
+        Quaternion rotaion = Quaternion.Euler(0, 0, angle*shotAngleOffset);
+        Debug.Log(angle * shotAngleOffset);
+        var newDirection = rotaion * Vector2.right;
+        var targetPos = startPos + newDirection.normalized * 10f;
+
         var bow = ObjectPoolManager.instance.GetGo(bowPrefab.name);
         bow.transform.position = startPos;
-        var projectileBow = bow.GetComponent<ProjectileBow>();
+        var playerBow = bow.GetComponent<PlayerBow>();
 
-        projectileBow.OnCollided += OnBowCollided;
-        projectileBow.Fire(attacker, speed, targetPos, rects[1].transform.position);
+        playerBow.OnCollided += OnBowCollided;
+        playerBow.Fire(attacker, speed, targetPos);
 
     }
 

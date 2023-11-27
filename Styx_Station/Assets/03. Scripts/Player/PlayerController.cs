@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -65,8 +66,19 @@ public class PlayerController : MonoBehaviour
     {
         executeHit.weapon = weapon;
         executeHit.attacker = gameObject;
-        var target = Physics2D.Raycast(gameObject.transform.position, Vector2.right, range);
-        executeHit.target = target.transform.gameObject;
+        var currPos = gameObject.transform.position;
+        currPos.y += 0.5f;
+        var target = Physics2D.Raycast(currPos, Vector2.right, range);
+        Debug.DrawRay(gameObject.transform.position, Vector2.right * range, Color.red, 1f); // 시작점, 방향, 색상, 지속시간
+        if (target.collider != null)
+        {
+            executeHit.target = target.transform.gameObject;
+        }
+        else
+        {
+            executeHit.target = null;
+        }
+        //executeHit.target = target.transform.gameObject;
     }
 
     /// <summary>

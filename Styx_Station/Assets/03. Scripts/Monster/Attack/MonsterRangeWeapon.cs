@@ -8,33 +8,33 @@ public class MonsterRangeWeapon : AttackDefinition
 {
     public ProjectileBow bowPrefab;
     public float speed; //발사체 이동 속도
-    //public override void ExecuteAttack(GameObject attacker, GameObject defender)
-    //{
-    //    //var rects = attacker.GetComponentsInChildren<RectTransform>();
-    //    //if (rects[1] == null)
-    //    //{
-    //    //    Debug.Log("ERR: No BezierPoint");
-    //    //    return;
-    //    //}
-    //    //if (rects[2] == null)
-    //    //{
-    //    //    Debug.Log("ERR: No FirePoint");
-    //    //    return;
-    //    //}
+    public override void ExecuteAttack(GameObject attacker, GameObject defender)
+    {
+        var rects = attacker.GetComponentsInChildren<RectTransform>();
+        if (rects[1] == null)
+        {
+            Debug.Log("ERR: No BezierPoint");
+            return;
+        }
+        if (rects[2] == null)
+        {
+            Debug.Log("ERR: No FirePoint");
+            return;
+        }
 
-    //    //var startPos = rects[2].transform.position;
-    //    //var targetPos = defender.transform.position;
-    //    //targetPos.y = startPos.y;
+        var startPos = rects[2].transform.position;
+        var targetPos = defender.transform.position;
+        targetPos.y = startPos.y;
 
-    //    //var direction = Vector2.left;
-    //    ////var bow = Instantiate(bowPrefab, startPos, Quaternion.identity);
-    //    //var bow = ObjectPoolManager.instance.GetGo(bowPrefab.name);
-    //    //bow.transform.position = startPos;
-    //    //var projectileBow = bow.GetComponent<ProjectileBow>();
+        var direction = Vector2.left;
+        //var bow = Instantiate(bowPrefab, startPos, Quaternion.identity);
+        var bow = ObjectPoolManager.instance.GetGo(bowPrefab.name);
+        bow.transform.position = startPos;
+        var projectileBow = bow.GetComponent<ProjectileBow>();
 
-    //    //projectileBow.OnCollided += OnBowCollided;
-    //    //projectileBow.Fire(attacker, speed, targetPos, rects[1].transform.position);
-    //}
+        projectileBow.OnCollided += OnBowCollided;
+        projectileBow.Fire(attacker, speed, targetPos, rects[1].transform.position);
+    }
 
     private void OnBowCollided(GameObject attacker, GameObject defender)
     {

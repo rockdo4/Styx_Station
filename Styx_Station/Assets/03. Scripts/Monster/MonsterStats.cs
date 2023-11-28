@@ -8,7 +8,7 @@ public class MonsterStats : MonoBehaviour
     [Header("몬스터 최대 체력")]
     public BigInteger maxHp;
 
-    public BigInteger currHealth { get; set; }
+    public BigInteger currHealth;
 
     [Header("몬스터 데미지")]
     public BigInteger damage;
@@ -23,11 +23,11 @@ public class MonsterStats : MonoBehaviour
     {
         currHealth = maxHp;
     }
-    public void SetStats(BigInteger maxH, BigInteger d, AttackType attackT, float s)
+    public void SetStats(string maxH, string d, AttackType attackT, float s)
     {
-        maxHp = maxH;
+        maxHp = BigInteger.Parse(maxH);
         currHealth = maxHp;
-        damage = d;
+        damage = BigInteger.Parse(d);
         attackType = attackT;
         speed = s;
     }

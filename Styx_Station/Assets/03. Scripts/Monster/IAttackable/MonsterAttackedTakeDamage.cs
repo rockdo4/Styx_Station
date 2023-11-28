@@ -15,7 +15,7 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
-        //Debug.Log(stats.currHealth);
+        Debug.Log(stats.currHealth);
         stats.currHealth -= attack.Damage;
         //Debug.Log($"OnAttack: {attack.Damage}");
         if (stats.currHealth <= 0)

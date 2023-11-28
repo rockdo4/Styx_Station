@@ -5,22 +5,17 @@ using UnityEngine;
 
 public class CustomButton : MonoBehaviour
 {
-    public InventoryUI baseUi;
+    public TextMeshProUGUI itemName;
+    public int itemIndex;
+    public ItemType type;
 
-    public TextMeshProUGUI itemname;
-    public Inventory.InventoryItem item;
-    public int equipIndex;
-
-    public void OnClickEquip()
+    public void OnClickEquip(BaseCustomButton button)
     {
-        if (item == null)
+        if (itemIndex < 0)
             return;
 
-        if (item.item == null)
-            return;
-
-        var equip = baseUi.customWindow.GetComponent<CustomWindow>().customBase.GetComponent<BaseCustomButton>();
-        equip.item = item;
-        equip.itemname.text = item.item.itemName;
+        button.itemIndex = itemIndex;
+        button.type = type;
+        button.itemname.text = itemName.text;
     }
 }

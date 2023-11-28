@@ -64,7 +64,9 @@ public class ResultPlayerStats : MonoBehaviour
     }
     public BigInteger GetPlayerPower() 
     {
-        return (int)((playerAttribute.attackPower + ((SharedPlayerStats.GetPlayerPower() - 1) * increaseUpgradePower) + (int)inventory.t_Attack) * (int)inventory.t_AttackPer);
+        var t = (int)inventory.t_AttackPer;
+        if (t <= 0) t = 1;
+        return (int)((playerAttribute.attackPower + ((SharedPlayerStats.GetPlayerPower() - 1) * increaseUpgradePower) + (int)inventory.t_Attack) * t);
     }
 
     private float GetPowerBoost()

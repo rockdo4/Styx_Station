@@ -73,6 +73,20 @@ public class Inventory : MonoBehaviour
 
     private InventoryItem[] equipItems  = new InventoryItem[4];
 
+    public void CustomReset()
+    {
+        //세이브 로드 용
+
+        for(int i=customRings.Count-1; i>=0; i--)
+        {
+            customRings.RemoveAt(i);
+        }
+        for(int i=customSymbols.Count-1; i>=0;i--)
+        {
+            customSymbols.RemoveAt(i);
+        }
+    }
+
     public int GetEquipItemsLength()
     {
         return equipItems.Length;
@@ -201,6 +215,7 @@ public class Inventory : MonoBehaviour
         customRings.Add(dummyItem);
 
         dummy.name = customRings.IndexOf(dummyItem).ToString();
+        dummys.index = customRings.IndexOf(dummyItem);
 
         return dummys;
     }
@@ -222,6 +237,7 @@ public class Inventory : MonoBehaviour
         customSymbols.Add(dummyItem);
 
         dummy.name = customSymbols.IndexOf(dummyItem).ToString();
+        dummys.index = customSymbols.IndexOf(dummyItem);
 
         return dummys;
     }
@@ -239,35 +255,32 @@ public class Inventory : MonoBehaviour
         return dummy;
     }
 
-    public void EquipItem(InventoryItem item, int equipIndex)
+    public void EquipItem(int itemIndex, ItemType type)
     {
         if (equipItems == null)
             return;
 
-        if (item == null)
+        if (itemIndex < 0)
             return;
 
-        if (!item.acquire)
-            return;
-
-        switch (equipIndex)
+        switch (type)
         {
-            case 0:
-                WeaponEquip(item);
+            case ItemType.Weapon:
+                WeaponEquip(weapons[itemIndex]);
                 break;
-            case 1:
-                ArmorEquip(item);
+            case ItemType.Armor:
+                ArmorEquip(armors[itemIndex]);
                 break;
-            case 2:
-                RingEquip(item);
+            case ItemType.Ring:
+                RingEquip(customRings[itemIndex].item);
                 break;
-            case 3:
-                SymbolEquip(item);
+            case ItemType.Symbol:
+                SymbolEquip(customSymbols[itemIndex].item);
                 break;
         }
     }
 
-    public void DequipItem(InventoryItem item, int equipIndex)
+    public void DequipItem(InventoryItem item, ItemType type)
     {
         if (equipItems == null)
             return;
@@ -278,18 +291,18 @@ public class Inventory : MonoBehaviour
         if (!item.acquire)
             return;
 
-        switch (equipIndex)
+        switch (type)
         {
-            case 0:
+            case ItemType.Weapon:
                 WeaponDequip(item);
                 break;
-            case 1:
+            case ItemType.Armor:
                 ArmorDequip(item);
                 break;
-            case 2:
+            case ItemType.Ring:
                 RingDequip(item);
                 break;
-            case 3:
+            case ItemType.Symbol:
                 SymbolDequip(item);
                 break;
         }

@@ -1,45 +1,84 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ItemButton : MonoBehaviour
 {
-    public InventoryUI baseUi;
+    public Inventory inventory;
 
     public TextMeshProUGUI itemname;
-    public Inventory.InventoryItem item;
-    public int equipIndex;
 
-    public void AcqurieItem()
+    public ItemType type;
+    public int itemIndex;
+
+    public bool AcqurieItem()
     {
-        if (!item.acquire)
+        bool acquire = false;
+
+        switch(type)
+        {
+            case ItemType.Weapon:
+                acquire = inventory.weapons[itemIndex].acquire;
+                break;
+            case ItemType.Armor:
+                acquire = inventory.armors[itemIndex].acquire;
+                break;
+            case ItemType.Ring:
+                acquire = inventory.customRings[itemIndex].item.acquire;
+                break;
+            case ItemType.Symbol:
+                acquire = inventory.customSymbols[itemIndex].item.acquire;
+                break;
+        }
+
+        if (!acquire)
         {
             gameObject.GetComponent<Image>().color = Color.red;
-            return;
+            return false;
         }
-            gameObject.GetComponent<Image>().color = Color.white;
+
+        gameObject.GetComponent<Image>().color = Color.white;
+        return true;
     }
 
-    public void OnClickEquip()
+    public void OnClickEquip(GameObject button)
     {
-        if (item == null)
+        var equip = button.GetComponent<EquipButton>();
+
+        if (equip == null)
             return;
 
-        if (item.item == null)
+        if (itemIndex < 0)
             return;
 
-        AcqurieItem();
-
-        if (!item.acquire)
+        if (!AcqurieItem())
             return;
 
-        var equip = baseUi.equipWindow.GetComponent<EquipWindow>().equipButtons[equipIndex].GetComponent<EquipButton>();
-        //equip.item = item;
-        equip.itemname.text = item.item.itemName;
-        InventorySystem.Instance.inventory.EquipItem(item, equipIndex);
+        switch (type)
+        {
+            case ItemType.Weapon:
+                equip.itemIndex = itemIndex;
+                equip.itemname.text = inventory.weapons[itemIndex].item.itemName;
+                break;
+            case ItemType.Armor:
+                equip.itemIndex = itemIndex;
+                equip.itemname.text = inventory.armors[itemIndex].item.itemName;
+                break;
+            case ItemType.Ring:
+                equip.itemIndex = itemIndex;
+                equip.itemname.text = inventory.customRings[itemIndex].item.item.itemName;
+                break;
+            case ItemType.Symbol:
+                equip.itemIndex = itemIndex;
+                equip.itemname.text = inventory.customSymbols[itemIndex].item.item.itemName;
+                break;
+        }
+
+        inventory.EquipItem(itemIndex, type);
 
         //baseUi.equipWindow.GetComponent<EquipWindow>().ViewItemInfo(equipIndex);
-        baseUi.stateWindow.GetComponent<StateWindow>().GetState();
+        //baseUi.stateWindow.GetComponent<StateWindow>().GetState();
     }
 }
 

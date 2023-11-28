@@ -5,21 +5,16 @@ using UnityEngine;
 
 public class BaseCustomButton : MonoBehaviour
 {
-    public InventoryUI baseUi;
-
     public TextMeshProUGUI itemname;
-    public Inventory.InventoryItem item;
-    public int equipIndex;
+    public int itemIndex;
+    public ItemType type;
 
     public void OnClickDequip()
     {
-        if (item == null)
+        if (itemIndex < 0)
             return;
 
-        if (item.item == null)
-            return;
-
-        item = null;
+        itemIndex = -1;
         itemname.text = "None";
     }
 }

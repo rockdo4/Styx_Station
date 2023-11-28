@@ -15,7 +15,6 @@ public class StateWindow : MonoBehaviour
         {
             state.Add(child.gameObject.GetComponent<TextMeshProUGUI>());
         }
-
         GetState();
     }
     public void GetState()

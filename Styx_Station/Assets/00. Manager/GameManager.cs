@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        WaveManager.instance.StartWave();
+    }
+
     public void ReStart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

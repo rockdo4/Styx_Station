@@ -16,7 +16,7 @@ public class MonsterAttackedRedEffect : MonoBehaviour, IAttackable
         for (int i = 0; i < spriteRenderers.Length; i++)
         {
             originalColors.Add(spriteRenderers[i].color);
-            Debug.Log(i);
+            //Debug.Log(i);
         }
         gameObject.GetComponent<MonsterController>().SetOriginalColor(originalColors);
     }

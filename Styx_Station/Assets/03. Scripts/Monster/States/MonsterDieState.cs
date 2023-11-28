@@ -8,6 +8,8 @@ public class MonsterDieState : MonsterStateBase
     public float redIntensity = 0.5f; // 빨간색 강도 설정
     private SpriteRenderer[] spriteRenderers;
     private float timer = 0f;
+    private float releaseTimer = 0f;
+    private float releaseTime = 5f; 
     private float fadeDuration = 1f;
     private List<Color> colorList = new List<Color>();
 
@@ -22,6 +24,7 @@ public class MonsterDieState : MonsterStateBase
         timer = 0;
         colorList = monsterCtrl.GetOriginalColor();
         spriteRenderers = monsterCtrl.gameObject.GetComponentsInChildren<SpriteRenderer>();
+        monsterCtrl.GetComponent<Collider2D>().enabled = false;
     }
 
     public override void Exit()
@@ -47,14 +50,19 @@ public class MonsterDieState : MonsterStateBase
                 renderer.color = newColor;
             }
         }
-        else
+        if(timer > fadeDuration && timer < releaseTime + fadeDuration)
+        {
+            if(!monsterCtrl.animator.GetBool("EditChk"))
+                monsterCtrl.animator.SetBool("EditChk", true);
+        }
+        if(timer >= releaseTime + fadeDuration)
         {
             timer = 0f;
-            for(int i =0 ; i < spriteRenderers.Length ; i++)
+            for (int i = 0; i < spriteRenderers.Length; i++)
             {
                 spriteRenderers[i].color = colorList[i];
             }
-            monsterCtrl.animator.SetBool("EditChk", true);
+            
             monsterCtrl.SetState(States.Idle);
             monsterCtrl.ReleaseObject();
         }

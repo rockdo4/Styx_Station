@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using UnityEngine;
+
+public class BackgroundLoop : MonoBehaviour
+{
+    private float width;
+    private void Awake()
+    {
+        var boxCollider = GetComponent<BoxCollider2D>();
+        width = boxCollider.size.x;
+    }
+
+    void Update()
+    {
+        if(transform.position.x < -width) //화면 밖으로 나갔을 때
+        {
+            Reposition(); //다음 sky 배견화면 사진 옆으로 이동하게 함
+        }
+    }
+
+    private void Reposition()
+    {
+        var offset = new Vector2(width * 2f, 0);
+        transform.position = (Vector2)transform.position + offset;
+    }
+}

@@ -117,7 +117,6 @@ public class ResultPlayerStats : MonoBehaviour
         {
             GetNormalDamage();
         }
-        Debug.Log(normalMonsterDamage);
         var monsterDefenseResult = (int)(monsterDefense * percentInt) / percentInt;
         return normalMonsterDamage - (normalMonsterDamage * monsterDefenseResult);
 

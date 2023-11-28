@@ -97,7 +97,7 @@ public class PlayerBow : PoolAble
         }
         if (attackedMon == null)
         {
-            //Debug.Log("ERR: attackedMon Null");
+            Debug.Log("ERR: attackedMon Null");
             return;
         }
         if (attackedMon.GetComponent<MonsterStats>().currHealth <= 0)

@@ -24,6 +24,7 @@ public class MonsterDieState : MonsterStateBase
         timer = 0;
         colorList = monsterCtrl.GetOriginalColor();
         spriteRenderers = monsterCtrl.gameObject.GetComponentsInChildren<SpriteRenderer>();
+        monsterCtrl.GetComponent<Collider2D>().enabled = false;
     }
 
     public override void Exit()
@@ -61,7 +62,7 @@ public class MonsterDieState : MonsterStateBase
             {
                 spriteRenderers[i].color = colorList[i];
             }
-
+            
             monsterCtrl.SetState(States.Idle);
             monsterCtrl.ReleaseObject();
         }

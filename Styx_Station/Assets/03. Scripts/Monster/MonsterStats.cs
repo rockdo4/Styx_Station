@@ -7,7 +7,7 @@ public class MonsterStats : MonoBehaviour
     [Header("몬스터 최대 체력")]
     public float maxHp;
 
-    public float currHealth { get; set; }
+    public float currHealth; //{ get; set; }
 
     [Header("몬스터 데미지")]
     public float damage;

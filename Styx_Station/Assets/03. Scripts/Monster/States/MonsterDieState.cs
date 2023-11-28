@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class MonsterDieState : MonsterStateBase
 {
+    public float effectDuration = 2.0f; // 효과 지속 시간 설정
+    public float redIntensity = 0.5f; // 빨간색 강도 설정
+    private SpriteRenderer[] spriteRenderers;
+    private float timer = 0f;
+    private float fadeDuration = 1f;
+    private List<Color> colorList = new List<Color>();
+
     public MonsterDieState(MonsterController monsterCtrl) : base(monsterCtrl)
     {
+        
     }
 
     public override void Enter()
     {
-
+        monsterCtrl.animator.SetTrigger("Die");
+        timer = 0;
+        colorList = monsterCtrl.GetOriginalColor();
+        spriteRenderers = monsterCtrl.gameObject.GetComponentsInChildren<SpriteRenderer>();
     }
 
     public override void Exit()
     {
-
+        monsterCtrl.animator.SetBool("EditChk", false);
     }
 
     public override void FixedUpate()
@@ -25,6 +36,28 @@ public class MonsterDieState : MonsterStateBase
 
     public override void Update()
     {
-
+        timer += Time.deltaTime;
+        if(timer < fadeDuration)
+        {
+            float alpha = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+            foreach (SpriteRenderer renderer in spriteRenderers)
+            {
+                Color newColor = renderer.color;
+                newColor.a = alpha;
+                renderer.color = newColor;
+            }
+        }
+        else
+        {
+            timer = 0f;
+            for(int i =0 ; i < spriteRenderers.Length ; i++)
+            {
+                spriteRenderers[i].color = colorList[i];
+            }
+            monsterCtrl.animator.SetBool("EditChk", true);
+            monsterCtrl.SetState(States.Idle);
+            monsterCtrl.ReleaseObject();
+        }
     }
 }
+

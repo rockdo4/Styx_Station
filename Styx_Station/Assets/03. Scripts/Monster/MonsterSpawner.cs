@@ -13,6 +13,7 @@ public class MonsterSpawner : MonoBehaviour
     public int spawnYPosCount;   //½ºÆù yÁÂÇ¥ °¹¼ö
     public WaitForSeconds WaitSecond;
     public int spawnMonstercount = 1;
+    public GameObject spawnPoint;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class MonsterSpawner : MonoBehaviour
             int randNum = Random.Range(0, MonsterTypes.Count);
             timer = Time.time;
             GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[randNum].name);
+            monster.transform.position = spawnPoint.transform.position;
 
             monster.GetComponent<MonsterStats>().SetStats(
                 MonsterTypes[randNum].maxHealth, MonsterTypes[randNum].damage, MonsterTypes[randNum].attackType, MonsterTypes[randNum].speed);

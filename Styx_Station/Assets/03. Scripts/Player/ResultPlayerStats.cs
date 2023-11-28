@@ -120,7 +120,8 @@ public class ResultPlayerStats : MonoBehaviour
         {
             GetNormalDamage();
         }
-        return normalMonsterDamage - (normalMonsterDamage * (1 - monsterDefense));
+        Debug.Log(normalMonsterDamage);
+        return normalMonsterDamage - (normalMonsterDamage * monsterDefense);
     }
 
     // 몬스터 일반 공격임

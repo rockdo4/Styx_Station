@@ -1056,7 +1056,7 @@ Animator:
   m_GameObject: {fileID: 2612628578608176266}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2fc0aafc4ba14749a6cc196ffeb52b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7506ebd48de072d41b6b563f778ad515, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2787,6 +2787,8 @@ GameObject:
   - component: {fileID: 1990743060022708276}
   - component: {fileID: 3235975083190003005}
   - component: {fileID: 7138869618347148011}
+  - component: {fileID: -7750365230380247978}
+  - component: {fileID: 7309143880294550252}
   m_Layer: 16
   m_Name: RangeMonster
   m_TagString: Untagged
@@ -2897,7 +2899,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!70 &7138869618347148011
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2933,6 +2935,31 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.39}
   m_Size: {x: 0.46, y: 0.72}
   m_Direction: 0
+--- !u!114 &-7750365230380247978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009498866873652598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4035bf2171fcea9419c206da91789b82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7309143880294550252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009498866873652598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2bd82dfd9e287478bf536be805f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redIntensity: 0.8
 --- !u!1 &7060467444341662611
 GameObject:
   m_ObjectHideFlags: 0

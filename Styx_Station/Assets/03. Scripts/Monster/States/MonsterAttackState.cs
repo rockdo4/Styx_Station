@@ -25,6 +25,7 @@ public class MonsterAttackState : MonsterStateBase
         {
             attackOffset = 0.5f;
         }
+        monsterCtrl.animator.SetFloat("NormalState", attackOffset);
     }
 
     public override void Exit()

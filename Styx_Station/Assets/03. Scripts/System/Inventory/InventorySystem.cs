@@ -79,5 +79,10 @@ public class InventorySystem : MonoBehaviour
             var addItem = item.GetItemList(i);
             inventory.AddItem(addItem);
         }
+
+        for (int i = 0; i <= (int)ItemType.Symbol; ++i)
+        {
+            inventory.ItemSorting((ItemType)i);
+        }
     }
 }

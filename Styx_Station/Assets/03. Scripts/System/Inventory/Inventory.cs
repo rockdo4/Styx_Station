@@ -38,14 +38,16 @@ public class Inventory : MonoBehaviour
         public bool acquire;
         public bool equip;
         public int stock;
+        public int index;
 
-        public InventoryItem(Item item, int upgradeLev, bool acquire, bool equip, int stock)
+        public InventoryItem(Item item, int upgradeLev, bool acquire, bool equip, int stock, int index)
         {
             this.item = item;
             this.upgradeLev = upgradeLev;
             this.acquire = acquire;
             this.equip = equip;
             this.stock = stock;
+            this.index = index;
         }
     }
 
@@ -81,6 +83,49 @@ public class Inventory : MonoBehaviour
         return equipItems[index];
     }
 
+    public void ItemSorting(ItemType type)
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                for (int i = 0; i < weapons.Count; ++i)
+                {
+                    weapons[i].index = i;
+                }
+                break;
+
+            case ItemType.Armor:
+                for (int i = 0; i < armors.Count; ++i)
+                {
+                    armors[i].index = i;
+                }
+                break;
+
+            case ItemType.Ring:
+                for (int i = 0; i < rings.Count; ++i)
+                {
+                    rings[i].index = i;
+                }
+
+                for(int i = 0; i< customRings.Count; ++i)
+                {
+                    customRings[i].item.index = i;
+                }
+                break;
+            case ItemType.Symbol:
+                for (int i = 0; i < symbols.Count; ++i)
+                {
+                    symbols[i].index = i;
+                }
+
+                for(int i = 0; i<customSymbols.Count; ++i)
+                {
+                    customSymbols[i].item.index = i;
+                }
+                break;
+        }
+    }
+
     public void AddItem(Item item)
     {
         if (item == null)
@@ -109,7 +154,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        weapons.Add(new InventoryItem(item,0, true, false, 0));
+        weapons.Add(new InventoryItem(item,0, true, false, 0, -1));
     }
 
     private void AddArmor(Item item)
@@ -118,7 +163,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        armors.Add(new InventoryItem(item, 0, true, false, 0));
+        armors.Add(new InventoryItem(item, 0, true, false, 0, -1));
     }
 
     private void AddRing(Item item)
@@ -127,7 +172,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        rings.Add(new InventoryItem(item, 0, false, false, 0));
+        rings.Add(new InventoryItem(item, 0, false, false, 0, -1));
     }
 
     public InventoryItem AddCustom(Item item, Item dummy)
@@ -150,7 +195,7 @@ public class Inventory : MonoBehaviour
 
     private InventoryItem CustomRing(Item item, Item dummy)
     {
-        var dummys = new InventoryItem(dummy, 0, true, false, 0);
+        var dummys = new InventoryItem(dummy, 0, true, false, 0, -1);
         var dummyItem = new CustomInventoryItem(dummys, item);
 
         customRings.Add(dummyItem);
@@ -166,12 +211,12 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        symbols.Add(new InventoryItem(item, 0, false, false, 0));
+        symbols.Add(new InventoryItem(item, 0, false, false, 0, -1));
     }
 
     private InventoryItem CustomSymbol(Item item, Item dummy)
     { 
-        var dummys = new InventoryItem(dummy, 0, true, false,0);
+        var dummys = new InventoryItem(dummy, 0, true, false,0, -1);
         var dummyItem = new CustomInventoryItem(dummys, item);
 
         customSymbols.Add(dummyItem);

@@ -34,10 +34,11 @@ public class ItemButton : MonoBehaviour
             return;
 
         var equip = baseUi.equipWindow.GetComponent<EquipWindow>().equipButtons[equipIndex].GetComponent<EquipButton>();
-        equip.item = item;
+        //equip.item = item;
         equip.itemname.text = item.item.itemName;
         InventorySystem.Instance.inventory.EquipItem(item, equipIndex);
 
+        //baseUi.equipWindow.GetComponent<EquipWindow>().ViewItemInfo(equipIndex);
         baseUi.stateWindow.GetComponent<StateWindow>().GetState();
     }
 }

@@ -1,12 +1,16 @@
+using System.Diagnostics;
 using System.Numerics;
 
 public static class SharedPlayerStats 
 {
+    public static ResultPlayerStats resultPlayerStats =new ResultPlayerStats();
+
     private static int playerPower=1;
     public static int PlayerPower { set { playerPower = value; } }
 
     private static int playerPowerBoost=1;
     public static int PlayerPowerBoost { set { playerPowerBoost = value; } }
+    public static bool IsPlayerPowerBoostAmplifiable { get; set; }
 
     private static int playerPowerBoostMax = 4440;
     private static bool isPlayerPowerBoostMax = false;
@@ -17,7 +21,7 @@ public static class SharedPlayerStats
 
     private static int playerAttackSpeed=1;
     public static int PlayerAttackSpeed { set { playerAttackSpeed = value; } }
-    private static int attackSpeedMax = 3000;
+    private static int attackSpeedMax = 200;
     private static bool isAttackSpeedMax = false;
     public static bool IsAttackSpeedMax
     {
@@ -36,6 +40,7 @@ public static class SharedPlayerStats
     private static int criticalPower = 1;
     public static int CriticalPower { set { criticalPower = value; } }
 
+
     private static int monsterDamage=1;
     public static int MonsterDamage { set { monsterDamage = value; } }
     private static int monsterDamagePowerMax = 4440;
@@ -52,19 +57,22 @@ public static class SharedPlayerStats
     private static int healing =1 ;
     public static int Healing { set { healing = value; } }
 
-    public static BigInteger money1 = new BigInteger();
-    public static BigInteger money2 = new BigInteger();
-    public static BigInteger money3 = new BigInteger();
-    private static BigInteger price = new BigInteger();
+    
 
     public static void IncreasePlayerPower()
     {
-        price = 5000000000000;
-        price *= playerPower;
-
-        if (money1 > price)
+        if (resultPlayerStats != null)
         {
-            money1 -= price;
+            CurrencyManager.playerPowerPrice = resultPlayerStats.GetPlayerPowerByNonInventory();
+        }
+        else
+        {
+            CurrencyManager.playerPowerPrice = GetPlayerPower() * 100;
+        }
+        
+        if (CurrencyManager.money1 > CurrencyManager.playerPowerPrice)
+        {
+            CurrencyManager.money1 -= CurrencyManager.playerPowerPrice;
             playerPower++;
         }
     }
@@ -77,19 +85,18 @@ public static class SharedPlayerStats
 
     public static void IncreasePlayerPowerBoost()
     {
-        if (!isPlayerPowerBoostMax)
+        if (!isPlayerPowerBoostMax && playerPower >1000)
         {
-            price = 5000000000000;
-            price *= playerPower;
+            CurrencyManager.price = 5000000000000;
+            CurrencyManager.price *= playerPower;
 
-            if (money1 > price)
+            if (CurrencyManager.money2 > CurrencyManager.price)
             {
-                money1 -= price;
+                CurrencyManager.money2 -= CurrencyManager.price;
                 playerPowerBoost++;
             }
+            IsPlayerPowerBoostAmplifiable = true;
         }
-
-
         if (playerPowerBoost >= playerPowerBoostMax) 
         {
             isPlayerPowerBoostMax = true;
@@ -107,12 +114,12 @@ public static class SharedPlayerStats
     {
         if (!isAttackSpeedMax)
         {
-            price = 5000000000000;
-            price *= playerPower;
+            CurrencyManager.price = 5000000000000;
+            CurrencyManager.price *= playerPower;
 
-            if (money1 > price)
+            if (CurrencyManager.money1 > CurrencyManager.price)
             {
-                money1 -= price;
+                CurrencyManager.money1 -= CurrencyManager.price;
                 playerAttackSpeed++;
             }
         }
@@ -134,12 +141,12 @@ public static class SharedPlayerStats
     {
         if (!isAttackCriticalMax)
         {
-            price = 5000000000000;
-            price *= playerPower;
+            CurrencyManager.price = 5000000000000;
+            CurrencyManager.price *= playerPower;
 
-            if (money1 > price)
+            if (CurrencyManager.money1 > CurrencyManager.price)
             {
-                money1 -= price;
+                CurrencyManager.money1 -= CurrencyManager.price;
 
                 critical++;
             }
@@ -159,12 +166,12 @@ public static class SharedPlayerStats
 
     public static void IncreaseAttackCriticalPower()
     {
-        price = 5000000000000;
-        price *= playerPower;
+        CurrencyManager.price = 5000000000000;
+        CurrencyManager.price *= playerPower;
 
-        if (money1 > price)
+        if (CurrencyManager.money2 > CurrencyManager.price)
         {
-            money1 -= price;
+            CurrencyManager.money2 -= CurrencyManager.price;
             criticalPower++;
         }
 
@@ -179,12 +186,12 @@ public static class SharedPlayerStats
     {
         if (!isMonsterDamagePowerMax)
         {
-            price = 5000000000000;
-            price *= playerPower;
+            CurrencyManager.price = 5000000000000;
+            CurrencyManager.price *= playerPower;
 
-            if (money1 > price)
+            if (CurrencyManager.money2 > CurrencyManager.price)
             {
-                money1 -= price;
+                CurrencyManager.money2 -= CurrencyManager.price;
 
                 monsterDamage++;
             }
@@ -201,15 +208,14 @@ public static class SharedPlayerStats
         return monsterDamage;
     }
 
-
     public static void IncreaseHp()
     {
-        price = 5000000000000;
-        price *= playerPower;
+        CurrencyManager.price = 5000000000000;
+        CurrencyManager.price *= playerPower;
 
-        if (money1 > price)
+        if (CurrencyManager.money1 > CurrencyManager.price)
         {
-            money1 -= price;
+            CurrencyManager.money1 -= CurrencyManager.price;
 
             maxHp++;
         }
@@ -222,12 +228,12 @@ public static class SharedPlayerStats
 
     public static void IncreaseHealing()
     {
-        price = 5000000000000;
-        price *= playerPower;
+        CurrencyManager.price = 5000000000000;
+        CurrencyManager.price *= playerPower;
 
-        if (money1 > price)
+        if (CurrencyManager.money1 > CurrencyManager.price)
         {
-            money1 -= price;
+            CurrencyManager.money1 -= CurrencyManager.price;
 
             healing++;
         }
@@ -237,9 +243,5 @@ public static class SharedPlayerStats
         return healing;
     }
 
-    public static void IncreaseMoney(BigInteger imoney)
-    {
-        imoney = 1000000000;
-        money1 += imoney * imoney;
-    }
+    
 }

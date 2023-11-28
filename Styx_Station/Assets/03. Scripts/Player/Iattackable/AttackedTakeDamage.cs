@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class AttackedTakeDamage : MonoBehaviour, IAttackable
 {
-    private PlayerAttributes stats;
+    private ResultPlayerStats stats;
 
     private void Awake()
     {
-        stats = GetComponent<PlayerAttributes>();
+        stats = GetComponent<ResultPlayerStats>();
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
-        stats.hp -= attack.Damage;
-        if (stats.hp <= 0)
+        stats.playerCurrentHp -= attack.Damage;
+        if (stats.playerCurrentHp <= 0)
         {
-            stats.hp = 0;
+            stats.playerCurrentHp = 0;
             //gameObject.transform.GetComponent<Animator>().SetTrigger("Die");
             //var destructables = GetComponents<IDestructable>();
             //foreach (var destructable in destructables)

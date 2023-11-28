@@ -13,7 +13,7 @@ public class PetController : MonoBehaviour
     public GameObject masterPlayer;
     public string petName;
     public PetLevel petlevel;
-    public int power;
+    public float power;
     public float attackSpeed;
     public float range;
 
@@ -97,11 +97,10 @@ public class PetController : MonoBehaviour
     {
         executeHit.weapon = weapon;
         executeHit.attacker = gameObject;
+        //power = masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (((int)petlevel*10) /100);
         var currPos = gameObject.transform.position;
         currPos.y += 0.5f;
         var target = Physics2D.Raycast(currPos, Vector2.right, range);
-        Debug.DrawRay(gameObject.transform.position, Vector2.right * range, Color.red, 1f); // 시작점, 방향, 색상, 지속시간
-       
-       
+        Debug.DrawRay(gameObject.transform.position, Vector2.right * range, Color.red, 1f);
     }
 }

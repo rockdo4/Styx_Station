@@ -25,9 +25,9 @@ public class SaveLoad : MonoBehaviour
         data.playerdata.monsterDamage = SharedPlayerStats.GetMonsterDamagePower();
         data.playerdata.maxHp = SharedPlayerStats.GetHp();
         data.playerdata.healing = SharedPlayerStats.GetHealing();
-        data.playerdata.money1 = SharedPlayerStats.money1.ToString();
-        data.playerdata.money2 = SharedPlayerStats.money2.ToString();
-        data.playerdata.money3 = SharedPlayerStats.money3.ToString();
+        data.playerdata.money1 = CurrencyManager.money1.ToString();
+        data.playerdata.money2 = CurrencyManager.money2.ToString();
+        data.playerdata.money3 = CurrencyManager.money3.ToString();
 
         var inventory = InventorySystem.Instance.inventory;
 
@@ -90,9 +90,9 @@ public class SaveLoad : MonoBehaviour
             SharedPlayerStats.MaxHp = data.maxHp;
             SharedPlayerStats.Healing = data.healing;
 
-            SharedPlayerStats.money1 = BigInteger.Parse(data.money1);
-            SharedPlayerStats.money2 = BigInteger.Parse(data.money2);
-            SharedPlayerStats.money3 = BigInteger.Parse(data.money3);
+            CurrencyManager.money1 = BigInteger.Parse(data.money1);
+            CurrencyManager.money2 = BigInteger.Parse(data.money2);
+            CurrencyManager.money3 = BigInteger.Parse(data.money3);
 
 
             var inventory = InventorySystem.Instance.inventory;

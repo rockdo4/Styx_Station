@@ -85,7 +85,7 @@ public class GameUiManager : Singleton<GameUiManager>
 
     private void Start()
     {
-        moneyList[0].text = $"{UnitConverter.OutString(SharedPlayerStats.money1)}";
+        moneyList[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
         SettingPlayerStatsButton();
         InitPlayerStatsText();
         ChangeLangugaeButtonText();
@@ -132,17 +132,24 @@ public class GameUiManager : Singleton<GameUiManager>
     }
     public void PlayerUpgrade(PointerEventData data, int index)
     {
+        if (!SharedPlayerStats.IsPlayerPowerBoostAmplifiable && index ==1)
+        {
+            // 팝업창 띄우게하기
+            return;
+        }
         isPlayerStatsButtonDown[index] = !isPlayerStatsButtonDown[index];
-        //Test
-
+        PlayerUpgradeLog(isPlayerStatsButtonDown[index], index);
+    }
+    private void PlayerUpgradeLog(bool type,int index)
+    {
         string upgradeType = string.Empty;
-       
+
         int numer = index + 1;
         string id = "PlayerStatsButton00" + numer.ToString();
         var table = playerStatsTexts[id];
         upgradeType = table.kor;
         string log = string.Empty;
-        if (isPlayerStatsButtonDown[index])
+        if (type)
         {
             var value = GetStatsUpgradeValue(index);
             if (value != -1)
@@ -175,7 +182,6 @@ public class GameUiManager : Singleton<GameUiManager>
             findLog.MakeLogText(log);
         }
     }
-
     public void IncreaseTestMoney1()
     {
         isUpgradeMoney = !isUpgradeMoney;
@@ -184,7 +190,7 @@ public class GameUiManager : Singleton<GameUiManager>
     {
         if (isPlayerDataOn)
             SettingPlayerStatsTextUpdate();
-
+        CheckAndExecute(isUpgradeMoney, () => CurrencyManager.IncreaseMoney1(test), -1);
         if (uiLanaguage != Global.language)
         {
             uiLanaguage = Global.language;
@@ -195,28 +201,16 @@ public class GameUiManager : Singleton<GameUiManager>
     }
     private void SettingPlayerStatsDisplayInit()
     {
-        CheckAndExecute(true, SharedPlayerStats.IncreasePlayerPower, 0, "공격력 : ", true);
-        CheckAndExecute(true, SharedPlayerStats.IncreasePlayerPowerBoost, 1, "공격력 증폭: ", true);
-        CheckAndExecute(true, SharedPlayerStats.IncreasePlayerAttackSpeed, 2, "공격속도: ", true);
-        CheckAndExecute(true, SharedPlayerStats.IncreaseAttackCritical, 3, "치명타 : ", true);
-        CheckAndExecute(true, SharedPlayerStats.IncreaseAttackCriticalPower, 4, "치명타 피해: ", true);
-        CheckAndExecute(true, SharedPlayerStats.IncreaseMonsterDamagePower, 5, "몬스터 데미지: ", true);
-        CheckAndExecute(true, SharedPlayerStats.IncreaseHp, 6, "HP : ", true);
-        CheckAndExecute(true, SharedPlayerStats.IncreaseHealing, 7, "HP 회복 : ", true);
+        CheckAndExecute(true, 0);
+        CheckAndExecute(true, 1);
+        CheckAndExecute(true, 2);
+        CheckAndExecute(true, 3);
+        CheckAndExecute(true, 4);
+        CheckAndExecute(true, 5);
+        CheckAndExecute(true, 6);
+        CheckAndExecute(true, 7);
     }
-    private void SettingPlayerStatsTextUpdate()
-    {
-        CheckAndExecute(isPlayerStatsButtonDown[0], SharedPlayerStats.IncreasePlayerPower, 0, "공격력 : ");
-        CheckAndExecute(isPlayerStatsButtonDown[1], SharedPlayerStats.IncreasePlayerPowerBoost, 1, "공격력 증폭: ");
-        CheckAndExecute(isPlayerStatsButtonDown[2], SharedPlayerStats.IncreasePlayerAttackSpeed, 2, "공격속도: ");
-        CheckAndExecute(isPlayerStatsButtonDown[3], SharedPlayerStats.IncreaseAttackCritical, 3, "치명타 : ");
-        CheckAndExecute(isPlayerStatsButtonDown[4], SharedPlayerStats.IncreaseAttackCriticalPower, 4, "치명타 피해: ");
-        CheckAndExecute(isPlayerStatsButtonDown[5], SharedPlayerStats.IncreaseMonsterDamagePower, 5, "몬스터 데미지: ");
-        CheckAndExecute(isPlayerStatsButtonDown[6], SharedPlayerStats.IncreaseHp, 6, "HP : ");
-        CheckAndExecute(isPlayerStatsButtonDown[7], SharedPlayerStats.IncreaseHealing, 7, "HP 회복 : ");
-        CheckAndExecute(isUpgradeMoney, () => SharedPlayerStats.IncreaseMoney(test), -1, "");
-    }
-    private void CheckAndExecute(bool condition, Action action, int statsIndex, string label, bool isInit = false)
+    private void CheckAndExecute(bool condition, int statsIndex)
     {
         string str = string.Empty;
         if (statsIndex >= 0)
@@ -233,7 +227,40 @@ public class GameUiManager : Singleton<GameUiManager>
                     break;
             }
         }
-        if ((condition && nowTime + clickTime < Time.time) || isInit)
+        if (statsIndex >= 0)
+        {
+            playerStatsData[statsIndex].text = $"{str} : {GetStat(statsIndex)}";
+        }
+    }
+    private void SettingPlayerStatsTextUpdate()
+    {
+        CheckAndExecute(isPlayerStatsButtonDown[0], SharedPlayerStats.IncreasePlayerPower, 0);
+        CheckAndExecute(isPlayerStatsButtonDown[1], SharedPlayerStats.IncreasePlayerPowerBoost,1);
+        CheckAndExecute(isPlayerStatsButtonDown[2], SharedPlayerStats.IncreasePlayerAttackSpeed, 2);
+        CheckAndExecute(isPlayerStatsButtonDown[3], SharedPlayerStats.IncreaseAttackCritical, 3);
+        CheckAndExecute(isPlayerStatsButtonDown[4], SharedPlayerStats.IncreaseAttackCriticalPower, 4);
+        CheckAndExecute(isPlayerStatsButtonDown[5], SharedPlayerStats.IncreaseMonsterDamagePower, 5);
+        CheckAndExecute(isPlayerStatsButtonDown[6], SharedPlayerStats.IncreaseHp, 6);
+        CheckAndExecute(isPlayerStatsButtonDown[7], SharedPlayerStats.IncreaseHealing, 7);
+    }
+    private void CheckAndExecute(bool condition, Action action, int statsIndex)
+    {
+        string str = string.Empty;
+        if (statsIndex >= 0)
+        {
+            var id = "PlayerUpgradeStatsDisplay" + "00" + statsIndex.ToString();
+            var data = playerStatsTexts[id];
+            switch (Global.language)
+            {
+                case Language.KOR:
+                    str = data.kor;
+                    break;
+                case Language.ENG:
+                    str = data.eng;
+                    break;
+            }
+        }
+        if (condition && nowTime + clickTime < Time.time)
         {
             nowTime = Time.time;
             action.Invoke();
@@ -263,7 +290,7 @@ public class GameUiManager : Singleton<GameUiManager>
     }
     private void ResetStringMoney1()
     {
-        moneyList[0].text = $"{UnitConverter.OutString(SharedPlayerStats.money1)}";
+        moneyList[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
     }
 
     private void SettingPlayerStatsButton()

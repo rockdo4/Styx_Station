@@ -31,7 +31,7 @@ public class QuestSystem : MonoBehaviour
         if(a == questSystem[clearIndex].intByClearCondition)
         {
             Debug.Log($"Get Money{questSystem[clearIndex].clearCompensation}");
-            SharedPlayerStats.money1 += questSystem[clearIndex].clearCompensation;
+            CurrencyManager.money1 += questSystem[clearIndex].clearCompensation;
             clearIndex++;
             SetString();
         }

@@ -10,23 +10,26 @@ public class PetAttack : PetStateBase
 
     public override void Enter()
     {
-        petController.GetAnimator().SetBool("Attack", true);
-        petController.GetAnimator().SetFloat("NormalState", 0.5f);
+        petController.GetAnimator().SetTrigger("Attack");
+        petController.GetAnimator().SetFloat("NormalState", 0f);
         petController.GetAnimator().speed = petController.attackSpeed;
     }
 
     public override void Exit()
     {
-        petController.GetAnimator().SetBool("Attack", false);
+
         petController.GetAnimator().speed = 1f;
-        petController.GetAnimator().SetFloat("NormalState", 0f);
-        petController.SetState(States.Idle);
     }
 
     public override void FixedUpate()
     {
-       
-    }
+        var test = Physics2D.OverlapCircle(petController.transform.position, petController.range, petController.layerMask);
+        if (test == null)
+        {
+            petController.SetState(States.Idle);
+            petController.GetAnimator().SetTrigger("Idle");
+        }
+        }
 
     public override void Update()
     {

@@ -49,7 +49,7 @@ public class PlayerScriptObjectEditor :Editor
                         var data = playerObject.playerCharacter.AddComponent<PlayerAttributes>();
                         data.attackPower = playerObject.attackPower;
                         data.attackSpeed = playerObject.attackSpeed;
-                        data.hp = playerObject.playerHp;
+                        data.MaxHp = playerObject.playerHp;
                         data.playerAttackRange = playerObject.playerAttackRange;
 
                         Debug.Log("Done make by PlayerAttributes");

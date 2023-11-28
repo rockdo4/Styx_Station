@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 
@@ -14,17 +15,17 @@ public class AttackDefinition : ScriptableObject
     public float maxDamage;
     public float criticalChance; //치명타 확률 0.0 ~ 1.0
     public float criticalMultiplier; //치명타 계수
-
+    public BigInteger currentDamage =new BigInteger(0);
     
     public Attack CreateAttackToPlayer(MonsterStats attacker, ResultPlayerStats defender)
     {
-        float damage = attacker.damage;
+        BigInteger damage = attacker.damage;
         //if (defender != null) //방어력 추가되면 변경
         //{
         //    damage -= defender.armor; //데미지 방어량 제외
         //}
 
-        return new Attack((int)damage, false);
+        return new Attack(damage, false);
     }
 
     public Attack CreateAttackToMonster(ResultPlayerStats attacker, MonsterStats defender)
@@ -34,9 +35,9 @@ public class AttackDefinition : ScriptableObject
         randomFloat = Mathf.Round(randomFloat * 10f) / 10f;
         bool isCritical = randomFloat <= criticalChance;
 
-        float damage = attacker.ResultMonsterNormalDamage(isCritical, 0);
+        currentDamage = attacker.ResultMonsterNormalDamage(isCritical, 0);
 
-        return new Attack((int)damage, false);
+        return new Attack(currentDamage, false);
     }
 
     //public Attack CreateAttackToPlayer(CharacterStats attacker, CharacterStats defender)

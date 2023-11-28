@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class MonsterStats : MonoBehaviour
 {
     [Header("몬스터 최대 체력")]
-    public float maxHp;
+    public BigInteger maxHp;
 
-    public float currHealth { get; set; }
+    public BigInteger currHealth { get; set; }
 
     [Header("몬스터 데미지")]
-    public float damage;
+    public BigInteger damage;
 
     [Header("몬스터 공격 타입(원거리 or 근거리)")]
     public AttackType attackType = AttackType.None;
@@ -22,7 +23,7 @@ public class MonsterStats : MonoBehaviour
     {
         currHealth = maxHp;
     }
-    public void SetStats(float maxH, float d, AttackType attackT, float s)
+    public void SetStats(BigInteger maxH, BigInteger d, AttackType attackT, float s)
     {
         maxHp = maxH;
         currHealth = maxHp;

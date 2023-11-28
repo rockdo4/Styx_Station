@@ -121,30 +121,30 @@ public class PlayerUpgradeStats : MonoBehaviour
 
     public void IncreaseMoney1(BigInteger money)
     {
-        SharedPlayerStats.money1 += money * (money * money1GainRate / percentage);
-        moneyText1.text = UnitConverter.OutString(SharedPlayerStats.money1);
+        CurrencyManager.money1 += money * (money * money1GainRate / percentage);
+        moneyText1.text = UnitConverter.OutString(CurrencyManager.money1);
     }
     public void OutPutMoney1()
     {
-        moneyText1.text = UnitConverter.OutString(SharedPlayerStats.money1);
+        moneyText1.text = UnitConverter.OutString(CurrencyManager.money1);
     }
     public void IncreaseMoney2(BigInteger money)
     {
-        SharedPlayerStats.money2 += money * (money * money1GainRate / percentage);
-        moneyText2.text = UnitConverter.OutString(SharedPlayerStats.money2);
+        CurrencyManager.money2 += money * (money * money1GainRate / percentage);
+        moneyText2.text = UnitConverter.OutString(CurrencyManager.money2);
     }
     public void OutPutMoney2()
     {
-        moneyText2.text = UnitConverter.OutString(SharedPlayerStats.money2);
+        moneyText2.text = UnitConverter.OutString(CurrencyManager.money2);
     }
     public void IncreaseMoney3(BigInteger money)
     {
-        SharedPlayerStats.money3 += money * (money * money1GainRate / percentage);
-        moneyText3.text = UnitConverter.OutString(SharedPlayerStats.money3);
+        CurrencyManager.money3 += money * (money * money1GainRate / percentage);
+        moneyText3.text = UnitConverter.OutString(CurrencyManager.money3);
     }
     public void OutPutMoney3()
     {
-        moneyText3.text = UnitConverter.OutString(SharedPlayerStats.money3);
+        moneyText3.text = UnitConverter.OutString(CurrencyManager.money3);
     }
 
     public void UPMoney1TestButton()

@@ -5,12 +5,11 @@ using UnityEngine;
 public class PlayerAttributes : MonoBehaviour
 {
     // player 기본 스탯 내용 
-    [SerializeField,Range(0,1000)]
-    [Header("HP")]
     public int hp;
 
+    [SerializeField, Range(0, 1000)]
+    [Header("HP")]
     public int MaxHp;
-
     [SerializeField, Range(0, 500)]
     [Header("공격력")]
     public int attackPower; 
@@ -36,6 +35,10 @@ public class PlayerAttributes : MonoBehaviour
             }
         }
     }
+    private void FixedUpdate()
+    {
+        
+    }
     private void Update()
     {
         if(hp <= 0 )
@@ -44,4 +47,3 @@ public class PlayerAttributes : MonoBehaviour
         }
     }
 }
-// 유림이랑애기해서 hp 부분 변경해야할듯 maxHp와 별개로 동작해야하기때문

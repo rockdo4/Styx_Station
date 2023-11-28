@@ -9,7 +9,6 @@ public class EquipButton : MonoBehaviour
 
     public ItemType type;
     public int itemIndex;
-    public int equipIndex;
 
     public void OnClickDequip()
     {
@@ -22,26 +21,23 @@ public class EquipButton : MonoBehaviour
         {
             case ItemType.Weapon:
                 item = inventory.weapons[itemIndex];
-                inventory.DequipItem(item, equipIndex);
+                inventory.DequipItem(item, type);
                 break;
             case ItemType.Armor:
                 item = inventory.armors[itemIndex];
-                inventory.DequipItem(item, equipIndex);
+                inventory.DequipItem(item, type);
                 break;
             case ItemType.Ring:
                 item = inventory.customRings[itemIndex].item;
-                inventory.DequipItem(item, equipIndex);
+                inventory.DequipItem(item, type);
                 break;
             case ItemType.Symbol:
                 item = inventory.customSymbols[itemIndex].item;
-                inventory.DequipItem(item, equipIndex);
+                inventory.DequipItem(item, type);
                 break;
         }
 
         itemIndex = -1;
         itemname.text = "None";
-
-        //baseUi.equipWindow.GetComponent<EquipWindow>().ClearItemInfo();
-        //baseUi.stateWindow.GetComponent<StateWindow>().GetState();
     }
 }

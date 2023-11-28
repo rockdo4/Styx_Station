@@ -8,6 +8,13 @@ public class CreateCustom : MonoBehaviour
 
     public Button baseItem;
 
+    public Inventory inventory;
+
+    private void Awake()
+    {
+        inventory = InventorySystem.Instance.inventory;
+    }
+
     public void CreateCustomItem()
     {
         var item = baseItem.GetComponent<BaseCustomButton>();
@@ -15,10 +22,7 @@ public class CreateCustom : MonoBehaviour
         if (item == null)
             return;
 
-        if (item.item == null)
-            return;
-
-        if (item.item.item == null)
+        if (item.itemIndex < 0)
             return;
 
         var table = InventorySystem.Instance.optionTable;
@@ -32,13 +36,25 @@ public class CreateCustom : MonoBehaviour
 
         int optionCount = 0;
 
-        switch(item.item.item.tier)
+        ItemTier tier = ItemTier.Common;
+
+        switch (item.type)
+        {
+            case ItemType.Ring:
+                tier = inventory.rings[item.itemIndex].item.tier;
+                break;
+            case ItemType.Symbol:
+                tier = inventory.symbols[item.itemIndex].item.tier;
+                break;
+        }
+
+        switch (tier)
         {
             case ItemTier.Common:
                 optionCount = 1;
                 break;
             case ItemTier.Uncommon:
-                optionCount = 2; 
+                optionCount = 2;
                 break;
 
             case ItemTier.Rare:
@@ -51,20 +67,36 @@ public class CreateCustom : MonoBehaviour
                 break;
         }
 
-        optionCount -= item.item.item.addOptions.Count;
+        switch (item.type)
+        {
+            case ItemType.Ring:
+                optionCount -= inventory.rings[item.itemIndex].item.addOptions.Count;
+                break;
+            case ItemType.Symbol:
+                optionCount -= inventory.symbols[item.itemIndex].item.addOptions.Count;
+                break;
+        }
+
 
         if (optionCount <= 0)
             return;
 
-        var dummy = InventorySystem.Instance.Custom(item.item.item, optionCount, custom.name);
-
-        switch(item.item.item.type)
+        switch (item.type)
         {
             case ItemType.Ring:
-                baseUi.equipWindow.AddRing(dummy);
+                {
+                    var baseItem = inventory.rings[item.itemIndex].item;
+                    var dummy = InventorySystem.Instance.Custom(baseItem, optionCount, custom.name);
+                    baseUi.equipWindow.AddRing(dummy.index, item.itemIndex);
+                }
                 break;
+
             case ItemType.Symbol:
-                baseUi.equipWindow.AddSymbol(dummy);
+                {
+                    var baseItem = inventory.symbols[item.itemIndex].item;
+                    var dummy = InventorySystem.Instance.Custom(baseItem, optionCount, custom.name);
+                    baseUi.equipWindow.AddSymbol(dummy.index, item.itemIndex);
+                }
                 break;
         }
     }

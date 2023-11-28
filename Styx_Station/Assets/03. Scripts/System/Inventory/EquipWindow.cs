@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static Inventory;
 using System.Text;
 
 public class EquipWindow : MonoBehaviour
 {
-    public InventoryUI baseInventory;
+    private Inventory inventory;
     public GameObject equip;
     public GameObject tabs;
     public GameObject itemScroll;
@@ -25,24 +24,44 @@ public class EquipWindow : MonoBehaviour
     private List<Button> customRingButtons = new List<Button>();
     private List<Button> customSymbolButtons = new List<Button>();
 
+    private void Awake()
+    {
+        inventory = InventorySystem.Instance.inventory;
+    }
 
     public void Setting()
     {
-        var inventory = InventorySystem.Instance.inventory;
-        int length = inventory.GetEquipItemsLength();
-        int weaponsLeng = inventory.weapons.Count;
-        int armorsLeng = inventory.armors.Count;
-        int customRingLeng = inventory.customRings.Count;
-        int customSymbolLeng = inventory.customSymbols.Count;
+        EquipButtonCreate();
+        TabsButtonCreate();
+        WeaponButtonCreate();
+        ArmorButtonCreate();
+        RingButtonCreate();
+        SymbolButtonCreate();
+        GetTypeEvent(ItemType.Weapon);
+        ViewItemInfo(0);
+    }
 
-        for (int i = 0; i < length; i++)
+    private void EquipButtonCreate()
+    {
+        int length = inventory.GetEquipItemsLength();
+        int index = 0;
+
+        if (length <= 0)
+            return;
+
+        if(length>= equipButtons.Count)
+            index = equipButtons.Count;
+
+        for (int i = index; i < length; i++)
         {
             Button equipButton = Instantiate(equipPrefabs, equip.transform);
             var equipUi = equipButton.GetComponent<EquipButton>();
             equipUi.inventory = inventory;
-            equipUi.equipIndex = i;
-            equipButton.onClick.AddListener(equipUi.OnClickDequip);
+            equipUi.type = (ItemType)i;
 
+            equipButton.onClick.RemoveAllListeners();
+            equipButton.onClick.AddListener(equipUi.OnClickDequip);
+            equipButton.onClick.AddListener(() => ViewItemInfo((int)equipUi.type));
             var equipItem = inventory.GetEquipItem(i);
             if (equipItem != null)
             {
@@ -57,136 +76,268 @@ public class EquipWindow : MonoBehaviour
 
             equipButtons.Add(equipButton);
         }
+    }
 
-        for (int i = 0; i < length; i++)
+    private void TabsButtonCreate()
+    {
+        int length = inventory.GetEquipItemsLength();
+        int index = 0;
+
+        if (length <= 0)
+            return;
+
+        if (length >= tabButtons.Count)
+            index = tabButtons.Count;
+
+        for (int i = index; i < length; i++)
         {
             Button tabButton = Instantiate(tabPrefabs, tabs.transform);
+
+            var ui = tabButton.GetComponent<TabsButton>();
             ItemType tabType = (ItemType)i;
+            ui.type = tabType;
 
             tabButton.GetComponentInChildren<TextMeshProUGUI>().text = tabType.ToString();
             tabButton.onClick.AddListener(() => GetTypeEvent(tabType));
+            tabButton.onClick.AddListener(() => ViewItemInfo((int)ui.type));
             tabButtons.Add(tabButton);
         }
+    }
 
-        for (int i = 0; i < weaponsLeng; ++i)
+    private void WeaponButtonCreate()
+    {
+        int weaponsLeng = inventory.weapons.Count;
+        int index = 0;
+
+        if (weaponsLeng <= 0)
+            return;
+
+        if(weaponsLeng >= weaponButtons.Count)
+            index = weaponButtons.Count;
+        else if (weaponsLeng < weaponButtons.Count)
         {
-            Button Button = Instantiate(itemPrefabs, itemScroll.transform);
-            var ui = Button.GetComponent<ItemButton>();
-            ui.item = InventorySystem.Instance.inventory.weapons[i];
-            ui.baseUi = baseInventory;
-            ui.itemname.text = ui.item.item.itemName;
-            ui.equipIndex = 0;
-            ui.AcqurieItem();
-            Button.onClick.AddListener(ui.OnClickEquip);
-            weaponButtons.Add(Button);
+            for (int i = weaponButtons.Count-1; i >= 0; i--)
+            {
+                weaponButtons.RemoveAt(i);
+            }
         }
 
-        for (int i = 0; i < armorsLeng; ++i)
+        for (int i = index; i < weaponsLeng; ++i)
         {
             Button Button = Instantiate(itemPrefabs, itemScroll.transform);
             var ui = Button.GetComponent<ItemButton>();
-            ui.item = InventorySystem.Instance.inventory.armors[i];
-            ui.baseUi = baseInventory;
-            ui.itemname.text = ui.item.item.itemName;
-            ui.equipIndex = 1;
+            ui.inventory = inventory;
+            ui.type = ItemType.Weapon;
+            ui.itemname.text = inventory.weapons[i].item.itemName;
+            ui.itemIndex = i;
             ui.AcqurieItem();
-            Button.onClick.AddListener(ui.OnClickEquip);
+            Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[0].gameObject));
+            Button.onClick.AddListener(() => ViewItemInfo(0));
+            Button.gameObject.SetActive(false);
+            weaponButtons.Add(Button);
+        }
+    }
+
+    private void ArmorButtonCreate()
+    {
+        int armorsLeng = inventory.armors.Count;
+        int index = 0;
+
+        if (armorsLeng <= 0)
+            return;
+
+        if (armorsLeng >= armorButtons.Count)
+            index = armorButtons.Count;
+        else if (armorsLeng < armorButtons.Count)
+        {
+            for (int i = armorButtons.Count - 1; i >= 0; i--)
+            {
+                armorButtons.RemoveAt(i);
+            }
+        }
+
+        for (int i = index; i < armorsLeng; ++i)
+        {
+            Button Button = Instantiate(itemPrefabs, itemScroll.transform);
+            var ui = Button.GetComponent<ItemButton>();
+            ui.inventory = inventory;
+            ui.type = ItemType.Armor;
+            ui.itemname.text = inventory.armors[i].item.itemName;
+            ui.itemIndex = i;
+            ui.AcqurieItem();
+            Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[1].gameObject));
+            Button.onClick.AddListener(() => ViewItemInfo(1));
             Button.gameObject.SetActive(false);
             armorButtons.Add(Button);
         }
+    }
 
-        for (int i = 0; i < customRingLeng; ++i)
+    private void RingButtonCreate()
+    {
+        int customRingLeng = inventory.customRings.Count;
+        int index = 0;
+
+        if (customRingLeng <= 0)
+            return;
+
+        if (customRingLeng >= customRingButtons.Count)
+            index = customRingButtons.Count;
+        else if(customRingLeng<customRingButtons.Count)
+        {
+            for(int i=customRingButtons.Count-1; i>=0; i--)
+            {
+                customRingButtons.RemoveAt(i);
+            }
+        }
+
+        for (int i = index; i < customRingLeng; ++i)
         {
             Button Button = Instantiate(itemPrefabs, itemScroll.transform);
             var ui = Button.GetComponent<ItemButton>();
-            ui.item = InventorySystem.Instance.inventory.customRings[i].item;
-            ui.baseUi = baseInventory;
-            ui.itemname.text = ui.item.item.itemName;
-            ui.equipIndex = 2;
+            ui.inventory = inventory;
+            ui.type = ItemType.Ring;
+            ui.itemname.text = inventory.customRings[i].item.item.itemName;
+            ui.itemIndex = i;
             ui.AcqurieItem();
-            Button.onClick.AddListener(ui.OnClickEquip);
+            Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[2].gameObject));
+            Button.onClick.AddListener(() => ViewItemInfo(2));
             Button.gameObject.SetActive(false);
             customRingButtons.Add(Button);
         }
+    }
 
-        for (int i = 0; i < customSymbolLeng; ++i)
+    private void SymbolButtonCreate()
+    {
+        int customSymbolLeng = inventory.customSymbols.Count;
+        int index = 0;
+
+        if (customSymbolLeng <= 0)
+            return;
+
+        if (customSymbolLeng >= customSymbolButtons.Count)
+            index = customSymbolButtons.Count;
+        else if (customSymbolLeng < customSymbolButtons.Count)
+        {
+            for (int i = customSymbolButtons.Count-1; i >= 0; i--)
+            {
+                customSymbolButtons.RemoveAt(i);
+            }
+        }
+
+        for (int i = index; i < customSymbolLeng; ++i)
         {
             Button Button = Instantiate(itemPrefabs, itemScroll.transform);
             var ui = Button.GetComponent<ItemButton>();
-            ui.item = InventorySystem.Instance.inventory.customSymbols[i].item;
-            ui.baseUi = baseInventory;
-            ui.itemname.text = ui.item.item.itemName;
-            ui.equipIndex = 3;
+            ui.inventory = inventory;
+            ui.type = ItemType.Symbol;
+            ui.itemname.text = inventory.customSymbols[i].item.item.itemName;
+            ui.itemIndex = i;
             ui.AcqurieItem();
-            Button.onClick.AddListener(ui.OnClickEquip);
+            Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[3].gameObject));
+            Button.onClick.AddListener(() => ViewItemInfo(3));
             Button.gameObject.SetActive(false);
             customSymbolButtons.Add(Button);
         }
-
-        GetTypeEvent(ItemType.Weapon);
     }
 
-    public void AddRing(InventoryItem item)
+    public void AddRing(int itemIndex, int baseIndex)
     {
+        var inventory = InventorySystem.Instance.inventory;
         Button Button = Instantiate(itemPrefabs, itemScroll.transform);
         var ui = Button.GetComponent<ItemButton>();
-        ui.item = item;
-        ui.baseUi = baseInventory;
-        ui.itemname.text = ui.item.item.itemName;
-        ui.equipIndex = 2;
+        ui.inventory = inventory;
+        ui.type = ItemType.Ring;
+        ui.itemname.text = inventory.rings[baseIndex].item.itemName;
+        ui.itemIndex = itemIndex;
         ui.AcqurieItem();
-        Button.onClick.AddListener(ui.OnClickEquip);
+        Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[2].gameObject));
         Button.gameObject.SetActive(false);
         customRingButtons.Add(Button);
         GetTypeEvent(ItemType.Ring);
     }
 
-    public void AddSymbol(InventoryItem item) 
+    public void AddSymbol(int itemIndex, int baseIndex) 
     {
+        var inventory = InventorySystem.Instance.inventory;
         Button Button = Instantiate(itemPrefabs, itemScroll.transform);
         var ui = Button.GetComponent<ItemButton>();
-        ui.item = item;
-        ui.baseUi = baseInventory;
-        ui.itemname.text = ui.item.item.itemName;
-        ui.equipIndex = 3;
+        ui.inventory = inventory;
+        ui.type = ItemType.Symbol;
+        ui.itemname.text = inventory.symbols[baseIndex].item.itemName;
+        ui.itemIndex = itemIndex;
         ui.AcqurieItem();
-        Button.onClick.AddListener(ui.OnClickEquip);
+        Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[3].gameObject));
         Button.gameObject.SetActive(false);
         customSymbolButtons.Add(Button);
         GetTypeEvent(ItemType.Symbol);
     }
 
-    //public void ViewItemInfo(int equipIndex)
-    //{
-    //    if (equipButtons[equipIndex] == null)
-    //        return;
+    public void ViewItemInfo(int equipIndex)
+    {
+        if (equipButtons[equipIndex] == null)
+            return;
 
-    //    var item = equipButtons[equipIndex].GetComponent<EquipButton>();
+        var item = equipButtons[equipIndex].GetComponent<EquipButton>();
 
-    //    if (item == null)
-    //        return;
+        if (item.itemIndex<0)
+        {
+            itemText.text = "";
+            return;
+        }
 
-    //    if (item.item == null)
-    //        return;
+        var text = new StringBuilder();
 
-    //    if (item.item.item == null)
-    //    {
-    //        itemText.text = "";
-    //        return;
-    //    }
+        text.AppendLine();
+        text.AppendLine("Option");
+        text.AppendLine();
 
-    //    var text = new StringBuilder();
+        switch(item.type)
+        {
+            case ItemType.Weapon:
+                {
+                    var equipItem = inventory.weapons[item.itemIndex];
 
-    //    text.AppendLine("고정 옵션");
-    //    text.AppendLine();
+                    foreach (var option in equipItem.item.options)
+                    {
+                        text.AppendLine($"{option.option} : {option.value + option.upgradeValue * equipItem.upgradeLev}");
+                    }
+                }
+                break;
+            case ItemType.Armor:
+                {
+                    var equipItem = inventory.armors[item.itemIndex];
 
-    //    foreach(var option in item.item.item.options)
-    //    {
-    //        text.AppendLine($"{option.option} : {option.value + option.upgradeValue * item.item.upgradeLev}");
-    //    }
+                    foreach (var option in equipItem.item.options)
+                    {
+                        text.AppendLine($"{option.option} : {option.value + option.upgradeValue * equipItem.upgradeLev}");
+                    }
+                }
+                break;
+            case ItemType.Ring:
+                {
+                    var equipItem = inventory.customRings[item.itemIndex].item;
 
-    //    itemText.text = text.ToString();
-    //}
+                    foreach (var option in equipItem.item.options)
+                    {
+                        text.AppendLine($"{option.option} : {option.value + option.upgradeValue * equipItem.upgradeLev}");
+                    }
+                }
+                    break;
+            case ItemType.Symbol:
+                {
+                    var equipItem = inventory.customSymbols[item.itemIndex].item;
+
+                    foreach (var option in equipItem.item.options)
+                    {
+                        text.AppendLine($"{option.option} : {option.value + option.upgradeValue * equipItem.upgradeLev}");
+                    }
+                }
+                    break;
+        }
+
+
+        itemText.text = text.ToString();
+    }
 
     public void ClearItemInfo()
     {
@@ -225,7 +376,7 @@ public class EquipWindow : MonoBehaviour
         foreach(var equip in equipButtons)
         {
             var equipUi = equip.GetComponent<EquipButton>();
-            if(equipUi.equipIndex == 0)
+            if(equipUi.type == ItemType.Weapon)
             {
                 equip.gameObject.SetActive(true);
                 //ViewItemInfo(0);
@@ -254,7 +405,7 @@ public class EquipWindow : MonoBehaviour
         foreach (var equip in equipButtons)
         {
             var equipUi = equip.GetComponent<EquipButton>();
-            if (equipUi.equipIndex == 1)
+            if (equipUi.type == ItemType.Armor)
             {
                 equip.gameObject.SetActive(true);
                 //ViewItemInfo(1);
@@ -283,7 +434,7 @@ public class EquipWindow : MonoBehaviour
         foreach (var equip in equipButtons)
         {
             var equipUi = equip.GetComponent<EquipButton>();
-            if (equipUi.equipIndex == 2)
+            if (equipUi.type == ItemType.Ring)
             {
                 equip.gameObject.SetActive(true);
                 //ViewItemInfo(2);
@@ -312,7 +463,7 @@ public class EquipWindow : MonoBehaviour
         foreach (var equip in equipButtons)
         {
             var equipUi = equip.GetComponent<EquipButton>();
-            if (equipUi.equipIndex == 3)
+            if (equipUi.type == ItemType.Symbol)
             {
                 equip.gameObject.SetActive(true);
                 //ViewItemInfo(3);

@@ -60,6 +60,9 @@ public class SaveLoad : MonoBehaviour
             var equip = inventory.GetEquipItem(i);
 
             if(equip == null)
+                continue;
+
+            if(equip.item == null)
                 continue; 
 
             EquipData equips = new EquipData(equip.item.name, equip.item.type);
@@ -132,6 +135,8 @@ public class SaveLoad : MonoBehaviour
                 }
             }
 
+            inventory.CustomReset();
+
             if (jsonObject.TryGetValue("customRingData", out JToken ringToken))
             {
                 string customRings = ringToken.ToString();
@@ -147,7 +152,7 @@ public class SaveLoad : MonoBehaviour
             if (jsonObject.TryGetValue("customSymbolData", out JToken symbolToken))
             {
                 string customSymbols = symbolToken.ToString();
-                var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);
+                var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);       
                 foreach (var item in sData)
                 {
                     var baseItem = inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
@@ -168,25 +173,25 @@ public class SaveLoad : MonoBehaviour
                         case ItemType.Weapon:
                             var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
                             if (weapon != null)
-                                inventory.EquipItem(weapon, 0);
+                                inventory.EquipItem(weapon.index, item.itemType);
                             break;
 
                         case ItemType.Armor:
                             var aromr = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
                             if (aromr != null)
-                                inventory.EquipItem(aromr, 1);
+                                inventory.EquipItem(aromr.index, item.itemType);
                             break;
 
                         case ItemType.Ring:
                             var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                             if (ring != null)
-                                inventory.EquipItem(ring.item, 2);
+                                inventory.EquipItem(ring.item.index, item.itemType);
                             break;
 
                         case ItemType.Symbol:
                             var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                             if (symbol != null)
-                                inventory.EquipItem(symbol.item, 3);
+                                inventory.EquipItem(symbol.item.index, item.itemType);
                             break;
                     }
                 }

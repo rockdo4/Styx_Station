@@ -37,10 +37,29 @@ public class EquipWindow : MonoBehaviour
         ArmorButtonCreate();
         RingButtonCreate();
         SymbolButtonCreate();
+        EquipItemUpdate();
         GetTypeEvent(ItemType.Weapon);
         ViewItemInfo(0);
     }
 
+    private void EquipItemUpdate()
+    {
+        for(int i=0; i<equipButtons.Count;++i)
+        {
+            var equipUi = equipButtons[i].GetComponent<EquipButton>();
+            var equipItem = inventory.GetEquipItem(i);
+            if (equipItem != null)
+            {
+                equipUi.itemIndex = equipItem.index;
+                equipUi.itemname.text = equipItem.item.itemName;
+            }
+            else
+            {
+                equipUi.itemIndex = -1;
+                equipUi.itemname.text = "None";
+            }
+        }
+    }
     private void EquipButtonCreate()
     {
         int length = inventory.GetEquipItemsLength();

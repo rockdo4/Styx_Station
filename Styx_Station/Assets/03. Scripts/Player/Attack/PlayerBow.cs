@@ -19,6 +19,8 @@ public class PlayerBow : PoolAble
     private float increaseAttackSpeed = 0.01f;
     private bool isRelease = false;
     private ContactFilter2D filter2D = new ContactFilter2D();
+    private float timer = 0f;
+    private float destroyTime = 10f;
 
 
     private void Awake()
@@ -49,6 +51,17 @@ public class PlayerBow : PoolAble
         rb.MovePosition(rb.position + moveVector);
     }
 
+    private void Update()
+    {
+        //timer += Time.time;
+        //if(timer > destroyTime)
+        //{
+        //    isRelease = true;
+        //    timer = 0f;
+        //    ReleaseObject();
+        //}
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Collider2D[] colliders = other.GetComponents<Collider2D>();
@@ -60,12 +73,16 @@ public class PlayerBow : PoolAble
         {
             for(int i = 0; i < count; i++)
             {
-                if (colliders[i].gameObject.GetComponentInChildren<SortingGroup>().sortingOrder > attackedMon.GetComponentInChildren<SortingGroup>().sortingOrder)
+                if (colliders[i].gameObject.GetComponentInChildren<SortingGroup>().sortingOrder > 
+                    attackedMon.GetComponentInChildren<SortingGroup>().sortingOrder &&
+                    colliders[i].gameObject.GetComponent<MonsterStats>().currHealth > 0)
                 {
                     attackedMon = colliders[i];
                 }
             }
         }
+        if (attackedMon.GetComponent<MonsterStats>().currHealth <= 0)
+            return;
         if (OnCollided != null)
         {
             if(attackedMon == null)
@@ -79,6 +96,7 @@ public class PlayerBow : PoolAble
         if (!isRelease)
         {
             isRelease = true;
+            timer = 0f;
             ReleaseObject();
         }
         

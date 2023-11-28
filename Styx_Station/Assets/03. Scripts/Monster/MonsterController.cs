@@ -17,9 +17,21 @@ public class MonsterController : PoolAble //MonoBehaviour
     public GameObject target;
     public ExecuteHit executeHit;
 
+    private List<Color> originalColor = new List<Color>(); 
+
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
+    }
+
+    public void SetOriginalColor(List<Color> colorList)
+    {
+        originalColor = colorList;
+    }
+
+    public List<Color> GetOriginalColor()
+    {
+        return originalColor;
     }
 
     private void Awake()

@@ -18,6 +18,7 @@ public class MonsterAttackedRedEffect : MonoBehaviour, IAttackable
             originalColors.Add(spriteRenderers[i].color);
             Debug.Log(i);
         }
+        gameObject.GetComponent<MonsterController>().SetOriginalColor(originalColors);
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {

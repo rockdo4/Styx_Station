@@ -71,7 +71,7 @@ public class ProjectileBow : PoolAble
         if (OnCollided != null)
             OnCollided(caster, other.gameObject);
 
-        Debug.Log(other.name);
+        //Debug.Log(other.name);
         ReleaseObject();
         //Destroy(gameObject);
     }

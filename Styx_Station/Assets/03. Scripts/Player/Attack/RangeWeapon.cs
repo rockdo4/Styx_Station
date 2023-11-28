@@ -24,15 +24,17 @@ public class RangeWeapon : AttackDefinition
 
         var angle = Random.Range(minShotAngle, maxShotAngle + 1);
         Quaternion rotaion = Quaternion.Euler(0, 0, angle*shotAngleOffset);
-        Debug.Log(angle * shotAngleOffset);
+        //Debug.Log(angle * shotAngleOffset);
         var newDirection = rotaion * Vector2.right;
         var targetPos = startPos + newDirection.normalized * 10f;
 
         var bow = ObjectPoolManager.instance.GetGo(bowPrefab.name);
         bow.transform.position = startPos;
         var playerBow = bow.GetComponent<PlayerBow>();
-
-        playerBow.OnCollided += OnBowCollided;
+        if(!playerBow.CheckOnCollided())
+        {
+            playerBow.OnCollided += OnBowCollided;
+        }
         playerBow.Fire(attacker, speed, targetPos);
 
     }

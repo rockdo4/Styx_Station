@@ -120,7 +120,7 @@ public class ResultPlayerStats : MonoBehaviour
         {
             GetNormalDamage();
         }
-        Debug.Log(normalMonsterDamage);
+        //Debug.Log(normalMonsterDamage);
         return normalMonsterDamage - (normalMonsterDamage * monsterDefense);
     }
 

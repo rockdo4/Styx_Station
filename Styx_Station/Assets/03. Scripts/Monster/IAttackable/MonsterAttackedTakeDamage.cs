@@ -5,14 +5,19 @@ using UnityEngine;
 public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
 {
     private MonsterStats stats;
-    private void Awake()
+    //private void Awake()
+    //{
+    //    stats = GetComponent<MonsterStats>();
+    //}
+    private void OnEnable()
     {
         stats = GetComponent<MonsterStats>();
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
+        //Debug.Log(stats.currHealth);
         stats.currHealth -= attack.Damage;
-        Debug.Log($"OnAttack: {attack.Damage}");
+        //Debug.Log($"OnAttack: {attack.Damage}");
         if (stats.currHealth <= 0)
         {
             stats.currHealth = 0;

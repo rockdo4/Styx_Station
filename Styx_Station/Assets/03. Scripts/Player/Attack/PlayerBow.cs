@@ -21,6 +21,7 @@ public class PlayerBow : PoolAble
     private ContactFilter2D filter2D = new ContactFilter2D();
     private float timer = 0f;
     private float destroyTime = 10f;
+    private Camera mainCamera;
 
 
     private void Awake()
@@ -28,7 +29,10 @@ public class PlayerBow : PoolAble
         rb = GetComponent<Rigidbody2D>();
     }
 
-   
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     public void Fire(GameObject c, float s, Vector3 t)
     {
@@ -53,6 +57,16 @@ public class PlayerBow : PoolAble
 
     private void Update()
     {
+        if (!IsInCameraView())
+        {
+            if(!isRelease)
+            {
+                isRelease = true;
+                timer = 0f;
+                ReleaseObject();
+            }
+            //Destroy(gameObject);
+        }
         //timer += Time.time;
         //if(timer > destroyTime)
         //{
@@ -81,13 +95,21 @@ public class PlayerBow : PoolAble
                 }
             }
         }
-        if (attackedMon.GetComponent<MonsterStats>().currHealth <= 0)
+        if (attackedMon == null)
+        {
+            //Debug.Log("ERR: attackedMon Null");
             return;
+        }
+        if (attackedMon.GetComponent<MonsterStats>().currHealth <= 0)
+        {
+            //Debug.Log("Monster Health is 0");
+            return;
+        }
         if (OnCollided != null)
         {
             if(attackedMon == null)
             {
-                Debug.Log("ERR: attackedMon Null");
+                //Debug.Log("ERR: attackedMon Null");
                 return;
             }
             OnCollided(caster, attackedMon.gameObject);
@@ -100,5 +122,17 @@ public class PlayerBow : PoolAble
             ReleaseObject();
         }
         
+    }
+
+    bool IsInCameraView()
+    {
+        Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);
+        Vector3 screenPoint2D = mainCamera.ViewportToScreenPoint(screenPoint);
+        return screenPoint2D.x > 0 && screenPoint2D.x < Screen.width && screenPoint2D.y > 0 && screenPoint2D.y < Screen.height && screenPoint.z > 0;
+    }
+
+    public bool CheckOnCollided() //true: not null, false: null
+    {
+        return OnCollided != null;
     }
 }

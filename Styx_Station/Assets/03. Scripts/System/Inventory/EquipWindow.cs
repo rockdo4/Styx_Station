@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static Inventory;
+using System.Text;
 
 public class EquipWindow : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class EquipWindow : MonoBehaviour
     public GameObject equip;
     public GameObject tabs;
     public GameObject itemScroll;
+
+    public TextMeshProUGUI itemText;
 
     public Button tabPrefabs;
     public Button equipPrefabs;
@@ -36,26 +39,23 @@ public class EquipWindow : MonoBehaviour
         {
             Button equipButton = Instantiate(equipPrefabs, equip.transform);
             var equipUi = equipButton.GetComponent<EquipButton>();
+            equipUi.inventory = inventory;
+            equipUi.equipIndex = i;
+            equipButton.onClick.AddListener(equipUi.OnClickDequip);
+
             var equipItem = inventory.GetEquipItem(i);
             if (equipItem != null)
             {
-                equipUi.item = equipItem;
-                equipUi.baseUi = baseInventory;
+                equipUi.itemIndex = equipItem.index;
                 equipUi.itemname.text = equipItem.item.itemName;
             }
             else
             {
-                equipUi.baseUi = baseInventory;
+                equipUi.itemIndex = -1;
                 equipUi.itemname.text = "None";
             }
-            equipUi.equipIndex = i;
-            equipButton.onClick.AddListener(equipUi.OnClickDequip);
-            equipButtons.Add(equipButton);
 
-            if(i!=0)
-            {
-                equipButton.gameObject.SetActive(false);
-            }
+            equipButtons.Add(equipButton);
         }
 
         for (int i = 0; i < length; i++)
@@ -122,6 +122,8 @@ public class EquipWindow : MonoBehaviour
             Button.gameObject.SetActive(false);
             customSymbolButtons.Add(Button);
         }
+
+        GetTypeEvent(ItemType.Weapon);
     }
 
     public void AddRing(InventoryItem item)
@@ -153,6 +155,44 @@ public class EquipWindow : MonoBehaviour
         customSymbolButtons.Add(Button);
         GetTypeEvent(ItemType.Symbol);
     }
+
+    //public void ViewItemInfo(int equipIndex)
+    //{
+    //    if (equipButtons[equipIndex] == null)
+    //        return;
+
+    //    var item = equipButtons[equipIndex].GetComponent<EquipButton>();
+
+    //    if (item == null)
+    //        return;
+
+    //    if (item.item == null)
+    //        return;
+
+    //    if (item.item.item == null)
+    //    {
+    //        itemText.text = "";
+    //        return;
+    //    }
+
+    //    var text = new StringBuilder();
+
+    //    text.AppendLine("고정 옵션");
+    //    text.AppendLine();
+
+    //    foreach(var option in item.item.item.options)
+    //    {
+    //        text.AppendLine($"{option.option} : {option.value + option.upgradeValue * item.item.upgradeLev}");
+    //    }
+
+    //    itemText.text = text.ToString();
+    //}
+
+    public void ClearItemInfo()
+    {
+        itemText.ClearMesh();
+    }
+
     public void GetTypeEvent(ItemType type)
     {
         switch (type)
@@ -188,6 +228,7 @@ public class EquipWindow : MonoBehaviour
             if(equipUi.equipIndex == 0)
             {
                 equip.gameObject.SetActive(true);
+                //ViewItemInfo(0);
                 continue;
             }
 
@@ -216,6 +257,7 @@ public class EquipWindow : MonoBehaviour
             if (equipUi.equipIndex == 1)
             {
                 equip.gameObject.SetActive(true);
+                //ViewItemInfo(1);
                 continue;
             }
 
@@ -244,6 +286,7 @@ public class EquipWindow : MonoBehaviour
             if (equipUi.equipIndex == 2)
             {
                 equip.gameObject.SetActive(true);
+                //ViewItemInfo(2);
                 continue;
             }
 
@@ -272,6 +315,7 @@ public class EquipWindow : MonoBehaviour
             if (equipUi.equipIndex == 3)
             {
                 equip.gameObject.SetActive(true);
+                //ViewItemInfo(3);
                 continue;
             }
 

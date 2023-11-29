@@ -14,7 +14,7 @@ public class ResultPlayerStats : MonoBehaviour
 
     private BigInteger normalMonsterDamage = new BigInteger(0);
     private BigInteger skillMonsterDamage = new BigInteger(0);
-
+    private int prevUpgradeHp; 
     public int percentInt = 100;
     public float percentFloat = 100f;
     [Header("공격력 1강당")]
@@ -49,15 +49,26 @@ public class ResultPlayerStats : MonoBehaviour
     private void OnEnable()
     {
         SharedPlayerStats.resultPlayerStats = this;
+        prevUpgradeHp = SharedPlayerStats.GetHp()-1;
+        playerCurrentHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
+        playerMaxHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
     }
-    private void Update()
+    private void FixedUpdate()
     {
-        playerCurrentHp += SharedPlayerStats.GetHealing() * increaseUpgradeHealing;
-        if(playerCurrentHp >=playerMaxHp)
+        playerCurrentHp += SharedPlayerStats.GetHealing() * increaseUpgradeHealing / 10;
+        if (playerCurrentHp >= playerMaxHp)
         {
             playerCurrentHp = playerMaxHp;
         }
     }
+    private void Update()
+    {
+        
+    }
+
+    // 추후 체력 및 힐링하는 버튼 UP일때 작업 할 수 있게 하기
+
+
     public BigInteger GetPlayerPowerByNonInventory()
     {
         return (int)playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1);
@@ -89,9 +100,9 @@ public class ResultPlayerStats : MonoBehaviour
         var power = GetPlayerPower();
         var powerBoostResult = (int)(GetPowerBoost() * playerPowerBoostPercent) / playerPowerBoostPercent;
         var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
-        if (powerBoostResult == 0) powerBoostResult = 1;
-        if (monsterDamageResult == 0) monsterDamageResult = 1;
-        normalMonsterDamage = power + (power * powerBoostResult) * monsterDamageResult;
+        //if (powerBoostResult == 0) powerBoostResult = 1;
+        //if (monsterDamageResult == 0) monsterDamageResult = 1;
+        normalMonsterDamage = power + ((power * powerBoostResult) * monsterDamageResult);
     }
     private void GetNoramlCriticalDamage()
     {
@@ -99,10 +110,10 @@ public class ResultPlayerStats : MonoBehaviour
         var powerBoostResult = (int)(GetPowerBoost() * playerPowerBoostPercent) / playerPowerBoostPercent;
         var critclaPowerResult = (int)(GetCritclaPower() * criticlDamage) / criticlDamage;
         var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
-        if (critclaPowerResult == 0) critclaPowerResult = 1;
-        if (powerBoostResult == 0) powerBoostResult = 1;
-        if (monsterDamageResult == 0) monsterDamageResult = 1;
-        normalMonsterDamage = power + (power * powerBoostResult)* critclaPowerResult * monsterDamageResult;
+        //if (critclaPowerResult == 0) critclaPowerResult = 1;
+        //if (powerBoostResult == 0) powerBoostResult = 1;
+        //if (monsterDamageResult == 0) monsterDamageResult = 1;
+        normalMonsterDamage = power + ((power * powerBoostResult)* critclaPowerResult * monsterDamageResult);
     }
 
 
@@ -130,10 +141,10 @@ public class ResultPlayerStats : MonoBehaviour
         var powerBoostResult = (int)(GetPowerBoost() * playerPowerBoostPercent) / playerPowerBoostPercent;
         var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
         var skillCountResult = (int)(skillCount * skillDamage) / skillDamage;
-        if (powerBoostResult == 0) powerBoostResult = 1;
-        if (monsterDamageResult == 0) monsterDamageResult = 1;
-        if (skillCountResult == 0) skillCountResult = 1;
-        skillMonsterDamage = power + (power * powerBoostResult) * skillCountResult * monsterDamageResult;
+        //if (powerBoostResult == 0) powerBoostResult = 1;
+        //if (monsterDamageResult == 0) monsterDamageResult = 1;
+        //if (skillCountResult == 0) skillCountResult = 1;
+        skillMonsterDamage = power + ((power * powerBoostResult) * skillCountResult * monsterDamageResult);
     }
 
 
@@ -145,11 +156,11 @@ public class ResultPlayerStats : MonoBehaviour
         var critclaPowerResult = (int)(GetCritclaPower() * criticlDamage) / criticlDamage;
         var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
         var sillPowerResult = (int)(skillPower * skillDamage) / skillDamage;
-        if (critclaPowerResult == 0) critclaPowerResult = 1;
-        if (powerBoostResult == 0) powerBoostResult = 1;
-        if (monsterDamageResult == 0) monsterDamageResult = 1;
-        if (skillCountResult == 0) skillCountResult = 1;
-        skillMonsterDamage = (power + (power * powerBoostResult) * skillCountResult * critclaPowerResult * (monsterDamageResult + sillPowerResult));
+        //if (critclaPowerResult == 0) critclaPowerResult = 1;
+        //if (powerBoostResult == 0) powerBoostResult = 1;
+        //if (monsterDamageResult == 0) monsterDamageResult = 1;
+        //if (skillCountResult == 0) skillCountResult = 1;
+        skillMonsterDamage = power + ((power * powerBoostResult) * skillCountResult * critclaPowerResult * (monsterDamageResult + sillPowerResult));
     }
 
     public BigInteger ResultMonsterSkillDamage(bool isCritical, float monsterDefense, float a, float t)
@@ -180,6 +191,12 @@ public class ResultPlayerStats : MonoBehaviour
 
     public void TakeDamage(BigInteger damage)
     {
+        var hp = SharedPlayerStats.GetHp() -1;
+        if(prevUpgradeHp != hp)
+        {
+            prevUpgradeHp = hp;
+            playerMaxHp = (prevUpgradeHp * increaseUpgradeHp) + playerAttribute.MaxHp;
+        }
         playerCurrentHp -= damage;
         if(playerCurrentHp <= 0) 
         {

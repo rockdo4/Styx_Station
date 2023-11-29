@@ -11,6 +11,7 @@ public class PetIdle : PetStateBase
 
     public override void Enter()
     {
+
         petController.GetAnimator().SetBool("Run", false);
         petController.GetAnimator().SetFloat("RunState", 0f);
     }

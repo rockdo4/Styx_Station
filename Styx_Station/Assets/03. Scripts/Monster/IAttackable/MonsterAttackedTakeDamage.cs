@@ -22,7 +22,7 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
         if (stats.currHealth <= 0)
         {
             stats.currHealth = 0;
-            //gameObject.transform.GetComponent<Animator>().SetTrigger("Die");
+            WaveManager.instance.DecreaseAliveMonsterCount();
         }
     }
 }

@@ -82,3 +82,10 @@ public enum InventoryType
     Custom,
     State,
 }
+
+public enum MonsterType //몬스터 spawner의 monstertypes와 항상 동일한 값 유지해야함. 추후 수정
+{
+    protoRange1,
+    protoMelee1,
+    None
+}

@@ -13,12 +13,12 @@ public class Stage : ScriptableObject
     public int monsterAttackIncrease;
     public int monsterHealthIncrease;
     public int monsterAttackSpeedIncrease;
-    public GameObject monster1Prefab;
+    public MonsterTypeBase monster1;
     public int monster1Count;
-    public GameObject monster2Prefab;
+    public MonsterTypeBase monster2;
     public int monster2Count;
     public bool isBossWave;
-    public GameObject bossMonsterPrefab;
+    public MonsterTypeBase bossMonster;
     public int rewardExperience;
     public int rewardCoins;
     public MoneyType rewardSpecialCurrency1;

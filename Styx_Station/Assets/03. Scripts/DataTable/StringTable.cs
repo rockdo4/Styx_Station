@@ -33,10 +33,5 @@ public class StringTable : DataTable<StringTable>
                 }
             }
         }
-        //var csvFileText = Resources.Load<TextAsset>(path);
-        //TextReader reader = new StringReader(csvFileText.text);
-        //var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture));
-        //var records = csv.GetRecords<StringTableData>();
     }
-
 }

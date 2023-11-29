@@ -9,6 +9,7 @@ public class ExcuteAttackPet : MonoBehaviour
     public GameObject attacker;
     public Transform petFirePos;
     private PetController petController;
+    private float attackSpeed;
     private void Awake()
     {
         petController = GetComponentInParent<PetController>();

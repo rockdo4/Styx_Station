@@ -14,6 +14,7 @@ public class PetController : MonoBehaviour
     public string petName;
     public PetLevel petlevel;
     public System.Numerics.BigInteger power;
+    [Range(0f, 2f)]
     public float attackSpeed;
     public float range;
 
@@ -34,6 +35,7 @@ public class PetController : MonoBehaviour
         petStateBases.Add(new PetRun(this));
         petStateBases.Add(new PetAttack(this));
 
+       
         SetState(States.Move);
     }
 
@@ -47,11 +49,12 @@ public class PetController : MonoBehaviour
             //attackSpeed =petObjectScript.attackSpeed;
             //range = petObjectScript.range
         }
+        
     }
     private void FixedUpdate()
     {
-        stateManager.FixedUpdate(); 
-        
+        stateManager.FixedUpdate();
+        //petController.GetAnimator().speed = petController.animationSpeed;
     }
     private void Update()
     {

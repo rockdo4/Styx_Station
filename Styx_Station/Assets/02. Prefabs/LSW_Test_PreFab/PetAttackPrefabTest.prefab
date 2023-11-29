@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2799070918660895787}
   - component: {fileID: 4634091500726785412}
   - component: {fileID: 6958409862309394527}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: PetAttackPrefabTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -171,3 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5d1c021f049d054dbcdd0c239979b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  targetPos: {fileID: 0}

@@ -49,7 +49,7 @@ public class ResultPlayerStats : MonoBehaviour
     private void OnEnable()
     {
         SharedPlayerStats.resultPlayerStats = this;
-        prevUpgradeHp = SharedPlayerStats.GetHp()-1;
+        prevUpgradeHp = SharedPlayerStats.GetHp() - 1;
         playerCurrentHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
         playerMaxHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
     }
@@ -61,21 +61,15 @@ public class ResultPlayerStats : MonoBehaviour
             playerCurrentHp = playerMaxHp;
         }
     }
-    private void Update()
-    {
-        
-    }
-
-    // 추후 체력 및 힐링하는 버튼 UP일때 작업 할 수 있게 하기
-
-
     public BigInteger GetPlayerPowerByNonInventory()
     {
         return (int)playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1);
     }
     public BigInteger GetPlayerPower() 
     {
-        return (int)((playerAttribute.attackPower + ((SharedPlayerStats.GetPlayerPower() - 1) * increaseUpgradePower) + (int)inventory.t_Attack) * (int)inventory.t_AttackPer);
+        var t = (int)inventory.t_AttackPer;
+        if (t <= 0) t = 1;
+        return (int)((playerAttribute.attackPower + ((SharedPlayerStats.GetPlayerPower() - 1) * increaseUpgradePower) + (int)inventory.t_Attack) * t);
     }
 
     private float GetPowerBoost()
@@ -191,8 +185,8 @@ public class ResultPlayerStats : MonoBehaviour
 
     public void TakeDamage(BigInteger damage)
     {
-        var hp = SharedPlayerStats.GetHp() -1;
-        if(prevUpgradeHp != hp)
+        var hp = SharedPlayerStats.GetHp() - 1;
+        if (prevUpgradeHp != hp)
         {
             prevUpgradeHp = hp;
             playerMaxHp = (prevUpgradeHp * increaseUpgradeHp) + playerAttribute.MaxHp;

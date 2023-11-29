@@ -50,13 +50,14 @@ public class MonsterSpawner : MonoBehaviour
         {
             yield return WaitSecond;
             Debug.Log("SpawnMonster");
-            GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[0].name);
+            int randNum = Random.Range(0, MonsterTypes.Count);
+            GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[randNum].name);
             monster.transform.position = spawnPoint.transform.position;
-            monster.GetComponent<Collider2D>().enabled = true;
 
             monster.GetComponent<MonsterStats>().SetStats(
-                MonsterTypes[0].maxHealth, MonsterTypes[0].damage, MonsterTypes[0].attackType, MonsterTypes[0].speed);
-            monster.GetComponent<MonsterController>().weapon = MonsterTypes[0].weapon;
+                MonsterTypes[randNum].maxHealth, MonsterTypes[randNum].damage, MonsterTypes[randNum].attackType, MonsterTypes[randNum].speed);
+            monster.GetComponent<MonsterController>().weapon = MonsterTypes[randNum].weapon;
+            monster.GetComponent<Collider2D>().enabled = true;
 
             monster.GetComponent<MonsterController>().SetExcuteHit();
             monster.GetComponent<MonsterController>().SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);

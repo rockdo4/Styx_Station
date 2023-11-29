@@ -36,11 +36,14 @@ public class WaveManager : MonoBehaviour
     public int CurrentChpater { get; private set; } //현재 챕터
     public MonsterSpawner spawner;
     private int spawnMonsterCount = 10; //생성할 몬스터 수
+    public int maxWaveLevel = 5;
+    public int maxStageLevel = 10;
 
     public StageTable.StageTableData StageData { get; private set; }
 
     private void Start()
     {
+        //추후 세이브한 것으로 변경해야함. 일단 무조건 시작시 1로 초기화
         CurrentStage = 1;
         CurrentWave = 1;
         CurrentChpater = 1;
@@ -52,7 +55,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-        spawner.SpawnMonster(spawnMonsterCount);
+        //spawner.SpawnMonster();
     }
 
     public void EndWave()
@@ -67,6 +70,10 @@ public class WaveManager : MonoBehaviour
     public void UpdateCurrentStage()
     {
         CurrentStage++;
+        if(CurrentStage > 10)
+        {
+            CurrentStage = 1;
+        }
     }
     public void UpdateCurrentWave()
     {

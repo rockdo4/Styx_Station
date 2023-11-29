@@ -28,3 +28,10 @@ public static class CurrencyManager
         money3 += imoney * imoney;
     }
 }
+
+public enum MoneyType    
+{
+    money1,
+    money2,
+    money3,
+}

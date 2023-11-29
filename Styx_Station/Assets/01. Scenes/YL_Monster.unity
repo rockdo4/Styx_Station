@@ -1200,14 +1200,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  spawnTimeBat: 2
   MonsterTypes:
   - {fileID: 11400000, guid: 86d6c6b5884d55f42af696f5e607dac8, type: 2}
   - {fileID: 11400000, guid: 403a238994103f74f90c249d1455cfde, type: 2}
-  spawnTimeBat: 5
   spawnYPosSpacing: 0.1
   spawnYPosCount: 4
   spawnMonstercount: 1
   spawnPoint: {fileID: 1032267759}
+  monster1Index: 0
+  monster2Index: 0
+  monster1Count: 0
+  monster2Count: 0
+  maxMonsterTypeCount: 2
+  increaseAttack: 0
+  increaseHealth: 0
 --- !u!1 &1016353210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1237,7 +1244,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa10f2ce065cc974dbfabdeb9292cab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxWaveLevel: 5
+  maxStageLevel: 10
   spawner: {fileID: 644709681}
+  aliveMonsterCount: 0
+  stageList: {fileID: 11400000, guid: f55a05bdd76f5a24fa2d84ac015f8410, type: 2}
+  currStage: {fileID: 0}
 --- !u!4 &1016353212
 Transform:
   m_ObjectHideFlags: 0

@@ -43,8 +43,9 @@ public class ProjectileBow : PoolAble
         if (timeElapsed < 1.0f)
         {
             // 베지어 곡선 계산
-            Vector3 positionOnCurve = CalculateBezierPoint(startPos, bezierPos, targetPos, timeElapsed);
+            Vector2 positionOnCurve = CalculateBezierPoint(startPos, bezierPos, targetPos, timeElapsed);
 
+            Debug.Log(positionOnCurve);
             // 리지드바디 이동
             rb.MovePosition(positionOnCurve);
         }
@@ -52,13 +53,13 @@ public class ProjectileBow : PoolAble
 
     }
     // 베지어 곡선의 한 점 계산
-    Vector3 CalculateBezierPoint(Vector3 p0, Vector3 p1, Vector3 p2, float t)
+    Vector2 CalculateBezierPoint(Vector2 p0, Vector2 p1, Vector2 p2, float t)
     {
         float u = 1 - t;
         float tt = t * t;
         float uu = u * u;
 
-        Vector3 p = uu * p0;
+        Vector2 p = uu * p0;
         p += 2 * u * t * p1;
         p += tt * p2;
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnityEngine.GraphicsBuffer;
@@ -126,9 +127,11 @@ public class MonsterSpawner : MonoBehaviour
             GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[monsterTypeIndex].name);
             monster.transform.position = spawnPoint.transform.position;
 
+            string healths = (BigInteger.Parse(MonsterTypes[monsterTypeIndex].maxHealth) + increaseHealth).ToString();
+            string attacks = (BigInteger.Parse(MonsterTypes[monsterTypeIndex].damage) + increaseAttack).ToString();
             monster.GetComponent<MonsterStats>().SetStats(
-                MonsterTypes[monsterTypeIndex].maxHealth + increaseHealth,
-                MonsterTypes[monsterTypeIndex].damage + increaseAttack,
+                healths,
+                attacks,
                 MonsterTypes[monsterTypeIndex].attackType,
                 MonsterTypes[monsterTypeIndex].speed);
             monster.GetComponent<MonsterController>().weapon = MonsterTypes[monsterTypeIndex].weapon;

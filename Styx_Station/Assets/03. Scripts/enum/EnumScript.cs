@@ -4,7 +4,7 @@ public enum ItemOptionString
     Health,
 }
 
-public enum ItemTier
+public enum Tier
 {
     Common,
     Uncommon,
@@ -81,4 +81,16 @@ public enum InventoryType
     Inventory,
     Custom,
     State,
+}
+
+public enum SkillType
+{
+    Passive,
+    Active,
+}
+
+public enum SkillStartPos
+{
+    Body,
+    Air,
 }

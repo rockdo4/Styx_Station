@@ -13,7 +13,7 @@ public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
     public ItemType type;
 
     [Tooltip("아이템 등급")]
-    public ItemTier tier;
+    public Tier tier;
 
     [System.Serializable]
     public struct Option

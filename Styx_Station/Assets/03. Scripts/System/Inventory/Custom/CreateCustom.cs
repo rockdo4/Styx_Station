@@ -36,7 +36,7 @@ public class CreateCustom : MonoBehaviour
 
         int optionCount = 0;
 
-        ItemTier tier = ItemTier.Common;
+        Tier tier = Tier.Common;
 
         switch (item.type)
         {
@@ -50,19 +50,19 @@ public class CreateCustom : MonoBehaviour
 
         switch (tier)
         {
-            case ItemTier.Common:
+            case Tier.Common:
                 optionCount = 1;
                 break;
-            case ItemTier.Uncommon:
+            case Tier.Uncommon:
                 optionCount = 2;
                 break;
 
-            case ItemTier.Rare:
-            case ItemTier.Unique:
+            case Tier.Rare:
+            case Tier.Unique:
                 optionCount = 3;
                 break;
 
-            case ItemTier.Legendry:
+            case Tier.Legendry:
                 optionCount = 4;
                 break;
         }

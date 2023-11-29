@@ -15,7 +15,9 @@ public class InventorySystem : MonoBehaviour
                 instance = go.AddComponent<InventorySystem>();
                 instance.item = Resources.Load<ItemTable>("Table/ItemTable");
                 instance.optionTable = Resources.Load<CustomOptionTable>("Table/CustomOptionTable");
+                instance.skill = Resources.Load<SkillTable>("Table/SkillTable");
                 instance.inventory = go.AddComponent<Inventory>();
+                instance.skillInventory = go.AddComponent<SkillInventory>();
                 instance.Setting();
                 instance.saveLoad = go.AddComponent<SaveLoad>();
                 instance.saveLoad.Load();
@@ -25,8 +27,10 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
-    private ItemTable item;
     public Inventory inventory;
+    public SkillInventory skillInventory;
+    private ItemTable item;
+    private SkillTable skill;
     private SaveLoad saveLoad;
     public CustomOptionTable optionTable { get; private set; }
 
@@ -81,9 +85,17 @@ public class InventorySystem : MonoBehaviour
             inventory.AddItem(addItem);
         }
 
+        for(int i=0; i< skill.GetTableSize(); ++i)
+        {
+            var addSkill = skill.GetSkill(i);
+            skillInventory.AddSkill(addSkill);
+        }
+
         for (int i = 0; i <= (int)ItemType.Symbol; ++i)
         {
             inventory.ItemSorting((ItemType)i);
         }
+
+        skillInventory.SkillSorting();
     }
 }

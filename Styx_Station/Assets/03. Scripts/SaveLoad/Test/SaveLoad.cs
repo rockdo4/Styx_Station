@@ -10,9 +10,6 @@ using UnityEngine.Rendering;
 
 public class SaveLoad : MonoBehaviour
 {
-    public InventoryUI temp;
-
-
     public void Save()
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
@@ -173,7 +170,7 @@ public class SaveLoad : MonoBehaviour
                         case ItemType.Weapon:
                             var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
                             if (weapon != null)
-                                inventory.EquipItem(weapon.index, item.itemType);
+                                inventory.EquipItem(weapon.index, item.itemType);                         
                             break;
 
                         case ItemType.Armor:
@@ -186,13 +183,13 @@ public class SaveLoad : MonoBehaviour
                             var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                             if (ring != null)
                                 inventory.EquipItem(ring.item.index, item.itemType);
-                            break;
+                                break;
 
                         case ItemType.Symbol:
                             var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                             if (symbol != null)
                                 inventory.EquipItem(symbol.item.index, item.itemType);
-                            break;
+                                break;
                     }
                 }
             }
@@ -209,9 +206,7 @@ public class SaveLoad : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            InventorySystem.Instance.Setting();
             Load();
-            temp.Setting();
         }
     }
 }

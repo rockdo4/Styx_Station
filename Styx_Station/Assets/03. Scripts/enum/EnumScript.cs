@@ -71,3 +71,10 @@ public enum AttackerType
     Enemy,
     Player
 }
+
+public enum InventoryType
+{
+    Inventory,
+    Custom,
+    State,
+}

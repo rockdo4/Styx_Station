@@ -1,15 +1,38 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
-    public EquipWindow equipWindow;
-    public StateWindow stateWindow;
-    public CustomWindow customWindow;
+    public InventoryWindow[] windows;
 
-    public void Setting()
+    public InventoryType currentWindow;
+
+    public Button inventory;
+    public Button custom;
+    public Button State;
+
+    public void Open(InventoryType inventoryType)
     {
-        equipWindow.Setting();
-        customWindow.Setting();
-        stateWindow.Setting();
+        if (windows[(int)currentWindow].gameObject.activeSelf)
+            windows[(int)currentWindow].Close();
+
+        currentWindow = inventoryType;
+
+        windows[(int)inventoryType].Open();
+    }
+
+    public void OnClickInventory()
+    {
+        Open(InventoryType.Inventory);
+    }
+
+    public void OnClickCustom()
+    {
+        Open(InventoryType.Custom);
+    }
+
+    public void OnClickState()
+    {
+        Open(InventoryType.State);
     }
 }

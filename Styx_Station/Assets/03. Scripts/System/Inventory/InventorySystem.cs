@@ -16,6 +16,9 @@ public class InventorySystem : MonoBehaviour
                 instance.item = Resources.Load<ItemTable>("Table/ItemTable");
                 instance.optionTable = Resources.Load<CustomOptionTable>("Table/CustomOptionTable");
                 instance.inventory = go.AddComponent<Inventory>();
+                instance.Setting();
+                instance.saveLoad = go.AddComponent<SaveLoad>();
+                instance.saveLoad.Load();
                 DontDestroyOnLoad(go);
             }
             return instance;
@@ -24,6 +27,7 @@ public class InventorySystem : MonoBehaviour
 
     private ItemTable item;
     public Inventory inventory;
+    private SaveLoad saveLoad;
     public CustomOptionTable optionTable { get; private set; }
 
     public Inventory.InventoryItem LoadCustom(Item item, List<Item.AddOption> options)

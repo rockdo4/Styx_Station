@@ -29,7 +29,7 @@ public class PetAttack : PetStateBase
             petController.SetState(States.Idle);
             petController.GetAnimator().SetTrigger("Idle");
         }
-        }
+    }
 
     public override void Update()
     {

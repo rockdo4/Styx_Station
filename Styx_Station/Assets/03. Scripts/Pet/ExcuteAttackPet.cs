@@ -7,9 +7,8 @@ public class ExcuteAttackPet : MonoBehaviour
     public AttackDefinition weapon;
     public GameObject target;
     public GameObject attacker;
-
-    public PetController petController;
-
+    public Transform petFirePos;
+    private PetController petController;
     private void Awake()
     {
         petController = GetComponentInParent<PetController>();
@@ -17,12 +16,14 @@ public class ExcuteAttackPet : MonoBehaviour
 
     public void Hit()
     {
-        petController.SetExcuteHit();
-        if (/*weapon == null ||*/ target == null)
+        if (petController != null)
         {
-            return;
+            petController.SetExcuteHit();
+            if (weapon == null || target == null)
+            {
+                return;
+            }
+            weapon.ExecuteAttack(attacker, target);
         }
-        weapon.ExecuteAttack(attacker, target);
-        Debug.Log("°ø°ÝÇÔ");
     }
 }

@@ -13,7 +13,7 @@ public class PetController : MonoBehaviour
     public GameObject masterPlayer;
     public string petName;
     public PetLevel petlevel;
-    public float power;
+    public System.Numerics.BigInteger power;
     public float attackSpeed;
     public float range;
 
@@ -67,8 +67,8 @@ public class PetController : MonoBehaviour
             {
                 var pos = masterPlayer.transform.position;
                 pos.y = transform.position.y;
-                transform.position = Vector3.Lerp(transform.position, pos, masterPlayer.GetComponent<PlayerController>().playerMoveSpeed * Time.deltaTime);
-                if (Vector3.Distance(transform.position, pos) <= 0.5f)
+                transform.position = Vector2.Lerp(transform.position, pos, masterPlayer.GetComponent<PlayerController>().playerMoveSpeed * Time.deltaTime);
+                if (Vector2.Distance(transform.position, pos) <= 0.5f)
                 {
                     isArrive = true;
                     SetState(States.Idle);
@@ -93,14 +93,18 @@ public class PetController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, range);
         Gizmos.color = prevColor;
     }
+    
     public void SetExcuteHit()
     {
-        executeHit.weapon = weapon;
-        executeHit.attacker = gameObject;
-        //power = masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (((int)petlevel*10) /100);
         var currPos = gameObject.transform.position;
         currPos.y += 0.5f;
-        var target = Physics2D.Raycast(currPos, Vector2.right, range);
-        Debug.DrawRay(gameObject.transform.position, Vector2.right * range, Color.red, 1f);
+        var target = Physics2D.OverlapCircle(transform.position, range, layerMask);
+        if (target != null)
+        {
+            executeHit.weapon = weapon;
+            executeHit.attacker = gameObject;
+            power = (masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (int)petlevel * 10) / 100;
+            executeHit.target = target.gameObject;
+        }
     }
 }

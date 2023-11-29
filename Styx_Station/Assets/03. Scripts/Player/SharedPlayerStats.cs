@@ -3,7 +3,7 @@ using System.Numerics;
 
 public static class SharedPlayerStats 
 {
-    public static ResultPlayerStats resultPlayerStats =new ResultPlayerStats();
+    public static ResultPlayerStats resultPlayerStats ;
 
     private static int playerPower=1;
     public static int PlayerPower { set { playerPower = value; } }

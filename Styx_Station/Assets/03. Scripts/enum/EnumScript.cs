@@ -71,10 +71,14 @@ public enum AttackerType
     Enemy,
     Player
 }
-
-
 public enum PetAttackType
 {
     LineAttack,
     AngleAttack,
+}
+public enum InventoryType
+{
+    Inventory,
+    Custom,
+    State,
 }

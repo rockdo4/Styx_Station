@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
-public class EquipWindow : MonoBehaviour
+public class EquipWindow : InventoryWindow
 {
     private Inventory inventory;
     public GameObject equip;
@@ -27,6 +27,18 @@ public class EquipWindow : MonoBehaviour
     private void Awake()
     {
         inventory = InventorySystem.Instance.inventory;
+        Setting();
+    }
+
+    public override void Open()
+    {
+        EquipItemUpdate();
+        base.Open();
+    }
+
+    public override void Close() 
+    {
+        base.Close();
     }
 
     public void Setting()

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomWindow : MonoBehaviour
+public class CustomWindow : InventoryWindow
 {
     public Inventory inventory;
     public GameObject baseScroll;
@@ -23,7 +23,19 @@ public class CustomWindow : MonoBehaviour
     private void Awake()
     {
         inventory = InventorySystem.Instance.inventory;
+        Setting();
     }
+
+    public override void Open()
+    {
+        base.Open();
+    }
+
+    public override void Close()
+    {
+        base.Close();
+    }
+
     public void Setting()
     {
         var customUi = customBase.GetComponent<BaseCustomButton>();

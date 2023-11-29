@@ -85,6 +85,14 @@ public class Inventory : MonoBehaviour
         {
             customSymbols.RemoveAt(i);
         }
+        for(int i= 0; i<equipItems.Length; ++i)
+        {   
+            if (equipItems[i] != null && equipItems[i].index>-1)
+            {
+                DequipItem(equipItems[i], (ItemType)i);
+            }
+            equipItems[i] = null;
+        }
     }
 
     public int GetEquipItemsLength()

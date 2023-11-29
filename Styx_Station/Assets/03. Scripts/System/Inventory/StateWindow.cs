@@ -3,23 +3,35 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StateWindow : MonoBehaviour
+public class StateWindow : InventoryWindow
 {
     public InventoryUI baseInventory;
     public GameObject stateText;
     private List<TextMeshProUGUI> state = new List<TextMeshProUGUI>();
 
-    public void Setting()
+    private void Awake()
     {
         foreach (Transform child in stateText.transform)
         {
             state.Add(child.gameObject.GetComponent<TextMeshProUGUI>());
         }
+
+    }
+
+    public override void Open()
+    {
+        base.Open();
+
         GetState();
+    }
+
+    public override void Close()
+    {
+        base.Close();
     }
     public void GetState()
     {
-        state[1].text = "Attack : " + InventorySystem.Instance.inventory.t_Attack.ToString();
+            state[1].text = "Attack : " + InventorySystem.Instance.inventory.t_Attack.ToString();
         state[2].text = "Health : " + InventorySystem.Instance.inventory.t_Health.ToString();
         state[3].text = "AttackSpeed : " + InventorySystem.Instance.inventory.t_AttackSpeed.ToString();
         state[4].text = "HealHealth : " + InventorySystem.Instance.inventory.t_HealHealth.ToString();

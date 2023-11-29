@@ -60,7 +60,13 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-        spawner.SpawnMonster(currStage.monster1.name, currStage.monster1Count, currStage.monster2.name, currStage.monster2Count);
+        spawner.SpawnMonster(currStage.monster1.name, 
+            currStage.monster1Count, 
+            currStage.monster2.name, 
+            currStage.monster2Count,
+            currStage.monsterAttackIncrease,
+            currStage.monsterHealthIncrease,
+            currStage.monsterAttackSpeedIncrease);
         aliveMonsterCount = currStage.monster1Count + currStage.monster2Count;
     }
 
@@ -80,7 +86,6 @@ public class WaveManager : MonoBehaviour
             Debug.Log("ERR: currStage is null.");
             return;
         }
-
         StartWave();
     }
 

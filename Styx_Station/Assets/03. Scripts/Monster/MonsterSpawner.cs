@@ -25,6 +25,9 @@ public class MonsterSpawner : MonoBehaviour
 
     public int maxMonsterTypeCount = 2;
 
+    public int increaseAttack;
+    public int increaseHealth;
+
     private void Start()
     {
         timer = 0;
@@ -49,8 +52,11 @@ public class MonsterSpawner : MonoBehaviour
     //    }
     //}
 
-    public void SpawnMonster(string m1Name, int m1Count, string m2Name, int m2Count)
+    public void SpawnMonster(string m1Name, int m1Count, string m2Name, int m2Count, int AIncrease, int HIncrease, int SIncrease)
     {
+        increaseAttack = AIncrease;
+        increaseHealth = HIncrease;
+
         bool isFindM1 = false;
         bool isFindM2 = false;
         for(int i = 0; i < MonsterTypes.Count; i++)
@@ -121,7 +127,10 @@ public class MonsterSpawner : MonoBehaviour
             monster.transform.position = spawnPoint.transform.position;
 
             monster.GetComponent<MonsterStats>().SetStats(
-                MonsterTypes[monsterTypeIndex].maxHealth, MonsterTypes[monsterTypeIndex].damage, MonsterTypes[monsterTypeIndex].attackType, MonsterTypes[monsterTypeIndex].speed);
+                MonsterTypes[monsterTypeIndex].maxHealth + increaseHealth,
+                MonsterTypes[monsterTypeIndex].damage + increaseAttack,
+                MonsterTypes[monsterTypeIndex].attackType,
+                MonsterTypes[monsterTypeIndex].speed);
             monster.GetComponent<MonsterController>().weapon = MonsterTypes[monsterTypeIndex].weapon;
             monster.GetComponent<Collider2D>().enabled = true;
 

@@ -39,7 +39,15 @@ public class AttackDefinition : ScriptableObject
 
         return new Attack(currentDamage, false);
     }
-
+    public Attack CreateAttackToMonster(PetController attacker, MonsterStats defender)
+    {
+        currentDamage = attacker.GetPower();
+        if(currentDamage == -1)
+        {
+            currentDamage = 0;
+        }
+        return new Attack(currentDamage, false);
+    }
     //public Attack CreateAttackToPlayer(CharacterStats attacker, CharacterStats defender)
     //{
     //    //attacker의 데미지는 기본 데미지. 기본 데미지에 추가 데미지를 더하는 방식

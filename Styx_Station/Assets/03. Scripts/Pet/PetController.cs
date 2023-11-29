@@ -110,4 +110,11 @@ public class PetController : MonoBehaviour
             executeHit.target = target.gameObject;
         }
     }
+
+    public System.Numerics.BigInteger GetPower()
+    {
+        if (masterPlayer != null)
+            return -1;
+        return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (int)petlevel * 10/ 100;
+    }
 }

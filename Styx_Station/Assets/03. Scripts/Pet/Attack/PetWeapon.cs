@@ -20,6 +20,14 @@ public class PetWeapon : AttackDefinition
         {
             var excuteAttackpet = attacker.GetComponentInChildren<ExcuteAttackPet>();
             var startPos = excuteAttackpet.petFirePos;
+            if(startPos == null ) 
+            {
+                string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
+                string log = $"{currentTime} : Pet의 공격위치가 Null입니다.. / script : PetWeapon + 26 번째줄";
+                Debug.Log(log);
+                Log.Instance.MakeLogText(log);
+                return;
+            }
             var bow = ObjectPoolManager.instance.GetGo(weaponObject.name);
             if(bow == null) 
             {
@@ -33,7 +41,7 @@ public class PetWeapon : AttackDefinition
             if(petWeapon == null)
             {
                 string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
-                string log = $"{currentTime} : Pet의 PetBow스크립트가 Null입니다. / script : PetWeapon + 40번째줄";
+                string log = $"{currentTime} : Pet의 PetBow스크립트가 Null입니다. / script : PetWeapon + 40 번째줄";
                 Log.Instance.MakeLogText(log);
                 return;
             }
@@ -47,20 +55,20 @@ public class PetWeapon : AttackDefinition
 
     private void OnBowCollided(GameObject attacker, GameObject defender)
     {
-       
+        Debug.Log("Hi");
         if (defender == null) 
         {
             return;
         }
 
-        //var attackerStats = attacker.GetComponent<ResultPlayerStats>();
-        //var target = defender.GetComponent<MonsterStats>();
-        //Attack attack = CreateAttackToMonster(attackerStats, target);
+        var attackerStats = attacker.GetComponent<PetController>();
+        var target = defender.GetComponent<MonsterStats>();
+        Attack attack = CreateAttackToMonster(attackerStats, target);
 
-        //var attackables = defender.GetComponents<IAttackable>();
-        //foreach (var attackable in attackables)
-        //{
-        //    attackable.OnAttack(attacker, attack);
-        //}
+        var attackables = defender.GetComponents<IAttackable>();
+        foreach (var attackable in attackables)
+        {
+            attackable.OnAttack(attacker, attack);
+        }
     }
 }

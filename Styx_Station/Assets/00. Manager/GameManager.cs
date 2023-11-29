@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 // 점수와 게임 오버 여부를 관리하는 게임 매니저
 public class GameManager : MonoBehaviour
 {
+    public StageTable StageTable;
     // 싱글톤 접근용 프로퍼티
     public static GameManager instance
     {
@@ -35,11 +36,17 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SaveDataLoad();
         WaveManager.instance.StartWave();
     }
 
     public void ReStart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void SaveDataLoad()
+    {
+        StageTable = new StageTable();
     }
 }

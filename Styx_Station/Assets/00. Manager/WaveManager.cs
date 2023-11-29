@@ -33,12 +33,21 @@ public class WaveManager : MonoBehaviour
     }
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
+    public int CurrentChpater { get; private set; } //현재 챕터
     public MonsterSpawner spawner;
     private int spawnMonsterCount = 10; //생성할 몬스터 수
-    void Start()
+
+    public StageTable.StageTableData StageData { get; private set; }
+
+    private void Start()
     {
-        CurrentStage = 0;
-        CurrentWave = 0;
+        CurrentStage = 1;
+        CurrentWave = 1;
+        CurrentChpater = 1;
+
+        var index = GameManager.instance.StageTable.GetIndex(CurrentChpater, CurrentStage, CurrentWave);
+
+        StageData = GameManager.instance.StageTable.GetStageTableData(index);
     }
 
     public void StartWave()
@@ -49,5 +58,22 @@ public class WaveManager : MonoBehaviour
     public void EndWave()
     {
 
+    }
+
+    public void UpdateCurrentChapter()
+    {
+        CurrentChpater++;
+    }
+    public void UpdateCurrentStage()
+    {
+        CurrentStage++;
+    }
+    public void UpdateCurrentWave()
+    {
+        CurrentWave++;
+        if(CurrentWave > 5)
+        {
+            CurrentWave = 1;
+        }
     }
 }

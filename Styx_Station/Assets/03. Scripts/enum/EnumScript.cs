@@ -4,7 +4,7 @@ public enum ItemOptionString
     Health,
 }
 
-public enum ItemTier
+public enum Tier
 {
     Common,
     Uncommon,
@@ -90,11 +90,30 @@ public enum InventoryType
     Inventory,
     Custom,
     State,
+    Skill,
 }
 
-public enum MonsterType //¸ó½ºÅÍ spawnerÀÇ monstertypes¿Í Ç×»ó µ¿ÀÏÇÑ °ª À¯ÁöÇØ¾ßÇÔ. ÃßÈÄ ¼öÁ¤
+public enum MonsterType //ï¿½ï¿½ï¿½ï¿½ spawnerï¿½ï¿½ monstertypesï¿½ï¿½ ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 {
     protoRange1,
     protoMelee1,
     None
+}
+
+public enum SkillType
+{
+    Passive,
+    Active,
+}
+
+public enum SkillType_2
+{
+    Normal,
+    Chain,
+}
+
+public enum SkillStartPos
+{
+    Body,
+    Air,
 }

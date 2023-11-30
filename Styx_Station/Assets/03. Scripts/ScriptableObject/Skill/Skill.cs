@@ -10,6 +10,9 @@ public class Skill : ScriptableObject
     [Tooltip("스킬 타입")]
     public SkillType Skill_Type;
 
+    [Tooltip("체인 스킬 여부")]
+    public SkillType_2 Skill_Type_2;
+
     [Tooltip("스킬 등급")]
     public Tier Skill_Tier;
 
@@ -42,6 +45,9 @@ public class Skill : ScriptableObject
 
     [Tooltip("스킬 사정거리")]
     public float Skill_Range;
+
+    [Tooltip("투사체 스킬 속도")]
+    public float Skill_Speed;
 
     [Tooltip("스킬 범위")]
     public float Skill_EXT;

@@ -32,6 +32,8 @@ public class InventorySystem : MonoBehaviour
     private ItemTable item;
     private SkillTable skill;
     private SaveLoad saveLoad;
+
+
     public CustomOptionTable optionTable { get; private set; }
 
     public Inventory.InventoryItem LoadCustom(Item item, List<Item.AddOption> options)
@@ -47,6 +49,7 @@ public class InventorySystem : MonoBehaviour
 
         return dummys;
     }
+
     public Inventory.InventoryItem Custom(Item item, int index, string table)
     {
         var dummy = inventory.CreateDummy(item);

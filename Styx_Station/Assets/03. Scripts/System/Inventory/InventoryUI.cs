@@ -10,6 +10,7 @@ public class InventoryUI : MonoBehaviour
     public Button inventory;
     public Button custom;
     public Button State;
+    public Button skill;
 
     public void Open(InventoryType inventoryType)
     {
@@ -34,5 +35,10 @@ public class InventoryUI : MonoBehaviour
     public void OnClickState()
     {
         Open(InventoryType.State);
+    }
+
+    public void OnClickSkill()
+    {
+        Open(InventoryType.Skill);
     }
 }

@@ -81,12 +81,19 @@ public enum InventoryType
     Inventory,
     Custom,
     State,
+    Skill,
 }
 
 public enum SkillType
 {
     Passive,
     Active,
+}
+
+public enum SkillType_2
+{
+    Normal,
+    Chain,
 }
 
 public enum SkillStartPos

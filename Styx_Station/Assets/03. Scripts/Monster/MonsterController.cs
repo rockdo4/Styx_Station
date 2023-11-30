@@ -17,7 +17,9 @@ public class MonsterController : PoolAble //MonoBehaviour
     public GameObject target;
     public ExecuteHit executeHit;
 
-    private List<Color> originalColor = new List<Color>(); 
+    private List<Color> originalColor = new List<Color>();
+
+    public bool isTargetDie = false;
 
     public void SetState(States newState)
     {
@@ -81,6 +83,14 @@ public class MonsterController : PoolAble //MonoBehaviour
     }
     private void Update()
     {
+        if(target.GetComponent<ResultPlayerStats>() != null)
+        {
+            if(target.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
+            {
+                SetState(States.Idle);
+                isTargetDie = true;
+            }
+        }
         stateManager.Update();
     }
 

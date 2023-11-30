@@ -37,6 +37,11 @@ public class WaveManager : MonoBehaviour
         CurrentStage = currStage.stageId;
         CurrentWave = currStage.waveId;
         CurrentChpater = currStage.chapterId;
+
+        for (int i = 0; i < Background.transform.childCount; i++)
+        {
+            backgroundList.Add(Background.transform.GetChild(i).GetComponent<ScrollingObject>());
+        }
     }
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
@@ -46,8 +51,12 @@ public class WaveManager : MonoBehaviour
 
     public MonsterSpawner spawner;
     public int aliveMonsterCount;
+
     public StageList stageList;
     public Stage currStage;
+
+    public GameObject Background;
+    private List<ScrollingObject> backgroundList = new List<ScrollingObject>(); 
 
     //public StageTable.StageTableData StageData { get; private set; }
 
@@ -79,14 +88,14 @@ public class WaveManager : MonoBehaviour
     {
         EndWave();
         UpdateCurrentWave();
-
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
         if(currStage == null)
         {
             Debug.Log("ERR: currStage is null.");
             return;
         }
-        StartWave();
+        ScrollBackground(true);
+        //StartWave();
     }
 
     public void UpdateCurrentChapter()
@@ -128,6 +137,14 @@ public class WaveManager : MonoBehaviour
         if(aliveMonsterCount <= 0)
         {
             ChangeWage();
+        }
+    }
+
+    public void ScrollBackground(bool isBool)
+    {
+        foreach(var back in backgroundList)
+        {
+            back.enabled = isBool;
         }
     }
 }

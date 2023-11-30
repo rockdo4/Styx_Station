@@ -134,11 +134,13 @@ public class MonsterSpawner : MonoBehaviour
                 attacks,
                 MonsterTypes[monsterTypeIndex].attackType,
                 MonsterTypes[monsterTypeIndex].speed);
-            monster.GetComponent<MonsterController>().weapon = MonsterTypes[monsterTypeIndex].weapon;
+            var monsterController = monster.GetComponent<MonsterController>();
+            monsterController.weapon = MonsterTypes[monsterTypeIndex].weapon;
             monster.GetComponent<Collider2D>().enabled = true;
 
-            monster.GetComponent<MonsterController>().SetExcuteHit();
-            monster.GetComponent<MonsterController>().SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
+            monsterController.SetExcuteHit();
+            monsterController.SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
+            monsterController.isTargetDie = false;
             spawnedCount++;
 
             //int randNum = Random.Range(0, spawnYPosCount);

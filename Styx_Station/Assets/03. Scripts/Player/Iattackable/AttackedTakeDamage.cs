@@ -5,10 +5,12 @@ using UnityEngine;
 public class AttackedTakeDamage : MonoBehaviour, IAttackable
 {
     private ResultPlayerStats stats;
+    private PlayerController controller;
 
     private void Awake()
     {
         stats = GetComponent<ResultPlayerStats>();
+        controller = GetComponent<PlayerController>();  
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
@@ -18,7 +20,8 @@ public class AttackedTakeDamage : MonoBehaviour, IAttackable
         if (stats.playerCurrentHp <= 0)
         {
             stats.playerCurrentHp = 0;
-            //gameObject.transform.GetComponent<Animator>().SetTrigger("Die");
+            controller.GetAnimator().SetTrigger("Die");
+            controller.SetState(States.Die);
             //var destructables = GetComponents<IDestructable>();
             //foreach (var destructable in destructables)
             //{

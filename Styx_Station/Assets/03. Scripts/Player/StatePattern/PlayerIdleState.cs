@@ -23,7 +23,7 @@ public class PlayerIdleState : PlayerStateBase
 
     public override void FixedUpate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void Update()

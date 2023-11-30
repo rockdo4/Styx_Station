@@ -23,10 +23,23 @@ public class PetIdle : PetStateBase
 
     public override void FixedUpate()
     {
-        var test = Physics2D.OverlapCircle(petController.transform.position, petController.range, petController.layerMask);
+        var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
 
-        if (test != null)
-            petController.SetState(States.Attack);
+        if (findEnemy == null)
+        {
+            return;
+        }
+        else
+        {
+            foreach (var enemy in findEnemy)
+            {
+                if(enemy.GetComponent<MonsterStats>().currHealth >0)
+                {
+                    petController.SetState(States.Attack);
+                    return;
+                }
+            }
+        }
     }
 
     public override void Update()

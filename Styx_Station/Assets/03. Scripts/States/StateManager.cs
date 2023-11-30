@@ -27,4 +27,6 @@ public class StateManager
             currentState.Update();
         }
     }
+
+    public StateBase GetCurrentState() { return currentState; }
 }

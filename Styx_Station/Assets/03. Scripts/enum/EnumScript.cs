@@ -59,7 +59,16 @@ public enum PlayerTier
     four,
     five,
 }
-
+public enum FoodType
+{
+    F,
+    E,
+    D,
+    C,
+    B,
+    A,
+    S,
+}
 public enum Language
 {
     KOR,

@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
         /// <summary>
         /// //monster가 스폰이 되었는지에 대한 정보가 필요하면 좋을 것같음
         /// <summary>
-        ShootLayMaskCircle();
     }
     public void Update()
     {
@@ -133,6 +132,10 @@ public class PlayerController : MonoBehaviour
         return range;
     }
 
+    public StateBase GetPlayerCurrentState()
+    {
+        return playerStateManager.GetCurrentState();
+    }
 
 
     /// <summary>

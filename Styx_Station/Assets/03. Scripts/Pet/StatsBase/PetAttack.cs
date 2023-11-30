@@ -23,11 +23,13 @@ public class PetAttack : PetStateBase
 
     public override void FixedUpate()
     {
-        var test = Physics2D.OverlapCircle(petController.transform.position, petController.range, petController.layerMask);
-        if (test == null)
+        var master =petController.masterPlayer.GetComponent<PlayerController>();
+        if(master != null)
         {
-            petController.SetState(States.Idle);
-            petController.GetAnimator().SetTrigger("Idle");
+            if(petController.GetPetStateManager().GetCurrentState() != master.GetPlayerCurrentState())
+            {
+                petController.GetAnimator().SetTrigger("Idle");
+            }
         }
     }
 

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class GameUiManager : Singleton<GameUiManager>
+public class PlayerStatsUpgardeUI : MonoBehaviour
 {
     public struct StringTableLanaguage
     {
@@ -42,8 +42,9 @@ public class GameUiManager : Singleton<GameUiManager>
     // test code -> if we will make mainGameLogic ,change this code 
 
     private Language uiLanaguage;
-    StringTable stringTable;
+    StringTable stringTable; // UiManager 싱글톤에서 데이터를 받아오는 형식으로 할것
     public GameObject logScrollView;
+    private bool isOneAwkae;
     private Dictionary<int, Func<string>> playerStatsActions = new Dictionary<int, Func<string>>
     {
         { 0, () => UnitConverter.OutString(SharedPlayerStats.GetPlayerPower()) },
@@ -67,7 +68,6 @@ public class GameUiManager : Singleton<GameUiManager>
         { 6 ,()=>SharedPlayerStats.GetHp() },
         { 7 ,()=> SharedPlayerStats.GetHealing() },
     };
-
 
     private void Awake()
     {
@@ -343,7 +343,12 @@ public class GameUiManager : Singleton<GameUiManager>
     }
     private void InitPlayerStatsText()
     {
-        stringTable = new StringTable();
+        if (!isOneAwkae)
+        {
+            stringTable = new StringTable();
+            isOneAwkae = false; 
+        }
+
         uiLanaguage = Global.language;
         foreach (var key in StringTable.Instance.dic)
         {
@@ -376,10 +381,5 @@ public class GameUiManager : Singleton<GameUiManager>
             }
             button.text = str;
         }
-    }
-
-    public string sibal()
-    {
-        return "sibal";
     }
 }

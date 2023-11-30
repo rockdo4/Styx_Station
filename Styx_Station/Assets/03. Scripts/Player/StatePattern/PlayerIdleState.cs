@@ -14,6 +14,7 @@ public class PlayerIdleState : PlayerStateBase
     {
         //playertController.GetAnimator().SetTrigger("Idle");
         playertController.GetAnimator().SetFloat("RunState", 0f);
+        //playertController.GetAnimator().SetBool("EditChk", false);
     }
 
     public override void Exit()
@@ -23,13 +24,30 @@ public class PlayerIdleState : PlayerStateBase
 
     public override void FixedUpate()
     {
-        
+        var range =  playertController.GetPlayerAttackRange();
+        var findEnemey =
+        Physics2D.OverlapCircleAll(playertController.transform.position, range,
+        playertController.layerMask);
+
+        if (findEnemey == null) 
+        {
+            return;
+        }
+        else
+        {
+            foreach (var enemy in findEnemey)
+            {
+                if (enemy.GetComponent<MonsterStats>().currHealth > 0)
+                {
+                    playertController.SetState(States.Attack);
+                    return;
+                }
+            }
+        }
     }
 
     public override void Update()
     {
 
     }
-
-   
 }

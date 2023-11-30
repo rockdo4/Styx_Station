@@ -64,7 +64,11 @@ public class MonsterDieState : MonsterStateBase
             }
             
             monsterCtrl.SetState(States.Idle);
-            monsterCtrl.ReleaseObject();
+
+            if(monsterCtrl.gameObject.activeSelf)
+            {
+                monsterCtrl.ReleaseObject();
+            }
         }
     }
 }

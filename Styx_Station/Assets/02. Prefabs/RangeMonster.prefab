@@ -2791,7 +2791,7 @@ GameObject:
   - component: {fileID: 7309143880294550252}
   m_Layer: 16
   m_Name: RangeMonster
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2871,6 +2871,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   target: {fileID: 0}
   executeHit: {fileID: 0}
+  isTargetDie: 0
 --- !u!50 &3235975083190003005
 Rigidbody2D:
   serializedVersion: 4

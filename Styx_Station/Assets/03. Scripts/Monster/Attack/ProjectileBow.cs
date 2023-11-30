@@ -45,7 +45,6 @@ public class ProjectileBow : PoolAble
             // 베지어 곡선 계산
             Vector2 positionOnCurve = CalculateBezierPoint(startPos, bezierPos, targetPos, timeElapsed);
 
-            Debug.Log(positionOnCurve);
             // 리지드바디 이동
             rb.MovePosition(positionOnCurve);
         }

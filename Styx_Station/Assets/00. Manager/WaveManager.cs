@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using System.Linq;
 
 public class WaveManager : MonoBehaviour
 {
@@ -42,6 +44,8 @@ public class WaveManager : MonoBehaviour
         {
             backgroundList.Add(Background.transform.GetChild(i).GetComponent<ScrollingObject>());
         }
+
+        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
@@ -56,7 +60,14 @@ public class WaveManager : MonoBehaviour
     public Stage currStage;
 
     public GameObject Background;
-    private List<ScrollingObject> backgroundList = new List<ScrollingObject>(); 
+    private List<ScrollingObject> backgroundList = new List<ScrollingObject>();
+
+    private PlayerController playerController;
+
+    public float waitTime = 1.5f;
+    private WaitForSeconds waitForSeconds;
+
+    public TextMeshProUGUI stageText; //임시로 여기서 함. 추후 uimanager로 이동함.
 
     //public StageTable.StageTableData StageData { get; private set; }
 
@@ -65,6 +76,7 @@ public class WaveManager : MonoBehaviour
         //var index = GameManager.instance.StageTable.GetIndex(CurrentChpater, CurrentStage, CurrentWave);
 
         //StageData = GameManager.instance.StageTable.GetStageTableData(index);
+        waitForSeconds = new WaitForSeconds(waitTime);
     }
 
     public void StartWave()
@@ -82,11 +94,14 @@ public class WaveManager : MonoBehaviour
     public void EndWave()
     {
         aliveMonsterCount = 0;
+        playerController.GetAnimator().StopPlayback();
+        spawner.stopSpawn();
+        StartCoroutine(SetMonstersStop());
+        //StartCoroutine(SetArrowStop());
     }
 
     public void ChangeWage()
     {
-        EndWave();
         UpdateCurrentWave();
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
         if(currStage == null)
@@ -94,6 +109,7 @@ public class WaveManager : MonoBehaviour
             Debug.Log("ERR: currStage is null.");
             return;
         }
+        playerController.SetState(States.Move);
         ScrollBackground(true);
         //StartWave();
     }
@@ -123,7 +139,7 @@ public class WaveManager : MonoBehaviour
         {
             CurrentWave = 4;
         }
-        
+        SetCurrentStageText();
     }
 
     public int GetIndex(int chapterId, int stageId, int waveId)
@@ -145,6 +161,59 @@ public class WaveManager : MonoBehaviour
         foreach(var back in backgroundList)
         {
             back.enabled = isBool;
+        }
+    }
+
+    public void SetCurrentStageText()
+    {
+        string newTxt = $"{CurrentStage} - {CurrentWave}";
+        stageText.SetText(newTxt);  
+    }
+
+    IEnumerator SetMonstersStop()
+    {
+        GameObject[] monsters = GameObject.FindGameObjectsWithTag("Enemy")
+            .Where(monster => monster.activeSelf)
+            .ToArray();
+
+        foreach(var monster in monsters)
+        {
+            if(monster.GetComponent<MonsterStats>().currHealth > 0)
+            {
+                monster.GetComponent<MonsterController>().SetState(States.Idle);
+            }
+        }
+
+        yield return waitForSeconds;
+
+        foreach (var monster in monsters)
+        {
+            if (monster.GetComponent<MonsterStats>().currHealth > 0 && monster.activeSelf)
+            {
+                monster.GetComponent<MonsterController>().ReleaseObject();
+            }
+        }
+    }
+
+    IEnumerator SetArrowStop()
+    {
+        GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
+            .Where(arrow => arrow.activeSelf)
+            .ToArray();
+
+        foreach (var arrow in Arrows)
+        {
+            arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        }
+
+        yield return waitForSeconds;
+
+        foreach (var arrow in Arrows)
+        {
+            if (arrow.activeSelf)
+            {
+                arrow.GetComponent<PoolAble>().ReleaseObject();
+            }
         }
     }
 }

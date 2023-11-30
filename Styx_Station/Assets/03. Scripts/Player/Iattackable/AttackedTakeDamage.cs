@@ -17,7 +17,7 @@ public class AttackedTakeDamage : MonoBehaviour, IAttackable
         stats.TakeDamage(attack.Damage);
         Debug.Log(stats.playerCurrentHp);
         //stats.playerCurrentHp -= attack.Damage;
-        if (stats.playerCurrentHp <= 0)
+        if (stats.playerCurrentHp <= 0 )
         {
             stats.playerCurrentHp = 0;
             controller.GetAnimator().SetTrigger("Die");

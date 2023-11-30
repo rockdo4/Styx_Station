@@ -29,6 +29,8 @@ public class MonsterSpawner : MonoBehaviour
     public int increaseAttack;
     public int increaseHealth;
 
+    private Coroutine spawnCo;
+
     private void Start()
     {
         timer = 0;
@@ -82,7 +84,7 @@ public class MonsterSpawner : MonoBehaviour
         monster1Count = m1Count;
         monster2Count = m2Count;
 
-        StartCoroutine(SpawnMonsterCo(monster1Count + monster2Count));
+        spawnCo = StartCoroutine(SpawnMonsterCo(monster1Count + monster2Count));
     }
     IEnumerator SpawnMonsterCo(int count)
     {
@@ -142,22 +144,11 @@ public class MonsterSpawner : MonoBehaviour
             monsterController.SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
             monsterController.isTargetDie = false;
             spawnedCount++;
-
-            //int randNum = Random.Range(0, spawnYPosCount);
-            //float newYPos =  monster.transform.position.y - randNum * spawnYPosSpacing;
-            //monster.transform.position = new Vector3(monster.transform.position.x, newYPos, monster.transform.position.z);
-            //monster.GetComponentInChildren<SortingGroup>().sortingOrder += randNum;
-
-            //Debug.Log($"randnum: {randNum}, ypos: {newYPos}");
         }
-        //yield return new WaitForSeconds(3f);
-        //GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[0].name);
+    }
 
-        //monster.GetComponent<MonsterStats>().SetStats(
-        //    MonsterTypes[0].maxHealth, MonsterTypes[0].damage, MonsterTypes[0].attackType, MonsterTypes[0].speed);
-        //monster.GetComponent<MonsterController>().weapon = MonsterTypes[0].weapon;
-
-        //monster.GetComponent<MonsterController>().GetComponentInChildren<ExecuteHit>().weapon = MonsterTypes[0].weapon;
-        //monster.GetComponent<MonsterController>().GetComponentInChildren<ExecuteHit>().target = monster.GetComponent<MonsterController>().target;
+    public void stopSpawn()
+    {
+        StopCoroutine(spawnCo);
     }
 }

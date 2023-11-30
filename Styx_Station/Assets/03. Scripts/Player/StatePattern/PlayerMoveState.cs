@@ -15,6 +15,7 @@ public class PlayerMoveState : PlayerStateBase
     public override void Enter()
     {
         nowTime = Time.time;
+        playertController.GetAnimator().SetBool("EditChk", false);
         stateDuration = playertController.backgroundLength /playertController.playerMoveSpeed;
 
         playertController.GetAnimator().SetFloat("RunState", 0.15f);
@@ -30,7 +31,7 @@ public class PlayerMoveState : PlayerStateBase
 
     public override void FixedUpate()
     {
-        
+
     }
 
     public override void Update()
@@ -38,7 +39,6 @@ public class PlayerMoveState : PlayerStateBase
         if(Time.time >  nowTime + stateDuration && playertController.IsStartTarget) 
         {
             playertController.SetState(States.Idle);
-            playertController.GetAnimator().SetTrigger("Idle");
         }
     }
 }

@@ -10,5 +10,5 @@ public class MonsterTypeBase : ScriptableObject
     public GameObject prefab;
     public float speed;
     public AttackDefinition weapon;
-
+    public MonsterType monsterType;
 }

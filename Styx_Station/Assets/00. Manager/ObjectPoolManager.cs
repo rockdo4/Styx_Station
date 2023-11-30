@@ -104,4 +104,14 @@ public class ObjectPoolManager : MonoBehaviour
 
         return objPoolDic[goName].Get();
     }
+
+    public IObjectPool<GameObject> GetObjectPool(string goName)
+    {
+        if (!goDic.ContainsKey(goName)) //없는 오브젝트
+        {
+            Debug.LogFormat("{0} 오브젝트풀에 등록되지 않은 오브젝트입니다.", goName);
+            return null;
+        }
+        return objPoolDic[goName];
+    }
 }

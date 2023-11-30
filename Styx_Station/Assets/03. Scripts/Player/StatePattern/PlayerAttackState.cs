@@ -14,13 +14,20 @@ public class PlayerAttackState : PlayerStateBase
     private float defaultSpeed = 1f;
     private float increaseAttackSpeed = 0.01f;
     private float attackSpeed = 1f;
+    private float spped;
+
+    private float timer = 0f;
+    private float attackDuration;
 
     public override void Enter()
     {
-        var spped = defaultSpeed + ((SharedPlayerStats.GetPlayerAttackSpeed() - 1) * increaseAttackSpeed);
+        spped = defaultSpeed + ((SharedPlayerStats.GetPlayerAttackSpeed() - 1) * increaseAttackSpeed);
         playertController.GetAnimator().speed = spped;
         playertController.GetAnimator().SetTrigger("Attack");
         playertController.GetAnimator().SetFloat("NormalState", 0.5f);
+
+        timer = 0f;
+        attackDuration = defaultSpeed / spped;
     }
 
     public override void Exit()
@@ -30,16 +37,46 @@ public class PlayerAttackState : PlayerStateBase
 
     public override void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Return)) 
+        timer += Time.deltaTime;
+        if(timer >= attackDuration)
         {
-            playertController.SetState(States.Move);
-            playertController.GetAnimator().SetTrigger("Run");
+            timer = 0f;
+            playertController.GetAnimator().SetTrigger("Attack");
         }
-        //Debug.Log(playertController.GetAnimator().speed);
     }
 
     public override void FixedUpate()
     {
+        int dieMonCount = 0;
+        var findEnemey =
+            Physics2D.OverlapCircleAll(playertController.transform.position, playertController.GetPlayerAttackRange(),
+            playertController.layerMask);
+
+        if (findEnemey == null)
+        {
+            playertController.SetState(States.Idle);
+            return;
+        }
+        else
+        {
+            foreach (var enemy in findEnemey)
+            {
+                if (enemy.GetComponent<MonsterStats>().currHealth > 0)
+                {
+                    return;
+                }
+                else
+                {
+                    dieMonCount++;
+                }
+
+            }
+            if (dieMonCount == findEnemey.Length)
+            {
+                playertController.SetState(States.Idle);
+                return;
+            }
+        }
         
     }
 }

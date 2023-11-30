@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private float range; // player공격 range 
     public LayerMask layerMask;
     
+    public Vector2 initialPos = Vector2.zero;
 
     public bool IsStartTarget { get; set; } 
     public void Awake()
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         playerStateBases.Add(new PlayerIdleState(this));
         playerStateBases.Add(new PlayerMoveState(this));
         playerStateBases.Add(new PlayerAttackState(this));
+        playerStateBases.Add(new PlayerDieState(this));
 
 
         animator = GetComponentInChildren<Animator>();
@@ -45,15 +47,19 @@ public class PlayerController : MonoBehaviour
 
         executeHit = GetComponentInChildren<ExcuteAttackPlayer>();
 
+        initialPos = transform.position;
     }
     private void FixedUpdate()
     {
         /// <summary>
         /// //monster가 스폰이 되었는지에 대한 정보가 필요하면 좋을 것같음
         /// <summary>
+        playerStateManager.FixedUpdate();
+        //ShootLayMaskCircle();
     }
     public void Update()
     {
+        Debug.Log(playerStateManager.GetCurrentState());
         playerStateManager.Update();
         if (!IsStartTarget)
         {
@@ -94,12 +100,14 @@ public class PlayerController : MonoBehaviour
         playerStartTimer += Time.deltaTime;
         if (playerStartTimer > playerStartTime)
         {
-
+            SetState(States.Move);
             transform.position = Vector3.Lerp(transform.position, destinationPoint.position, playerMoveSpeed * Time.deltaTime);
             if (Vector3.Distance(transform.position, destinationPoint.position) < 0.1f)
             {
                 IsStartTarget = true;
                 SetState(States.Idle);
+                WaveManager.instance.StartWave();
+                playerStartTimer = 0f;
             }
         }
     } // 시작되면 한번 플레이어가 밖에서 앞으로 오는 것으로 변경해둠
@@ -112,14 +120,10 @@ public class PlayerController : MonoBehaviour
             SetState(States.Attack);
     }
 
-
-    /// <summary>
-    /// public 
-    /// <summary>
-
     public void SetState(States newState)
     {
         playerStateManager.ChangeState(playerStateBases[(int)newState]);
+        //Debug.Log(playerStateManager.GetCurrentState());
     }
 
     public Animator GetAnimator()

@@ -28,6 +28,10 @@ public class MonsterIdleState : MonsterStateBase
 
     public override void Update()
     {
+        if (monsterCtrl.isTargetDie)
+        {
+            return;
+        }
         if (monsterStats.currHealth <= 0)
         {
             monsterCtrl.SetState(States.Die);

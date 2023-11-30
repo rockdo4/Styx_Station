@@ -7,7 +7,7 @@ public class MonsterMeleeWeapon : AttackDefinition
     public override void ExecuteAttack(GameObject attacker, GameObject defender)
     {
         //애니메이션 시작 -> 실제 타격 사이에 거리와 방향이 변경될 수 있기 때문에 체크 필요
-        if (defender == null) //남아있지만 죽은 상태일 수도 있음
+        if (defender.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0) //남아있지만 죽은 상태일 수도 있음
         {
             return;
         }

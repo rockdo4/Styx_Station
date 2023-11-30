@@ -15,14 +15,14 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     private DiningRoomUiManager parentDiningRoomUi;
     private void Awake()
     {
-
+        parentDiningRoomUi = GetComponentInParent<DiningRoomUiManager>();
     }
 
     private void Start()
     {
         CheckFoodButton();
 
-        parentDiningRoomUi = GetComponentInParent<DiningRoomUiManager>();
+      
         AddButtonMethod();
     }
     private void AddButtonMethod()
@@ -35,8 +35,7 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     }
     private void GetFoodData(int index)
     {
-        Debug.Log(index);
-
+        parentDiningRoomUi.currentButtonIndex = index;  
         if (foodDatas[index] != null)
         {
             Debug.Log(foodDatas[index].sprite.name);
@@ -61,6 +60,11 @@ public class DiningRoomUiFoodButton : MonoBehaviour
                 texture.sprite = lockImage;
             }
         }
+    }
+    public void ResetFoodImage(int index)
+    {
+        var texture = foodButton[index].GetComponent<Image>();
+        texture.sprite = cookImage;
     }
     public void MakeFood(FoodData data)
     {

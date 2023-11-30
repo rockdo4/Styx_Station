@@ -5,29 +5,33 @@ using System.IO;
 using System;
 using System.Diagnostics;
 using Unity.VisualScripting;
+using static StageTable;
+using UnityEngine;
+using CsvHelper.Configuration;
 
 public class StringTable : DataTable<StringTable>
 {
     
     public StringTable()
     {
-        path = "Assets/07. DataTable/StringTable.csv";
+        path = "CSV/StringTable";
+        //path = Resources.Load<TextAsset>(Path.Combine("CSV", "StringTable"));
         Load();
     }
     public Dictionary<string, StringTableData> dic = new Dictionary<string, StringTableData>(); 
+
     public override void Load()
     {
-        using (var streamReader = new StreamReader(path))
+        var csvFileText = Resources.Load<TextAsset>(path);
+        TextReader reader = new StringReader(csvFileText.text);
+        var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture));
+        var records = csv.GetRecords<StringTableData>();
+
+        foreach (var record in records)
         {
-            using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
-            {
-                var records = csvReader.GetRecords<StringTableData>();
-                foreach (var record in records)
-                {
-                    dic[record.ID] = record; // ID를 key로 사용하여 사전에 추가
-                }
-            }
+            dic.Add(record.ID, record);
         }
+   
     }
     public StringTableData GetStringTableData(string id)
     {

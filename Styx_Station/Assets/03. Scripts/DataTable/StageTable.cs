@@ -3,6 +3,7 @@ using CsvHelper.Configuration;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using UnityEngine;
 
 public class StageTable : DataTable<StageTable>
 {
@@ -46,21 +47,18 @@ public class StageTable : DataTable<StageTable>
 
     public StageTable()
     {
-        path = "Assets/07. DataTable/StageTable.csv";
+        path = Resources.Load<TextAsset>(Path.Combine("CSV", "StageTable")).text;
         Load();
     }
     public override void Load()
     {
-        using (var streamReader = new StreamReader(path))
+        TextReader reader = new StringReader(path);
+        var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture));
+        var records = csv.GetRecords<StageTableData>();
+
+        foreach (var record in records)
         {
-            using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
-            {
-                var records = csvReader.GetRecords<StageTableData>();
-                foreach (var record in records)
-                {
-                    dic.Add(record.index, record);
-                }
-            }
+            dic.Add(record.index, record);
         }
     }
 

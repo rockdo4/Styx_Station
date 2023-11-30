@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
 using TMPro;
 using Unity.Mathematics;
@@ -82,7 +83,11 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
         var lo = GetComponent<SaveLoad>();
         lo.Load();
     }
-
+    private void OnApplicationQuit()
+    {
+        var lo = GetComponent<SaveLoad>();
+        lo.Save();
+    }
     private void Start()
     {
         moneyList[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}";

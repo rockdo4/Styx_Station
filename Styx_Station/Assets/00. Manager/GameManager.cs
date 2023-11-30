@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //SaveDataLoad();
+        SaveDataLoad();
         //WaveManager.instance.StartWave();
     }
 

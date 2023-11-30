@@ -19,8 +19,6 @@ public class InventorySystem : MonoBehaviour
                 instance.inventory = go.AddComponent<Inventory>();
                 instance.skillInventory = go.AddComponent<SkillInventory>();
                 instance.Setting();
-                instance.saveLoad = go.AddComponent<SaveLoad>();
-                instance.saveLoad.Load();
                 DontDestroyOnLoad(go);
             }
             return instance;

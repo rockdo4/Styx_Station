@@ -5,6 +5,8 @@ public class InventoryUI : MonoBehaviour
 {
     public InventoryWindow[] windows;
 
+    public GameObject panel;
+
     public InventoryType currentWindow;
 
     public Button inventory;
@@ -19,6 +21,7 @@ public class InventoryUI : MonoBehaviour
 
         currentWindow = inventoryType;
 
+        panel.SetActive(true);
         windows[(int)inventoryType].Open();
     }
 
@@ -40,5 +43,11 @@ public class InventoryUI : MonoBehaviour
     public void OnClickSkill()
     {
         Open(InventoryType.Skill);
+    }
+
+    public void OnClickClose()
+    {
+        panel.SetActive(false);
+        windows[(int)currentWindow].Close();
     }
 }

@@ -17,6 +17,9 @@ public class ResultPlayerStats : MonoBehaviour
     private int prevUpgradeHp; 
     public int percentInt = 100;
     public float percentFloat = 100f;
+    private float nowTime;
+    [Header("몇초당 힐을할것인가?")]
+    public float healingTimer =1f;
     [Header("공격력 1강당")]
     public int increaseUpgradePower = 10;
     [Header("공격력 증폭 1강당")]
@@ -55,10 +58,14 @@ public class ResultPlayerStats : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        playerCurrentHp += SharedPlayerStats.GetHealing() * increaseUpgradeHealing / 10;
-        if (playerCurrentHp >= playerMaxHp)
+        if (nowTime + healingTimer < Time.time)
         {
-            playerCurrentHp = playerMaxHp;
+            nowTime = Time.time;
+            playerCurrentHp += SharedPlayerStats.GetHealing() * increaseUpgradeHealing / 10;
+            if (playerCurrentHp >= playerMaxHp)
+            {
+                playerCurrentHp = playerMaxHp;
+            }
         }
     }
     public BigInteger GetPlayerPowerByNonInventory()

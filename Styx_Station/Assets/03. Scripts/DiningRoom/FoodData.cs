@@ -5,6 +5,8 @@ using UnityEngine;
 public class FoodData 
 {
     public Sprite sprite;
+    public string Food_ID;
+    public string Food_Name_ID;
     public FoodType Food_Type;
     public int Food_Per;
     public int Food_Sil;

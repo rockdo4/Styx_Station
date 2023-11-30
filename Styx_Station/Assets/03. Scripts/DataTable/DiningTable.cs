@@ -35,4 +35,8 @@ public class DiningTable : DataTable<DiningTable>
     {
         return foodID; 
     }
+    public FoodTableData GetFoodTableData(string str)
+    {
+        return dic[str];
+    }
 }

@@ -8,18 +8,13 @@ using Unity.VisualScripting;
 
 public class StringTable : DataTable<StringTable>
 {
-    public struct StringTableData
-    {
-        public string ID { get; set; }
-        public  string KOR { get; set; }
-        public string ENG { get; set; }
-    }
+    
     public StringTable()
     {
         path = "Assets/07. DataTable/StringTable.csv";
         Load();
     }
-    public Dictionary<string, StringTableData> dic = new Dictionary<string, StringTableData>();
+    public Dictionary<string, StringTableData> dic = new Dictionary<string, StringTableData>(); 
     public override void Load()
     {
         using (var streamReader = new StreamReader(path))
@@ -33,5 +28,22 @@ public class StringTable : DataTable<StringTable>
                 }
             }
         }
+    }
+    public StringTableData GetStringTableData(string id)
+    {
+        return dic[id];
+    }
+
+    public List<StringTableData> GetListStringTableDataContains(string str)
+    {
+        List<StringTableData> strList = new List<StringTableData>();
+        foreach (var data in dic)
+        {
+            if(data.Key.Contains(str))
+            {
+                strList.Add(data.Value);
+            }
+        }
+        return strList;
     }
 }

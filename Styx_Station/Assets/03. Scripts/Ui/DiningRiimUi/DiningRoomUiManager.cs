@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +11,7 @@ public class DiningRoomUiManager : MonoBehaviour
     private bool isDrawDiningRoomDislay;
     public GameObject roomMainPanel;
     public DiningRoomUiFoodButton diningRoomUiButton;
+    public DiningRoomUiInfo diningRoomUiInfo;
     public TextMeshProUGUI timerText;
     public float MaxTimer;
     private float timer;
@@ -24,42 +27,86 @@ public class DiningRoomUiManager : MonoBehaviour
     private List<FoodData> bGradeFood = new List<FoodData>();
     private List<FoodData> aGradeFood = new List<FoodData>();
     private List<FoodData> sGradeFood = new List<FoodData>();
-    private int maxFoodPer;
+
+    private StringTable stringTable;
+    private Dictionary<String,StringTableData> foodNameDictionary = new Dictionary<String,StringTableData>();
+    private Dictionary<String, StringTableData> foodExplanationDictionary = new Dictionary<String, StringTableData>();
     private void Awake()
     {
         roomMainPanel.SetActive(isDrawDiningRoomDislay);
-        Debug.Log("음식만들기 준비중");
     }
     private void Start()
     {
         timer = MaxTimer;
         if(!isResetDiningTable)
         {
+            stringTable = new StringTable(); // 지워야함
             diningTable =new DiningTable();
             isResetDiningTable =true;
+            if (diningTable != null)
+            {
+                foodId = diningTable.GetFoodTableID();
+            }
+            GetFoodStringTableData();
+            FoodGradeInsert();
         }
-        if(diningTable != null)
+    }
+    private void Update()
+    {
+        if(!diningRoomUiButton.isFullFood)
+            TimeCounting();
+    }
+
+    public void OnClickDrawDiningRoomDisplay()
+    {
+        isDrawDiningRoomDislay = !isDrawDiningRoomDislay;
+        roomMainPanel.SetActive(isDrawDiningRoomDislay);
+    }
+
+    public void GetFoodDataByMadeFood(FoodData data)
+    {
+        var stringData = foodNameDictionary[data.Food_Name_ID];
+        var buffExplanation = GetFoodExplanationStringTable(data.Food_ID);
+        diningRoomUiInfo.OnFoodDataDisplay(data, stringData, buffExplanation);
+    }
+    private void GetFoodStringTableData()
+    {
+        var foodNameList = diningTable.GetFoodTableID();
+        for(int i =0;i< foodNameList.Count;i++)
         {
-            foodId=diningTable.GetFoodTableID();
+            var id = diningTable.GetFoodTableData(foodNameList[i]);
+            var data =stringTable.GetStringTableData(id.Food_Name_ID);
+            foodNameDictionary.Add(id.Food_Name_ID, data);
+            if (i < 4)
+            {
+                var buffId = foodNameList[i] + "_Buff";
+                var buffData = stringTable.GetStringTableData(buffId);
+                foodExplanationDictionary.Add(buffId, buffData);
+            }
         }
-        for(int i=0;i< diningTable.dic.Count; i++)
+    }
+    private void FoodGradeInsert()
+    {
+        for (int i = 0; i < diningTable.dic.Count; i++)
         {
-            for(int j =0; j < foodSpriteList.Count;j++)
+            for (int j = 0; j < foodSpriteList.Count; j++)
             {
                 if (diningTable.dic[foodId[i]].Food_Name_ID == foodSpriteList[i].name)
                 {
                     var t = diningTable.dic[foodId[i]];
                     FoodData type = new FoodData();
                     type.sprite = foodSpriteList[i];
+                    type.Food_ID = t.Food_ID;
+                    type.Food_Name_ID = t.Food_Name_ID;
                     type.Food_Per = t.Food_Per;
                     type.Food_Sil = t.Food_Sil;
-                    type.Food_Soul  = t.Food_Soul; 
+                    type.Food_Soul = t.Food_Soul;
                     type.Food_ATK = t.Food_ATK;
                     type.Food_Cri = t.Food_Cri;
-                    type.Food_Skill=t.Food_Skill;
-                    type.Food_Boss= t.Food_Boss;
-                    type.Food_Silup= t.Food_Silup;
-                    type.Food_Du= t.Food_Du;
+                    type.Food_Skill = t.Food_Skill;
+                    type.Food_Boss = t.Food_Boss;
+                    type.Food_Silup = t.Food_Silup;
+                    type.Food_Du = t.Food_Du;
                     type.Food_Type = (FoodType)t.Food_Type;
                     switch (diningTable.dic[foodId[i]].Food_Type)
                     {
@@ -89,18 +136,6 @@ public class DiningRoomUiManager : MonoBehaviour
                 }
             }
         }
-
-    }
-    private void Update()
-    {
-        if(!diningRoomUiButton.isFullFood)
-            TimeCounting();
-    }
-
-    public void OnClickDrawDiningRoomDisplay()
-    {
-        isDrawDiningRoomDislay = !isDrawDiningRoomDislay;
-        roomMainPanel.SetActive(isDrawDiningRoomDislay);
     }
 
     private void TimeCounting()
@@ -112,150 +147,50 @@ public class DiningRoomUiManager : MonoBehaviour
 
         if (timer <= 0)
         {
-
-            var range = UnityEngine.Random.Range(0, 100);
-            if(range <=40)
-            {
-                int max = 0;
-                for(int i =0;i<fGradeFood.Count;i++)
-                {
-                    max += fGradeFood[i].Food_Per;
-                }
-                var result = UnityEngine.Random.Range(0, max);
-                int betwon=0;
-                for (int i = 0; i < fGradeFood.Count; i++)
-                {
-                    betwon += fGradeFood[i].Food_Per;
-                    if (result <=betwon)
-                    {
-                        diningRoomUiButton.MakeFood(fGradeFood[i]);
-                        timer = MaxTimer;
-                        break;
-                    }
-                }
-            }
-            else if(range >40 && range <=65)
-            {
-                int max = 0;
-                for (int i = 0; i < eGradeFood.Count; i++)
-                {
-                    max += eGradeFood[i].Food_Per;
-                }
-                var result = UnityEngine.Random.Range(0, max);
-                int betwon = 0;
-                for (int i = 0; i < eGradeFood.Count; i++)
-                {
-                    betwon += eGradeFood[i].Food_Per;
-                    if (result <= betwon)
-                    {
-                        diningRoomUiButton.MakeFood(eGradeFood[i]);
-                        timer = MaxTimer;
-                        break;
-                    }
-                }
-            }
-            else if(range >65 && range<=80)
-            {
-                int max = 0;
-                for (int i = 0; i < fGradeFood.Count; i++)
-                {
-                    max += fGradeFood[i].Food_Per;
-                }
-                var result = UnityEngine.Random.Range(0, max);
-                int betwon = 0;
-                for (int i = 0; i < fGradeFood.Count; i++)
-                {
-                    betwon += fGradeFood[i].Food_Per;
-                    if (result <= betwon)
-                    {
-                        diningRoomUiButton.MakeFood(fGradeFood[i]);
-                        timer = MaxTimer;
-                        break;
-                    }
-                }
-            }
-            else if (range > 80 && range <= 90)
-            {
-                int max = 0;
-                for (int i = 0; i < cGradeFood.Count; i++)
-                {
-                    max += cGradeFood[i].Food_Per;
-                }
-                var result = UnityEngine.Random.Range(0, max);
-                int betwon = 0;
-                for (int i = 0; i < cGradeFood.Count; i++)
-                {
-                    betwon += cGradeFood[i].Food_Per;
-                    if (result <= betwon)
-                    {
-                        diningRoomUiButton.MakeFood(cGradeFood[i]);
-                        timer = MaxTimer;
-                        break;
-                    }
-                }
-            }
-            else if(range >90 && range <=96)
-            {
-                int max = 0;
-                for (int i = 0; i < bGradeFood.Count; i++)
-                {
-                    max += bGradeFood[i].Food_Per;
-                }
-                var result = UnityEngine.Random.Range(0, max);
-                int betwon = 0;
-                for (int i = 0; i < bGradeFood.Count; i++)
-                {
-                    betwon += bGradeFood[i].Food_Per;
-                    if (result <= betwon)
-                    {
-                        diningRoomUiButton.MakeFood(bGradeFood[i]);
-                        timer = MaxTimer;
-                        break;
-                    }
-                }
-            }
-            else if(range >96 && range<=99)
-            {
-                int max = 0;
-                for (int i = 0; i < aGradeFood.Count; i++)
-                {
-                    max += aGradeFood[i].Food_Per;
-                }
-                var result = UnityEngine.Random.Range(0, max);
-                int betwon = 0;
-                for (int i = 0; i < aGradeFood.Count; i++)
-                {
-                    betwon += aGradeFood[i].Food_Per;
-                    if (result <= betwon)
-                    {
-                        diningRoomUiButton.MakeFood(aGradeFood[i]);
-                        timer = MaxTimer;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                int max = 0;
-                for (int i = 0; i < sGradeFood.Count; i++)
-                {
-                    max += sGradeFood[i].Food_Per;
-                }
-                var result = UnityEngine.Random.Range(0, max);
-                int betwon = 0;
-                for (int i = 0; i < sGradeFood.Count; i++)
-                {
-                    betwon += sGradeFood[i].Food_Per;
-                    if (result <= betwon)
-                    {
-                        diningRoomUiButton.MakeFood(sGradeFood[i]);
-                        timer = MaxTimer;
-                        break;
-                    }
-                }
-            }
-            
+            ChooseFoodByProbability();
+            timer = MaxTimer;
         }
     }
 
+    private void ChooseFoodByProbability()
+    {
+        var range = UnityEngine.Random.Range(0, 100);
+        List<FoodData> selectedList;
+        if (range <= 40) selectedList = fGradeFood;
+        else if (range <= 65) selectedList = eGradeFood;
+        else if (range <= 80) selectedList = fGradeFood;
+        else if (range <= 90) selectedList = cGradeFood;
+        else if (range <= 96) selectedList = bGradeFood;
+        else if (range <= 99) selectedList = aGradeFood;
+        else selectedList = sGradeFood;
+        MakeRandomFoodFromList(selectedList);
+    }
+    private void MakeRandomFoodFromList(List<FoodData> foodList)
+    {
+        int max = foodList.Sum(food => food.Food_Per);
+        var result = UnityEngine.Random.Range(0, max);
+        int betwon = 0;
+
+        foreach (var food in foodList)
+        {
+            betwon += food.Food_Per;
+            if (result <= betwon)
+            {
+                diningRoomUiButton.MakeFood(food);
+                break;
+            }
+        }
+    }
+
+    public StringTableData GetFoodExplanationStringTable(string str)
+    {
+        foreach(var exp in foodExplanationDictionary)
+        {
+            if(exp.Key.Contains(str))
+            {
+                return exp.Value;
+            }
+        }
+        return default;
+    }
 }

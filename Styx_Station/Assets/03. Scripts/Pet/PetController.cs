@@ -20,7 +20,7 @@ public class PetController : MonoBehaviour
 
     private bool isArrive;
     private float delay ;
-    private StateManager stateManager = new StateManager();
+    private StateManager petStateManager = new StateManager();
     private List<StateBase> petStateBases = new List<StateBase>();
     private ExcuteAttackPet executeHit ; 
     public AttackDefinition weapon ;
@@ -53,12 +53,12 @@ public class PetController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        stateManager.FixedUpdate();
+        petStateManager.FixedUpdate();
         //petController.GetAnimator().speed = petController.animationSpeed;
     }
     private void Update()
     {
-        stateManager.Update();
+        petStateManager.Update();
         if (masterPlayer == null)
         {
             return;
@@ -81,7 +81,7 @@ public class PetController : MonoBehaviour
     }
     public void  SetState(States state)
     {
-        stateManager.ChangeState(petStateBases[(int)state]);
+        petStateManager.ChangeState(petStateBases[(int)state]);
     }
 
     public Animator GetAnimator()
@@ -116,5 +116,9 @@ public class PetController : MonoBehaviour
         if (masterPlayer != null)
             return -1;
         return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (int)petlevel * 10/ 100;
+    }
+    public StateManager GetPetStateManager()
+    {
+        return petStateManager;
     }
 }

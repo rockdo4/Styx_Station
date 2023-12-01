@@ -25,6 +25,8 @@ public class PetController : MonoBehaviour
     private ExcuteAttackPet executeHit ; 
     public AttackDefinition weapon ;
     public LayerMask layerMask;
+
+    public States currentStates;
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -82,6 +84,7 @@ public class PetController : MonoBehaviour
     public void  SetState(States state)
     {
         petStateManager.ChangeState(petStateBases[(int)state]);
+        currentStates = state;
     }
 
     public Animator GetAnimator()

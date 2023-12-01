@@ -10,6 +10,7 @@ public class PetRun : PetStateBase
 
     public override void Enter()
     {
+        petController.GetAnimator().SetBool("Attacking", false);
         petController.GetAnimator().SetBool("Run", true);
         petController.GetAnimator().SetFloat("RunState", 0.5f);
     }
@@ -22,7 +23,14 @@ public class PetRun : PetStateBase
 
     public override void FixedUpate()
     {
-
+        var master = petController.masterPlayer.GetComponent<PlayerController>();
+        if (master != null)
+        {
+            if (petController.currentStates != master.currentStates && (master.currentStates == States.Idle))
+            {
+               petController.SetState(States.Idle);
+            }
+        }
     }
 
     public override void Update()

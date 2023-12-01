@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerAttributes : MonoBehaviour
 {
     // player 기본 스탯 내용 
+    [HideInInspector]
     public int hp;
 
-    [SerializeField, Range(0, 1000)]
+    [SerializeField, Range(0, 1000000)]
     [Header("HP")]
     public int MaxHp;
     [SerializeField, Range(0, 500)]

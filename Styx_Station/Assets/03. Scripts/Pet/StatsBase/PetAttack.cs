@@ -12,46 +12,42 @@ public class PetAttack : PetStateBase
 
     public override void Enter()
     {
+
         petController.GetAnimator().SetTrigger("Attack");
+        petController.GetAnimator().SetBool("Attacking",true);
         petController.GetAnimator().SetFloat("NormalState", 0f);
         petController.GetAnimator().speed = petController.attackSpeed;
     }
 
     public override void Exit()
     {
-
+        petController.GetAnimator().SetTrigger("Idle");
         petController.GetAnimator().speed = 1f;
     }
 
     public override void FixedUpate()
     {
-        timer += Time.fixedDeltaTime;
-        if (timer > checkMonsterTime)
-        {
-            var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
+        var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
 
-            if (findEnemy == null)
-            {
-                petController.SetState(States.Idle);
-                return;
-            }
-            timer = 0f;
+        if (findEnemy.Length <1||findEnemy[0] == null)
+        {
+            petController.SetState(States.Idle);
         }
 
         //var master = petController.masterPlayer.GetComponent<PlayerController>();
         //if (master != null)
         //{
-        //    if (petController.GetPetStateManager().GetCurrentState() != master.GetPlayerCurrentState())
+        //    if (petController.currentStates != master.currentStates)
         //    {
-        //        petController.GetAnimator().SetTrigger("Idle");
+        //            petController.SetState(master.currentStates);
         //    }
         //}
     }
 
     public override void Update()
     {
-        
+
     }
 
-    
+
 }

@@ -18,8 +18,8 @@ public class PetController : MonoBehaviour
     public float attackSpeed;
     public float range;
 
-    private bool isArrive;
-    private float delay ;
+    private bool isArrive = false;
+    private float delay = 0;
     private StateManager petStateManager = new StateManager();
     private List<StateBase> petStateBases = new List<StateBase>();
     private ExcuteAttackPet executeHit ; 
@@ -66,7 +66,7 @@ public class PetController : MonoBehaviour
         else
         {
             delay += Time.deltaTime;
-            if (delay > 0.3f && !isArrive)
+            if (delay > 1.8f && !isArrive)
             {
                 var pos = masterPlayer.transform.position;
                 pos.y = transform.position.y;

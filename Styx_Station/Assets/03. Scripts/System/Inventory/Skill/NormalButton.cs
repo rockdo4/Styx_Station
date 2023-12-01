@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class NormalButton : MonoBehaviour
@@ -12,6 +13,7 @@ public class NormalButton : MonoBehaviour
 
     public void UiUpdate()
     {
+
         if (skillIndex < 0)
         {
             skillName.text = "None";
@@ -41,6 +43,12 @@ public class NormalButton : MonoBehaviour
 
         if (!inventory.skills[window.selectIndex].acquire)
             return;
+
+        if (inventory.skills[window.selectIndex].equip)
+        {
+            var index = inventory.skills[window.selectIndex].equipIndex;
+            window.normalButtons[index].GetComponent<NormalButton>().skillIndex = -1;
+        }
 
         skillIndex = window.selectIndex;
         skillName.text = inventory.skills[skillIndex].skill.Skill_Name;

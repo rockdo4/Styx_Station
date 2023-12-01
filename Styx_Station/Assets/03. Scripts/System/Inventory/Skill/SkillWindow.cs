@@ -62,6 +62,7 @@ public class SkillWindow : InventoryWindow
         foreach(var button in chainButtons)
         {
             var ui = button.GetComponent<ChainButton>();
+            button.interactable = true;
             ui.UiUpdate();
         }
     }

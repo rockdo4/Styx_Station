@@ -13,6 +13,11 @@ public class MonsterDieState : MonsterStateBase
     private float fadeDuration = 1f;
     private List<Color> colorList = new List<Color>();
 
+    /// <summary>
+    /// 임시 사용, 유아이 매니저 제작 시 이동 예정
+    /// </summary>
+    
+
     public MonsterDieState(MonsterController monsterCtrl) : base(monsterCtrl)
     {
         
@@ -25,6 +30,7 @@ public class MonsterDieState : MonsterStateBase
         colorList = monsterCtrl.GetOriginalColor();
         spriteRenderers = monsterCtrl.gameObject.GetComponentsInChildren<SpriteRenderer>();
         monsterCtrl.GetComponent<Collider2D>().enabled = false;
+        
     }
 
     public override void Exit()

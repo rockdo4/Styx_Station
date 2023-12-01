@@ -1,14 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
 {
     private MonsterStats stats;
-    //private void Awake()
-    //{
-    //    stats = GetComponent<MonsterStats>();
-    //}
     private void OnEnable()
     {
         stats = GetComponent<MonsterStats>();
@@ -23,6 +17,7 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
         {
             stats.currHealth = 0;
             WaveManager.instance.DecreaseAliveMonsterCount();
+            WaveManager.instance.IncreaseMoney1();
         }
     }
 }

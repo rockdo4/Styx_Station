@@ -19,7 +19,7 @@ public class PlayerDieState : PlayerStateBase
 
     public override void Exit()
     {
-
+        playertController.GetComponent<ResultPlayerStats>().ResetHp();
     }
 
     public override void FixedUpate()

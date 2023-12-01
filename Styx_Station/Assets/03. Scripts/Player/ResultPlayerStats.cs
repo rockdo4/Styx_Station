@@ -204,5 +204,10 @@ public class ResultPlayerStats : MonoBehaviour
             Debug.Log("PlayerDie");
         }
     }
+
+    public void ResetHp()
+    {
+        playerCurrentHp = playerMaxHp;
+    }
     
 }

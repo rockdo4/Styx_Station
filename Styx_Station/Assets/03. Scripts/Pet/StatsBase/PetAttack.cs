@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PetAttack : PetStateBase
 {
+    private float timer;
+    private float checkMonsterTime = 0.1f;
     public PetAttack(PetController petController) : base(petController)
     {
     }
@@ -23,14 +25,27 @@ public class PetAttack : PetStateBase
 
     public override void FixedUpate()
     {
-        var master =petController.masterPlayer.GetComponent<PlayerController>();
-        if(master != null)
+        timer += Time.fixedDeltaTime;
+        if (timer > checkMonsterTime)
         {
-            if(petController.GetPetStateManager().GetCurrentState() != master.GetPlayerCurrentState())
+            var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
+
+            if (findEnemy == null)
             {
-                petController.GetAnimator().SetTrigger("Idle");
+                petController.SetState(States.Idle);
+                return;
             }
+            timer = 0f;
         }
+
+        //var master = petController.masterPlayer.GetComponent<PlayerController>();
+        //if (master != null)
+        //{
+        //    if (petController.GetPetStateManager().GetCurrentState() != master.GetPlayerCurrentState())
+        //    {
+        //        petController.GetAnimator().SetTrigger("Idle");
+        //    }
+        //}
     }
 
     public override void Update()

@@ -216,4 +216,9 @@ public class WaveManager : MonoBehaviour
             }
         }
     }
+
+    public void IncreaseMoney1()
+    {
+        CurrencyManager.IncreaseMoney1(currStage.rewardCoins);
+    }
 }

@@ -282,6 +282,7 @@ public class EquipWindow : InventoryWindow
         ui.itemIndex = itemIndex;
         ui.AcqurieItem();
         Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[2].gameObject));
+        Button.onClick.AddListener(() => ViewItemInfo(2));
         Button.gameObject.SetActive(false);
         customRingButtons.Add(Button);
         GetTypeEvent(ItemType.Ring);
@@ -298,6 +299,7 @@ public class EquipWindow : InventoryWindow
         ui.itemIndex = itemIndex;
         ui.AcqurieItem();
         Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[3].gameObject));
+        Button.onClick.AddListener(() => ViewItemInfo(3));
         Button.gameObject.SetActive(false);
         customSymbolButtons.Add(Button);
         GetTypeEvent(ItemType.Symbol);
@@ -352,6 +354,13 @@ public class EquipWindow : InventoryWindow
                     {
                         text.AppendLine($"{option.option} : {option.value + option.upgradeValue * equipItem.upgradeLev}");
                     }
+                    text.AppendLine();
+                    text.AppendLine("AddOption");
+                    text.AppendLine();
+                    foreach (var option in equipItem.item.addOptions)
+                    {
+                        text.AppendLine($"{option.option} : {option.value}");
+                    }
                 }
                     break;
             case ItemType.Symbol:
@@ -362,11 +371,18 @@ public class EquipWindow : InventoryWindow
                     {
                         text.AppendLine($"{option.option} : {option.value + option.upgradeValue * equipItem.upgradeLev}");
                     }
+                    text.AppendLine();
+                    text.AppendLine("AddOption");
+                    text.AppendLine();
+                    foreach (var option in equipItem.item.addOptions)
+                    {
+                        text.AppendLine($"{option.option} : {option.value}");
+                    }
                 }
                     break;
         }
 
-
+        text.AppendLine();
         itemText.text = text.ToString();
     }
 

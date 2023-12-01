@@ -54,4 +54,7 @@ public class Skill : ScriptableObject
 
     [Tooltip("지속 시간")]
     public float Skill_Du;
+
+    [Tooltip("이미지")]
+    public Sprite image;
 }

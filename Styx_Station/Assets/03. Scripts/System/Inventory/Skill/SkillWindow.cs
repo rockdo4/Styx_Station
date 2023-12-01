@@ -26,11 +26,16 @@ public class SkillWindow : InventoryWindow
 
     public override void Open()
     {
+        selectIndex = -1;
+        equipMode = false;
+
         base.Open();
     }
 
     public override void Close()
     {
+        OnClickCloseIfno();
+
         base.Close();
     }
 
@@ -45,9 +50,12 @@ public class SkillWindow : InventoryWindow
 
     public void WindowUpdate()
     {
-        foreach(var button in normalButtons)
+        ButtonInteractable();
+
+        foreach (var button in normalButtons)
         {
             var ui = button.GetComponent<NormalButton>();
+            button.interactable = true;
             ui.UiUpdate();
         }
 
@@ -57,6 +65,20 @@ public class SkillWindow : InventoryWindow
             ui.UiUpdate();
         }
     }
+    public void ButtonInteractable()
+    {
+        foreach(var skill in normalButtons)
+        {
+            skill.interactable = true;
+        }
+
+        foreach(var skill in chainButtons)
+        {
+            skill.interactable = true;
+        }
+        info.GetComponent<SkillInfoUi>().equip.interactable = true;
+    }
+
     public void Setting()
     {
         NSkillButtonCreate();
@@ -166,12 +188,33 @@ public class SkillWindow : InventoryWindow
     public void OnClickCloseIfno()
     {
         selectIndex = -1;
+        equipMode = false;
         skillTabs.SetActive(true);
         info.SetActive(false);
+        ButtonInteractable();
     }
 
     public void OnClickEquip()
     {
+        if (selectIndex < 0)
+            return;
+
         equipMode = true;
+
+        switch(inventory.skills[selectIndex].skill.Skill_Type_2)
+        {
+            case SkillType_2.Normal:
+                foreach(var skill in chainButtons)
+                {
+                    skill.interactable = false;
+                }
+                break;
+            case SkillType_2.Chain:
+                foreach (var skill in normalButtons)
+                {
+                    skill.interactable = false;
+                }
+                break;
+        }
     }
 }

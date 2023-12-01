@@ -43,6 +43,11 @@ public class ChainButton : MonoBehaviour
         if (!inventory.skills[window.selectIndex].acquire)
             return;
 
+        foreach(var skill in window.chainButtons)
+        {
+            skill.gameObject.GetComponent<ChainButton>().OnClickDequip(!window.equipMode);
+        }
+
         skillIndex = window.selectIndex;
         skillName.text = inventory.skills[skillIndex].skill.Skill_Name;
 

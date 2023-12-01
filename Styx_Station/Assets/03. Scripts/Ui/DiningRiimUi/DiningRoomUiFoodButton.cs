@@ -65,6 +65,7 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     {
         var texture = foodButton[index].GetComponent<Image>();
         texture.sprite = cookImage;
+        foodButton[index].interactable=false;
     }
     public void MakeFood(FoodData data)
     {

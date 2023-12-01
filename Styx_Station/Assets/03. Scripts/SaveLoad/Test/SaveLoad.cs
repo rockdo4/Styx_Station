@@ -96,7 +96,7 @@ public class SaveLoad : MonoBehaviour
 
 
             var inventory = InventorySystem.Instance.inventory;
-
+            var t = testSingle.Instance;
 
             if (jsonObject.TryGetValue("weaponData", out JToken weaponToken))
             {

@@ -11,15 +11,20 @@ public class DiningRoomUiInfo : MonoBehaviour
     public Image foodRankImage;
     public TextMeshProUGUI foodName;
     public TextMeshProUGUI foodBuffText;
+    public TextMeshProUGUI foodguideText;
+    public TextMeshProUGUI foodSellInfo;
     private Language prevLanguage;
     private StringTableData foodNameStringData;
     private StringTableData foodBuffStringData;
+    private StringTableData foodGuideStringData;
+    private StringTableData foodSellInfoStringData;
     private FoodData currentInfFoddData;
-    private int[] buffInt = new int[5]; 
+    private int[] buffInt = new int[5];
+
     private void Awake()
     {
-        prevLanguage =Global.language;
-        
+        prevLanguage = Global.language;
+
     }
     private void Start()
     {
@@ -30,22 +35,23 @@ public class DiningRoomUiInfo : MonoBehaviour
     }
     private void Update()
     {
-        if(prevLanguage != Global.language)
+        if (prevLanguage != Global.language)
         {
             prevLanguage = Global.language;
             ChangeLanguage();
         }
     }
-    public void OnFoodDataDisplay(FoodData data, StringTableData stringData,StringTableData foodBuff)
+    public void OnFoodDataDisplay(FoodData data, StringTableData stringData, StringTableData foodBuff,
+        StringTableData foodGuide, StringTableData sellInfo)
     {
         currentInfFoddData = data;
         foodImage.sprite = currentInfFoddData.sprite;
-        switch(data.Food_Type)
+        switch (data.Food_Type)
         {
             case FoodType.F:
-                foreach(var rank in rankSprites)
+                foreach (var rank in rankSprites)
                 {
-                    if(rank.name == "F" || rank.name == "f")
+                    if (rank.name == "F" || rank.name == "f")
                     {
                         foodRankImage.sprite = rank;
                         break;
@@ -116,6 +122,8 @@ public class DiningRoomUiInfo : MonoBehaviour
 
         foodNameStringData = stringData;
         foodBuffStringData = foodBuff;
+        foodGuideStringData = foodGuide;
+        foodSellInfoStringData = sellInfo;
         ChangeLanguage();
     }
 
@@ -123,12 +131,12 @@ public class DiningRoomUiInfo : MonoBehaviour
     {
         string foodBuffStr;
         int currentBuffInt = 0;
-        if(currentInfFoddData.Food_ATK >0)
+        if (currentInfFoddData.Food_ATK > 0)
         {
             buffInt[currentBuffInt] = currentInfFoddData.Food_ATK;
             currentBuffInt++;
         }
-        if (currentInfFoddData.Food_Cri> 0)
+        if (currentInfFoddData.Food_Cri > 0)
         {
             buffInt[currentBuffInt] = currentInfFoddData.Food_Cri;
             currentBuffInt++;
@@ -150,17 +158,36 @@ public class DiningRoomUiInfo : MonoBehaviour
         }
         switch (Global.language)
         {
-            
+
             case Language.KOR:
                 foodName.text = $"{foodNameStringData.KOR}";
                 foodBuffStr = string.Format(foodBuffStringData.KOR, buffInt[0], buffInt[1], buffInt[2], buffInt[3], buffInt[4]);
                 foodBuffText.text = foodBuffStr;
+                foodguideText.text = foodGuideStringData.KOR;
+                foodSellInfo.text = "현재 판매량은 구상중에 있습니다.";
                 break;
             case Language.ENG:
                 foodName.text = $"{foodNameStringData.ENG}";
-                foodBuffStr = string.Format(foodBuffStringData.KOR, buffInt[0], buffInt[1], buffInt[2], buffInt[3], buffInt[4]);
+                foodBuffStr = string.Format(foodBuffStringData.ENG, buffInt[0], buffInt[1], buffInt[2], buffInt[3], buffInt[4]);
                 foodBuffText.text = foodBuffStr;
+                foodguideText.text = foodGuideStringData.ENG;
+                foodSellInfo.text = "We will Fixed sell info";
                 break;
         }
+    }
+    public void Reset()
+    {
+        foodNameStringData.KOR = "";
+        foodNameStringData.ENG = "";
+        foodBuffStringData.ENG = "";
+        foodBuffStringData.KOR ="";
+        foodGuideStringData.ENG = "";
+        foodGuideStringData.KOR = "";
+        foodSellInfoStringData.KOR = "";
+        foodSellInfoStringData.ENG = "";
+        foodSellInfo.text = ""; //testcode
+        foodImage.sprite = null;
+        foodRankImage.sprite = null;
+        ChangeLanguage();
     }
 }

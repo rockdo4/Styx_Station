@@ -20,7 +20,7 @@ public class DiningRoomUiManager : MonoBehaviour
     DiningTable diningTable;
     private List<string> foodId;
 
-    private List<FoodData> fGradeFood=new List<FoodData>();
+    private List<FoodData> fGradeFood = new List<FoodData>();
     private List<FoodData> eGradeFood = new List<FoodData>();
     private List<FoodData> dGradeFood = new List<FoodData>();
     private List<FoodData> cGradeFood = new List<FoodData>();
@@ -29,8 +29,13 @@ public class DiningRoomUiManager : MonoBehaviour
     private List<FoodData> sGradeFood = new List<FoodData>();
 
     private StringTable stringTable;
-    private Dictionary<String,StringTableData> foodNameDictionary = new Dictionary<String,StringTableData>();
+    private Dictionary<String, StringTableData> foodNameDictionary = new Dictionary<String, StringTableData>();
     private Dictionary<String, StringTableData> foodExplanationDictionary = new Dictionary<String, StringTableData>();
+    private Dictionary<String, StringTableData> foodGuideDictionary = new Dictionary<String, StringTableData>();
+    private Dictionary<String, StringTableData> foodSellInfoDictionary = new Dictionary<String, StringTableData>();
+
+    [HideInInspector]
+    public int currentButtonIndex =-1;
     private void Awake()
     {
         roomMainPanel.SetActive(isDrawDiningRoomDislay);
@@ -38,11 +43,11 @@ public class DiningRoomUiManager : MonoBehaviour
     private void Start()
     {
         timer = MaxTimer;
-        if(!isResetDiningTable)
+        if (!isResetDiningTable)
         {
             stringTable = new StringTable(); // 지워야함
-            diningTable =new DiningTable();
-            isResetDiningTable =true;
+            diningTable = new DiningTable();
+            isResetDiningTable = true;
             if (diningTable != null)
             {
                 foodId = diningTable.GetFoodTableID();
@@ -53,7 +58,7 @@ public class DiningRoomUiManager : MonoBehaviour
     }
     private void Update()
     {
-        if(!diningRoomUiButton.isFullFood)
+        if (!diningRoomUiButton.isFullFood)
             TimeCounting();
     }
 
@@ -67,22 +72,26 @@ public class DiningRoomUiManager : MonoBehaviour
     {
         var stringData = foodNameDictionary[data.Food_Name_ID];
         var buffExplanation = GetFoodExplanationStringTable(data.Food_ID);
-        diningRoomUiInfo.OnFoodDataDisplay(data, stringData, buffExplanation);
+        var guideData =GetFoodGuideStringTable(data.Food_ID);
+        var selling = GetFoodGuideStringTable(data.Food_ID); // change foodSellInfoString
+        diningRoomUiInfo.OnFoodDataDisplay(data, stringData, buffExplanation, guideData, selling);
     }
     private void GetFoodStringTableData()
     {
         var foodNameList = diningTable.GetFoodTableID();
-        for(int i =0;i< foodNameList.Count;i++)
+        for (int i = 0; i < foodNameList.Count; i++)
         {
             var id = diningTable.GetFoodTableData(foodNameList[i]);
-            var data =stringTable.GetStringTableData(id.Food_Name_ID);
+            var data = stringTable.GetStringTableData(id.Food_Name_ID);
             foodNameDictionary.Add(id.Food_Name_ID, data);
-            if (i < 4)
-            {
-                var buffId = foodNameList[i] + "_Buff";
-                var buffData = stringTable.GetStringTableData(buffId);
-                foodExplanationDictionary.Add(buffId, buffData);
-            }
+
+            var buffId = foodNameList[i] + "_Buff";
+            var buffData = stringTable.GetStringTableData(buffId);
+            foodExplanationDictionary.Add(buffId, buffData);
+
+            var guideId = foodNameList[i] + "_FoodInfo";
+            var guideData = stringTable.GetStringTableData(guideId);
+            foodGuideDictionary.Add(guideData.ID, guideData);
         }
     }
     private void FoodGradeInsert()
@@ -176,21 +185,68 @@ public class DiningRoomUiManager : MonoBehaviour
             betwon += food.Food_Per;
             if (result <= betwon)
             {
+
                 diningRoomUiButton.MakeFood(food);
                 break;
             }
         }
     }
-
+    public void EatFoodButton()
+    {
+        if (currentButtonIndex == -1)
+            return;
+        diningRoomUiButton.ResetFoodImage(currentButtonIndex);
+        diningRoomUiInfo.Reset();
+        string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
+        string log = $"{currentTime} : 음식을 섭취했습니다.";
+        Log.Instance.MakeLogText(log);
+        currentButtonIndex = -1;
+        // 버프로 가는 코드 작성
+    }
+    public void SellFood()
+    {
+        if (currentButtonIndex == -1)
+            return;
+        diningRoomUiButton.ResetFoodImage(currentButtonIndex);
+        diningRoomUiInfo.Reset();
+        string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
+        string log = $"{currentTime} : 음식을 판매했습니다.";
+        Log.Instance.MakeLogText(log);
+        currentButtonIndex = -1;
+        //은화 코드 작성
+    }
     public StringTableData GetFoodExplanationStringTable(string str)
     {
-        foreach(var exp in foodExplanationDictionary)
+        foreach (var exp in foodExplanationDictionary)
         {
-            if(exp.Key.Contains(str))
+            if (exp.Key.Contains(str))
             {
                 return exp.Value;
             }
         }
         return default;
     }
+    public StringTableData GetFoodGuideStringTable(string str)
+    {
+        foreach (var exp in foodGuideDictionary)
+        {
+            if (exp.Key.Contains(str))
+            {
+                return exp.Value;
+            }
+        }
+        return default;
+    }
+    public StringTableData GetSellInfoStringTable(string str)
+    {
+        foreach (var exp in foodSellInfoDictionary)
+        {
+            if (exp.Key.Contains(str))
+            {
+                return exp.Value;
+            }
+        }
+        return default;
+    }
+
 }

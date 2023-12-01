@@ -9,7 +9,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PlayerStatsUpgardeUI : MonoBehaviour
+/*
+money1 과관련된 코드는 다 테스트 코드로 간주 
+text변경은 UiManger코에서 직접 하게변경할 예정임
+*/
+public class PlayerStatsUpgardeUI : Singleton<PlayerStatsUpgardeUI>
 {
     public struct StringTableLanaguage
     {
@@ -21,7 +25,9 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
     private bool isPlayerDataOn;
 
     public List<TextMeshProUGUI> moneyList = new List<TextMeshProUGUI>(); // testcode , change Texture
-    private bool isUpgradeMoney;
+    private bool isUpgradeMoney1;
+    private bool isUpgradeMoney2;
+    private bool isUpgradeMoney3;
 
     public List<Button> playUpgradeButton = new List<Button>();
     public Button statsButton;
@@ -90,9 +96,10 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
     }
     private void Start()
     {
-        moneyList[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
-        SettingPlayerStatsButton();
+        ResetStringMoney(); //testcode
+
         InitPlayerStatsText();
+        SettingPlayerStatsButton();
         ChangeLangugaeButtonText();
         ChangePlayerStatsUpgardeText();
     }
@@ -162,12 +169,12 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
                 prevUpgradeValue = value;
                 string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
                 log = $"{currentTime}  : {upgradeType}를  시작했습니다.";
-                var findLog = Log.Instance;
-                if (findLog.parent == null)
-                {
-                    findLog.parent = logScrollView;
-                }
-                findLog.MakeLogText(log);
+                //var findLog = Log.Instance;
+                //if (findLog.parent == null)
+                //{
+                //    findLog.parent = logScrollView;
+                //}
+                Log.Instance.MakeLogText(log);
             }
         }
         else
@@ -187,15 +194,25 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
             findLog.MakeLogText(log);
         }
     }
-    public void IncreaseTestMoney1()
+    public void IncreaseTestMoney1() //test code
     {
-        isUpgradeMoney = !isUpgradeMoney;
+        isUpgradeMoney1 = !isUpgradeMoney1;
+    }
+    public void IncreaseTestMoney2() //test code
+    {
+        isUpgradeMoney2 = !isUpgradeMoney2;
+    }
+    public void IncreaseTestMoney3() //test code
+    {
+        isUpgradeMoney3 = !isUpgradeMoney3;
     }
     private void Update()
     {
         if (isPlayerDataOn)
             SettingPlayerStatsTextUpdate();
-        CheckAndExecute(isUpgradeMoney, () => CurrencyManager.IncreaseMoney1(test), -1);
+        CheckAndExecute(isUpgradeMoney1, () => CurrencyManager.IncreaseMoney1(test), -1); //tescode
+        CheckAndExecute(isUpgradeMoney2, () => CurrencyManager.IncreaseMoney2(test), -1); //tescode
+        CheckAndExecute(isUpgradeMoney3, () => CurrencyManager.IncreaseMoney3(test), -1); //tescode
         if (uiLanaguage != Global.language)
         {
             uiLanaguage = Global.language;
@@ -273,7 +290,7 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
             {
                 playerStatsData[statsIndex].text = $"{str} : {GetStat(statsIndex)}";
             }
-            ResetStringMoney1();
+            ResetStringMoney(); //tescdoe
         }
     }
 
@@ -293,9 +310,11 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
         }
         return "err";
     }
-    private void ResetStringMoney1()
+    public void ResetStringMoney() //test code
     {
-        moneyList[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
+        moneyList[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}"; //test code
+        moneyList[1].text = $"{UnitConverter.OutString(CurrencyManager.money2)}"; //test code
+        moneyList[2].text = $"{UnitConverter.OutString(CurrencyManager.money3)}"; //test code
     }
 
     private void SettingPlayerStatsButton()

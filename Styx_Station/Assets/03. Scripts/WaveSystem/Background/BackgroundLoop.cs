@@ -27,7 +27,7 @@ public class BackgroundLoop : MonoBehaviour
 
     private void Reposition()
     {
-        var offset = new Vector2(width * 2f, 0);
-        transform.position = (Vector2)transform.position + offset;
+        var offset = new Vector3(width * 2f, 0, 0);
+        transform.position = transform.position + offset;
     }
 }

@@ -34,17 +34,17 @@ public static class CurrencyManager
     }
     public static void IncreaseMoney1(BigInteger imoney)
     {
-        imoney = 1000;
+        imoney = 10;
         money1 += imoney * imoney;
     }
     public static void IncreaseMoney2(BigInteger imoney)
     {
-        imoney = 1000;
+        imoney = 10;
         money2 += imoney * imoney;
     }
     public static void IncreaseMoney3(BigInteger imoney)
     {
-        imoney = 1000;
+        imoney = 10;
         money3 += imoney * imoney;
     }
 }

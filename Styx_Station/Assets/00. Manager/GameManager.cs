@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void ReStart()
     {
+        Destroy(InventorySystem.Instance);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

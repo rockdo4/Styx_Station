@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -19,13 +20,10 @@ public class UIManager : MonoBehaviour
     }
     private static UIManager m_instance; // ΩÃ±€≈Ê¿Ã «“¥Áµ… ∫Øºˆ
 
-    private void Start()
+    public TextMeshProUGUI text;
+    
+    public void ReSetText()
     {
-
-    }
-
-    private void Update()
-    {
-
+        text.text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
     }
 }

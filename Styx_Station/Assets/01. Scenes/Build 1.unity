@@ -4605,6 +4605,7 @@ GameObject:
   - component: {fileID: 356056435}
   - component: {fileID: 356056434}
   - component: {fileID: 356056438}
+  - component: {fileID: 356056439}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4731,6 +4732,19 @@ MonoBehaviour:
   custom: {fileID: 1408133899}
   State: {fileID: 1605820098}
   skill: {fileID: 1855883921}
+--- !u!114 &356056439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356056433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517a94fdb9d4372429cf4bf58f1aa167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 366573435}
 --- !u!1 &366573434
 GameObject:
   m_ObjectHideFlags: 0
@@ -6840,7 +6854,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4787081882120332142, guid: 45705b2d2464bfb45abccbe2e980f91d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8410056974144534345, guid: 45705b2d2464bfb45abccbe2e980f91d, type: 3}
       propertyPath: m_Pivot.x
@@ -16941,7 +16955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4787081882120332142, guid: 45705b2d2464bfb45abccbe2e980f91d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8410056974144534345, guid: 45705b2d2464bfb45abccbe2e980f91d, type: 3}
       propertyPath: m_Pivot.x

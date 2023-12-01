@@ -13,7 +13,7 @@ using UnityEngine.UI;
 money1 과관련된 코드는 다 테스트 코드로 간주 
 text변경은 UiManger코에서 직접 하게변경할 예정임
 */
-public class PlayerStatsUpgardeUI : Singleton<PlayerStatsUpgardeUI>
+public class PlayerStatsUpgardeUI : MonoBehaviour//Singleton<PlayerStatsUpgardeUI>
 {
     public struct StringTableLanaguage
     {
@@ -102,6 +102,9 @@ public class PlayerStatsUpgardeUI : Singleton<PlayerStatsUpgardeUI>
         SettingPlayerStatsButton();
         ChangeLangugaeButtonText();
         ChangePlayerStatsUpgardeText();
+
+        //PlayerDataDisplayOff();
+        //PlayerStatsDsiplayOff();
     }
     public void PlayerDataDisPlayOn()
     {

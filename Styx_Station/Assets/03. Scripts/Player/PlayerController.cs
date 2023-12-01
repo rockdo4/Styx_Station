@@ -31,7 +31,9 @@ public class PlayerController : MonoBehaviour
     
     public Vector2 initialPos = Vector2.zero;
 
-    public bool IsStartTarget { get; set; } 
+    public bool IsStartTarget { get; set; }
+    public States currentStates;
+    
     public void Awake()
     {
         playerStateBases.Add(new PlayerIdleState(this));
@@ -124,6 +126,7 @@ public class PlayerController : MonoBehaviour
     public void SetState(States newState)
     {
         playerStateManager.ChangeState(playerStateBases[(int)newState]);
+        currentStates = newState;
         //Debug.Log(playerStateManager.GetCurrentState());
     }
 

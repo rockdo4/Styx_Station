@@ -12,6 +12,7 @@ public class PetAttack : PetStateBase
 
     public override void Enter()
     {
+        
         petController.GetAnimator().SetTrigger("Attack");
         petController.GetAnimator().SetFloat("NormalState", 0f);
         petController.GetAnimator().speed = petController.attackSpeed;
@@ -25,33 +26,28 @@ public class PetAttack : PetStateBase
 
     public override void FixedUpate()
     {
-        timer += Time.fixedDeltaTime;
-        if (timer > checkMonsterTime)
-        {
-            var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
+        //var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
 
-            if (findEnemy == null)
-            {
-                petController.SetState(States.Idle);
-                return;
-            }
-            timer = 0f;
-        }
-
-        //var master = petController.masterPlayer.GetComponent<PlayerController>();
-        //if (master != null)
+        //if (findEnemy == null)
         //{
-        //    if (petController.GetPetStateManager().GetCurrentState() != master.GetPlayerCurrentState())
-        //    {
-        //        petController.GetAnimator().SetTrigger("Idle");
-        //    }
+        //    petController.SetState(States.Idle);
+        //    return;
         //}
+
+        var master = petController.masterPlayer.GetComponent<PlayerController>();
+        if (master != null)
+        {
+            if (petController.currentStates != master.currentStates)
+            {
+                    petController.SetState(master.currentStates);
+            }
+        }
     }
 
     public override void Update()
     {
-        
+
     }
 
-    
+
 }

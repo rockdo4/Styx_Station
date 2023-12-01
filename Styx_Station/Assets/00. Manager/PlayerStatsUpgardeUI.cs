@@ -13,7 +13,7 @@ using UnityEngine.UI;
 money1 과관련된 코드는 다 테스트 코드로 간주 
 text변경은 UiManger코에서 직접 하게변경할 예정임
 */
-public class PlayerStatsUpgardeUI : MonoBehaviour
+public class PlayerStatsUpgardeUI : Singleton<PlayerStatsUpgardeUI>
 {
     public struct StringTableLanaguage
     {
@@ -310,7 +310,7 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
         }
         return "err";
     }
-    private void ResetStringMoney() //test code
+    public void ResetStringMoney() //test code
     {
         moneyList[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}"; //test code
         moneyList[1].text = $"{UnitConverter.OutString(CurrencyManager.money2)}"; //test code

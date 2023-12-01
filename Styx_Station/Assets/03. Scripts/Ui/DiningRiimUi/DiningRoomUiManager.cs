@@ -249,4 +249,8 @@ public class DiningRoomUiManager : MonoBehaviour
         return default;
     }
 
+    public void closeDiningRoom()
+    {
+        roomMainPanel.SetActive(false);
+    }
 }

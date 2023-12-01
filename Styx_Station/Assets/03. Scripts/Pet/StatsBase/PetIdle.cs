@@ -11,7 +11,7 @@ public class PetIdle : PetStateBase
 
     public override void Enter()
     {
-        petController.GetAnimator().SetTrigger("Idle");
+        petController.GetAnimator().SetBool("Attacking",false);
         petController.GetAnimator().SetBool("Run", false);
         petController.GetAnimator().SetFloat("RunState", 0f);
     }
@@ -23,9 +23,17 @@ public class PetIdle : PetStateBase
 
     public override void FixedUpate()
     {
+        var master = petController.masterPlayer.GetComponent<PlayerController>();
+        if (master != null)
+        {
+            if ((master.currentStates == States.Move))
+            {
+                petController.SetState(States.Move);
+            }
+        }
         var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
 
-        if (findEnemy == null)
+        if (findEnemy.Length<1)
         {
             return;
         }
@@ -40,6 +48,7 @@ public class PetIdle : PetStateBase
                 }
             }
         }
+       
     }
 
     public override void Update()

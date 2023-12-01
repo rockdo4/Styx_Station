@@ -10,7 +10,7 @@ public class PetRun : PetStateBase
 
     public override void Enter()
     {
-        petController.GetAnimator().SetTrigger("Idle");
+        petController.GetAnimator().SetBool("Attacking", false);
         petController.GetAnimator().SetBool("Run", true);
         petController.GetAnimator().SetFloat("RunState", 0.5f);
     }
@@ -26,9 +26,9 @@ public class PetRun : PetStateBase
         var master = petController.masterPlayer.GetComponent<PlayerController>();
         if (master != null)
         {
-            if (petController.currentStates != master.currentStates)
+            if (petController.currentStates != master.currentStates && (master.currentStates == States.Idle))
             {
-                petController.SetState(master.currentStates);
+               petController.SetState(States.Idle);
             }
         }
     }

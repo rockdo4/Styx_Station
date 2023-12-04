@@ -6,7 +6,7 @@ using static Unity.Collections.AllocatorManager;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
+    private static T instance;
 
     private static object _lock = new object();
     private static bool applicationIsQuitting = false;
@@ -24,22 +24,22 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
             lock (_lock)
             {
-                if (_instance == null)
+                if (instance == null)
                 {
-                    _instance = (T)FindObjectOfType(typeof(T));
+                    instance = (T)FindObjectOfType(typeof(T));
 
                     if (FindObjectsOfType(typeof(T)).Length > 1)
                     {
                         Debug.LogError("[Singleton] Something went really wrong " +
                             " - there should never be more than 1 singleton!" +
                             " Reopening the scene might fix it.");
-                        return _instance;
+                        return instance;
                     }
 
-                    if (_instance == null)
+                    if (instance == null)
                     {
                         GameObject singleton = new GameObject();
-                        _instance = singleton.AddComponent<T>();
+                        instance = singleton.AddComponent<T>();
                         singleton.name = "(singleton) " + typeof(T).ToString();
 
                         DontDestroyOnLoad(singleton);
@@ -51,15 +51,15 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     else
                     {
                         Debug.Log("[Singleton] Using instance already created: " +
-                            _instance.gameObject.name);
+                            instance.gameObject.name);
                     }
                 } 
 
-                return _instance;
+                return instance;
             }
         }
     }
-    public void OnDestroy()
+    public void OnApplicationQuit()
     {
         applicationIsQuitting = true;
     }

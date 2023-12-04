@@ -30,10 +30,14 @@ public class DiningRoomUiFoodButton : MonoBehaviour
         for (int i = 0; i < foodButton.Count; i++)
         {
             var num = i;
-            foodButton[i].onClick.AddListener(() => GetFoodData(num));
+            foodButton[i].onClick.AddListener(() => InitFoodButtonOnClick(num));
         }
     }
-    private void GetFoodData(int index)
+    public FoodData GetFoodData(int index)
+    {
+        return foodDatas[index];
+    }
+    private void InitFoodButtonOnClick(int index)
     {
         parentDiningRoomUi.currentButtonIndex = index;  
         if (foodDatas[index] != null)
@@ -66,6 +70,7 @@ public class DiningRoomUiFoodButton : MonoBehaviour
         var texture = foodButton[index].GetComponent<Image>();
         texture.sprite = cookImage;
         foodButton[index].interactable=false;
+        isFullFood = false;
     }
     public void MakeFood(FoodData data)
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +37,23 @@ public class DiningRoomUiManager : MonoBehaviour
 
     [HideInInspector]
     public int currentButtonIndex =-1;
+
+    public GameObject upgradePanel;
+    private bool drawUpgradePanel;
+
+    private int foodTimerUpgradeLevelUp = 0;
+    public TextMeshProUGUI foodTimerUpgradeLevelUpTextGui;
+    public Button foodTimerUpgradeLevelUpButton;
+    private BigInteger foodTimerUpgradeLevelPrcie = new BigInteger(200);
+    public int foodTimerUpgradeLevelPrcieWeight = 14;
+    private int divideFoodTimerUpgradeLevelPrcieWeight = 10;
+
+    private int foodSelectUpgradeLevelUp = 0;
+    public TextMeshProUGUI foodSelectUpgradeLevelUpTextGui;
+    public Button foodSelectUpgradeLevelUpUpButton;
+    private BigInteger foodSelectUpgradeLevelUpPrcie = new BigInteger(1000);
+    public int foodSelectUpgradeLevelUpPrcieWeight = 1000;
+
     private void Awake()
     {
         roomMainPanel.SetActive(isDrawDiningRoomDislay);
@@ -55,6 +73,10 @@ public class DiningRoomUiManager : MonoBehaviour
             GetFoodStringTableData();
             FoodGradeInsert();
         }
+
+        //testcode
+        foodTimerUpgradeLevelUpTextGui.text = $"Now Timer Leve: :{foodTimerUpgradeLevelUp + 1}";
+        foodSelectUpgradeLevelUpTextGui.text = $"Now SelectCount :{foodSelectUpgradeLevelUp + 1}";
     }
     private void Update()
     {
@@ -147,6 +169,57 @@ public class DiningRoomUiManager : MonoBehaviour
         }
     }
 
+    public void DrawUpgradePanel()
+    {
+        drawUpgradePanel = !drawUpgradePanel;
+        upgradePanel.SetActive(drawUpgradePanel);
+    }    
+
+    public void UpgradeTimer()
+    {
+        if (CurrencyManager.money1 > foodTimerUpgradeLevelPrcie)
+        {
+            CurrencyManager.money1 -= foodTimerUpgradeLevelPrcie;
+            foodTimerUpgradeLevelPrcie *= foodTimerUpgradeLevelPrcieWeight / divideFoodTimerUpgradeLevelPrcieWeight;
+        }
+        else
+            return;
+        foodTimerUpgradeLevelUp++;
+        foodTimerUpgradeLevelUpTextGui.text = $"Now Timer Leve: :{foodTimerUpgradeLevelUp + 1}";
+        MaxTimer -= 30f;
+       
+    }
+      
+    public void UpgradeSelectFoddCount()
+    {
+        if (CurrencyManager.money2 > foodSelectUpgradeLevelUpPrcie)
+        {
+            CurrencyManager.money2 -= foodSelectUpgradeLevelUpPrcie;
+            foodSelectUpgradeLevelUpPrcie += foodSelectUpgradeLevelUpPrcieWeight;
+        }
+        else
+            return;
+        
+        var count = diningRoomUiButton.upgradeSelectFoodCount;
+        if(count <6)
+        {
+                diningRoomUiButton.upgradeSelectFoodCount++;
+                foodSelectUpgradeLevelUp++;
+                foodSelectUpgradeLevelUpTextGui.text = $"Now SelectCount :{foodSelectUpgradeLevelUp + 1}";
+                diningRoomUiButton.ResetFoodImage(count);
+                if(foodSelectUpgradeLevelUp ==4)
+                {
+                    foodSelectUpgradeLevelUpTextGui.text = $"Max Upgrade SelectCount";
+                    foodSelectUpgradeLevelUpUpButton.interactable = false;
+                } 
+        }
+        else
+        {
+            foodSelectUpgradeLevelUpTextGui.text = $"Max Upgrade SelectCount";
+            foodSelectUpgradeLevelUpUpButton.interactable = false;
+        }
+
+    }
     private void TimeCounting()
     {
         timer -= Time.deltaTime;
@@ -196,12 +269,14 @@ public class DiningRoomUiManager : MonoBehaviour
         if (currentButtonIndex == -1)
             return;
         diningRoomUiButton.ResetFoodImage(currentButtonIndex);
+        var data = diningRoomUiButton.GetFoodData(currentButtonIndex);
         diningRoomUiInfo.Reset();
         string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
         string log = $"{currentTime} : 음식을 섭취했습니다.";
         Log.Instance.MakeLogText(log);
         currentButtonIndex = -1;
-        // 버프로 가는 코드 작성
+        // 상시 습득으로 변경 추후 한번만인지 ? 확인후 변경해야함 ...
+        PlayerBuff.GetBuffAll(data.Food_ATK, data.Food_Cri, data.Food_Skill, data.Food_Boss, data.Food_Silup, data.Food_Du);
     }
     public void SellFood()
     {
@@ -214,6 +289,9 @@ public class DiningRoomUiManager : MonoBehaviour
         Log.Instance.MakeLogText(log);
         currentButtonIndex = -1;
         //은화 코드 작성
+        //test code임
+
+        CurrencyManager.GetSilver(5000, 0);
     }
     public StringTableData GetFoodExplanationStringTable(string str)
     {

@@ -28,17 +28,19 @@ public class PlayerAttackState : PlayerStateBase
 
         timer = 0f;
         attackDuration = defaultSpeed / spped;
+        Debug.Log($"공격 속도 시작 : : {playertController.GetAnimator().speed}");
     }
 
     public override void Exit()
     {
         playertController.GetAnimator().speed = defaultSpeed;
+        Debug.Log($"공격 속도 나감 :: {playertController.GetAnimator().speed}");
     }
 
     public override void Update()
     {
         timer += Time.deltaTime;
-        if(timer >= attackDuration)
+        if (timer >= attackDuration)
         {
             timer = 0f;
             playertController.GetAnimator().SetTrigger("Attack");
@@ -52,7 +54,7 @@ public class PlayerAttackState : PlayerStateBase
             Physics2D.OverlapCircleAll(playertController.transform.position, playertController.GetPlayerAttackRange(),
             playertController.layerMask);
 
-        if (findEnemey == null)
+        if (findEnemey.Length<1)
         {
             playertController.SetState(States.Idle);
             return;

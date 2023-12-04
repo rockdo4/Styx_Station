@@ -189,5 +189,6 @@ public class DiningRoomUiInfo : MonoBehaviour
         foodImage.sprite = null;
         foodRankImage.sprite = null;
         ChangeLanguage();
+        
     }
 }

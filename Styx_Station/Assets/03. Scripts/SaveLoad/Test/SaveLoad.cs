@@ -7,13 +7,14 @@ using SaveDataVersionCurrent = SaveDataV2;
 using System.Numerics;
 using System.Linq;
 using UnityEngine.Rendering;
+using System;
 
 public class SaveLoad : MonoBehaviour
 {
     public void Save()
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
-
+        
         data.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
         data.playerdata.playerPowerboost = SharedPlayerStats.GetPlayerPowerBoost();
         data.playerdata.playerAttackSpeed = SharedPlayerStats.GetPlayerAttackSpeed();
@@ -96,7 +97,7 @@ public class SaveLoad : MonoBehaviour
 
 
             var inventory = InventorySystem.Instance.inventory;
-
+            var t = testSingle.Instance;
 
             if (jsonObject.TryGetValue("weaponData", out JToken weaponToken))
             {

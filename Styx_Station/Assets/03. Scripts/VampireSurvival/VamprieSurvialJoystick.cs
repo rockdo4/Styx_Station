@@ -36,7 +36,6 @@ public class VamprieSurvialJoystick : MonoBehaviour, IDragHandler, IPointerUpHan
 
         var delta = Vector3.ClampMagnitude(newPoint - originalPoint, radius);
 
-        //value = delta.normalized;
         value = delta / radius;
         stick.rectTransform.position = originalPoint + delta;
     }

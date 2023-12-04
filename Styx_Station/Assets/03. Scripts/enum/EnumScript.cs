@@ -117,3 +117,10 @@ public enum SkillStartPos
     Body,
     Air,
 }
+
+ public enum VamprieSurivalAttackType
+{ 
+    LineAttackRange,
+    CircleAttack,
+    
+}

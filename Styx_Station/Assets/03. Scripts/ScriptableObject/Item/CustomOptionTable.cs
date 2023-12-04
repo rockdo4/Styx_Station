@@ -27,8 +27,10 @@ public class CustomOptionTable : ScriptableObject
 
         var option = new Option();
 
+        float value = Random.Range(pick.minValue, pick.maxValue);
+
         option.optionName = pick.option;
-        option.value = pick.value;
+        option.value = value;
 
         return option;
     }

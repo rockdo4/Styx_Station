@@ -15,6 +15,12 @@ public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
     [Tooltip("아이템 등급")]
     public Tier tier;
 
+    [Tooltip("세부 등급")]
+    public Enchant enchant;
+
+    [Tooltip("강화 필요 수치")]
+    public List<int> itemLevUpNum = new List<int>();
+
     [System.Serializable]
     public struct Option
     {
@@ -64,22 +70,6 @@ public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
                 {
                     switch (option.option)
                     {
-                        case AddOptionString.Attack:
-                            inventory.a_Attack += option.value;
-                            break;
-
-                        case AddOptionString.Health:
-                            inventory.a_Health += option.value;
-                            break;
-
-                        case AddOptionString.AttackSpeed:
-                            inventory.a_AttackSpeed += option.value;
-                            break;
-
-                        case AddOptionString.HealingHealth:
-                            inventory.a_HealHealth += option.value;
-                            break;
-
                         case AddOptionString.AttackPer:
                             inventory.a_AttackPer += option.value;
                             break;
@@ -98,10 +88,6 @@ public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
 
                         case AddOptionString.CoinAcquire:
                             inventory.a_CoinAcquire += option.value;
-                            break;
-
-                        case AddOptionString.NormalDamage:
-                            inventory.a_NormalDamage += option.value;
                             break;
 
                         case AddOptionString.SkillDamage:
@@ -135,16 +121,35 @@ public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
         {
             if (options.Count > 0)
             {
+                float weight = 0f;
+                switch(enchant)
+                {
+                    case Enchant.Old:
+                        weight = 0.1f;
+                        break;
+                    case Enchant.EntryLevel:
+                        weight = 0.2f;
+                        break;
+                    case Enchant.Creation:
+                        weight = 0.3f;
+                        break;
+                    case Enchant.Masters:
+                        weight = 0.4f;
+                        break;
+                    case Enchant.MasterPiece:
+                        weight = 0.5f;
+                        break;
+                }
                 foreach (var option in options)
                 {
                     switch (option.option)
                     {
                         case ItemOptionString.Attack:
-                            inventory.t_Attack += option.value + (option.upgradeValue * upgadeLev);
+                            inventory.t_Attack += option.value + (option.upgradeValue * upgadeLev) + ((option.value + (option.upgradeValue * upgadeLev)) * weight);
                             break;
 
                         case ItemOptionString.Health:
-                            inventory.t_Health += option.value + (option.upgradeValue * upgadeLev);
+                            inventory.t_Health += option.value + (option.upgradeValue * upgadeLev) + ((option.value + (option.upgradeValue * upgadeLev)) * weight);
                             break;
                     }
                 }
@@ -158,56 +163,55 @@ public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
         {
             if (addOptions.Count > 0)
             {
+                float weight = 0f;
+                switch (enchant)
+                {
+                    case Enchant.Old:
+                        weight = 1f;
+                        break;
+                    case Enchant.EntryLevel:
+                        weight = 1.2f;
+                        break;
+                    case Enchant.Creation:
+                        weight = 1.4f;
+                        break;
+                    case Enchant.Masters:
+                        weight = 1.6f;
+                        break;
+                    case Enchant.MasterPiece:
+                        weight = 2.0f;
+                        break;
+                }
                 foreach (var option in addOptions)
                 {
                     switch (option.option)
                     {
-                        case AddOptionString.Attack:
-                            inventory.t_Attack += option.value;
-                            break;
-
-                        case AddOptionString.Health:
-                            inventory.t_Health += option.value;
-                            break;
-
-                        case AddOptionString.AttackSpeed:
-                            inventory.t_AttackSpeed += option.value;
-                            break;
-
-                        case AddOptionString.HealingHealth:
-                            inventory.t_HealHealth += option.value;
-                            break;
-
                         case AddOptionString.AttackPer:
-                            inventory.t_AttackPer += option.value;
+                            inventory.t_AttackPer += option.value * weight;
                             break;
 
                         case AddOptionString.Evade:
-                            inventory.t_Evade += option.value;
+                            inventory.t_Evade += option.value * weight;
                             break;
 
                         case AddOptionString.DamageReduction:
-                            inventory.t_DamageReduction += option.value;
+                            inventory.t_DamageReduction += option.value * weight;
                             break;
 
                         case AddOptionString.Bloodsucking:
-                            inventory.t_BloodSucking += option.value;
+                            inventory.t_BloodSucking += option.value * weight;
                             break;
 
                         case AddOptionString.CoinAcquire:
-                            inventory.t_CoinAcquire += option.value;
-                            break;
-
-                        case AddOptionString.NormalDamage:
-                            inventory.t_NormalDamage += option.value;
+                            inventory.t_CoinAcquire += option.value * weight;
                             break;
 
                         case AddOptionString.SkillDamage:
-                            inventory.t_SkillDamage += option.value;
+                            inventory.t_SkillDamage += option.value * weight;
                             break;
 
                         case AddOptionString.BossDamage:
-                            inventory.t_BossDamage += option.value;
+                            inventory.t_BossDamage += option.value * weight;
                             break;
                     }
                 }
@@ -244,56 +248,55 @@ public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
         {
             if (addOptions.Count > 0)
             {
+                float weight = 0f;
+                switch (enchant)
+                {
+                    case Enchant.Old:
+                        weight = 1f;
+                        break;
+                    case Enchant.EntryLevel:
+                        weight = 1.2f;
+                        break;
+                    case Enchant.Creation:
+                        weight = 1.4f;
+                        break;
+                    case Enchant.Masters:
+                        weight = 1.6f;
+                        break;
+                    case Enchant.MasterPiece:
+                        weight = 2.0f;
+                        break;
+                }
                 foreach (var option in addOptions)
                 {
                     switch (option.option)
-                    {
-                        case AddOptionString.Attack:
-                            inventory.t_Attack -= option.value;
-                            break;
-
-                        case AddOptionString.Health:
-                            inventory.t_Health -= option.value;
-                            break;
-
-                        case AddOptionString.AttackSpeed:
-                            inventory.t_AttackSpeed -= option.value;
-                            break;
-
-                        case AddOptionString.HealingHealth:
-                            inventory.t_HealHealth -= option.value;
-                            break;
-
+                    { 
                         case AddOptionString.AttackPer:
-                            inventory.t_AttackPer -= option.value;
+                            inventory.t_AttackPer -= option.value * weight;
                             break;
 
                         case AddOptionString.Evade:
-                            inventory.t_Evade -= option.value;
+                            inventory.t_Evade -= option.value * weight;
                             break;
 
                         case AddOptionString.DamageReduction:
-                            inventory.t_DamageReduction -= option.value;
+                            inventory.t_DamageReduction -= option.value * weight;
                             break;
 
                         case AddOptionString.Bloodsucking:
-                            inventory.t_BloodSucking -= option.value;
+                            inventory.t_BloodSucking -= option.value * weight;
                             break;
 
                         case AddOptionString.CoinAcquire:
-                            inventory.t_CoinAcquire -= option.value;
-                            break;
-
-                        case AddOptionString.NormalDamage:
-                            inventory.t_NormalDamage -= option.value;
+                            inventory.t_CoinAcquire -= option.value * weight;
                             break;
 
                         case AddOptionString.SkillDamage:
-                            inventory.t_SkillDamage -= option.value;
+                            inventory.t_SkillDamage -= option.value * weight;
                             break;
 
                         case AddOptionString.BossDamage:
-                            inventory.t_BossDamage -= option.value;
+                            inventory.t_BossDamage -= option.value * weight;
                             break;
                     }
                 }

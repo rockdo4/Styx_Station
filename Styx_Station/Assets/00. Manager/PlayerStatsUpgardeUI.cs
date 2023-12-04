@@ -352,9 +352,7 @@ public class PlayerStatsUpgardeUI : MonoBehaviour//Singleton<PlayerStatsUpgardeU
         var playerStatsUpgardeDisplayText = playerStatsTexts["PlayerStats001"];
         switch (Global.language)
         {
-
             case Language.KOR:
-
                 statsButtonTextMeshProUGUI.text = statsText.kor;
                 inventoryButtonTextMeshProUGUI.text = inventoryText.kor;
                 statsCloseButtonTextMeshProUGUI.text = closeButtonText.kor;

@@ -27,7 +27,7 @@ public class NormalButton : MonoBehaviour
         if (equipMode)
             return;
 
-        inventory.DequipSkill(skillIndex, equipIndex, SkillType_2.Normal);
+        inventory.DequipSkill(skillIndex, equipIndex);
 
         skillIndex = -1;
         skillName.text = "None";
@@ -47,14 +47,14 @@ public class NormalButton : MonoBehaviour
         if (inventory.skills[window.selectIndex].equip)
         {
             var index = inventory.skills[window.selectIndex].equipIndex;
-            window.normalButtons[index].GetComponent<NormalButton>().skillIndex = -1;
+            window.equipButtons[index].GetComponent<NormalButton>().skillIndex = -1;
         }
 
         skillIndex = window.selectIndex;
         skillName.text = inventory.skills[skillIndex].skill.Skill_Name;
 
         window.equipMode = false;
-        inventory.EquipSkill(skillIndex, equipIndex, SkillType_2.Normal);
+        inventory.EquipSkill(skillIndex, equipIndex);
         window.WindowUpdate();
     }
 }

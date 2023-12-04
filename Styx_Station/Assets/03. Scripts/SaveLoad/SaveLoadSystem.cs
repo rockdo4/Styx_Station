@@ -11,7 +11,7 @@ using static SoonsoonData;
 
 public static class SaveLoadSystem
 {
-    public static int SaveDataVersion { get; private set; } = 2;
+    public static int SaveDataVersion { get; private set; } = 3;
     public static string SaveDirectory
     {
         get

@@ -240,7 +240,7 @@ public class DiningRoomUiManager : MonoBehaviour
         List<FoodData> selectedList;
         if (range <= 40) selectedList = fGradeFood;
         else if (range <= 65) selectedList = eGradeFood;
-        else if (range <= 80) selectedList = fGradeFood;
+        else if (range <= 80) selectedList = dGradeFood;
         else if (range <= 90) selectedList = cGradeFood;
         else if (range <= 96) selectedList = bGradeFood;
         else if (range <= 99) selectedList = aGradeFood;

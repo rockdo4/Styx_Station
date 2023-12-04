@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StateWindow : InventoryWindow
+public class StateWindow : Window
 {
-    public InventoryUI baseInventory;
     public GameObject stateText;
     private List<TextMeshProUGUI> state = new List<TextMeshProUGUI>();
 

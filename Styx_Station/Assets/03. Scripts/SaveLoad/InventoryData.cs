@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 
-
 public class InventoryData
 {
     public string itemName;
@@ -42,5 +41,35 @@ public class CustomData
         this.baseName = baseName;
         this.upgradeLev = upgradeLev;
         this.addOptions = addOptions;
+    }
+}
+
+public class SkillData
+{
+    public string skillName;
+    public int skillLevel;
+    public bool acquire;
+    public bool equip;
+    public int stock;
+
+    public SkillData(string skillName, int skillLevel, bool acquire, bool equip, int stock)
+    {
+        this.skillName = skillName;
+        this.skillLevel = skillLevel;
+        this.acquire = acquire;
+        this.equip = equip;
+        this.stock = stock;
+    }
+}
+
+public class EquipSkillData
+{
+    public string skillName;
+    public int equipIndex;
+
+    public EquipSkillData(string skillName, int equipIndex)
+    {
+        this.skillName = skillName;
+        this.equipIndex = equipIndex;
     }
 }

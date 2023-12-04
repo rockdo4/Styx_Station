@@ -3,11 +3,9 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using SaveDataVersionCurrent = SaveDataV2;
+using SaveDataVersionCurrent = SaveDataV3;
 using System.Numerics;
 using System.Linq;
-using UnityEngine.Rendering;
-using System;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -65,6 +63,28 @@ public class SaveLoad : MonoBehaviour
 
             EquipData equips = new EquipData(equip.item.name, equip.item.type);
             data.equipItem.Add(equips);
+        }
+
+        var skillInventory = InventorySystem.Instance.skillInventory;
+
+        foreach (var skill in skillInventory.skills)
+        {
+            SkillData skillData = new SkillData(skill.skill.name, skill.upgradeLev, skill.acquire, skill.equip, skill.stock);
+            data.skillData.Add(skillData);
+        }
+
+        for(int i = 0; i < skillInventory.equipSkills.Length; ++i)
+        {
+            var equip = skillInventory.equipSkills[i];
+
+            if (equip == null)
+                continue;
+
+            if(equip.skill == null)
+                continue;
+
+            EquipSkillData equips = new EquipSkillData(equip.skill.name, equip.equipIndex);
+            data.equipSkill.Add(equips);
         }
 
         SaveLoadSystem.JsonSave(data, "Test.json");
@@ -195,6 +215,37 @@ public class SaveLoad : MonoBehaviour
                 }
             }
 
+            var skillInventory = InventorySystem.Instance.skillInventory;
+
+            if(jsonObject.TryGetValue("skillData", out JToken skillToken))
+            {
+                string skills = skillToken.ToString();
+                var sData = JsonConvert.DeserializeObject<List<SkillData>>(skills);
+                foreach(var skill in sData)
+                {
+                    var skillData = skillInventory.skills.Where(x => x.skill.name == skill.skillName).FirstOrDefault();
+                    if(skillData != null)
+                    {
+                        skillData.upgradeLev = skill.skillLevel;
+                        skillData.acquire = skill.acquire;
+                        skillData.equip = skill.equip;
+                        skillData.stock = skill.stock;
+                    }
+                }
+            }
+
+            if(jsonObject.TryGetValue("equipSkill", out JToken equipSkillToken))
+            {
+                string equipSkill = equipSkillToken.ToString();
+                var equipSkillData = JsonConvert.DeserializeObject<List<EquipSkillData>>(equipSkill);
+
+                foreach(var equip in equipSkillData)
+                {
+                    var skill = skillInventory.skills.Where(x=>x.skill.name ==  equip.skillName).FirstOrDefault();
+                    if (skill != null)
+                        skillInventory.EquipSkill(skill.skillIndex, equip.equipIndex);
+                }
+            }
         }
     }
 

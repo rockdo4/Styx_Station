@@ -15,8 +15,10 @@ public class CustomOption : ScriptableObject
         public float weight;
         [Tooltip("추가 옵션")]
         public AddOptionString option;
-        [Tooltip("증가량")]
-        public float value;
+        [Tooltip("최소 증가량")]
+        public float minValue;
+        [Tooltip("최대 증가량")]
+        public float maxValue;
     }
 
     protected AddOption PickOption()

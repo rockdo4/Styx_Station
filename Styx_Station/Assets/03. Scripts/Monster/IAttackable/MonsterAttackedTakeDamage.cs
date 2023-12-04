@@ -18,7 +18,7 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
             stats.currHealth = 0;
             WaveManager.instance.DecreaseAliveMonsterCount();
             WaveManager.instance.IncreaseMoney1();
-            UIManager.instance.ReSetText();
+            //UIManager.instance.ReSetText();
             //PlayerStatsUpgardeUI.Instance.ResetStringMoney();
         }
     }

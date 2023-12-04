@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text;
 
-public class EquipWindow : InventoryWindow
+public class EquipWindow : Window
 {
     private Inventory inventory;
     public GameObject equip;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InventoryWindow : MonoBehaviour
+public class Window : MonoBehaviour
 {
     public virtual void Open()
     {

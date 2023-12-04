@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CreateCustom : MonoBehaviour
 {
-    public InventoryUI baseUi;
+    public UIManager manager;
 
     public Button baseItem;
 
@@ -13,6 +13,7 @@ public class CreateCustom : MonoBehaviour
     private void Awake()
     {
         inventory = InventorySystem.Instance.inventory;
+        manager = UIManager.Instance;
     }
 
     public void CreateCustomItem()
@@ -27,7 +28,7 @@ public class CreateCustom : MonoBehaviour
 
         var table = InventorySystem.Instance.optionTable;
 
-        var tableName = baseUi.windows[1].GetComponent<CustomWindow>().tableName;
+        var tableName = manager.windows[1].GetComponent<CustomWindow>().tableName;
 
         var custom = table.table.Where(x => x.name == tableName.text).FirstOrDefault();
 
@@ -87,7 +88,7 @@ public class CreateCustom : MonoBehaviour
                 {
                     var baseItem = inventory.rings[item.itemIndex].item;
                     var dummy = InventorySystem.Instance.Custom(baseItem, optionCount, custom.name);
-                    baseUi.windows[0].GetComponent<EquipWindow>().AddRing(dummy.index, item.itemIndex);
+                    manager.windows[0].GetComponent<EquipWindow>().AddRing(dummy.index, item.itemIndex);
                 }
                 break;
 
@@ -95,7 +96,7 @@ public class CreateCustom : MonoBehaviour
                 {
                     var baseItem = inventory.symbols[item.itemIndex].item;
                     var dummy = InventorySystem.Instance.Custom(baseItem, optionCount, custom.name);
-                    baseUi.windows[0].GetComponent<EquipWindow>().AddSymbol(dummy.index, item.itemIndex);
+                    manager.windows[0].GetComponent<EquipWindow>().AddSymbol(dummy.index, item.itemIndex);
                 }
                 break;
         }

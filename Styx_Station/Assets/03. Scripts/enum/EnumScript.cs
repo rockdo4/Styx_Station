@@ -12,6 +12,16 @@ public enum Tier
     Unique,
     Legendry,
 }
+
+public enum Enchant
+{
+    Old,
+    EntryLevel,
+    Creation,
+    Masters,
+    MasterPiece,
+}
+
 public enum ItemType
 {
     Weapon,
@@ -23,18 +33,14 @@ public enum ItemType
 public enum AddOptionString
 {
     None = -1,
-    Attack,
-    Health,
-    AttackSpeed,
-    HealingHealth,
     AttackPer,
+    HealthPer,
     Evade,
-    DamageReduction,
-    Bloodsucking,
-    CoinAcquire,
-    NormalDamage,
     SkillDamage,
     BossDamage,
+    CoinAcquire,
+    DamageReduction,
+    Bloodsucking,
 }
 public enum States
 {
@@ -80,12 +86,14 @@ public enum AttackerType
     Enemy,
     Player
 }
+
 public enum PetAttackType
 {
     LineAttack,
     AngleAttack,
 }
-public enum InventoryType
+
+public enum WindowType
 {
     Inventory,
     Custom,
@@ -102,18 +110,6 @@ public enum MonsterType //���� spawner�� monstertypes�� �׻�
 
 public enum SkillType
 {
-    Passive,
     Active,
-}
-
-public enum SkillType_2
-{
-    Normal,
-    Chain,
-}
-
-public enum SkillStartPos
-{
-    Body,
-    Air,
+    Passive,
 }

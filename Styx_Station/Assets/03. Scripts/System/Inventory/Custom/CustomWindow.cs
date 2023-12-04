@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomWindow : InventoryWindow
+public class CustomWindow : Window
 {
     public Inventory inventory;
     public GameObject baseScroll;

@@ -1,29 +1,53 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-    public static UIManager instance
-    {
-        get
-        {
-            if (m_instance == null)
-            {
-                m_instance = FindObjectOfType<UIManager>();
-                //FindObjectOfType 함수는 사용하지 말것.
-            }
+    public Window[] windows;
 
-            return m_instance;
-        }
+    public GameObject panel;
+
+    public WindowType currentWindow;
+
+    public Button inventory;
+    public Button custom;
+    public Button State;
+    public Button skill;
+
+    public void Open(WindowType inventoryType)
+    {
+        if (windows[(int)currentWindow].gameObject.activeSelf)
+            windows[(int)currentWindow].Close();
+
+        currentWindow = inventoryType;
+
+        panel.SetActive(true);
+        windows[(int)inventoryType].Open();
     }
-    private static UIManager m_instance; // 싱글톤이 할당될 변수
 
-    public TextMeshProUGUI text;
-    
-    public void ReSetText()
+    public void OnClickInventory()
     {
-        text.text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
+        Open(WindowType.Inventory);
+    }
+
+    public void OnClickCustom()
+    {
+        Open(WindowType.Custom);
+    }
+
+    public void OnClickState()
+    {
+        Open(WindowType.State);
+    }
+
+    public void OnClickSkill()
+    {
+        Open(WindowType.Skill);
+    }
+
+    public void OnClickClose()
+    {
+        panel.SetActive(false);
+        windows[(int)currentWindow].Close();
     }
 }

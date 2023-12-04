@@ -3,31 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillWindow : InventoryWindow
+public class SkillWindow : Window
 {
     private SkillInventory inventory;
 
     public bool equipMode;
     public int selectIndex;
 
-    public GameObject normals;
-    public GameObject chains;
+    public GameObject equips;
     public GameObject skillTabs;
     public GameObject skills;
     public GameObject info;
 
-    public Button normalPrefabs;
-    public Button chainPrefabs;
+    public Button equipPrefabs;
     public Button skillPrefabs;
 
-    public List<Button> normalButtons {  get; private set; } = new List<Button>();
-    public List<Button> chainButtons { get; private set; } = new List<Button>();
+    public List<Button> equipButtons {  get; private set; } = new List<Button>();
     public List<Button> skillButtons { get; private set; } = new List<Button>();
 
     public override void Open()
     {
         selectIndex = -1;
         equipMode = false;
+        EquipSkillUpdate();
 
         base.Open();
     }
@@ -48,32 +46,39 @@ public class SkillWindow : InventoryWindow
         Setting();
     }
 
+    private void EquipSkillUpdate()
+    {
+        for (int i = 0; i < equipButtons.Count; ++i)
+        {
+            var equipUi = equipButtons[i].GetComponent<NormalButton>();
+            var equipSkill = inventory.equipSkills[i];
+            if (equipSkill != null)
+            {
+                equipUi.skillIndex = equipSkill.skillIndex;
+                equipUi.skillName.text = equipSkill.skill.Skill_Name;
+            }
+            else
+            {
+                equipUi.skillIndex = -1;
+                equipUi.skillName.text = "None";
+            }
+        }
+    }
+
     public void WindowUpdate()
     {
         ButtonInteractable();
 
-        foreach (var button in normalButtons)
+        foreach (var button in equipButtons)
         {
             var ui = button.GetComponent<NormalButton>();
-            button.interactable = true;
-            ui.UiUpdate();
-        }
-
-        foreach(var button in chainButtons)
-        {
-            var ui = button.GetComponent<ChainButton>();
             button.interactable = true;
             ui.UiUpdate();
         }
     }
     public void ButtonInteractable()
     {
-        foreach(var skill in normalButtons)
-        {
-            skill.interactable = true;
-        }
-
-        foreach(var skill in chainButtons)
+        foreach(var skill in equipButtons)
         {
             skill.interactable = true;
         }
@@ -82,12 +87,11 @@ public class SkillWindow : InventoryWindow
 
     public void Setting()
     {
-        NSkillButtonCreate();
-        CSkillButtonCreate();
+        EquipSkillButtonCreate();
         SkillButtonCreate();
     }
 
-    private void NSkillButtonCreate()
+    private void EquipSkillButtonCreate()
     {
         int length = inventory.equipSkills.Length;
         int index = 0;
@@ -95,12 +99,12 @@ public class SkillWindow : InventoryWindow
         if (length <= 0)
             return;
 
-        if(length>= normalButtons.Count)
-            index = normalButtons.Count;
+        if(length>= equipButtons.Count)
+            index = equipButtons.Count;
 
         for(int i = index; i<length; ++i)
         {
-            Button button = Instantiate(normalPrefabs, normals.transform);
+            Button button = Instantiate(equipPrefabs, equips.transform);
             var buttonUi = button.GetComponent<NormalButton>();
 
             buttonUi.inventory = inventory;
@@ -121,48 +125,9 @@ public class SkillWindow : InventoryWindow
                 buttonUi.skillIndex = -1;
                 buttonUi.skillName.text = "None";
             }
-            normalButtons.Add(button);
+            equipButtons.Add(button);
         }
     }
-
-    private void CSkillButtonCreate()
-    {
-        int length = inventory.chainSkills.Length;
-        int index = 0;
-
-        if (length <= 0)
-            return;
-
-        if(length >= chainButtons.Count)
-            index = chainButtons.Count;
-
-        for(int i = index; i<length; ++i)
-        {
-            Button button = Instantiate(chainPrefabs, chains.transform);
-            var buttonUi = button.GetComponent<ChainButton>();
-
-            buttonUi.inventory = inventory;
-            buttonUi.equipIndex = i;
-
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => buttonUi.OnClickDequip(equipMode));
-            button.onClick.AddListener(() => buttonUi.OnClickEquip(this));
-
-            var equipSkill = inventory.chainSkills[i];
-            if (equipSkill != null)
-            {
-                buttonUi.skillIndex = equipSkill.skillIndex;
-                buttonUi.skillName.text = equipSkill.skill.Skill_Name;
-            }
-            else
-            {
-                buttonUi.skillIndex = -1;
-                buttonUi.skillName.text = "None";
-            }
-            chainButtons.Add(button);
-        }
-    }
-
     private void SkillButtonCreate()
     {
         int length = inventory.skills.Count;
@@ -201,21 +166,5 @@ public class SkillWindow : InventoryWindow
             return;
 
         equipMode = true;
-
-        switch(inventory.skills[selectIndex].skill.Skill_Type_2)
-        {
-            case SkillType_2.Normal:
-                foreach(var skill in chainButtons)
-                {
-                    skill.interactable = false;
-                }
-                break;
-            case SkillType_2.Chain:
-                foreach (var skill in normalButtons)
-                {
-                    skill.interactable = false;
-                }
-                break;
-        }
     }
 }

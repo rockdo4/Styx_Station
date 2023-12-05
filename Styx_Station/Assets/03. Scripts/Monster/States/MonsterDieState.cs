@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class MonsterDieState : MonsterStateBase
 {
     public float effectDuration = 2.0f; // 효과 지속 시간 설정
     public float redIntensity = 0.5f; // 빨간색 강도 설정
+
     private SpriteRenderer[] spriteRenderers;
     private float timer = 0f;
     private float releaseTimer = 0f;
     private float releaseTime = 5f; 
     private float fadeDuration = 1f;
     private List<Color> colorList = new List<Color>();
+    private Transform idlePos;
 
     /// <summary>
     /// 임시 사용, 유아이 매니저 제작 시 이동 예정
@@ -30,6 +31,8 @@ public class MonsterDieState : MonsterStateBase
         colorList = monsterCtrl.GetOriginalColor();
         spriteRenderers = monsterCtrl.gameObject.GetComponentsInChildren<SpriteRenderer>();
         monsterCtrl.GetComponent<Collider2D>().enabled = false;
+
+        idlePos = monsterCtrl.idlePos;
         
     }
 
@@ -58,6 +61,7 @@ public class MonsterDieState : MonsterStateBase
         }
         if(timer > fadeDuration && timer < releaseTime + fadeDuration)
         {
+            monsterCtrl.gameObject.transform.position = idlePos.position;
             if(!monsterCtrl.animator.GetBool("EditChk"))
                 monsterCtrl.animator.SetBool("EditChk", true);
         }

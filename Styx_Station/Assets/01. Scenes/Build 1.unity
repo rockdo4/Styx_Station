@@ -4721,17 +4721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f028287ee1186a41a4bee732be437eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windows:
-  - {fileID: 1837646064}
-  - {fileID: 1760751148}
-  - {fileID: 1077441856}
-  - {fileID: 873753826}
-  panel: {fileID: 1271603509}
-  currentWindow: 0
-  inventory: {fileID: 1799732325}
-  custom: {fileID: 1408133899}
-  State: {fileID: 1605820098}
-  skill: {fileID: 1855883921}
 --- !u!114 &356056439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4744,7 +4733,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517a94fdb9d4372429cf4bf58f1aa167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 366573435}
+  windows: []
+  panel: {fileID: 0}
+  currentWindow: 0
+  inventory: {fileID: 0}
+  custom: {fileID: 0}
+  State: {fileID: 0}
+  skill: {fileID: 0}
 --- !u!1 &366573434
 GameObject:
   m_ObjectHideFlags: 0
@@ -10143,13 +10138,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipMode: 0
   selectIndex: 0
-  normals: {fileID: 465597811}
-  chains: {fileID: 129766854}
+  equips: {fileID: 0}
   skillTabs: {fileID: 738216668}
   skills: {fileID: 2127596839}
   info: {fileID: 1728818028}
-  normalPrefabs: {fileID: 7907514963861113847, guid: 8d94fa9a25ced8f4a94f0a953d8a8747, type: 3}
-  chainPrefabs: {fileID: 7907514963861113847, guid: 0db5ebaeb5938754195ccda9565f8d0b, type: 3}
+  equipPrefabs: {fileID: 0}
   skillPrefabs: {fileID: 7907514963861113847, guid: 5234bc6d4146f2e4487b82a72d790820, type: 3}
 --- !u!114 &873753827
 MonoBehaviour:
@@ -11497,6 +11490,13 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 71bc33536dc215c4399e35b5afca9787, type: 3}
   - {fileID: 21300000, guid: 75fa7602875d31e4fa4c4bfcf6b0e1e4, type: 3}
   currentButtonIndex: -1
+  upgradePanel: {fileID: 0}
+  foodTimerUpgradeLevelUpTextGui: {fileID: 0}
+  foodTimerUpgradeLevelUpButton: {fileID: 0}
+  foodTimerUpgradeLevelPrcieWeight: 14
+  foodSelectUpgradeLevelUpTextGui: {fileID: 0}
+  foodSelectUpgradeLevelUpUpButton: {fileID: 0}
+  foodSelectUpgradeLevelUpPrcieWeight: 1000
 --- !u!114 &1012039153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12533,17 +12533,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8983973497792637883, guid: b957ee69009d41d45ac6f15fc1a466b3, type: 3}
   m_PrefabInstance: {fileID: 921716290}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1077441856 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4918892445242073048, guid: b957ee69009d41d45ac6f15fc1a466b3, type: 3}
-  m_PrefabInstance: {fileID: 921716290}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27aea54569defad488e12ec3ed6adc0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1088978505
 GameObject:
   m_ObjectHideFlags: 0
@@ -14702,13 +14691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f028287ee1186a41a4bee732be437eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  windows: []
-  panel: {fileID: 0}
-  currentWindow: 0
-  inventory: {fileID: 0}
-  custom: {fileID: 0}
-  State: {fileID: 0}
-  skill: {fileID: 0}
 --- !u!114 &1273802443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18072,17 +18054,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748405455}
   m_CullTransparentMesh: 1
---- !u!114 &1760751148 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2337788798154079409, guid: 7aed9dc7d1a928743b59b394d395cdfc, type: 3}
-  m_PrefabInstance: {fileID: 231120903}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d425d584e53233346b12b4b446057220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1781966721
 GameObject:
   m_ObjectHideFlags: 0
@@ -18313,17 +18284,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3838268919292887811, guid: 67e30063addbd634c84fe7ffe7904bab, type: 3}
   m_PrefabInstance: {fileID: 54907213}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1837646064 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5810803458495008860, guid: 67e30063addbd634c84fe7ffe7904bab, type: 3}
-  m_PrefabInstance: {fileID: 54907213}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67e8c46a20e78e64faf29ca5255b54fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1855883919
 GameObject:
   m_ObjectHideFlags: 0
@@ -19985,7 +19945,7 @@ MonoBehaviour:
     prefab: {fileID: 9089488441824970676, guid: 9daf692fe8170de4b8abd4b683194fd5, type: 3}
     count: 10
     maxCount: 20
-  - objectName: PlayerBow
+  - objectName: PlayerArrow
     prefab: {fileID: 1919645320435576257, guid: ca000906097b63d4fbd612167fe11980, type: 3}
     count: 10
     maxCount: 20

@@ -21,9 +21,16 @@ public class MonsterController : PoolAble //MonoBehaviour
 
     public bool isTargetDie = false;
 
+    public Transform idlePos { get; set; }
+
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
+    }
+
+    public void SetIdlePoint(Transform idlePos)
+    {
+        this.idlePos = idlePos;
     }
 
     public void SetOriginalColor(List<Color> colorList)

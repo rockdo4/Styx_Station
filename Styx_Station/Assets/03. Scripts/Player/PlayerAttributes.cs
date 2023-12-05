@@ -19,7 +19,7 @@ public class PlayerAttributes : MonoBehaviour
     public float attackSpeed; 
 
     [Header("공격 범위 ")]
-    [SerializeField, Range(0, 5)]
+    [SerializeField, Range(0, 15)]
     public float playerAttackRange;
 
     private void Awake()

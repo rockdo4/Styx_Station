@@ -2,9 +2,11 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PlayerBow : PoolAble
+public class PlayerArrow : PoolAble
 {
     public event Action<GameObject, GameObject> OnCollided;
+
+    public int arrowRangeLayer = 20;
 
     private Rigidbody2D rb;
     private float speed; //¼Óµµ
@@ -73,8 +75,11 @@ public class PlayerBow : PoolAble
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Collider2D[] colliders = other.GetComponents<Collider2D>();
-
+        if(other.gameObject.layer == arrowRangeLayer)
+        {
+            ReleaseArrow();
+            return;
+        }
         Collider2D[] colliders = new Collider2D[20];
         int count =  Physics2D.OverlapCollider(gameObject.GetComponent<Collider2D>(), filter2D, colliders);
         Collider2D attackedMon = colliders[0];
@@ -82,7 +87,7 @@ public class PlayerBow : PoolAble
         {
             for(int i = 0; i < count; i++)
             {
-                if (colliders[i].gameObject.GetComponentInChildren<SortingGroup>().sortingOrder > 
+                if (colliders[i].gameObject.GetComponentInChildren<SortingGroup>().sortingOrder >
                     attackedMon.GetComponentInChildren<SortingGroup>().sortingOrder &&
                     colliders[i].gameObject.GetComponent<MonsterStats>().currHealth > 0)
                 {
@@ -110,13 +115,17 @@ public class PlayerBow : PoolAble
             OnCollided(caster, attackedMon.gameObject);
         }
         //Debug.Log(other.name);
+        ReleaseArrow();
+    }
+
+    private void ReleaseArrow()
+    {
         if (!isRelease)
         {
             isRelease = true;
             timer = 0f;
             ReleaseObject();
         }
-        
     }
 
     bool IsInCameraView()

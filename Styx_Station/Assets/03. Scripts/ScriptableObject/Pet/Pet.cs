@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,18 @@ public class Pet : ScriptableObject
 {
     [Tooltip("펫 이름")]
     public string Pet_Name;
+
+    public Tier Pet_Tier;
+
+    public Enchant Pet_Enchant;
+
+    public float Pet_Attack;
+
+    public float Pet_AttackSpeed;
+
+    public float Pet_AttackRange;
+
+    public List<int> Pet_UpMatter;
 
     [Tooltip("애니메이션")]
     public RuntimeAnimatorController animation;

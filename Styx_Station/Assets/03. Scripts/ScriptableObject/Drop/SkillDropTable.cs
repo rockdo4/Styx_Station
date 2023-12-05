@@ -14,7 +14,7 @@ public class SkillDropTable : ScriptableObject
         public int RankUp;
     }
 
-    public Skill GetSkll(int rank)
+    public Skill GetSkill(int rank)
     {
         if (drops == null)
             return null;

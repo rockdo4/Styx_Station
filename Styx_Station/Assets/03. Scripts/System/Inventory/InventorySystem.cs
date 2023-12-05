@@ -16,9 +16,12 @@ public class InventorySystem : MonoBehaviour
                 instance.item = Resources.Load<ItemTable>("Table/ItemTable");
                 instance.optionTable = Resources.Load<CustomOptionTable>("Table/CustomOptionTable");
                 instance.skill = Resources.Load<SkillTable>("Table/SkillTable");
+                instance.pet = Resources.Load<PetTable>("Table/PetTable");
                 instance.inventory = go.AddComponent<Inventory>();
                 instance.skillInventory = go.AddComponent<SkillInventory>();
+                instance.petInventory = go.AddComponent<PetInventory>();
                 instance.Setting();
+                instance.shopSystem = ShopSystem.Instance;
                 DontDestroyOnLoad(go);
             }
             return instance;
@@ -27,10 +30,13 @@ public class InventorySystem : MonoBehaviour
 
     public Inventory inventory;
     public SkillInventory skillInventory;
+    public PetInventory petInventory;
+
+    private ShopSystem shopSystem;
+
     private ItemTable item;
     private SkillTable skill;
-    private SaveLoad saveLoad;
-
+    private PetTable pet;
 
     public CustomOptionTable optionTable { get; private set; }
 
@@ -92,11 +98,28 @@ public class InventorySystem : MonoBehaviour
             skillInventory.AddSkill(addSkill);
         }
 
+
+        for (int i = 0; i < pet.GetTableSize(); ++i)
+        {
+            var addPet = pet.GetPet(i);
+            petInventory.AddPet(addPet);
+        }
+
         for (int i = 0; i <= (int)ItemType.Symbol; ++i)
         {
             inventory.ItemSorting((ItemType)i);
         }
 
         skillInventory.SkillSorting();
+
+        petInventory.PetSorting();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            shopSystem.ItemGacha(3);
+        }
     }
 }

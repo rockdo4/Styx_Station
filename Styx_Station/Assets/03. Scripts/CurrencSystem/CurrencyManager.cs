@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
@@ -15,6 +13,10 @@ public static class CurrencyManager
     public static BigInteger criticalPrice = new BigInteger(1);
     public static BigInteger maxHpPrice = new BigInteger(1);
     public static BigInteger healingPrie =new BigInteger(1);
+
+    public static int itemAsh = 0;
+
+
     public static void GetSilver(BigInteger money,int a)
     {
         switch(a)

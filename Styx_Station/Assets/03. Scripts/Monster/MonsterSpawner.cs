@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -30,6 +31,8 @@ public class MonsterSpawner : MonoBehaviour
     public int increaseHealth;
 
     private Coroutine spawnCo;
+
+    public Transform idlePoint;
 
     private void Start()
     {
@@ -92,7 +95,7 @@ public class MonsterSpawner : MonoBehaviour
         while (spawnedCount < count)
         {
             yield return WaitSecond;
-            Debug.Log("SpawnMonster");
+            //Debug.Log("SpawnMonster");
             int monsterTypeIndex = -1;
             int randNum;
             if(monster1Count <= 0 || monster2Count <=0)
@@ -142,6 +145,7 @@ public class MonsterSpawner : MonoBehaviour
 
             monsterController.SetExcuteHit();
             monsterController.SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
+            monsterController.SetIdlePoint(idlePoint);
             monsterController.isTargetDie = false;
             spawnedCount++;
         }

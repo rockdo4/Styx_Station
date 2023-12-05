@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Attack/RangeWeapon")]
 public class RangeWeapon : AttackDefinition
 {
-    public PlayerBow bowPrefab;
+    public PlayerArrow bowPrefab;
     public float speed; //발사체 이동 속도
     public AttackerType attackerType;
     public int maxShotAngle;
@@ -30,7 +30,7 @@ public class RangeWeapon : AttackDefinition
 
         var bow = ObjectPoolManager.instance.GetGo(bowPrefab.name);
         bow.transform.position = startPos;
-        var playerBow = bow.GetComponent<PlayerBow>();
+        var playerBow = bow.GetComponent<PlayerArrow>();
         if(!playerBow.CheckOnCollided())
         {
             playerBow.OnCollided += OnBowCollided;

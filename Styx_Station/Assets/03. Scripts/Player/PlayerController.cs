@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
     public bool IsStartTarget { get; set; }
     public States currentStates;
+
+    public LayerMask enemyLayer;
     
     public void Awake()
     {
@@ -63,7 +65,7 @@ public class PlayerController : MonoBehaviour
     public void Update()
     {
         //Debug.Log(playerStateManager.GetCurrentState());
-        Debug.Log(gameObject.GetComponent<ResultPlayerStats>().playerCurrentHp);
+        //Debug.Log(gameObject.GetComponent<ResultPlayerStats>().playerCurrentHp);
         playerStateManager.Update();
         if (!IsStartTarget)
         {
@@ -77,7 +79,7 @@ public class PlayerController : MonoBehaviour
         executeHit.attacker = gameObject;
         var currPos = gameObject.transform.position;
         currPos.y += 0.5f;
-        var target = Physics2D.Raycast(currPos, Vector2.right, range);
+        var target = Physics2D.Raycast(currPos, Vector2.right, range, enemyLayer);
         Debug.DrawRay(gameObject.transform.position, Vector2.right * range, Color.red, 1f); // 시작점, 방향, 색상, 지속시간
         if (target.collider != null)
         {
@@ -128,7 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         playerStateManager.ChangeState(playerStateBases[(int)newState]);
         currentStates = newState;
-        //Debug.Log(playerStateManager.GetCurrentState());
+        Debug.Log(playerStateManager.GetCurrentState());
     }
 
     public Animator GetAnimator()

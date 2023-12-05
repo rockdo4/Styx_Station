@@ -88,6 +88,14 @@ public class SaveDataV3 : SaveData
 
     public string exitTime = string.Empty;
     public string keyAccumulateTime = string.Empty;
+    public StageData stageData;
+
+
+    public SaveFoodData[] diningRoomSaveFoodData = new SaveFoodData[6]; // sprite고려 -> 안되어서 이미지 FileName으로 작업해볼예정
+    //public int diningRoomTimerUpgradeLevel = 0;
+    //public int dingingRoomSelectCountUpgradeLevel=0;
+    //public string diningRoomTimer; // 식당칸 나갈시 시간을 가져오고 현재 시간과 바꿔서 작업 진행 
+
 
     public override SaveData VersionUp()
     {

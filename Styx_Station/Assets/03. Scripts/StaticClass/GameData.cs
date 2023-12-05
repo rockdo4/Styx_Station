@@ -16,9 +16,7 @@ public static class GameData
     [HideInInspector]
     public static string datetimeString = "yy년 MM월 dd일 HH시 mm분 ss초";
 
-    public static int chapter;
-    public static int stage;
-    public static int wave;
+    public static StageData stageData;
 
     public static void GetAccumulateOfflineEarnings()
     {

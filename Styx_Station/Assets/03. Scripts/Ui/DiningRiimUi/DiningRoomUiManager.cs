@@ -72,6 +72,7 @@ public class DiningRoomUiManager : MonoBehaviour
             }
             GetFoodStringTableData();
             FoodGradeInsert();
+
         }
 
         //testcode

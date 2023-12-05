@@ -7,6 +7,7 @@ using SaveDataVersionCurrent = SaveDataV3;
 using System.Numerics;
 using System.Linq;
 using System;
+using UnityEditor.U2D.Aseprite;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -92,6 +93,19 @@ public class SaveLoad : MonoBehaviour
             data.keyAccumulateTime = DateTime.Now.ToString($"{GameData.datetimeString}");
         else
             data.keyAccumulateTime = GameData.keyPrevAccumlateTime.ToString();
+
+
+        if (GameData.stageData.chapter == 0)
+            GameData.stageData.chapter = 1;
+        if (GameData.stageData.stage == 0)
+            GameData.stageData.stage = 1;
+        if (GameData.stageData.wave == 0)
+            GameData.stageData.wave = 1;
+
+        data.stageData = GameData.stageData;
+
+        // ui 매니저에서 가져오기;
+
 
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
@@ -275,6 +289,13 @@ public class SaveLoad : MonoBehaviour
             {
                 GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
             }
+
+            if (jsonObject.ContainsKey("diningRoomSaveFoodData"))
+            {
+                string str = jsonObject["diningRoomSaveFoodData"].ToString();
+                var saveFoodData = JsonConvert.DeserializeObject<SaveFoodData[] >(str);
+            }
+
         }
     }
 

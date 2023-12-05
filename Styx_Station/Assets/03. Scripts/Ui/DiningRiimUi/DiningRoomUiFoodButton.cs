@@ -11,7 +11,8 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     public Sprite lockImage;
     public bool isFullFood; // 버튼을 눌러서 판매 또는 섭취하면 false 로 만들기
     public Sprite cookImage;
-    private FoodData[] foodDatas = new FoodData[6];
+    [HideInInspector]
+    public FoodData[] foodDatas = new FoodData[6];
     private DiningRoomUiManager parentDiningRoomUi;
     private void Awake()
     {
@@ -21,8 +22,6 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     private void Start()
     {
         CheckFoodButton();
-
-      
         AddButtonMethod();
     }
     private void AddButtonMethod()

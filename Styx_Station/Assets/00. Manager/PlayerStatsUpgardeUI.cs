@@ -52,6 +52,8 @@ public class PlayerStatsUpgardeUI : MonoBehaviour//Singleton<PlayerStatsUpgardeU
     StringTable stringTable; // UiManager 싱글톤에서 데이터를 받아오는 형식으로 할것
     public GameObject logScrollView;
     private bool isOneAwkae;
+
+    public DiningRoomUiManager thisIsTestCode; //test
     private Dictionary<int, Func<string>> playerStatsActions = new Dictionary<int, Func<string>>
     {
         { 0, () => UnitConverter.OutString(SharedPlayerStats.GetPlayerPower()) },

@@ -62,7 +62,8 @@ public class PlayerController : MonoBehaviour
     }
     public void Update()
     {
-        Debug.Log(playerStateManager.GetCurrentState());
+        //Debug.Log(playerStateManager.GetCurrentState());
+        Debug.Log(gameObject.GetComponent<ResultPlayerStats>().playerCurrentHp);
         playerStateManager.Update();
         if (!IsStartTarget)
         {

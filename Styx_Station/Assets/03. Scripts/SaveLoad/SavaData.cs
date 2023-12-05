@@ -48,7 +48,7 @@ public class SaveDataV2 : SaveData
     public List<CustomData> customSymbolData = new List<CustomData>();
 
     public List<EquipData> equipItem = new List<EquipData>();
-
+ 
     public override SaveData VersionUp()
     {
         SaveDataV3 v3 = new SaveDataV3();
@@ -85,6 +85,9 @@ public class SaveDataV3 : SaveData
     public List<SkillData> skillData = new List<SkillData>();
 
     public List<EquipSkillData> equipSkill = new List<EquipSkillData>();
+
+    public string exitTime = string.Empty;
+    public string keyAccumulateTime = string.Empty;
 
     public override SaveData VersionUp()
     {

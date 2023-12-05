@@ -6,18 +6,19 @@ using UnityEngine;
 using SaveDataVersionCurrent = SaveDataV3;
 using System.Numerics;
 using System.Linq;
+using System;
 
 public class SaveLoad : MonoBehaviour
 {
     public void Save()
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
-        
+
         data.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
         data.playerdata.playerPowerboost = SharedPlayerStats.GetPlayerPowerBoost();
         data.playerdata.playerAttackSpeed = SharedPlayerStats.GetPlayerAttackSpeed();
-        data.playerdata.critical=SharedPlayerStats.GetAttackCritical();
-        data.playerdata.criticalPower =SharedPlayerStats.GetAttackCriticlaPower();
+        data.playerdata.critical = SharedPlayerStats.GetAttackCritical();
+        data.playerdata.criticalPower = SharedPlayerStats.GetAttackCriticlaPower();
         data.playerdata.monsterDamage = SharedPlayerStats.GetMonsterDamagePower();
         data.playerdata.maxHp = SharedPlayerStats.GetHp();
         data.playerdata.healing = SharedPlayerStats.GetHealing();
@@ -39,7 +40,7 @@ public class SaveLoad : MonoBehaviour
             data.armorData.Add(aromr);
         }
 
-        foreach(var item in inventory.customRings)
+        foreach (var item in inventory.customRings)
         {
             CustomData ring = new CustomData(item.copyData.name, item.item.upgradeLev, item.item.item.addOptions);
             data.customRingData.Add(ring);
@@ -55,11 +56,11 @@ public class SaveLoad : MonoBehaviour
         {
             var equip = inventory.GetEquipItem(i);
 
-            if(equip == null)
+            if (equip == null)
                 continue;
 
-            if(equip.item == null)
-                continue; 
+            if (equip.item == null)
+                continue;
 
             EquipData equips = new EquipData(equip.item.name, equip.item.type);
             data.equipItem.Add(equips);
@@ -73,19 +74,24 @@ public class SaveLoad : MonoBehaviour
             data.skillData.Add(skillData);
         }
 
-        for(int i = 0; i < skillInventory.equipSkills.Length; ++i)
+        for (int i = 0; i < skillInventory.equipSkills.Length; ++i)
         {
             var equip = skillInventory.equipSkills[i];
 
             if (equip == null)
                 continue;
 
-            if(equip.skill == null)
+            if (equip.skill == null)
                 continue;
 
             EquipSkillData equips = new EquipSkillData(equip.skill.name, equip.equipIndex);
             data.equipSkill.Add(equips);
         }
+        data.exitTime = DateTime.Now.ToString($"{GameData.datetimeString}");
+        if (GameData.keyPrevAccumlateTime.Equals(""))
+            data.keyAccumulateTime = DateTime.Now.ToString($"{GameData.datetimeString}");
+        else
+            data.keyAccumulateTime = GameData.keyPrevAccumlateTime.ToString();
 
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
@@ -170,7 +176,7 @@ public class SaveLoad : MonoBehaviour
             if (jsonObject.TryGetValue("customSymbolData", out JToken symbolToken))
             {
                 string customSymbols = symbolToken.ToString();
-                var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);       
+                var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);
                 foreach (var item in sData)
                 {
                     var baseItem = inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
@@ -191,7 +197,7 @@ public class SaveLoad : MonoBehaviour
                         case ItemType.Weapon:
                             var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
                             if (weapon != null)
-                                inventory.EquipItem(weapon.index, item.itemType);                         
+                                inventory.EquipItem(weapon.index, item.itemType);
                             break;
 
                         case ItemType.Armor:
@@ -204,27 +210,27 @@ public class SaveLoad : MonoBehaviour
                             var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                             if (ring != null)
                                 inventory.EquipItem(ring.item.index, item.itemType);
-                                break;
+                            break;
 
                         case ItemType.Symbol:
                             var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                             if (symbol != null)
                                 inventory.EquipItem(symbol.item.index, item.itemType);
-                                break;
+                            break;
                     }
                 }
             }
 
             var skillInventory = InventorySystem.Instance.skillInventory;
 
-            if(jsonObject.TryGetValue("skillData", out JToken skillToken))
+            if (jsonObject.TryGetValue("skillData", out JToken skillToken))
             {
                 string skills = skillToken.ToString();
                 var sData = JsonConvert.DeserializeObject<List<SkillData>>(skills);
-                foreach(var skill in sData)
+                foreach (var skill in sData)
                 {
                     var skillData = skillInventory.skills.Where(x => x.skill.name == skill.skillName).FirstOrDefault();
-                    if(skillData != null)
+                    if (skillData != null)
                     {
                         skillData.upgradeLev = skill.skillLevel;
                         skillData.acquire = skill.acquire;
@@ -234,29 +240,52 @@ public class SaveLoad : MonoBehaviour
                 }
             }
 
-            if(jsonObject.TryGetValue("equipSkill", out JToken equipSkillToken))
+            if (jsonObject.TryGetValue("equipSkill", out JToken equipSkillToken))
             {
                 string equipSkill = equipSkillToken.ToString();
                 var equipSkillData = JsonConvert.DeserializeObject<List<EquipSkillData>>(equipSkill);
 
-                foreach(var equip in equipSkillData)
+                foreach (var equip in equipSkillData)
                 {
-                    var skill = skillInventory.skills.Where(x=>x.skill.name ==  equip.skillName).FirstOrDefault();
+                    var skill = skillInventory.skills.Where(x => x.skill.name == equip.skillName).FirstOrDefault();
                     if (skill != null)
                         skillInventory.EquipSkill(skill.skillIndex, equip.equipIndex);
                 }
+            }
+
+
+
+            if (jsonObject.ContainsKey("exitTime"))
+            {
+                string str = jsonObject["exitTime"].ToString();
+                GameData.exitTime.Clear();
+                GameData.exitTime.Append(str);
+            }
+
+            if (jsonObject.ContainsKey("keyAccumulateTime"))
+            {
+                string str = jsonObject["keyAccumulateTime"].ToString();
+                if (str != "")
+                {
+                    GameData.keyPrevAccumlateTime.Clear();
+                    GameData.keyPrevAccumlateTime.Append(str);
+                }
+            }
+            else
+            {
+                GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
             }
         }
     }
 
     public void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Save();
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             Load();
         }

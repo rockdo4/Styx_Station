@@ -64,7 +64,7 @@ public class WaveManager : MonoBehaviour
 
     private PlayerController playerController;
 
-    public float waitTime = 1.5f;
+    private float waitTime = 1f;
     private WaitForSeconds waitForSeconds;
 
     public TextMeshProUGUI stageText; //임시로 여기서 함. 추후 uimanager로 이동함.
@@ -97,6 +97,7 @@ public class WaveManager : MonoBehaviour
         aliveMonsterCount = 0;
         playerController.GetAnimator().StopPlayback();
         spawner.stopSpawn();
+        StopArrows();
         StartCoroutine(SetMonstersStop());
         //StartCoroutine(SetArrowStop());
     }
@@ -181,6 +182,7 @@ public class WaveManager : MonoBehaviour
         {
             if(monster.GetComponent<MonsterStats>().currHealth > 0)
             {
+                //monster.GetComponent<MonsterController>().animator.StopPlayback();
                 monster.GetComponent<MonsterController>().SetState(States.Idle);
             }
         }
@@ -191,9 +193,22 @@ public class WaveManager : MonoBehaviour
         {
             if (monster.GetComponent<MonsterStats>().currHealth > 0 && monster.activeSelf)
             {
+                monster.gameObject.transform.position = monster.GetComponent<MonsterController>().idlePos.position;
                 monster.GetComponent<MonsterController>().ReleaseObject();
             }
         }
+    }
+
+    private void StopArrows()
+    {
+        GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
+            .Where(arrow => arrow.activeSelf)
+            .ToArray();
+        foreach( var arrow in Arrows)
+        {
+            arrow.GetComponent<PoolAble>().ReleaseObject();
+        }
+
     }
 
     IEnumerator SetArrowStop()

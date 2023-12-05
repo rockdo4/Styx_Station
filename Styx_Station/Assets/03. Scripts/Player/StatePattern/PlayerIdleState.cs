@@ -29,7 +29,7 @@ public class PlayerIdleState : PlayerStateBase
         Physics2D.OverlapCircleAll(playertController.transform.position, range,
         playertController.layerMask);
 
-        if (findEnemey == null) 
+        if (findEnemey.Length < 1) 
         {
             return;
         }

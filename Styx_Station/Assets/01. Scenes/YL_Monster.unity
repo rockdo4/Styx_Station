@@ -422,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4129169840598786021, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
       propertyPath: MaxHp
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4129169840598786021, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
       propertyPath: playerAttackRange
@@ -1136,6 +1136,10 @@ PrefabInstance:
       propertyPath: destinationPoint
       value: 
       objectReference: {fileID: 2005869261}
+    - target: {fileID: 8394718759684529140, guid: e6b3b122bc1435546a29e5fb872feb17, type: 3}
+      propertyPath: MaxHp
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5788561246787758256, guid: e6b3b122bc1435546a29e5fb872feb17, type: 3}
     m_RemovedGameObjects: []
@@ -1321,7 +1325,6 @@ MonoBehaviour:
   stageList: {fileID: 11400000, guid: f55a05bdd76f5a24fa2d84ac015f8410, type: 2}
   currStage: {fileID: 0}
   Background: {fileID: 1037942627}
-  waitTime: 1.5
   stageText: {fileID: 1361327321}
 --- !u!4 &1016353212
 Transform:

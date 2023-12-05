@@ -31,8 +31,10 @@ public class MonsterRangeWeapon : AttackDefinition
         var bow = ObjectPoolManager.instance.GetGo(bowPrefab.name);
         bow.transform.position = startPos;
         var projectileBow = bow.GetComponent<ProjectileBow>();
-
-        projectileBow.OnCollided += OnBowCollided;
+        if (!projectileBow.CheckOnCollided())
+        {
+            projectileBow.OnCollided += OnBowCollided;
+        }
         projectileBow.Fire(attacker, speed, targetPos, rects[1].transform.position);
     }
 

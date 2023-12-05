@@ -26,6 +26,7 @@ public class MonsterController : PoolAble //MonoBehaviour
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
+        //Debug.Log(stateManager.GetCurrentState());
     }
 
     public void SetIdlePoint(Transform idlePos)
@@ -92,9 +93,10 @@ public class MonsterController : PoolAble //MonoBehaviour
     {
         if(target.GetComponent<ResultPlayerStats>() != null)
         {
+            //Debug.Log(target.GetComponent<ResultPlayerStats>().playerCurrentHp);
             if(target.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
             {
-                SetState(States.Idle);
+                //SetState(States.Idle);
                 isTargetDie = true;
             }
         }

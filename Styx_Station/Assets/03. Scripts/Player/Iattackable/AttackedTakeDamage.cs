@@ -22,11 +22,6 @@ public class AttackedTakeDamage : MonoBehaviour, IAttackable
             stats.playerCurrentHp = 0;
             controller.GetAnimator().SetTrigger("Die");
             controller.SetState(States.Die);
-            //var destructables = GetComponents<IDestructable>();
-            //foreach (var destructable in destructables)
-            //{
-            //    destructable.OnDestruction(attacker);
-            //}
         }
     }
 }

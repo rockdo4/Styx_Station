@@ -95,7 +95,7 @@ public class MonsterSpawner : MonoBehaviour
         while (spawnedCount < count)
         {
             yield return WaitSecond;
-            Debug.Log("SpawnMonster");
+            //Debug.Log("SpawnMonster");
             int monsterTypeIndex = -1;
             int randNum;
             if(monster1Count <= 0 || monster2Count <=0)

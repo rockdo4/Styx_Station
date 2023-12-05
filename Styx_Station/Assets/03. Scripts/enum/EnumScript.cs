@@ -113,3 +113,9 @@ public enum SkillType
     Active,
     Passive,
 }
+
+ public enum VamprieSurivalAttackType
+{ 
+    LineAttackRange,
+    CircleAttack,
+}

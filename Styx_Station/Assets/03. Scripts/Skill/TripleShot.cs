@@ -16,14 +16,10 @@ public class TripleShot : SkillBase
     private float fireBet = 0.2f;
     private float lastfireTime = 0;
 
-    private WaitForSeconds waitForFireBet;
-
     public TripleShot(SkillInventory.InventorySKill tripleShot)
     {
         this.tripleShot = tripleShot;
         speed = 1 / this.tripleShot.skill.Skill_Speed; //1유닛 도달에 걸리는 시간 -> 초당 이동속도 변환
-
-        waitForFireBet = new WaitForSeconds(fireBet);
     }
 
     public override void UseSkill(GameObject attacker, GameObject defender)

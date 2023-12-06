@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class TripleShot : SkillBase
@@ -10,16 +5,13 @@ public class TripleShot : SkillBase
     private string piercingBowName = "PlayerPiercingArrow";
     private SkillInventory.InventorySKill tripleShot;
     private float speed;
+    private GameObject shooterPrefab;
 
-    private int fireCount = 3;
-
-    private float fireBet = 0.2f;
-    private float lastfireTime = 0;
-
-    public TripleShot(SkillInventory.InventorySKill tripleShot)
+    public TripleShot(SkillInventory.InventorySKill tripleShot, GameObject shooterPrefab)
     {
         this.tripleShot = tripleShot;
         speed = 1 / this.tripleShot.skill.Skill_Speed; //1유닛 도달에 걸리는 시간 -> 초당 이동속도 변환
+        this.shooterPrefab = shooterPrefab;
     }
 
     public override void UseSkill(GameObject attacker, GameObject defender)
@@ -32,28 +24,11 @@ public class TripleShot : SkillBase
         }
         var startPos = rects[1].transform.position;
 
-        FireArrow(attacker, startPos);
+        var shooter = Instantiate(shooterPrefab);
+        shooter.GetComponent<Shooter>().SetShooter(attacker, startPos, piercingBowName, speed);
+
     }
 
-    public void FireArrow(GameObject attacker, Vector2 Pos)
-    {
-        var arrow = ObjectPoolManager.instance.GetGo(piercingBowName);
-        if (arrow == null)
-        {
-            Debug.Log("ERR: arrow is null");
-            return;
-        }
-        arrow.transform.position = Pos;
-
-        var piercingArrow = arrow.GetComponent<PiercingArrow>();
-        if (!piercingArrow.CheckOnCollided())
-        {
-            piercingArrow.OnCollided += OnBowCollided;
-        }
-        piercingArrow.Fire(attacker, speed);
-
-        fireCount--;
-    }
 
     private void OnBowCollided(GameObject attacker, GameObject defender)
     {

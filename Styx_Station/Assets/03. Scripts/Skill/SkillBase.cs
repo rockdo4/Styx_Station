@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillBase : MonoBehaviour
+public abstract class SkillBase 
 {
-    // Start is called before the first frame update
-    void Start()
+    public abstract void UseSkill(GameObject attacker, GameObject defender);
+
+    public Attack CreateAttackToMonster(ResultPlayerStats attacker, MonsterStats defender)
     {
-        
+        float criticalChance = attacker.GetCritical();   //0~100까지 치확
+        float randomFloat = Random.Range(0f, 100f);
+        randomFloat = Mathf.Round(randomFloat * 10f) / 10f;
+        bool isCritical = randomFloat <= criticalChance;
+
+        var currentDamage = attacker.ResultMonsterNormalDamage(isCritical, 0);
+
+        return new Attack(currentDamage, false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

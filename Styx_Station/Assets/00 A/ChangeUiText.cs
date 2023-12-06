@@ -12,9 +12,11 @@ public class ChangeUiText : MonoBehaviour
     public string stringTableKey;
     public TextMeshProUGUI textMeshProUGUI;
     [Range(0f, 100f)]
+    [HideInInspector]
     public float korStringSize = 30f;
     private float prevKorStringSize;
     [Range(0f, 100f)]
+    [HideInInspector]
     public float engStringSize = 30f;
     private float prevEngStringSize;
     private StringTableData StringTable;

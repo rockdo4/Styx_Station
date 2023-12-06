@@ -21,6 +21,6 @@ public class FoodData
 
 public class SaveFoodData
 {
-    public string Food_ID;
+    public string Food_Name_ID;
     public FoodType Food_Type;
 }

@@ -29,9 +29,19 @@ public class StringTable : DataTable<StringTable>
 
         foreach (var record in records)
         {
-            dic.Add(record.ID, record);
+            var t = record;
+            var korstr = record.KOR;
+            string newkorstr = korstr.Replace("\\n", "\n");
+            var engstr = record.ENG;
+            string newengstr = engstr.Replace("\\n", "\n");
+            t.KOR = newkorstr;
+            t.ENG= newengstr;
+            dic.Add(t.ID, t);
         }
-   
+        // 100012_Buff,
+        // 섭취 시 공격력 {0}%\n보스 피해량 {1}%\n스킬 피해 {2}%\n치명타 피해 {3}% 증가,
+        // Increase Damage {0}%\nBoss damage {1}%\nSkill Damage {2}%\nCritical damage {3}% when ingested
+
     }
     public StringTableData GetStringTableData(string id)
     {

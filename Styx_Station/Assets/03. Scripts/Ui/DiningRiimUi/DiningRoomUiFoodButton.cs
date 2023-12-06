@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DiningRoomUiFoodButton : MonoBehaviour
 {
     public List<Button> foodButton;
+    [Range(2,6)]
     public int upgradeSelectFoodCount = 2;
     public Sprite lockImage;
     public bool isFullFood; // 버튼을 눌러서 판매 또는 섭취하면 false 로 만들기
@@ -14,8 +15,12 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     [HideInInspector]
     public FoodData[] foodDatas = new FoodData[6];
     private DiningRoomUiManager parentDiningRoomUi;
+
+    public bool isLoadFoodData;
+    public int loadCurrentIndex;
     private void Awake()
     {
+        isLoadFoodData=true;
         parentDiningRoomUi = GetComponentInParent<DiningRoomUiManager>();
     }
 
@@ -51,10 +56,12 @@ public class DiningRoomUiFoodButton : MonoBehaviour
         {
             if (i < upgradeSelectFoodCount)
             {
-                
-                var texture = foodButton[i].GetComponent<Image>();
-                texture.sprite = cookImage;
-                foodButton[i].interactable = false;
+                if (foodDatas[i] == null)
+                {
+                    var texture = foodButton[i].GetComponent<Image>();
+                    texture.sprite = cookImage;
+                    foodButton[i].interactable = false;
+                }
             }
             else
             {
@@ -73,7 +80,20 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     }
     public void MakeFood(FoodData data)
     {
-        for(int i = 0; i < upgradeSelectFoodCount; i++)
+        if (!isLoadFoodData)
+        {
+            var texture = foodButton[loadCurrentIndex].GetComponent<Image>();
+            texture.sprite = data.sprite;
+            foodDatas[loadCurrentIndex] = data;
+            foodButton[loadCurrentIndex].interactable = true;
+            for(int i=0;i<foodDatas.Length;++i)
+            {
+                if (foodDatas[i] == null)
+                    return;
+            }
+            isFullFood = true;
+        }
+        for (int i = 0; i < upgradeSelectFoodCount; i++)
         {
             var texture = foodButton[i].GetComponent<Image>();
             if (texture.sprite == cookImage)
@@ -81,12 +101,18 @@ public class DiningRoomUiFoodButton : MonoBehaviour
                 foodButton[i].interactable = true;
                 texture.sprite = data.sprite;
                 foodDatas[i] = data;
-                if(i == upgradeSelectFoodCount - 1)
-                {
-                    isFullFood = true;
-                }
+                break;
+            }
+        }
+        for(int i=0;i< upgradeSelectFoodCount; ++i)
+        {
+            var texture = foodButton[i].GetComponent<Image>();
+            if(texture.sprite == cookImage)
+            {
                 return;
             }
         }
+        isFullFood = true;
     }
+    
 }

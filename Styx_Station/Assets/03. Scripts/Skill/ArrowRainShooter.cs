@@ -39,7 +39,7 @@ public class ArrowRainShooter : Shooter
 
         pointA = player.transform.position;
         pointA.x = pointA.x + startPosX;
-        pointB = new Vector2(pointA.x + 10, pointA.y + 10);
+        pointB = new Vector2(pointA.x + 2, pointA.y + 10);
     }
 
     private void Start()

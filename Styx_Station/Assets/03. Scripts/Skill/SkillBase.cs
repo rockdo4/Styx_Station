@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SkillBase :MonoBehaviour
+public abstract class SkillBase
 {
-    public abstract void UseSkill(GameObject attacker, GameObject defender);
+    public abstract void UseSkill(GameObject attacker);
 
     public Attack CreateAttackToMonster(ResultPlayerStats attacker, MonsterStats defender)
     {

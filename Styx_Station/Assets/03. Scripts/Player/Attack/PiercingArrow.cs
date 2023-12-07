@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PiercingArrow : PoolAble
@@ -62,7 +60,6 @@ public class PiercingArrow : PoolAble
             }
             OnCollided(caster, other.gameObject);
         }
-        ReleaseArrow();
     }
 
     public void Fire(GameObject c, float s)

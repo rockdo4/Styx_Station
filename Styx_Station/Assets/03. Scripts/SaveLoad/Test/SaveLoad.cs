@@ -538,14 +538,14 @@ public class SaveLoad : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Save();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    Save();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Load();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    Load();
+        //}
     }
 }

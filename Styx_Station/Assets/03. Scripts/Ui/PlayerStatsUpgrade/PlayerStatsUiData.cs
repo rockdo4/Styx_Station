@@ -11,14 +11,17 @@ public class PlayerStatsUiData : MonoBehaviour
     public Button button;
     public int index;
     [HideInInspector] public bool onClickButton;
+    public TextMeshProUGUI currentLevelText;
     public TextMeshProUGUI upgradeLevelText;
     public TextMeshProUGUI upgradeLevelUPPriceText;
+    private Dictionary<int, Func<int>> currentLevelTextFunc;
     private Dictionary<int, Action> upgradePlayerStatsAction;
     private Dictionary<int, Func<string>> upgradeLevel;
     private Dictionary<int, Func<string>> upgradePrice;
 
     private float time;
     private float clickTime = 0.5f;// 추후 변경예정
+    private float decreaseTime;
 
     private BigInteger stats=new BigInteger();
 
@@ -27,10 +30,17 @@ public class PlayerStatsUiData : MonoBehaviour
         SettingAction();
         SettingPlayerStatsUIBUtton();
         SetTextLevelAndPrice(index);
+
+        clickTime = PlayerStatsUIManager.Instance.clickTime;
+        decreaseTime = PlayerStatsUIManager.Instance.decreaseClickTime;
     }
     private void PlayerUpgrade(PointerEventData data, int newIndex)
     {
         onClickButton = !onClickButton;
+        if(!onClickButton)
+        {
+            clickTime = PlayerStatsUIManager.Instance.clickTime;
+        }
     }
 
     private void Update()
@@ -40,11 +50,17 @@ public class PlayerStatsUiData : MonoBehaviour
             if (clickTime + time < Time.time)
             {
                 time = Time.time;
+                clickTime -= decreaseTime;
+                if(clickTime <= PlayerStatsUIManager.Instance.minClickTime)
+                {
+                    clickTime = PlayerStatsUIManager.Instance.minClickTime;
+                }
                 if (upgradePlayerStatsAction.TryGetValue(index, out var action))
                 {
                     action.Invoke();
                 }
                 SetTextLevelAndPrice(index);
+                Debug.Log($"time :{clickTime}");
             }
         }
     }

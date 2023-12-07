@@ -55,7 +55,6 @@ public class PetWeapon : AttackDefinition
 
     private void OnBowCollided(GameObject attacker, GameObject defender)
     {
-        Debug.Log("Hi");
         if (defender == null) 
         {
             return;

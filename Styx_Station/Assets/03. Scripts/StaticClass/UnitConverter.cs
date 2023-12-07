@@ -59,7 +59,9 @@ public static class UnitConverter
             {
                 int first = (int)(money / units[i]);
                 int second = (int)((money % units[i]) / (units[i] / 100));
-                return $"{first}.{second}{unitNames[i]}";
+                if(second<10)
+                    return $"{first}.0{second}{unitNames[i]}";
+                else return $"{first}.{second}{unitNames[i]}";
             }
         }
 

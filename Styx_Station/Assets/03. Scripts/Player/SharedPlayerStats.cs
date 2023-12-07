@@ -117,7 +117,7 @@ public static class SharedPlayerStats
             }
             else
             {
-                CurrencyManager.playerPowerPrice = prevPrice;
+                CurrencyManager.playerPowerBoostPrice = prevPrice;
             }
         }
         if (playerPowerBoost >= playerPowerBoostMax)

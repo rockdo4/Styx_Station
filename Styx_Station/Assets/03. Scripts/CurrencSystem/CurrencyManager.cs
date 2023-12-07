@@ -57,7 +57,7 @@ public static class CurrencyManager
     public static void SetPlayerStatsAllRest()
     {
         var playerPower = SharedPlayerStats.GetPlayerPower();
-        for(int i=0;i<playerPower;++i)
+        for(int i=1;i<playerPower;++i)
         {
             if (i < 50)
                 playerPowerPrice++;
@@ -70,7 +70,22 @@ public static class CurrencyManager
                 playerPowerPrice += (playerPower - 1) + (playerPower / 10);
             }
         }
-        
+        var playerPowerBoost = SharedPlayerStats.GetPlayerPowerBoost();
+        for (int i = 1; i < playerPowerBoost; ++i)
+        {
+            if (i < 50)
+                playerPowerBoostPrice++;
+            else if (i < 500)
+            {
+                playerPowerBoostPrice += (playerPower - 1);
+                playerPowerBoostPrice /= 10;
+            }
+            else
+            {
+                playerPowerBoostPrice += (playerPower - 1) + (playerPower / 10);
+                playerPowerBoostPrice /= 10;
+            }
+        }
     }
 }
 

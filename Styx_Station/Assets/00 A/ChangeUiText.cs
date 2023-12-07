@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
 public class ChangeUiText : MonoBehaviour
 {
     private Language prevLanguage = Global.language;

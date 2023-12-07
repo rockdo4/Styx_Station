@@ -10,9 +10,13 @@ public class SkillInfoUi : MonoBehaviour
 
     public int selectIndex;
 
-    public TextMeshProUGUI lev;
-    public TextMeshProUGUI exp;
+    public GameObject skillImage;
 
+    public TextMeshProUGUI lev;
+    public TextMeshProUGUI tier;
+    public TextMeshProUGUI skillName;
+    public TextMeshProUGUI coolTime;
+    public Outline outline;
     public Button equip;
     public Button upgrade;
 
@@ -24,7 +28,6 @@ public class SkillInfoUi : MonoBehaviour
     {
         var skill = inventory.skills[selectIndex];
 
-        lev.text = $"Lv.{skill.upgradeLev}";
-        exp.text = $"({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.upgradeLev]})";
+        lev.text = $"Lv.{skill.upgradeLev}\n\n({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.upgradeLev]})";
     }
 }

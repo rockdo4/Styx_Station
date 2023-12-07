@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,7 @@ public class UIManager : Singleton<UIManager>
 
     public WindowType currentWindow;
 
-    public Button inventory;
-    public Button custom;
-    public Button State;
-    public Button skill;
+    public List<Button> windowButtons = new List<Button>();
 
     public void Open(WindowType inventoryType)
     {
@@ -21,33 +19,35 @@ public class UIManager : Singleton<UIManager>
 
         currentWindow = inventoryType;
 
-        panel.SetActive(true);
         windows[(int)inventoryType].Open();
     }
 
-    public void OnClickInventory()
+    public void OnClickInfo()
     {
-        Open(WindowType.Inventory);
+        Open(WindowType.Info);
+    }
+    public void OnClickDiningRoom()
+    {
+        Open(WindowType.DiningRoom);
     }
 
-    public void OnClickCustom()
+    public void OnClickLab()
     {
-        Open(WindowType.Custom);
+        Open(WindowType.Lab);
     }
 
-    public void OnClickState()
+    public void OnClickCleaning()
     {
-        Open(WindowType.State);
+        Open(WindowType.Cleaning);
     }
 
-    public void OnClickSkill()
+    public void OnClickBossRush()
     {
-        Open(WindowType.Skill);
+        Open(WindowType.BossRush);
     }
 
     public void OnClickClose()
     {
-        panel.SetActive(false);
         windows[(int)currentWindow].Close();
     }
 }

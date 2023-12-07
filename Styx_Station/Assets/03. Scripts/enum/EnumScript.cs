@@ -95,11 +95,21 @@ public enum PetAttackType
 
 public enum WindowType
 {
-    Inventory,
-    Custom,
+    Info,
+    DiningRoom,
+    Lab,
+    Cleaning,
+    BossRush,
+    Survival,
+}
+
+public enum InfoWindowType
+{ 
     State,
     Skill,
+    Pet,
 }
+
 
 public enum MonsterType //���� spawner�� monstertypes�� �׻� ������ �� �����ؾ���. ���� ����
 {

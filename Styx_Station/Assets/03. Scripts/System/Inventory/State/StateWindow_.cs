@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class StateWindow : Window
+public class StateWindow_ : Window
 {
     public GameObject stateText;
     private List<TextMeshProUGUI> state = new List<TextMeshProUGUI>();

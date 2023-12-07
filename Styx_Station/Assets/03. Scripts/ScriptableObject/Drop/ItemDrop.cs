@@ -44,7 +44,9 @@ public class ItemDrop: ScriptableObject
                 return item.item;
 
             else
+            {
                 random -= item.weight;
+            }
         }
 
         return null;

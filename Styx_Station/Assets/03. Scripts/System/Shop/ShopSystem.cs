@@ -64,7 +64,6 @@ public class ShopSystem : Singleton<ShopSystem>
 
         if (!weapon.acquire)
         {
-            Debug.Log("È¹µæ");
             weapon.acquire = true;
             return;
         }

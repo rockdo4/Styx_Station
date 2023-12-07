@@ -119,7 +119,7 @@ public class InventorySystem : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            shopSystem.ItemGacha(3);
+            shopSystem.ItemGacha(1);
         }
     }
 }

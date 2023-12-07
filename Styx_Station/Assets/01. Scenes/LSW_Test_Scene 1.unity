@@ -2577,7 +2577,7 @@ MonoBehaviour:
   statsClostButton: {fileID: 1241767657}
   inventoryButton: {fileID: 2018850587}
   playerUpgradeButtonIndex: 0
-  clickTime: 0.01
+  clickTime: 1
   nowTime: 0
   playerStatsUpgardeDisplay: {fileID: 1581189434}
   playerStatsData:
@@ -2590,6 +2590,7 @@ MonoBehaviour:
   - {fileID: 559123644}
   - {fileID: 110548844}
   logScrollView: {fileID: 1943942498}
+  thisIsTestCode: {fileID: 634582242}
 --- !u!114 &295120999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2668,7 +2669,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 19.659973}
+  m_AnchoredPosition: {x: 0, y: 19.659912}
   m_SizeDelta: {x: 0, y: -200.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &300910436
@@ -5001,7 +5002,9 @@ MonoBehaviour:
   diningRoomUiButton: {fileID: 634582243}
   diningRoomUiInfo: {fileID: 1828002129}
   timerText: {fileID: 2078812389}
-  MaxTimer: 10
+  MinTimer: 1800
+  MaxTimer: 3600
+  timer: 0
   foodSpriteList:
   - {fileID: 21300000, guid: 7dbb0ed8e8d94874bb8bd3279cc4c044, type: 3}
   - {fileID: 21300000, guid: 40ae58817a309444ab8ec33b3a3d2cf3, type: 3}
@@ -5019,9 +5022,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 75fa7602875d31e4fa4c4bfcf6b0e1e4, type: 3}
   currentButtonIndex: 0
   upgradePanel: {fileID: 1157438308}
+  foodTimerUpgradeLevelUp: 0
   foodTimerUpgradeLevelUpTextGui: {fileID: 1413480905}
   foodTimerUpgradeLevelUpButton: {fileID: 514882186}
   foodTimerUpgradeLevelPrcieWeight: 14
+  foodSelectUpgradeLevelUp: 0
   foodSelectUpgradeLevelUpTextGui: {fileID: 1672601850}
   foodSelectUpgradeLevelUpUpButton: {fileID: 1578974052}
   foodSelectUpgradeLevelUpPrcieWeight: 14
@@ -5044,10 +5049,12 @@ MonoBehaviour:
   - {fileID: 841458269}
   - {fileID: 1006726021}
   - {fileID: 110990110}
-  upgradeSelectFoodCount: 2
+  upgradeSelectFoodCount: 6
   lockImage: {fileID: 21300000, guid: 503cf81a2a8fc5d4aba7ba2c72c8664c, type: 3}
   isFullFood: 0
   cookImage: {fileID: 21300000, guid: 38828f565d0ad1f48b4fff26c646453f, type: 3}
+  isLoadFoodData: 0
+  loadCurrentIndex: 0
 --- !u!1 &668490579
 GameObject:
   m_ObjectHideFlags: 0
@@ -5244,7 +5251,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0.6973877, y: -0.00091552734}
+  m_AnchoredPosition: {x: 0.6972656, y: -0.0009765625}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &673268736
@@ -9074,8 +9081,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 61.9
+  m_fontSizeBase: 61.9
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12224,7 +12231,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 285.1261, y: -39.575}
+  m_AnchoredPosition: {x: 285.1261, y: -39.57495}
   m_SizeDelta: {x: -632.5959, y: -142.37}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1679246307
@@ -12408,7 +12415,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -176.10645, y: -0.00091552734}
+  m_AnchoredPosition: {x: -176.10645, y: -0.0009765625}
   m_SizeDelta: {x: 115.81763, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1702709090
@@ -12891,7 +12898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -296.95016, y: -40.565}
+  m_AnchoredPosition: {x: -296.9502, y: -40.56494}
   m_SizeDelta: {x: -642.64, y: -140.57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1748808572
@@ -15222,7 +15229,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -419.0921, y: -29.99997}
+  m_AnchoredPosition: {x: -419.0921, y: -30}
   m_SizeDelta: {x: 182.6948, y: 49.1487}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2144230250

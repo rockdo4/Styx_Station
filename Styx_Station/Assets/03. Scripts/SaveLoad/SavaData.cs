@@ -88,9 +88,73 @@ public class SaveDataV3 : SaveData
 
     public string exitTime = string.Empty;
     public string keyAccumulateTime = string.Empty;
+    public StageData stageData;
+
+
+    public SaveFoodData[] diningRoomSaveFoodData = new SaveFoodData[6]; // sprite고려 -> 안되어서 이미지 FileName으로 작업해볼예정
+
+
+    public override SaveData VersionUp()
+    {
+        SaveDataV4 v4 = new SaveDataV4();
+        v4.gameSaveDatas.playerdata = playerdata;
+        v4.gameSaveDatas.weaponData = weaponData;
+        v4.gameSaveDatas.armorData= armorData;
+        v4.gameSaveDatas.customRingData = customRingData;
+        v4.gameSaveDatas.customSymbolData= customSymbolData;
+        v4.gameSaveDatas.equipItem = equipItem;
+        v4.gameSaveDatas.skillData= skillData;
+        v4.gameSaveDatas.equipSkill = equipSkill;
+        v4.gameSaveDatas.exitTime = exitTime;
+        v4.gameSaveDatas.keyAccumulateTime = keyAccumulateTime;
+        v4.gameSaveDatas.stageData= stageData;
+        v4.gameSaveDatas.diningRoomSaveFoodData = diningRoomSaveFoodData;
+
+
+        return v4;
+    }
+}
+
+public class SaveDataV4 : SaveData
+{
+    public SaveDataV4()
+    {
+        Version = 4;
+    }
+    public int GetVersion()
+    {
+        return Version;
+    }
+
+    public GameSaveData gameSaveDatas = new GameSaveData();
 
     public override SaveData VersionUp()
     {
         throw new System.NotImplementedException();
     }
+}
+
+
+public class GameSaveData
+{
+    public PlayerData playerdata = new PlayerData();
+    public List<InventoryData> weaponData = new List<InventoryData>();
+    public List<InventoryData> armorData = new List<InventoryData>();
+    public List<CustomData> customRingData = new List<CustomData>();
+    public List<CustomData> customSymbolData = new List<CustomData>();
+
+    public List<EquipData> equipItem = new List<EquipData>();
+
+    public List<SkillData> skillData = new List<SkillData>();
+
+    public List<EquipSkillData> equipSkill = new List<EquipSkillData>();
+
+    public string exitTime = string.Empty;
+    public string keyAccumulateTime = string.Empty;
+    public StageData stageData;
+
+    public int foodTimerUpgradeLevelUp;
+    public int foodSelectUpgradeLevelUp;
+    public SaveFoodData[] diningRoomSaveFoodData = new SaveFoodData[6];
+    public float diningRoomTimer;
 }

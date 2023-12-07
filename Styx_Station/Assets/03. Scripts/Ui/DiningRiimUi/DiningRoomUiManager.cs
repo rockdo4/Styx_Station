@@ -14,8 +14,10 @@ public class DiningRoomUiManager : MonoBehaviour
     public DiningRoomUiFoodButton diningRoomUiButton;
     public DiningRoomUiInfo diningRoomUiInfo;
     public TextMeshProUGUI timerText;
+    public float MinTimer = 1800f;
     public float MaxTimer;
-    private float timer;
+    [HideInInspector]
+    public float timer;
     public List<Sprite> foodSpriteList = new List<Sprite>();
     private bool isResetDiningTable;
     DiningTable diningTable;
@@ -41,14 +43,16 @@ public class DiningRoomUiManager : MonoBehaviour
     public GameObject upgradePanel;
     private bool drawUpgradePanel;
 
-    private int foodTimerUpgradeLevelUp = 0;
+    [HideInInspector]
+    public int foodTimerUpgradeLevelUp = 0;
     public TextMeshProUGUI foodTimerUpgradeLevelUpTextGui;
     public Button foodTimerUpgradeLevelUpButton;
     private BigInteger foodTimerUpgradeLevelPrcie = new BigInteger(200);
     public int foodTimerUpgradeLevelPrcieWeight = 14;
     private int divideFoodTimerUpgradeLevelPrcieWeight = 10;
 
-    private int foodSelectUpgradeLevelUp = 0;
+    [HideInInspector]
+    public int foodSelectUpgradeLevelUp = 0;
     public TextMeshProUGUI foodSelectUpgradeLevelUpTextGui;
     public Button foodSelectUpgradeLevelUpUpButton;
     private BigInteger foodSelectUpgradeLevelUpPrcie = new BigInteger(1000);
@@ -60,28 +64,54 @@ public class DiningRoomUiManager : MonoBehaviour
     }
     private void Start()
     {
-        timer = MaxTimer;
+        
+
         if (!isResetDiningTable)
         {
-            stringTable = new StringTable(); // 지워야함
-            diningTable = new DiningTable();
             isResetDiningTable = true;
-            if (diningTable != null)
+            MaxTimer -= foodTimerUpgradeLevelUp * 30f;
+            if (MaxTimer <= MinTimer)
             {
-                foodId = diningTable.GetFoodTableID();
+                MaxTimer = MinTimer;
+                foodTimerUpgradeLevelUpTextGui.text = "Max Upgrade";
+                foodTimerUpgradeLevelUpButton.interactable = false;
             }
-            GetFoodStringTableData();
-            FoodGradeInsert();
+            else
+            {
+                //testcode
+                foodTimerUpgradeLevelUpTextGui.text = $"Now Timer Leve: :{foodTimerUpgradeLevelUp + 1}";
+            }
+            if (timer <= 0f)
+                timer = MaxTimer;
+            if(foodSelectUpgradeLevelUp ==4)
+            {
+                foodSelectUpgradeLevelUpTextGui.text = "Max Upgrade";
+                foodSelectUpgradeLevelUpUpButton.interactable = false;
+            }
+            else
+            {
+                //testCode
+                foodSelectUpgradeLevelUpTextGui.text = $"Now SelectCount :{foodSelectUpgradeLevelUp + 1}";
+            }
+
+            SettingGradeFood(); //내부적으로 코드 일부 지워야할 거 있음
         }
 
-        //testcode
-        foodTimerUpgradeLevelUpTextGui.text = $"Now Timer Leve: :{foodTimerUpgradeLevelUp + 1}";
-        foodSelectUpgradeLevelUpTextGui.text = $"Now SelectCount :{foodSelectUpgradeLevelUp + 1}";
+      
+       
+
+        if(diningRoomUiButton.isFullFood )
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(0);
+            timerText.text = timeSpan.ToString(@"hh\:mm\:ss");
+            timer = MaxTimer;
+        }
     }
     private void Update()
     {
         if (!diningRoomUiButton.isFullFood)
             TimeCounting();
+
     }
 
     public void OnClickDrawDiningRoomDisplay()
@@ -97,6 +127,22 @@ public class DiningRoomUiManager : MonoBehaviour
         var guideData =GetFoodGuideStringTable(data.Food_ID);
         var selling = GetFoodGuideStringTable(data.Food_ID); // change foodSellInfoString
         diningRoomUiInfo.OnFoodDataDisplay(data, stringData, buffExplanation, guideData, selling);
+    }
+    private void SettingGradeFood()
+    {
+        if (fGradeFood.Count == 0 || eGradeFood.Count == 0 || dGradeFood.Count == 0 || cGradeFood.Count == 0 || bGradeFood.Count == 0
+            || aGradeFood.Count == 0 || sGradeFood.Count == 0)
+        {
+            stringTable = new StringTable(); // 지워야함
+            diningTable = new DiningTable();
+            if (diningTable != null)
+            {
+                foodId = diningTable.GetFoodTableID();
+            }
+            GetFoodStringTableData();
+            FoodGradeInsert();
+
+        }
     }
     private void GetFoodStringTableData()
     {
@@ -184,10 +230,18 @@ public class DiningRoomUiManager : MonoBehaviour
         }
         else
             return;
-        foodTimerUpgradeLevelUp++;
-        foodTimerUpgradeLevelUpTextGui.text = $"Now Timer Leve: :{foodTimerUpgradeLevelUp + 1}";
-        MaxTimer -= 30f;
-       
+
+        if (MaxTimer > MinTimer)
+        {
+            foodTimerUpgradeLevelUp++;
+            foodTimerUpgradeLevelUpTextGui.text = $"Now Timer Leve: :{foodTimerUpgradeLevelUp + 1}";
+            MaxTimer -= 30f;
+        }    
+        else
+        {
+            foodTimerUpgradeLevelUpButton.interactable = false;
+            foodTimerUpgradeLevelUpTextGui.text = $"MaxUpgrade";
+        }
     }
       
     public void UpgradeSelectFoddCount()
@@ -218,7 +272,6 @@ public class DiningRoomUiManager : MonoBehaviour
             foodSelectUpgradeLevelUpTextGui.text = $"Max Upgrade SelectCount";
             foodSelectUpgradeLevelUpUpButton.interactable = false;
         }
-
     }
     private void TimeCounting()
     {
@@ -326,7 +379,91 @@ public class DiningRoomUiManager : MonoBehaviour
         }
         return default;
     }
+ 
+    public void LoadFood(SaveFoodData foodData)
+    {
+        SettingGradeFood();
+        
+        switch ((FoodType)foodData.Food_Type)
+        {
+            case FoodType.F:
+                foreach (var f in fGradeFood)
+                {
+                    if(f.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        diningRoomUiButton.MakeFood(f);
+                        return;
+                    }
+                }
+                break;
 
+            case FoodType.E:
+                foreach (var e in eGradeFood)
+                {
+                    if (e.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        diningRoomUiButton.MakeFood(e);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.D:
+                foreach (var d in dGradeFood)
+                {
+                    if (d.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        diningRoomUiButton.MakeFood(d);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.C:
+                foreach (var c in cGradeFood)
+                {
+                    if (c.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        diningRoomUiButton.MakeFood(c);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.B:
+                foreach (var b in bGradeFood)
+                {
+                    if (b.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        diningRoomUiButton.MakeFood(b);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.A:
+                foreach (var a in aGradeFood)
+                {
+                    if (a.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        diningRoomUiButton.MakeFood(a);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.S:
+                foreach (var s in sGradeFood)
+                {
+                    if (s.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        diningRoomUiButton.MakeFood(s);
+                        return;
+                    }
+                }
+                break;
+        }
+    }
     public void closeDiningRoom()
     {
         roomMainPanel.SetActive(false);

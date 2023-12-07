@@ -18,3 +18,9 @@ public class FoodData
     public int Food_Silup;
     public int Food_Du;
 }
+
+public class SaveFoodData
+{
+    public string Food_Name_ID;
+    public FoodType Food_Type;
+}

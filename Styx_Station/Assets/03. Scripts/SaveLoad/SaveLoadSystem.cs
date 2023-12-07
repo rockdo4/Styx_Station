@@ -11,7 +11,7 @@ using static SoonsoonData;
 
 public static class SaveLoadSystem
 {
-    public static int SaveDataVersion { get; private set; } = 3;
+    public static int SaveDataVersion { get; private set; } = 4;
     public static string SaveDirectory
     {
         get
@@ -61,9 +61,12 @@ public static class SaveLoadSystem
                 case 2:
                     data = serializer.Deserialize<SaveDataV2>(reader);
                     break;
-                    //case 3:
-                    //    data = serializer.Deserialize<SaveDataV3>(reader);
-                    //    break;
+                case 3:
+                    data = serializer.Deserialize<SaveDataV3>(reader);
+                    break;
+                case 4:
+                    data = serializer.Deserialize<SaveDataV4>(reader);
+                    break;
             }
 
             while (data.Version < SaveDataVersion)

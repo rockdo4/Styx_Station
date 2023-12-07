@@ -52,6 +52,8 @@ public class PlayerStatsUpgardeUI : MonoBehaviour//Singleton<PlayerStatsUpgardeU
     StringTable stringTable; // UiManager 싱글톤에서 데이터를 받아오는 형식으로 할것
     public GameObject logScrollView;
     private bool isOneAwkae;
+
+    public DiningRoomUiManager thisIsTestCode; //test
     private Dictionary<int, Func<string>> playerStatsActions = new Dictionary<int, Func<string>>
     {
         { 0, () => UnitConverter.OutString(SharedPlayerStats.GetPlayerPower()) },
@@ -154,6 +156,8 @@ public class PlayerStatsUpgardeUI : MonoBehaviour//Singleton<PlayerStatsUpgardeU
         }
         isPlayerStatsButtonDown[index] = !isPlayerStatsButtonDown[index];
         PlayerUpgradeLog(isPlayerStatsButtonDown[index], index);
+        if (isPlayerStatsButtonDown[index])
+            clickTime = 1.0f;
     }
     private void PlayerUpgradeLog(bool type,int index)
     {
@@ -211,6 +215,14 @@ public class PlayerStatsUpgardeUI : MonoBehaviour//Singleton<PlayerStatsUpgardeU
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            var str = stringTable.dic["100012_Buff"];
+            Debug.Log("aa\nss");
+            Debug.Log(str.KOR);
+            Debug.Log(str.ENG);
+        }
+
         if (isPlayerDataOn)
             SettingPlayerStatsTextUpdate();
         CheckAndExecute(isUpgradeMoney1, () => CurrencyManager.IncreaseMoney1(test), -1); //tescode
@@ -287,6 +299,11 @@ public class PlayerStatsUpgardeUI : MonoBehaviour//Singleton<PlayerStatsUpgardeU
         }
         if (condition && nowTime + clickTime < Time.time)
         {
+            clickTime -= 0.1f;
+            if(clickTime <=0f)
+            {
+                clickTime = 0.05f;
+            }
             nowTime = Time.time;
             action.Invoke();
             if (statsIndex >= 0)

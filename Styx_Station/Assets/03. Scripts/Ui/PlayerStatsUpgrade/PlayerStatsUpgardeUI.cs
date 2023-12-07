@@ -53,7 +53,7 @@ public class PlayerStatsUpgardeUI : MonoBehaviour
     public GameObject logScrollView;
     private bool isOneAwkae;
 
-    public DiningRoomUiManager thisIsTestCode; //test
+    public DiningRoomUiManagerTest thisIsTestCode; //test
     private Dictionary<int, Func<string>> playerStatsActions = new Dictionary<int, Func<string>>
     {
         { 0, () => UnitConverter.OutString(SharedPlayerStats.GetPlayerPower()) },

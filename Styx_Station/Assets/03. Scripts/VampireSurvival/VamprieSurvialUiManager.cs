@@ -12,7 +12,7 @@ public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
 
     private void Awake()
     {
-       
+
     }
 
     private void Start()

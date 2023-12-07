@@ -303,7 +303,7 @@ public class SaveLoad : MonoBehaviour
                 }
                 if(gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
                 {
-                    var getCode = GetComponent<PlayerStatsUpgardeUI>();
+                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
                     //getCode.thisIsTestCode.foodTimerUpgradeLevelUp = int.Parse(foodtimerUpgradeLevel.ToString());
                 }
                 if (gameSaveDatas["foodSelectUpgradeLevelUp"] is JToken foodSelect)

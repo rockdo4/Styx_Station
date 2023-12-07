@@ -78,14 +78,12 @@ public class PetBow : PoolAble
         }
         if (attackedMon == null)
         {
-            Debug.Log("ERR: attackedMon Null");
             string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
             string log = $"{currentTime} : 데미지 받는 오브젝트가 Null임/ script : PetBow + 66번째줄";
             return;
         }
         if (attackedMon.GetComponent<MonsterStats>().currHealth <= 0)
         {
-            Debug.Log("Monster Health is 0");
             string currentTime = DateTime.Now.ToString("MM월 dd일 HH시 mm분 ss초");
             string log = $"{currentTime} : 데미지 받는 몬스터가 HP0 이라 공격을 실패함/ script : PetBow + 73번째줄";
             return;

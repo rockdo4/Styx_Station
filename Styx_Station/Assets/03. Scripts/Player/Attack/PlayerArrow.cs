@@ -16,8 +16,6 @@ public class PlayerArrow : PoolAble
     private float increaseAttackSpeed = 0.01f;
     private bool isRelease = false;
     private ContactFilter2D filter2D = new ContactFilter2D();
-    private float timer = 0f;
-    private float destroyTime = 10f;
     private Camera mainCamera;
 
 
@@ -59,18 +57,9 @@ public class PlayerArrow : PoolAble
             if(!isRelease)
             {
                 isRelease = true;
-                timer = 0f;
                 ReleaseObject();
             }
-            //Destroy(gameObject);
         }
-        //timer += Time.time;
-        //if(timer > destroyTime)
-        //{
-        //    isRelease = true;
-        //    timer = 0f;
-        //    ReleaseObject();
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -123,7 +112,6 @@ public class PlayerArrow : PoolAble
         if (!isRelease)
         {
             isRelease = true;
-            timer = 0f;
             ReleaseObject();
         }
     }

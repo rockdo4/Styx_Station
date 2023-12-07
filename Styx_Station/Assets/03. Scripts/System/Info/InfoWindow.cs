@@ -44,6 +44,10 @@ public class InfoWindow : Window
         Open(InfoWindowType.State);
     }
 
+    public void OnClickInventory()
+    {
+        Open(InfoWindowType.Inventory);
+    }
     public void OnClickSkill()
     {
         Open(InfoWindowType.Skill);

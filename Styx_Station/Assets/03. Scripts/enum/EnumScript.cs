@@ -106,6 +106,7 @@ public enum WindowType
 public enum InfoWindowType
 { 
     State,
+    Inventory,
     Skill,
     Pet,
 }

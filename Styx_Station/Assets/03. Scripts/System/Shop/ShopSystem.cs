@@ -20,7 +20,7 @@ public class ShopSystem : Singleton<ShopSystem>
 
     private void Awake()
     {
-        itemTable = Resources.Load<ItemDropTable>("Table/ItemDropTable");
+        itemTable = Resources.Load<ItemDropTable>("Table/GachaTable_Equip");
 
         skillTable = Resources.Load<SkillDropTable>("Table/SkillDropTable");
 

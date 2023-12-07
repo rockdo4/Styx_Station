@@ -6,7 +6,10 @@ public class ItemButton : MonoBehaviour
 {
     public Inventory inventory;
 
-    public TextMeshProUGUI itemname;
+    public GameObject image;
+
+    public TextMeshProUGUI itemExp;
+    public TextMeshProUGUI itemLv;
 
     public ItemType type;
     public int itemIndex;
@@ -39,6 +42,52 @@ public class ItemButton : MonoBehaviour
 
         gameObject.GetComponent<Image>().color = Color.white;
         return true;
+    }
+
+    public void InfoUpdate()
+    {
+        switch (type)
+        {
+            case ItemType.Weapon:
+                {
+                    var item = inventory.weapons[itemIndex];
+                    image.GetComponent<Image>().sprite = item.item.itemIcon;
+                    itemLv.text = $"Lv.{item.upgradeLev}";
+                    if(item.upgradeLev<item.item.itemLevUpNum.Count)
+                        itemExp.text = $"{item.stock} / {item.item.itemLevUpNum[item.upgradeLev]}";     
+                    else
+                        itemExp.text = $"{item.stock} / {item.item.itemLevUpNum[item.item.itemLevUpNum.Count-1]}";
+                }
+                break;
+
+            case ItemType.Armor:
+                {
+                    var item = inventory.armors[itemIndex];
+                    image.GetComponent<Image>().sprite = item.item.itemIcon;
+                    itemLv.text = $"Lv.{item.upgradeLev}";
+                    if (item.upgradeLev < item.item.itemLevUpNum.Count)
+                        itemExp.text = $"{item.stock} / {item.item.itemLevUpNum[item.upgradeLev]}";
+                    else
+                        itemExp.text = $"{item.stock} / {item.item.itemLevUpNum[item.item.itemLevUpNum.Count - 1]}";
+                }
+                break;
+
+            case ItemType.Ring:
+                {
+                    var item = inventory.customRings[itemIndex].item;
+                    image.GetComponent<Image>().sprite = item.item.itemIcon;
+                    itemLv.text = $"Lv.{item.upgradeLev}";
+                }
+                break;
+
+            case ItemType.Symbol:
+                {
+                    var item = inventory.customRings[itemIndex].item;
+                    image.GetComponent<Image>().sprite = item.item.itemIcon;
+                    itemLv.text = $"Lv.{item.upgradeLev}";
+                }
+                break;
+        }
     }
 
     public void OnClickEquip(GameObject button)
@@ -75,9 +124,6 @@ public class ItemButton : MonoBehaviour
         }
 
         inventory.EquipItem(itemIndex, type);
-
-        //baseUi.equipWindow.GetComponent<EquipWindow>().ViewItemInfo(equipIndex);
-        //baseUi.stateWindow.GetComponent<StateWindow>().GetState();
     }
 }
 

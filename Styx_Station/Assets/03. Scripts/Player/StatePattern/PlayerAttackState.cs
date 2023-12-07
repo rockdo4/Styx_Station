@@ -28,13 +28,13 @@ public class PlayerAttackState : PlayerStateBase
 
         timer = 0f;
         attackDuration = defaultSpeed / spped;
-        Debug.Log($"공격 속도 시작 : : {playertController.GetAnimator().speed}");
+        //Debug.Log($"공격 속도 시작 : : {playertController.GetAnimator().speed}");
     }
 
     public override void Exit()
     {
         playertController.GetAnimator().speed = defaultSpeed;
-        Debug.Log($"공격 속도 나감 :: {playertController.GetAnimator().speed}");
+        //Debug.Log($"공격 속도 나감 :: {playertController.GetAnimator().speed}");
     }
 
     public override void Update()

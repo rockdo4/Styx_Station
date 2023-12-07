@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
     {
         playerStateManager.ChangeState(playerStateBases[(int)newState]);
         currentStates = newState;
-        Debug.Log(playerStateManager.GetCurrentState());
+        //Debug.Log(playerStateManager.GetCurrentState());
     }
 
     public Animator GetAnimator()

@@ -14,7 +14,7 @@ public class TripleShot : SkillBase
         this.shooterPrefab = shooterPrefab;
     }
 
-    public override void UseSkill(GameObject attacker, GameObject defender)
+    public override void UseSkill(GameObject attacker)
     {
         var rects = attacker.GetComponentsInChildren<RectTransform>();
         if (rects[1] == null)
@@ -24,28 +24,7 @@ public class TripleShot : SkillBase
         }
         var startPos = rects[1].transform.position;
 
-        var shooter = Instantiate(shooterPrefab);
-        shooter.GetComponent<Shooter>().SetShooter(attacker, startPos, piercingBowName, speed);
-
-    }
-
-
-    private void OnBowCollided(GameObject attacker, GameObject defender)
-    {
-        //애니메이션 시작 -> 실제 타격 사이에 거리와 방향이 변경될 수 있기 때문에 체크 필요
-        if (defender == null) //남아있지만 죽은 상태일 수도 있음
-        {
-            return;
-        }
-        var attackerStats = attacker.GetComponent<ResultPlayerStats>();
-        var target = defender.GetComponent<MonsterStats>();
-        Attack attack = CreateAttackToMonster(attackerStats, target);
-
-        //Iattackable을 상속 받은 것이 여러개 일 수도 있기 때문에 모두 호출
-        var attackables = defender.GetComponents<IAttackable>();
-        foreach (var attackable in attackables)
-        {
-            attackable.OnAttack(attacker, attack);
-        }
+        var shooter = Object.Instantiate(shooterPrefab);
+        shooter.GetComponent<TripleShotShooter>().SetShooter(attacker, startPos, piercingBowName, speed, tripleShot.skill.Skill_ATK);
     }
 }

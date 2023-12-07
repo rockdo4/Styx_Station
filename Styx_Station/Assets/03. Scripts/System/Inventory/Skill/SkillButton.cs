@@ -6,7 +6,7 @@ public class SkillButton : MonoBehaviour
 {
     public SkillInventory inventory;
 
-    public Sprite image;
+    public GameObject image;
 
     public int skillIndex;
 
@@ -23,35 +23,35 @@ public class SkillButton : MonoBehaviour
             case Tier.Common:
                 {
                     color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
-                    info.skillImage.GetComponent<Outline>().effectColor = color;
+                    info.outBox.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Uncommon:
                 {
                     color = new Color(0, 0, 0, 128f / 255f);
-                    info.skillImage.GetComponent<Outline>().effectColor = color;
+                    info.outBox.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Rare:
                 {
                     color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
-                    info.skillImage.GetComponent<Outline>().effectColor = color;
+                    info.outBox.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Unique:
                 {
                     color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
-                    info.skillImage.GetComponent<Outline>().effectColor = color;
+                    info.outBox.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Legendry:
                 {
                     color = new Color(0, 1, 71f / 255f, 128f / 255f);
-                    info.skillImage.GetComponent<Outline>().effectColor = color;
+                    info.outBox.GetComponent<Outline>().effectColor = color;
                 }
                 break;
         }

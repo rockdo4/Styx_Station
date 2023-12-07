@@ -11,12 +11,12 @@ public class SkillInfoUi : MonoBehaviour
     public int selectIndex;
 
     public GameObject skillImage;
+    public GameObject outBox;
 
     public TextMeshProUGUI lev;
     public TextMeshProUGUI tier;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI coolTime;
-    public Outline outline;
     public Button equip;
     public Button upgrade;
 
@@ -28,6 +28,17 @@ public class SkillInfoUi : MonoBehaviour
     {
         var skill = inventory.skills[selectIndex];
 
-        lev.text = $"Lv.{skill.upgradeLev}\n\n({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.upgradeLev]})";
+        if (skill.upgradeLev < skill.skill.Skill_LVUP_NU.Count)
+            lev.text = $"Lv.{skill.upgradeLev}\n\n({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.upgradeLev]})";
+       
+        else
+            lev.text = $"Lv.{skill.upgradeLev}\n\n({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.skill.Skill_LVUP_NU.Count-1]})";
+    }
+
+    public void OnClickUpgrade()
+    {
+        gameObject.GetComponent<Upgrade>().SkillUpgrade(selectIndex);
+
+        InfoUpdate();
     }
 }

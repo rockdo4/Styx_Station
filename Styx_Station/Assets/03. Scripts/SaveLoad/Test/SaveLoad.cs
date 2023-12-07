@@ -105,23 +105,23 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.stageData = GameData.stageData;
 
         //// ui 매니저에서 가져오기;
-        var getCode = GetComponent<PlayerStatsUpgardeUI>();
-        var datas = getCode.thisIsTestCode.diningRoomUiButton.foodDatas;
-        for(int i =0;i<datas.Length;++i)
-        {
-            var texture = getCode.thisIsTestCode.diningRoomUiButton.foodButton[i].GetComponent<Image>();
-            if (datas[i] !=null && texture.sprite != getCode.thisIsTestCode.diningRoomUiButton.cookImage)
-            {
-                SaveFoodData foodData =new SaveFoodData();
-                foodData.Food_Type = datas[i].Food_Type;
-                foodData.Food_Name_ID = datas[i].Food_Name_ID;
-                data.gameSaveDatas.diningRoomSaveFoodData[i] = foodData;
-            }
-        }
+        //var getCode = GetComponent<PlayerStatsUpgardeUI>();
+        //var datas = getCode.thisIsTestCode.diningRoomUiButton.foodDatas;
+        //for(int i =0;i<datas.Length;++i)
+        //{
+        //    var texture = getCode.thisIsTestCode.diningRoomUiButton.foodButton[i].GetComponent<Image>();
+        //    if (datas[i] !=null && texture.sprite != getCode.thisIsTestCode.diningRoomUiButton.cookImage)
+        //    {
+        //        SaveFoodData foodData =new SaveFoodData();
+        //        foodData.Food_Type = datas[i].Food_Type;
+        //        foodData.Food_Name_ID = datas[i].Food_Name_ID;
+        //        data.gameSaveDatas.diningRoomSaveFoodData[i] = foodData;
+        //    }
+        //}
 
-        data.gameSaveDatas.foodTimerUpgradeLevelUp = getCode.thisIsTestCode.foodTimerUpgradeLevelUp;
-        data.gameSaveDatas.foodSelectUpgradeLevelUp = getCode.thisIsTestCode.foodSelectUpgradeLevelUp;
-        data.gameSaveDatas.diningRoomTimer = getCode.thisIsTestCode.timer;
+        //data.gameSaveDatas.foodTimerUpgradeLevelUp = getCode.thisIsTestCode.foodTimerUpgradeLevelUp;
+        //data.gameSaveDatas.foodSelectUpgradeLevelUp = getCode.thisIsTestCode.foodSelectUpgradeLevelUp;
+        //data.gameSaveDatas.diningRoomTimer = getCode.thisIsTestCode.timer;
 
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
@@ -301,40 +301,40 @@ public class SaveLoad : MonoBehaviour
                 {
                     GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
                 }
-                if(gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
-                {
-                    var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    getCode.thisIsTestCode.foodTimerUpgradeLevelUp = int.Parse(foodtimerUpgradeLevel.ToString());
-                }
-                if (gameSaveDatas["foodSelectUpgradeLevelUp"] is JToken foodSelect)
-                {
-                    var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    var number = getCode.thisIsTestCode.foodSelectUpgradeLevelUp = int.Parse(foodSelect.ToString());
-                    getCode.thisIsTestCode.diningRoomUiButton.upgradeSelectFoodCount = number+2;
-                }
-                if (gameSaveDatas["diningRoomSaveFoodData"] is JToken diningRoomSaveFoodDatats)
-                {
-                    string str = diningRoomSaveFoodDatats.ToString();
-                    var saveFoodData = JsonConvert.DeserializeObject<SaveFoodData[]>(str);
-                    var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    for (int i=0;i<saveFoodData.Length;i++)
-                    {
-                        if (saveFoodData[i] != null)
-                        {
-                            getCode.thisIsTestCode.diningRoomUiButton.loadCurrentIndex = i;
-                            getCode.thisIsTestCode.LoadFood(saveFoodData[i]);
-                        }
-                    }
+                //if(gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
+                //{
+                //    var getCode = GetComponent<PlayerStatsUpgardeUI>();
+                //    getCode.thisIsTestCode.foodTimerUpgradeLevelUp = int.Parse(foodtimerUpgradeLevel.ToString());
+                //}
+                //if (gameSaveDatas["foodSelectUpgradeLevelUp"] is JToken foodSelect)
+                //{
+                //    var getCode = GetComponent<PlayerStatsUpgardeUI>();
+                //    var number = getCode.thisIsTestCode.foodSelectUpgradeLevelUp = int.Parse(foodSelect.ToString());
+                //    getCode.thisIsTestCode.diningRoomUiButton.upgradeSelectFoodCount = number+2;
+                //}
+                //if (gameSaveDatas["diningRoomSaveFoodData"] is JToken diningRoomSaveFoodDatats)
+                //{
+                //    string str = diningRoomSaveFoodDatats.ToString();
+                //    var saveFoodData = JsonConvert.DeserializeObject<SaveFoodData[]>(str);
+                //    var getCode = GetComponent<PlayerStatsUpgardeUI>();
+                //    for (int i=0;i<saveFoodData.Length;i++)
+                //    {
+                //        if (saveFoodData[i] != null)
+                //        {
+                //            getCode.thisIsTestCode.diningRoomUiButton.loadCurrentIndex = i;
+                //            getCode.thisIsTestCode.LoadFood(saveFoodData[i]);
+                //        }
+                //    }
                        
-                }
-                if (gameSaveDatas["diningRoomTimer"] is JToken timer)
-                {
-                    string str = timer.ToString();
-                    var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    var timerData = JsonConvert.DeserializeObject<float>(str);
-                    getCode.thisIsTestCode.timer = timerData;
+                //}
+                //if (gameSaveDatas["diningRoomTimer"] is JToken timer)
+                //{
+                //    string str = timer.ToString();
+                //    var getCode = GetComponent<PlayerStatsUpgardeUI>();
+                //    var timerData = JsonConvert.DeserializeObject<float>(str);
+                //    getCode.thisIsTestCode.timer = timerData;
 
-                }
+                //}
             }
         }
     }

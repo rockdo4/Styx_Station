@@ -1,13 +1,20 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Upgrade : MonoBehaviour
 {
-    public Inventory itemInventory;
+    private Inventory itemInventory;
 
-    public SkillInventory skillInventory;
+    private SkillInventory skillInventory;
 
-    public PetInventory petInventory;
+    private PetInventory petInventory;
 
+    private void Awake()
+    {
+        itemInventory = InventorySystem.Instance.inventory;
+        skillInventory = InventorySystem.Instance.skillInventory;
+        petInventory = InventorySystem.Instance.petInventory;
+    }
     public void ItemUpgrade(int index, ItemType type)
     {
         switch(type)
@@ -34,10 +41,18 @@ public class Upgrade : MonoBehaviour
         if (item == null)
             return;
 
-        if (item.stock < item.item.itemLevUpNum[item.upgradeLev])
+        int num = 0;
+
+        if (item.item.itemLevUpNum.Count <= item.upgradeLev)
+            num = item.item.itemLevUpNum[item.item.itemLevUpNum.Count - 1];
+
+        if (item.item.itemLevUpNum.Count > item.upgradeLev)
+            num = item.item.itemLevUpNum[item.upgradeLev];
+
+        if (item.stock < num)
             return;
 
-        item.stock -= item.item.itemLevUpNum[item.upgradeLev];
+        item.stock -= num;
 
         item.upgradeLev += 1;
     }
@@ -49,10 +64,18 @@ public class Upgrade : MonoBehaviour
         if (item == null)
             return;
 
-        if (item.stock < item.item.itemLevUpNum[item.upgradeLev])
+        int num = 0;
+
+        if (item.item.itemLevUpNum.Count <= item.upgradeLev)
+            num = item.item.itemLevUpNum[item.item.itemLevUpNum.Count - 1];
+
+        if (item.item.itemLevUpNum.Count > item.upgradeLev)
+            num = item.item.itemLevUpNum[item.upgradeLev];
+
+        if (item.stock < num)
             return;
 
-        item.stock -= item.item.itemLevUpNum[item.upgradeLev];
+        item.stock -= num;
 
         item.upgradeLev += 1;
     }
@@ -109,12 +132,20 @@ public class Upgrade : MonoBehaviour
         if (item == null)
             return;
 
+        int num = 0;
+
+        if (item.item.itemLevUpNum.Count <= item.upgradeLev)
+            num = item.item.itemLevUpNum[item.item.itemLevUpNum.Count - 1];
+
+        if (item.item.itemLevUpNum.Count > item.upgradeLev)
+            num = item.item.itemLevUpNum[item.upgradeLev];
+
         int weight = CustomUpgradeWeight(item); 
 
-        if (CurrencyManager.itemAsh < item.item.itemLevUpNum[item.upgradeLev] + weight)
+        if (CurrencyManager.itemAsh < num + weight)
             return;
 
-        CurrencyManager.itemAsh -= item.item.itemLevUpNum[item.upgradeLev] + weight;
+        CurrencyManager.itemAsh -= num + weight;
 
         item.upgradeLev += 1;
     }
@@ -126,12 +157,20 @@ public class Upgrade : MonoBehaviour
         if (item == null)
             return;
 
+        int num = 0;
+
+        if (item.item.itemLevUpNum.Count <= item.upgradeLev)
+            num = item.item.itemLevUpNum[item.item.itemLevUpNum.Count - 1];
+
+        if (item.item.itemLevUpNum.Count > item.upgradeLev)
+            num = item.item.itemLevUpNum[item.upgradeLev];
+
         int weight = CustomUpgradeWeight(item);
 
-        if (CurrencyManager.itemAsh < item.item.itemLevUpNum[item.upgradeLev]+weight)
+        if (CurrencyManager.itemAsh < num + weight)
             return;
 
-        CurrencyManager.itemAsh -= item.item.itemLevUpNum[item.upgradeLev]+weight;
+        CurrencyManager.itemAsh -= num + weight;
 
         item.upgradeLev += 1;
     }
@@ -142,10 +181,18 @@ public class Upgrade : MonoBehaviour
 
         if (skill == null) return;
 
-        if (skill.stock < skill.skill.Skill_LVUP_NU[skill.upgradeLev])
+        int num = 0;
+
+        if(skill.skill.Skill_LVUP_NU.Count<=skill.upgradeLev)
+            num = skill.skill.Skill_LVUP_NU[skill.skill.Skill_LVUP_NU.Count-1];
+
+        if (skill.skill.Skill_LVUP_NU.Count > skill.upgradeLev)
+            num = skill.skill.Skill_LVUP_NU[skill.upgradeLev];
+
+        if (skill.stock < num)
             return;
 
-        skill.stock -= skill.skill.Skill_LVUP_NU[skill.upgradeLev];
+        skill.stock -= num;
 
         skill.upgradeLev += 1;
     }
@@ -156,10 +203,18 @@ public class Upgrade : MonoBehaviour
 
         if(pet == null) return;
 
-        if (pet.stock < pet.pet.Pet_UpMatter[pet.upgradeLev])
+        int num = 0;
+
+        if (pet.pet.Pet_UpMatter.Count<=pet.upgradeLev)
+            num = pet.pet.Pet_UpMatter[pet.pet.Pet_UpMatter.Count - 1];
+
+        if (pet.pet.Pet_UpMatter.Count > pet.upgradeLev)
+            num = pet.pet.Pet_UpMatter[pet.upgradeLev];
+
+        if (pet.stock < num)
             return;
 
-        pet.stock -= pet.pet.Pet_UpMatter[pet.upgradeLev];
+        pet.stock -= num;
 
         pet.upgradeLev += 1;
     }

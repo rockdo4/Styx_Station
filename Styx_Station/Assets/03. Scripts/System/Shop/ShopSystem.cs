@@ -106,11 +106,12 @@ public class ShopSystem : Singleton<ShopSystem>
                 continue;
 
             if (!baseSkill.acquire)
+            {
+                baseSkill.acquire = true;
                 continue;
+            }
 
             baseSkill.stock += 1;
         }
     }
-
-
 }

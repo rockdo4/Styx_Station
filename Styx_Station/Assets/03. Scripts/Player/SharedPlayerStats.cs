@@ -5,7 +5,7 @@ public static class SharedPlayerStats
 {
     public static ResultPlayerStats resultPlayerStats;
 
-    private static int playerPower = 1;
+    private static int playerPower = 1; //21 억 
     public static int PlayerPower { set { playerPower = value; } }
 
     private static int playerPowerBoost = 1;
@@ -60,15 +60,7 @@ public static class SharedPlayerStats
     private static BigInteger prevPrice = new BigInteger(0);
 
     public static void IncreasePlayerPower()
-    {
-        //if (resultPlayerStats != null)
-        //{
-        //    CurrencyManager.playerPowerPrice = resultPlayerStats.GetPlayerPowerByNonInventory();
-        //} //캐릭터 바뀔까봐 넣었던코드
-        //else
-        //{
-        //    CurrencyManager.playerPowerPrice = GetPlayerPower() * 100;
-        //}
+    { 
 
         prevPrice = CurrencyManager.playerPowerPrice;
         if (playerPower < 50)
@@ -102,13 +94,30 @@ public static class SharedPlayerStats
     {
         if (!isPlayerPowerBoostMax && playerPower > 1000)
         {
-            CurrencyManager.price = 5000;
-            //CurrencyManager.price *= playerPower;
+            prevPrice = CurrencyManager.playerPowerBoostPrice;
+            if (playerPowerBoost < 50)
+                CurrencyManager.playerPowerBoostPrice += 1;
+            else if (playerPowerBoost < 500)
+            {
+                var price = CurrencyManager.playerPowerBoostPrice += (playerPowerBoost - 1);
+                price /= 10;
+                CurrencyManager.playerPowerBoostPrice = price;
+            }
+            else
+            {
+                var price =CurrencyManager.playerPowerBoostPrice += (playerPowerBoost - 1) + (playerPowerBoost / 10);
+                price /= 10;
+                CurrencyManager.playerPowerBoostPrice = price;
+            }
 
             if (CurrencyManager.money2 > CurrencyManager.price)
             {
                 CurrencyManager.money2 -= CurrencyManager.price;
                 playerPowerBoost++;
+            }
+            else
+            {
+                CurrencyManager.playerPowerPrice = prevPrice;
             }
         }
         if (playerPowerBoost >= playerPowerBoostMax)
@@ -193,16 +202,32 @@ public static class SharedPlayerStats
         return critical;
     }
 
-
     public static void IncreaseAttackCriticalPower()
     {
-        CurrencyManager.price = 5000;
-        //CurrencyManager.price *= playerPower;
+        prevPrice = CurrencyManager.criticalPowerPrice;
+        if (criticalPower < 50)
+            CurrencyManager.criticalPowerPrice += 1;
+        else if (criticalPower < 500)
+        {
+            var price = CurrencyManager.criticalPowerPrice += (criticalPower - 1);
+            price /= 10;
+            CurrencyManager.criticalPowerPrice = price;
+        }
+        else
+        {
+            var price = CurrencyManager.criticalPowerPrice += (criticalPower - 1) + (criticalPower / 10);
+            price /= 10;
+            CurrencyManager.criticalPowerPrice = price;
+        }
 
         if (CurrencyManager.money2 > CurrencyManager.price)
         {
             CurrencyManager.money2 -= CurrencyManager.price;
             criticalPower++;
+        }
+        else
+        {
+            CurrencyManager.criticalPowerPrice = prevPrice;
         }
 
     }
@@ -216,7 +241,22 @@ public static class SharedPlayerStats
     {
         if (!isMonsterDamagePowerMax)
         {
-            CurrencyManager.price = 5000;
+
+            prevPrice = CurrencyManager.monsterDamagerPrice;
+            if (monsterDamage < 50)
+                CurrencyManager.monsterDamagerPrice += 1;
+            else if (monsterDamage < 500)
+            {
+                var price = CurrencyManager.monsterDamagerPrice += (monsterDamage - 1);
+                price /= 10;
+                CurrencyManager.monsterDamagerPrice = price;
+            }
+            else
+            {
+                var price = CurrencyManager.monsterDamagerPrice += (monsterDamage - 1) + (monsterDamage / 10);
+                price /= 10;
+                CurrencyManager.monsterDamagerPrice = price;
+            }
 
             if (CurrencyManager.money2 > CurrencyManager.price)
             {
@@ -224,6 +264,8 @@ public static class SharedPlayerStats
 
                 monsterDamage++;
             }
+            else
+                CurrencyManager.monsterDamagerPrice =prevPrice;
         }
 
         if (monsterDamage >= monsterDamagePowerMax)
@@ -266,25 +308,26 @@ public static class SharedPlayerStats
 
     public static void IncreaseHealing()
     {
-        prevPrice = CurrencyManager.healingPrie;
+        prevPrice = CurrencyManager.healingPrice;
         if (playerPower < 50)
-            CurrencyManager.healingPrie += 1;
+            CurrencyManager.healingPrice += 1;
         else if (playerPower < 500)
-            CurrencyManager.healingPrie += (healing - 1);
+            CurrencyManager.healingPrice += (healing - 1);
         else
-            CurrencyManager.healingPrie += (healing - 1) + (healing / 10);
+            CurrencyManager.healingPrice += (healing - 1) + (healing / 10);
 
-        if (CurrencyManager.money1 > CurrencyManager.healingPrie)
+        if (CurrencyManager.money1 > CurrencyManager.healingPrice)
         {
-            CurrencyManager.money1 -= CurrencyManager.healingPrie;
+            CurrencyManager.money1 -= CurrencyManager.healingPrice;
 
             healing++;
         }
         else
         {
-            CurrencyManager.healingPrie = prevPrice;
+            CurrencyManager.healingPrice = prevPrice;
         }
     }
+
     public static int GetHealing()
     {
         return healing;

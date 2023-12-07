@@ -9,10 +9,13 @@ public static class CurrencyManager
     public static BigInteger price = new BigInteger();
 
     public static BigInteger playerPowerPrice = new BigInteger(1);
+    public static BigInteger playerPowerBoostPrice = new BigInteger(1); // Ç÷·ù¼®
     public static BigInteger playerAttackSpeedPrice = new BigInteger(1);
     public static BigInteger criticalPrice = new BigInteger(1);
+    public static BigInteger criticalPowerPrice = new BigInteger(1);// Ç÷·ù¼®
+    public static BigInteger monsterDamagerPrice =new BigInteger(1);// Ç÷·ù¼®
     public static BigInteger maxHpPrice = new BigInteger(1);
-    public static BigInteger healingPrie =new BigInteger(1);
+    public static BigInteger healingPrice =new BigInteger(1);
 
     public static int itemAsh = 0;
 
@@ -48,6 +51,26 @@ public static class CurrencyManager
     {
         imoney = 10;
         money3 += imoney * imoney;
+    }
+
+
+    public static void SetPlayerStatsAllRest()
+    {
+        var playerPower = SharedPlayerStats.GetPlayerPower();
+        for(int i=0;i<playerPower;++i)
+        {
+            if (i < 50)
+                playerPowerPrice++;
+            else if( i <500)
+            {
+                playerPowerPrice += (playerPower - 1);
+            }
+            else
+            {
+                playerPowerPrice += (playerPower - 1) + (playerPower / 10);
+            }
+        }
+        
     }
 }
 

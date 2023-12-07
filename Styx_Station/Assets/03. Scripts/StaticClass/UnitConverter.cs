@@ -63,6 +63,6 @@ public static class UnitConverter
             }
         }
 
-        return "None";
+        return null;
     }
 }

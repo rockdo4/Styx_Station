@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerStatsUIManager : MonoBehaviour
 {
-    private static PlayerStatsUIManager instance; 
+    private static PlayerStatsUIManager instance;
     public static PlayerStatsUIManager Instance
     {
         get
@@ -21,7 +21,7 @@ public class PlayerStatsUIManager : MonoBehaviour
         }
     }
 
-   
+
 
     public float clickTime = 0.5f;
     public float decreaseClickTime = 0.1f;
@@ -29,15 +29,15 @@ public class PlayerStatsUIManager : MonoBehaviour
 
     [HideInInspector] public ResultPlayerStats playerStats;
 
-    public List<PlayerStatsUiData> playerStatsUiDatas= new List<PlayerStatsUiData>();
+    public List<PlayerStatsUiData> playerStatsUiDatas = new List<PlayerStatsUiData>();
 
-    private void Start()
+    private void Awake()
     {
         var find = GameObject.FindWithTag("Player");
-        if(find != null)
+        if (find != null)
         {
             var script = find.GetComponent<ResultPlayerStats>();
-            if(script != null )
+            if (script != null)
             {
                 playerStats = script;
             }

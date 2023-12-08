@@ -110,7 +110,7 @@ public class PlayerStatsUiData : MonoBehaviour
                 {
                     return UnitConverter.OutString(PlayerStatsUIManager.Instance.playerStats.GetPlayerPowerByNonInventory());
                 }
-                else return UnitConverter.OutString(SharedPlayerStats.GetPlayerPower()-1);
+                else  return UnitConverter.OutString(SharedPlayerStats.GetPlayerPower()-1);
             }
             },
             { 1, () =>
@@ -173,8 +173,14 @@ public class PlayerStatsUiData : MonoBehaviour
              { 7, () => SharedPlayerStats.GetHealing() },
         };
     }
-    private void SetTextLevelAndPrice(int index)
+    public void SetTextLevelAndPrice(int index)
     {
+        if (!isSet)
+        {
+            SettingAction();
+            SettingPlayerStatsUIBUtton();
+            isSet = true;
+        }
         if (upgradeLevel.TryGetValue(index, out Func<string> action1))
         {
             upgradeLevelText.text = $"{action1()}";

@@ -61,6 +61,14 @@ public class WeaponType : InventoryType
     {
         selectIndex = -1;
         info.SetActive(false);
+        foreach (var weapon in weaponButtons)
+        {
+            var button = weapon.GetComponent<ItemButton>();
+            if (button == null)
+                continue;
+
+            button.InfoUpdate();
+        }
     }
 
     public void Setting(Inventory inventory)

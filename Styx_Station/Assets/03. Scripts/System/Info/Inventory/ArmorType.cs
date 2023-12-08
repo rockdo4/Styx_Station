@@ -60,6 +60,15 @@ public class ArmorType : InventoryType
     {
         selectIndex = -1;
         info.SetActive(false);
+
+        foreach (var armor in armorButtons)
+        {
+            var button = armor.GetComponent<ItemButton>();
+            if (button == null)
+                continue;
+
+            button.InfoUpdate();
+        }
     }
 
     public void Setting(Inventory inventory)

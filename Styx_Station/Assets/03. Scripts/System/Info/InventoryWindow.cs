@@ -11,7 +11,7 @@ public class InventoryWindow : SubWindow
     public InventoryType[] inventoryTypes;
 
     public override void Open()
-    {
+    { 
         base.Open();
 
         Open(currentType);
@@ -19,7 +19,10 @@ public class InventoryWindow : SubWindow
 
     public override void Close()
     {
+        inventoryTypes[(int)currentType].Close();
+
         currentType = ItemType.Weapon;
+
         base.Close();
     }
 

@@ -2135,107 +2135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &98847032
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 98847033}
-  - component: {fileID: 98847036}
-  - component: {fileID: 98847035}
-  - component: {fileID: 98847034}
-  m_Layer: 5
-  m_Name: Canvas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &98847033
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98847032}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 852978925}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &98847034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98847032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &98847035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98847032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
---- !u!223 &98847036
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98847032}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &99578871
 GameObject:
   m_ObjectHideFlags: 0
@@ -11046,6 +10945,8 @@ MonoBehaviour:
   - {fileID: 2091246205}
   - {fileID: 263701581}
   diningRoomUIFoodDataInfo: {fileID: 1163228324}
+  makeFoodTimerText: {fileID: 1256565156}
+  timeRemainingStringTableKey: DingingRoomInFoTimeRemaining
 --- !u!1 &563748775
 GameObject:
   m_ObjectHideFlags: 0
@@ -12120,7 +12021,7 @@ GameObject:
   - component: {fileID: 620442669}
   - component: {fileID: 620442668}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TimerBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15154,6 +15055,7 @@ GameObject:
   - component: {fileID: 791341700}
   - component: {fileID: 791341699}
   - component: {fileID: 791341698}
+  - component: {fileID: 791341701}
   m_Layer: 5
   m_Name: FoodUpgrade
   m_TagString: Untagged
@@ -15287,6 +15189,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791341696}
   m_CullTransparentMesh: 1
+--- !u!114 &791341701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791341696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: DiningRoomUpgradeButton00
+  textMeshProUGUI: {fileID: 555186044}
 --- !u!114 &792600374 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4836159091904993701, guid: dec3add50ac77cd418f6f393b5804517, type: 3}
@@ -16170,7 +16089,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1491714109}
-  - {fileID: 98847033}
   - {fileID: 1287846929}
   - {fileID: 166115130}
   - {fileID: 342203807}
@@ -19064,6 +18982,7 @@ GameObject:
   - component: {fileID: 1000986502}
   - component: {fileID: 1000986501}
   - component: {fileID: 1000986500}
+  - component: {fileID: 1000986503}
   m_Layer: 5
   m_Name: eat
   m_TagString: Untagged
@@ -19134,7 +19053,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1000986501}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 562340110}
+        m_TargetAssemblyTypeName: DiningRoomUIManager, Assembly-CSharp
+        m_MethodName: EatFood
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1000986501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19173,6 +19104,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000986498}
   m_CullTransparentMesh: 1
+--- !u!114 &1000986503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000986498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: DiningRoomSellButton01
+  textMeshProUGUI: {fileID: 1675829885}
 --- !u!1 &1002893191
 GameObject:
   m_ObjectHideFlags: 0
@@ -19261,6 +19209,7 @@ GameObject:
   - component: {fileID: 1004140889}
   - component: {fileID: 1004140888}
   - component: {fileID: 1004140887}
+  - component: {fileID: 1004140890}
   m_Layer: 5
   m_Name: sail
   m_TagString: Untagged
@@ -19331,7 +19280,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1004140888}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 562340105}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1004140888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19370,6 +19331,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1004140885}
   m_CullTransparentMesh: 1
+--- !u!114 &1004140890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1004140885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: DiningRoomSellButton00
+  textMeshProUGUI: {fileID: 355839801}
 --- !u!1 &1012039150
 GameObject:
   m_ObjectHideFlags: 0
@@ -24600,7 +24578,7 @@ GameObject:
   - component: {fileID: 1256565157}
   - component: {fileID: 1256565156}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TimerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24645,7 +24623,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB0A8\uC740 \uC2DC\uAC04 :    00:00          0/0"
+  m_text: "\uB0A8\uC740\uC2DC\uAC04  :     00:00          0/0"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
   m_sharedMaterial: {fileID: -1984255071315151199, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
@@ -24672,14 +24650,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.15
+  m_fontSize: 32
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 32
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -26909,6 +26887,7 @@ GameObject:
   - component: {fileID: 1356390066}
   - component: {fileID: 1356390068}
   - component: {fileID: 1356390067}
+  - component: {fileID: 1356390069}
   m_Layer: 5
   m_Name: sell
   m_TagString: Untagged
@@ -27032,6 +27011,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356390065}
   m_CullTransparentMesh: 1
+--- !u!114 &1356390069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356390065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: DiningRoomInfoSell
+  textMeshProUGUI: {fileID: 1356390067}
 --- !u!1 &1361327320
 GameObject:
   m_ObjectHideFlags: 0
@@ -33605,7 +33601,7 @@ MonoBehaviour:
   max: 10
   counting: 0
   timerUpgradeLevel: 0
-  selectFoodCount: 6
+  selectFoodCount: 1
   maxSelectfoodCount: 6
   selectFoodUpgrade: 0
   isFullFood: 0

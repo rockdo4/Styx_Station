@@ -58,6 +58,8 @@ public class DiningRoomUiManagerTest : MonoBehaviour
     private BigInteger foodSelectUpgradeLevelUpPrcie = new BigInteger(1000);
     public int foodSelectUpgradeLevelUpPrcieWeight = 1000;
 
+
+
     private void Awake()
     {
         roomMainPanel.SetActive(isDrawDiningRoomDislay);

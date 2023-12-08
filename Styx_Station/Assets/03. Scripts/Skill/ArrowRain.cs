@@ -16,7 +16,7 @@ public class ArrowRain : SkillBase
         arrowRain = skill;
         this.shooterPrefab = shooterPrefab;
         this.enemyLayer = enemyLayer;
-        this.castZone = cz;
+        castZone = cz;
     }
     public override void UseSkill(GameObject attacker)
     {

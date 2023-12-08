@@ -1,4 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -22,6 +25,11 @@ public class MonsterController : PoolAble //MonoBehaviour
     public bool isTargetDie = false;
 
     public Transform idlePos { get; set; }
+    private bool isPoisioned { get; set; }
+    private float duration;
+    private Attack poisionAttack = new Attack();
+    private GameObject attacker;
+    private float timer = 0f;
 
     public void SetState(States newState)
     {
@@ -100,7 +108,42 @@ public class MonsterController : PoolAble //MonoBehaviour
                 isTargetDie = true;
             }
         }
+        if(isPoisioned)
+        {
+            timer += Time.deltaTime;
+            StartCoroutine(CoAttackedPoision());
+            if(timer >= duration)
+            {
+                isPoisioned = false;
+                timer = 0f;
+                StopCoroutine(CoAttackedPoision());
+                return;
+            }
+        }
         stateManager.Update();
+    }
+
+    public void SetPoision(float du, Attack attack, GameObject a)
+    {
+        isPoisioned = true;
+        duration = du;
+        poisionAttack = attack;
+        attacker = a;
+        timer = 0f;
+    }
+    IEnumerator CoAttackedPoision()
+    {
+        if (monsterStats.currHealth <= 0)
+        {
+            yield return null;
+        }
+        var attackables = gameObject.GetComponents<IAttackable>();
+        Debug.Log("hit poison");
+        foreach (var attackable in attackables)
+        {
+            attackable.OnAttack(attacker, poisionAttack);
+        }
+        yield return new WaitForSeconds(1);
     }
 
     //public void Hit()

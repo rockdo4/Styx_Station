@@ -879,9 +879,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6878901795565019075, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 1846325371}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
+--- !u!224 &352992663 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6878901795565019075, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
+  m_PrefabInstance: {fileID: 352992662}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &356056433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,6 +1957,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1846325370
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1846325371}
+  m_Layer: 15
+  m_Name: SkillPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1846325371
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846325370}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 352992663}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.121, y: 0.387}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1893823402
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2006,9 +2049,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1110277191}
     - target: {fileID: 7433137210560005225, guid: 89e14fc23b80f404baa93fa4c9961023, type: 3}
+      propertyPath: TornadoShotPrefab
+      value: 
+      objectReference: {fileID: 1543510359448230966, guid: cea0604a7a562f44abeb27843c212f32, type: 3}
+    - target: {fileID: 7433137210560005225, guid: 89e14fc23b80f404baa93fa4c9961023, type: 3}
       propertyPath: enemyLayer.m_Bits
       value: 65536
       objectReference: {fileID: 0}
+    - target: {fileID: 7433137210560005225, guid: 89e14fc23b80f404baa93fa4c9961023, type: 3}
+      propertyPath: poisonArrowPrefab
+      value: 
+      objectReference: {fileID: 1919645320435576257, guid: 387285127f1c34443b999104f6ae97ee, type: 3}
     - target: {fileID: 7433137210560005225, guid: 89e14fc23b80f404baa93fa4c9961023, type: 3}
       propertyPath: ArrowRainShooterPrefab
       value: 
@@ -2276,6 +2327,42 @@ PrefabInstance:
     - target: {fileID: 3317319869339073788, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
       propertyPath: m_Name
       value: ObjectPoolManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[5].count
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].count
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[5].prefab
+      value: 
+      objectReference: {fileID: 1919645320435576257, guid: 387285127f1c34443b999104f6ae97ee, type: 3}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].prefab
+      value: 
+      objectReference: {fileID: 1543510359448230966, guid: cea0604a7a562f44abeb27843c212f32, type: 3}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[5].maxCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].maxCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[5].objectName
+      value: PlayerPoisonArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].objectName
+      value: tornadoShot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -98,10 +98,10 @@ public class SkillManager : MonoBehaviour
             UseSkill6();
         }
 
-        //if(Input.GetKeyDown(KeyCode.R))
-        //{
-        //    UseSkill3();
-        //}
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            UseSkill3();
+        }
     }
 
     public void UseSkill1()

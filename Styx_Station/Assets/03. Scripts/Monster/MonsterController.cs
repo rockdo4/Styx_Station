@@ -29,6 +29,10 @@ public class MonsterController : PoolAble //MonoBehaviour
     private GameObject attacker;
     private float timer = 0f;
 
+    private Coroutine poisonCo;
+
+    public GameObject skullImage;
+
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
@@ -58,6 +62,7 @@ public class MonsterController : PoolAble //MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player");
         executeHit = GetComponentInChildren<ExecuteHit>();
 
+        skullImage.SetActive(false);
     }
     private void Start()
     {
@@ -106,16 +111,29 @@ public class MonsterController : PoolAble //MonoBehaviour
                 isTargetDie = true;
             }
         }
+
         if(isPoisioned)
         {
+            if(!skullImage.activeSelf)
+            {
+                skullImage.SetActive(true);
+            }
             timer += Time.deltaTime;
-            StartCoroutine(CoAttackedPoision());
             if(timer >= duration)
             {
                 isPoisioned = false;
                 timer = 0f;
-                StopCoroutine(CoAttackedPoision());
+                StopCoroutine(poisonCo);
+                poisonCo = null;
+                if (skullImage.activeSelf)
+                {
+                    skullImage.SetActive(false);
+                }
                 return;
+            }
+            if (poisonCo == null)
+            {
+                poisonCo = StartCoroutine(CoAttackedPoision());
             }
         }
         stateManager.Update();
@@ -131,17 +149,20 @@ public class MonsterController : PoolAble //MonoBehaviour
     }
     IEnumerator CoAttackedPoision()
     {
-        if (monsterStats.currHealth <= 0)
+        while(true)
         {
-            yield return null;
+            if (monsterStats.currHealth <= 0)
+            {
+                yield break;
+            }
+            var attackables = gameObject.GetComponents<IAttackable>();
+            Debug.Log("hit poison");
+            foreach (var attackable in attackables)
+            {
+                attackable.OnAttack(attacker, poisionAttack);
+            }
+            yield return new WaitForSeconds(1);
         }
-        var attackables = gameObject.GetComponents<IAttackable>();
-        Debug.Log("hit poison");
-        foreach (var attackable in attackables)
-        {
-            attackable.OnAttack(attacker, poisionAttack);
-        }
-        yield return new WaitForSeconds(1);
     }
 
     //public void Hit()

@@ -32,6 +32,7 @@ public class MonsterController : PoolAble //MonoBehaviour
     private Coroutine poisonCo;
 
     public GameObject skullImage;
+    public GameObject lightningImage;
 
     public void SetState(States newState)
     {

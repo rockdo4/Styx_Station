@@ -44,6 +44,7 @@ public class SkillManager : MonoBehaviour
     public GameObject ArrowRainShooterPrefab;
     public GameObject TornadoShotPrefab;
     public GameObject poisonArrowPrefab;
+    public GameObject blackCloudPrefab;
 
     public LayerMask enemyLayer;
 
@@ -208,5 +209,4 @@ public class SkillManager : MonoBehaviour
         yield return new WaitForSeconds(cooldown);
         skillcool &= ~SkillCool.skill006;
     }
-
 }

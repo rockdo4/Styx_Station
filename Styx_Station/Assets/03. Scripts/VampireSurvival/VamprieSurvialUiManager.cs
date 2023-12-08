@@ -54,7 +54,7 @@ public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
     }
     public void TestCode()
     {
-        SceneManager.LoadScene("LSW_Test_Scene 1");
+        SceneManager.LoadScene("Table_2 LswPlayerStats");
         Destroy(gameObject);
     }
     public void TestCode123()

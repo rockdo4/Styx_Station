@@ -30,6 +30,10 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             {
                 counting++;
                 timer = max;
+                if(counting == selectFoodCount)
+                {
+                    isFullFood = true;
+                }
             }
         }  
     }
@@ -70,6 +74,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             }
         }
         isFullFood = true;
+        counting = 0;
     }
     public FoodData[] GetAllFoodData()
     {

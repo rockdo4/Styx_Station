@@ -67,7 +67,6 @@ public class SkillWindow : SubWindow
             button.inventory = inventory;
             button.image = button.transform.GetChild(0).gameObject;
             skillButtons[i].onClick.AddListener(()=>button.OnClickOpenInfo(this));
-            //button.image = inventory.skills[i].skill.image;
         }
     }
 

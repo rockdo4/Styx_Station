@@ -32,7 +32,7 @@ public class ItemDrop: ScriptableObject
         if (sum <= 0)
             return null;
 
-        if (sum > 1)
+        if ((int)sum > 1)
             return null;
 
         var random = Random.Range(0, sum);

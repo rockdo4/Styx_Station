@@ -90,6 +90,114 @@ public class ItemButton : MonoBehaviour
         }
     }
 
+    public void OnClickWeaponOpenInfo(WeaponType window)
+    {
+        if (window == null)
+            return;
+
+        window.selectIndex = itemIndex;
+        var info = window.info.GetComponent<WeaponEquipInfoUi>();
+        Color color = new Color();
+        switch (inventory.weapons[itemIndex].item.tier)
+        {
+            case Tier.Common:
+                {
+                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Uncommon:
+                {
+                    color = new Color(0, 0, 0, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Rare:
+                {
+                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Unique:
+                {
+                    color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Legendry:
+                {
+                    color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+        }
+        info.itemName.color = color;
+        info.tier.color = color;
+        info.selectIndex = itemIndex;
+        info.itemImage.GetComponent<Image>().sprite = inventory.weapons[itemIndex].item.itemIcon;
+
+        info.InfoUpdate();
+        window.info.SetActive(true);
+    }
+
+    public void OnClickArmorOpenInfo(ArmorType window)
+    {
+        if (window == null)
+            return;
+
+        window.selectIndex = itemIndex;
+        var info = window.info.GetComponent<ArmorEquipInfoUi>();
+        Color color = new Color();
+        switch (inventory.armors[itemIndex].item.tier)
+        {
+            case Tier.Common:
+                {
+                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Uncommon:
+                {
+                    color = new Color(0, 0, 0, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Rare:
+                {
+                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Unique:
+                {
+                    color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Legendry:
+                {
+                    color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+        }
+        info.itemName.color = color;
+        info.tier.color = color;
+        info.selectIndex = itemIndex;
+        info.itemImage.GetComponent<Image>().sprite = inventory.armors[itemIndex].item.itemIcon;
+
+        info.InfoUpdate();
+        window.info.SetActive(true);
+    }
+
     public void OnClickEquip(GameObject button)
     {
         var equip = button.GetComponent<EquipButton>();

@@ -8,7 +8,7 @@ public class ShopSystem : Singleton<ShopSystem>
     private PetDropTable petTable;
 
     public int currentItemRank = 0;
-    public int currentItemRankUp;
+    public int currentItemRankUp = 0;
     public int currentSkillRank;
     public int currentSkillRankUp;
     public int currentPetRank;

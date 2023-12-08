@@ -2,23 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class PlayerBuff 
+public class PlayerBuff  :Singleton<PlayerBuff>
 {
-    private static readonly int percent = 100;
-    public static bool isEatFood = false;
-    private static int playerPowerBuff;
-    private static int criticalPowerBuff;
-    private static int skillBuff;
-    private static int bossAttackBuff;
-    private static int silingBuff;
-    private static float foodBuffMaxTimer;
+    private readonly int percent = 100;
+    public bool isEatFood = false;
+    [SerializeField]private int playerPowerBuff;
+    [SerializeField] private int criticalPowerBuff;
+    [SerializeField] private int skillBuff;
+    [SerializeField] private int bossAttackBuff;
+    [SerializeField] private int silingBuff;
+    [SerializeField] private float foodBuffMaxTimer;
+    [SerializeField] private float timer;
 
-
-    // 시간초 지나면 버프 초기화 코드는 고민후 작업 해야할듯...
-    // 인게임매니저에서 추가적으로 시간을 계산후 초기화하면 될것 같음
-
-    public static void GetBuffAll(int power , int critcal,int skill,int boss, int siling,float timer)
+    private void Update()
     {
+        timer += Time.deltaTime;
+        if(timer> foodBuffMaxTimer )
+        {
+            Debug.Log($"{gameObject.name} / BuffOff");
+            Reset();
+        }
+    }
+
+    public void GetBuffAll(int power , int critcal,int skill,int boss, int siling,float timer)
+    {
+        if(isEatFood)
+        {
+            return;
+        }
         playerPowerBuff =power;
         criticalPowerBuff =critcal;
         skillBuff =skill;
@@ -27,7 +38,7 @@ public static class PlayerBuff
         foodBuffMaxTimer =timer;
         isEatFood = true;
     }
-    public static void Reset()
+    public void Reset()
     {
         playerPowerBuff = 0;
         criticalPowerBuff = 0;

@@ -89,6 +89,7 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
     public void DataZero()
     {
         foodData = null;
+        foodImage.sprite = defaultFoodImage;
         foodRankText.text = "";
         foodNameText.text = "";
         foodNameStringTable = defaultFoodDataInfo;

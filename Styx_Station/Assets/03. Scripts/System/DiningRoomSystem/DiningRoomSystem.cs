@@ -55,6 +55,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     public void ReMoveFoodData(int index)
     {
         foodDatas[index] = null;
+        isFullFood = false;
     }
 
     public void SetFood(FoodData foodData)

@@ -18,6 +18,7 @@ public static class GameData
 
     public static StageData stageData;
 
+    
     public static void GetAccumulateOfflineEarnings()
     {
         var prevData = DateTime.ParseExact(keyPrevAccumlateTime.ToString(), datetimeString, null);

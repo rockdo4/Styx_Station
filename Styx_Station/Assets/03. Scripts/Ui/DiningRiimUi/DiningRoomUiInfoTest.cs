@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DiningRoomUiInfo : MonoBehaviour
+public class DiningRoomUiInfoTest : MonoBehaviour
 {
     public List<Sprite> rankSprites = new List<Sprite>();
     public Image foodImage;

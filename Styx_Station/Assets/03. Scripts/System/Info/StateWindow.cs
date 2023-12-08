@@ -7,6 +7,7 @@ public class StateWindow : SubWindow
     public override void Open()
     {
         CurrencyManager.SetPlayerStatsAllRest();
+
         base.Open();
     }
 

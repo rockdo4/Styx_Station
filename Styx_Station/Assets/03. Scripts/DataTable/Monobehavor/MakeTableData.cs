@@ -11,15 +11,24 @@ public class MakeTableData : Singleton<MakeTableData>
 
     private void Awake()
     {
-        gameSaveLoad =GetComponent<SaveLoad>();
+        gameSaveLoad = gameObject.AddComponent<SaveLoad>();
         gameSaveLoad.Load();
-        UnitConverter.InitUnitConverter();
     }
     private void Start()
     {
-        stringTable = new StringTable();
-        diningRoomTable = new DiningTable();
-        stageTable = new StageTable();
+        if(stringTable ==null)
+            stringTable = new StringTable();
+        if(diningRoomTable == null)
+            diningRoomTable = new DiningTable();
+        if(stageTable == null)
+            stageTable = new StageTable();
+
+        
+        UnitConverter.InitUnitConverter();
+    }
+    private void Update()
+    {
+      
     }
     private void OnApplicationQuit() => gameSaveLoad.Save();
 }

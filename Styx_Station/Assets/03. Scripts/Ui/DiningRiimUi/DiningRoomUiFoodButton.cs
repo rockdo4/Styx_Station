@@ -14,14 +14,14 @@ public class DiningRoomUiFoodButton : MonoBehaviour
     public Sprite cookImage;
     [HideInInspector]
     public FoodData[] foodDatas = new FoodData[6];
-    private DiningRoomUiManager parentDiningRoomUi;
+    private DiningRoomUiManagerTest parentDiningRoomUi;
 
     public bool isLoadFoodData;
     public int loadCurrentIndex;
     private void Awake()
     {
         isLoadFoodData=true;
-        parentDiningRoomUi = GetComponentInParent<DiningRoomUiManager>();
+        parentDiningRoomUi = GetComponentInParent<DiningRoomUiManagerTest>();
     }
 
     private void Start()

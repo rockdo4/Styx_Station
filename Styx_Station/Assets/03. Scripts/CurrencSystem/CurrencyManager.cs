@@ -56,34 +56,58 @@ public static class CurrencyManager
 
     public static void SetPlayerStatsAllRest()
     {
-        var playerPower = SharedPlayerStats.GetPlayerPower();
-        for(int i=1;i<playerPower;++i)
+        SetSliverPrice(SharedPlayerStats.GetPlayerPower(), ref playerPowerPrice);
+        SetPomegranatePrice(SharedPlayerStats.GetPlayerPowerBoost(), ref playerPowerBoostPrice);
+        SetSliverPrice(SharedPlayerStats.GetPlayerAttackSpeed(), ref playerAttackSpeedPrice);
+        SetSliverPrice(SharedPlayerStats.GetAttackCritical(), ref criticalPrice);
+        SetPomegranatePrice(SharedPlayerStats.GetAttackCriticlaPower(), ref criticalPowerPrice);
+        SetPomegranatePrice(SharedPlayerStats.GetMonsterDamagePower(), ref monsterDamagerPrice);
+        SetSliverPrice(SharedPlayerStats.GetHp(), ref maxHpPrice);
+        SetSliverPrice(SharedPlayerStats.GetHealing(), ref healingPrice);
+    }
+    private static void SetSliverPrice(int loopSize ,ref BigInteger price)
+    {
+        price = 0;
+        if(loopSize <=1) 
         {
-            if (i < 50)
-                playerPowerPrice++;
-            else if( i <500)
-            {
-                playerPowerPrice += (playerPower - 1);
-            }
-            else
-            {
-                playerPowerPrice += (playerPower - 1) + (playerPower / 10);
-            }
+            price = 1;
+            return;
         }
-        var playerPowerBoost = SharedPlayerStats.GetPlayerPowerBoost();
-        for (int i = 1; i < playerPowerBoost; ++i)
+        for (int i=1;i<loopSize;++i)
         {
             if (i < 50)
-                playerPowerBoostPrice++;
+                price++;
             else if (i < 500)
             {
-                playerPowerBoostPrice += (playerPower - 1);
-                playerPowerBoostPrice /= 10;
+                price += (i - 1);
             }
             else
             {
-                playerPowerBoostPrice += (playerPower - 1) + (playerPower / 10);
-                playerPowerBoostPrice /= 10;
+                price += (i - 1) + (i / 10);
+            }
+        }
+    }
+    private static void SetPomegranatePrice(int loopSize, ref BigInteger price)
+    {
+        price = 0;
+        if (loopSize <= 1)
+        {
+            price = 1;
+            return;
+        }
+        for (int i = 1; i < loopSize; ++i)
+        {
+            if (i < 50)
+                price++;
+            else if (i < 500)
+            {
+                price += (i - 1);
+                price /= 2;
+            }
+            else
+            {
+                price += (i - 1) + (i / 10);
+                price /= 2;
             }
         }
     }

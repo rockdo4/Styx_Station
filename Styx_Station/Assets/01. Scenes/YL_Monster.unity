@@ -2057,6 +2057,10 @@ PrefabInstance:
       value: 65536
       objectReference: {fileID: 0}
     - target: {fileID: 7433137210560005225, guid: 89e14fc23b80f404baa93fa4c9961023, type: 3}
+      propertyPath: poisonArrowPrefab
+      value: 
+      objectReference: {fileID: 1919645320435576257, guid: 387285127f1c34443b999104f6ae97ee, type: 3}
+    - target: {fileID: 7433137210560005225, guid: 89e14fc23b80f404baa93fa4c9961023, type: 3}
       propertyPath: ArrowRainShooterPrefab
       value: 
       objectReference: {fileID: 5939548283369346787, guid: afb8c8d732813984fb823cc1d29a38dd, type: 3}
@@ -2326,14 +2330,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
       propertyPath: objectInfos.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
       propertyPath: objectInfos.Array.data[5].count
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].count
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
       propertyPath: objectInfos.Array.data[5].prefab
+      value: 
+      objectReference: {fileID: 1919645320435576257, guid: 387285127f1c34443b999104f6ae97ee, type: 3}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].prefab
       value: 
       objectReference: {fileID: 1543510359448230966, guid: cea0604a7a562f44abeb27843c212f32, type: 3}
     - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
@@ -2341,7 +2353,15 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].maxCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
       propertyPath: objectInfos.Array.data[5].objectName
+      value: PlayerPoisonArrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 3811858558497640533, guid: fdcd12d2fa531df47ac6e1b4fce2cd94, type: 3}
+      propertyPath: objectInfos.Array.data[6].objectName
       value: tornadoShot
       objectReference: {fileID: 0}
     m_RemovedComponents: []

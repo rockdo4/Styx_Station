@@ -43,6 +43,7 @@ public class SkillManager : MonoBehaviour
     public GameObject tripleShotShooterPrefab;
     public GameObject ArrowRainShooterPrefab;
     public GameObject TornadoShotPrefab;
+    public GameObject poisonArrowPrefab;
 
     public LayerMask enemyLayer;
 
@@ -65,6 +66,7 @@ public class SkillManager : MonoBehaviour
 
         skills.Add(new TripleShot(inventory.skills[0], tripleShotShooterPrefab));
         skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone));
+        skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab));
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
 
     }
@@ -81,20 +83,25 @@ public class SkillManager : MonoBehaviour
         {
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             UseSkill1();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.W))
         {
             UseSkill2();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             UseSkill6();
         }
+
+        //if(Input.GetKeyDown(KeyCode.R))
+        //{
+        //    UseSkill3();
+        //}
     }
 
     public void UseSkill1()
@@ -133,6 +140,24 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void UseSkill3()
+    {
+        if (player == null)
+        {
+            Debug.Log("ERR: Player is Null");
+            return;
+        }
+        if ((skillcool & SkillCool.skill003) != 0) //Äð µµ´Â Áß
+        {
+            Debug.Log("½ºÅ³ Äð ´ë±â Áß");
+        }
+        else
+        {
+            FindeSkillBase(2).UseSkill(player);
+            StartCoroutine(Skill3CoolDown(inventory.skills[2].skill.Skill_Cool));
+        }
+    }
+
     public void UseSkill6()
     {
         if (player == null)
@@ -146,7 +171,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            FindeSkillBase(2).UseSkill(player);
+            FindeSkillBase(3).UseSkill(player);
             StartCoroutine(Skill6CoolDown(inventory.skills[5].skill.Skill_Cool));
         }
     }
@@ -168,6 +193,13 @@ public class SkillManager : MonoBehaviour
         skillcool |= SkillCool.skill002;
         yield return new WaitForSeconds(cooldown);
         skillcool &= ~SkillCool.skill002;
+    }
+
+    IEnumerator Skill3CoolDown(float cooldown)
+    {
+        skillcool |= SkillCool.skill003;
+        yield return new WaitForSeconds(cooldown);
+        skillcool &= ~SkillCool.skill003;
     }
 
     IEnumerator Skill6CoolDown(float cooldown)

@@ -7,9 +7,6 @@ using SaveDataVersionCurrent = SaveDataV4;
 using System.Numerics;
 using System.Linq;
 using System;
-using UnityEditor.U2D.Aseprite;
-using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class SaveLoad : MonoBehaviour
 {

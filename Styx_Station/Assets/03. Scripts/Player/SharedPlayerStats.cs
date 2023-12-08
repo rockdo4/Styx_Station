@@ -110,9 +110,9 @@ public static class SharedPlayerStats
                 CurrencyManager.playerPowerBoostPrice = price;
             }
 
-            if (CurrencyManager.money2 > CurrencyManager.price)
+            if (CurrencyManager.money2 > CurrencyManager.playerPowerBoostPrice)
             {
-                CurrencyManager.money2 -= CurrencyManager.price;
+                CurrencyManager.money2 -= CurrencyManager.playerPowerBoostPrice;
                 playerPowerBoost++;
             }
             else
@@ -220,9 +220,9 @@ public static class SharedPlayerStats
             CurrencyManager.criticalPowerPrice = price;
         }
 
-        if (CurrencyManager.money2 > CurrencyManager.price)
+        if (CurrencyManager.money2 > CurrencyManager.criticalPowerPrice)
         {
-            CurrencyManager.money2 -= CurrencyManager.price;
+            CurrencyManager.money2 -= CurrencyManager.criticalPowerPrice;
             criticalPower++;
         }
         else
@@ -258,9 +258,9 @@ public static class SharedPlayerStats
                 CurrencyManager.monsterDamagerPrice = price;
             }
 
-            if (CurrencyManager.money2 > CurrencyManager.price)
+            if (CurrencyManager.money2 > CurrencyManager.monsterDamagerPrice)
             {
-                CurrencyManager.money2 -= CurrencyManager.price;
+                CurrencyManager.money2 -= CurrencyManager.monsterDamagerPrice;
 
                 monsterDamage++;
             }

@@ -44,6 +44,7 @@ public class DiningRoomUIManager : MonoBehaviour
         {
             DiningRoomButtonDataSetIsPossibleButton();
         }
+        SendFoodDataInfo();
     }
     private void SendFoodDataInfo()
     {
@@ -51,7 +52,8 @@ public class DiningRoomUIManager : MonoBehaviour
         {
             if(diningRoomButtdonDatas[i].onClick)
             {
-                //함수 호출
+                diningRoomUIFoodDataInfo.SetFoodData(diningRoomButtdonDatas[i].foodData);
+                diningRoomButtdonDatas[i].onClick = false;
             }
         }
     }

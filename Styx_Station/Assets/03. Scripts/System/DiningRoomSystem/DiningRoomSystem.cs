@@ -9,7 +9,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     [HideInInspector] public int counting = 0;
 
     public int timerUpgradeLevel = 0;
-    public int selectFoodCount = 2;
+    public int selectFoodCount = 1;
     [HideInInspector] public int maxSelectfoodCount = 6;
     [HideInInspector] public int selectFoodUpgrade = 0;
 

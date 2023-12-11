@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DiningRoomUIManager : MonoBehaviour
 { 
@@ -32,7 +34,19 @@ public class DiningRoomUIManager : MonoBehaviour
     private int timerUpgradeLevel;
     public TextMeshProUGUI timerUpgradeText;
     public TextMeshProUGUI timerText;
+    private int timerUpgradePrice=200;
+    private int timerUpgradeAmount=200;
+    public TextMeshProUGUI upgradePriceText;
+    public Button timerUpgradeButton;
 
+
+    private int selectFoodUpgradeLevel;
+    public TextMeshProUGUI selectFoodUpgradeText;
+    public TextMeshProUGUI selectFoodText;
+    private int selectFoodUpgradePrice = 1000;
+    private int selectFoodUpgradeAmount = 1000;
+    public TextMeshProUGUI selectFoodUpgradePriceText;
+    public Button selectFoodUpgradeButton;
     private void Awake()
     {
         makeFoodData = DiningRoomSystem.Instance.foodDatas;
@@ -43,6 +57,7 @@ public class DiningRoomUIManager : MonoBehaviour
         prevSelectCount = DiningRoomSystem.Instance.selectFoodCount;
 
         TimerUpgradeTextSetting();
+        SelectUpgradeTextSetting();
         DiningRoomButtonDataSetIsPossibleButton();
         if (!isResetDiningTable)
         {
@@ -74,12 +89,15 @@ public class DiningRoomUIManager : MonoBehaviour
     private void FixedUpdate()
     {
         SetDiningRoomTimerText();
+        if(!DiningRoomSystem.Instance.isMaxSelectUpgradeLevel && !DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
+            CheckUpgradeButton();
     }
     private void Update()
     {
         MakeFood();
         if (prevSelectCount !=  DiningRoomSystem.Instance.selectFoodCount)
         {
+            prevSelectCount = DiningRoomSystem.Instance.selectFoodCount;
             DiningRoomButtonDataSetIsPossibleButton();
         }
         SendFoodDataInfo();
@@ -254,18 +272,84 @@ public class DiningRoomUIManager : MonoBehaviour
             makeFoodData = DiningRoomSystem.Instance.GetAllFoodData();
         }
     }
+    public void SellFood()
+    {
+        if (diningRoomUIFoodDataInfo.foodData != null)
+        {
+            for (int i = 0; i < DiningRoomSystem.Instance.selectFoodCount; ++i)
+            {
+                if (diningRoomButtdonDatas[i].foodData == diningRoomUIFoodDataInfo.foodData)
+                {
+                    DiningRoomSystem.Instance.ReMoveFoodData(i);
+                    diningRoomUIFoodDataInfo.DataZero();
+                    CurrencyManager.GetSilver(diningRoomButtdonDatas[i].foodData.Food_Sil, 0);
+                    CurrencyManager.GetSilver(diningRoomButtdonDatas[i].foodData.Food_Soul, 2);
+                    break;
+                }
+            }
+            makeFoodData = DiningRoomSystem.Instance.GetAllFoodData();
+        }
+    }
+    private void SelectUpgradeTextSetting()
+    {
+        if(selectFoodUpgradeLevel != DiningRoomSystem.Instance.selectFoodCount || !DiningRoomSystem.Instance.isAwkeTime)
+        {
 
+            selectFoodUpgradeLevel = DiningRoomSystem.Instance.selectFoodCount;
+            if (!DiningRoomSystem.Instance.isAwkeTime)
+            {
+                for (int i = 1; i < selectFoodUpgradeLevel; ++i)
+                {
+                    selectFoodUpgradePrice += selectFoodUpgradeAmount;
+                }
+            }
+            else
+            {
+
+                selectFoodUpgradePrice += selectFoodUpgradeAmount;
+            }
+            if (selectFoodUpgradeLevel >= 5)
+            {
+                selectFoodUpgradeText.text = $"LV.{selectFoodUpgradeLevel} > Max";
+                selectFoodText.text = $"LV.{selectFoodUpgradeLevel} > Max";
+            }
+            else
+            {
+                selectFoodUpgradeText.text = $"LV.{selectFoodUpgradeLevel} > LV.{selectFoodUpgradeLevel + 1}";
+                selectFoodText.text = $"LV.{selectFoodUpgradeLevel} > LV.{selectFoodUpgradeLevel + 1}";
+            }
+
+            selectFoodUpgradePriceText.text = $"{selectFoodUpgradePrice}";
+        }
+    }
     private void TimerUpgradeTextSetting()
     {
-        if (timerUpgradeLevel != DiningRoomSystem.Instance.timerUpgradeLevel || !DiningRoomSystem.Instance.isAwkeTime)
+        if ( timerUpgradeLevel != DiningRoomSystem.Instance.timerUpgradeLevel || !DiningRoomSystem.Instance.isAwkeTime)
         {
             timerUpgradeLevel = DiningRoomSystem.Instance.timerUpgradeLevel;
             timerUpgradeText.text = $"LV.{timerUpgradeLevel + 1} > LV.{timerUpgradeLevel + 2}";
             TimeSpan timeSpanMax = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max);
             var timerStr = timeSpanMax.ToString(@"hh\:mm\:ss");
-            TimeSpan timeSpanDecrease = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max - (DiningRoomSystem.Instance.decreaseMaxTimer * (timerUpgradeLevel + 1)));
+            TimeSpan timeSpanDecrease = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max - DiningRoomSystem.Instance.decreaseMaxTimer);
             var timerStr2 = timeSpanDecrease.ToString(@"hh\:mm\:ss");
             timerText.text = $"{timerStr} > {timerStr2}";
+            if(!DiningRoomSystem.Instance.isAwkeTime)
+            {
+                for (int i = 0; i <= timerUpgradeLevel; ++i)
+                {
+                    timerUpgradePrice += (timerUpgradeAmount * (timerUpgradeLevel * 14)) / 10;
+                }
+               
+            }
+            else
+            {
+                timerUpgradePrice += (timerUpgradeAmount * (timerUpgradeLevel * 14)) / 10;
+            }
+            
+            upgradePriceText.text = $"{timerUpgradePrice}";
+
+            
+          
         }
     }
     private void SetDiningRoomTimerText()
@@ -396,5 +480,62 @@ public class DiningRoomUIManager : MonoBehaviour
                 break;
         }
     }
+    public void TimerUpgradeButton()
+    {
+        
+        if (CurrencyManager.money1>=timerUpgradePrice)
+        {
+            CurrencyManager.money1 -= timerUpgradePrice;
+        }
+        else
+        {
+            return;
+        }
+        DiningRoomSystem.Instance.UpgradeTimerLevel();
 
+        if (DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
+        {
+            timerUpgradeButton.interactable = false;
+        }
+        TimerUpgradeTextSetting();
+    }
+    public void SelectFoodUpgradeButton()
+    {
+        if (CurrencyManager.money3 >= selectFoodUpgradePrice)
+        {
+            CurrencyManager.money3 -= selectFoodUpgradePrice;
+        }
+        else
+        {
+            return;
+        }
+        DiningRoomSystem.Instance.UpgradeSelectFoodLevel();
+
+        if(DiningRoomSystem.Instance.isMaxSelectUpgradeLevel)
+        {
+            selectFoodUpgradeButton.interactable = false;
+        }
+        SelectUpgradeTextSetting();
+    }
+    private void CheckUpgradeButton()
+    {
+        if (CurrencyManager.money1 < timerUpgradePrice || DiningRoomSystem.Instance.isMaxSelectUpgradeLevel)
+        {
+            timerUpgradeButton.interactable = false;
+        }
+        else
+        {
+            timerUpgradeButton.interactable = true;
+        }
+        if (CurrencyManager.money3 < selectFoodUpgradePrice || DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
+        {
+            selectFoodUpgradeButton.interactable = false;
+        }
+        else
+        {
+            selectFoodUpgradeButton.interactable = true;    
+        }
+        
+    }
+   
 }

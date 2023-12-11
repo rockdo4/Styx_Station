@@ -10,9 +10,12 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     [HideInInspector] public int counting = 0;
 
     public int timerUpgradeLevel = 0;
+    [HideInInspector] public int maxTimerUpgradeLevel = 60;
+    [HideInInspector] public bool isMaxTimerUpgradeLevel;
+
     public int selectFoodCount = 1;
     [HideInInspector] public int maxSelectfoodCount = 6;
-    [HideInInspector] public int selectFoodUpgrade = 0;
+    [HideInInspector] public bool isMaxSelectUpgradeLevel;
 
     public FoodData[] foodDatas = new FoodData[6];
     [HideInInspector]  public bool isFullFood;
@@ -24,6 +27,10 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     public float decreaseMaxTimer=30f;
     private void Awake()
     {
+        for(int i=0;i<=timerUpgradeLevel;++i)
+        {
+            max -= decreaseMaxTimer * i;
+        }
         timer = max;
     }
     private void Update()
@@ -46,15 +53,26 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     public void UpgradeTimerLevel()
     {
         timerUpgradeLevel++;
+        max -= decreaseMaxTimer;
+        if (timerUpgradeLevel >= maxTimerUpgradeLevel)
+        {
+            timerUpgradeLevel = maxTimerUpgradeLevel;
+            isMaxTimerUpgradeLevel = true;
+        }
     }
 
     public void UpgradeSelectFoodLevel()
     {
-        if(selectFoodCount >=maxSelectfoodCount)
+        if(isMaxSelectUpgradeLevel)
         {
             return;
         }
         selectFoodCount++;
+        if(selectFoodCount >=maxSelectfoodCount)
+        {
+            isMaxSelectUpgradeLevel = true; 
+        }
+
     }
 
     public void ReMoveFoodData(int index)

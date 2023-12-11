@@ -115,7 +115,7 @@ public class SaveLoad : MonoBehaviour
                 }
             }
             data.gameSaveDatas.foodTimerUpgradeLevelUp = DiningRoomSystem.Instance.timerUpgradeLevel;
-            data.gameSaveDatas.foodSelectUpgradeLevelUp = DiningRoomSystem.Instance.selectFoodUpgrade;
+            data.gameSaveDatas.foodSelectUpgradeLevelUp = DiningRoomSystem.Instance.selectFoodCount;
             data.gameSaveDatas.diningRoomTimer = DiningRoomSystem.Instance.timer;
         }
 

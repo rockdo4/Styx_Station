@@ -208,10 +208,17 @@ public class SaveLoad : MonoBehaviour
                         dummy.upgradeLev = item.upgradeLev;
                     }
                 }
+
+                var uiInvenvtory = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>();
+                uiInvenvtory.Setting();
+
                 if (gameSaveDatas["equipItem"] is JToken equipToken)
                 {
                     string equipItem = equipToken.ToString();
                     var equipItemData = JsonConvert.DeserializeObject<List<EquipData>>(equipItem);
+
+                    var weaponInfo = uiInvenvtory.inventoryTypes[0].gameObject.GetComponent<WeaponType>().info.GetComponent<WeaponEquipInfoUi>();
+                    var armorInfo = uiInvenvtory.inventoryTypes[1].gameObject.GetComponent<ArmorType>().info.GetComponent<ArmorEquipInfoUi>();
 
                     foreach (var item in equipItemData)
                     {
@@ -220,14 +227,21 @@ public class SaveLoad : MonoBehaviour
                             case ItemType.Weapon:
                                 var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
                                 if (weapon != null)
-                                    inventory.EquipItem(weapon.index, item.itemType);
-                                break;
+                                {
+                                    weaponInfo.selectIndex = weapon.index;
+                                    weaponInfo.OnClickWeaponEquip();
+                                }
+                                    break;
 
                             case ItemType.Armor:
-                                var aromr = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                                if (aromr != null)
-                                    inventory.EquipItem(aromr.index, item.itemType);
-                                break;
+                                var armor = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                                if (armor != null)
+                                {
+                                    armorInfo.selectIndex = armor.index;
+                                    armorInfo.OnClickArmorEquip();
+                                    //inventory.EquipItem(aromr.index, item.itemType);
+                                }
+                                    break;
 
                             case ItemType.Ring:
                                 var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();

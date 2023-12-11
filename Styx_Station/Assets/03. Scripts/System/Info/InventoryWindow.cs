@@ -10,6 +10,13 @@ public class InventoryWindow : SubWindow
 
     public InventoryType[] inventoryTypes;
 
+    private bool first = false;
+
+    private void Awake()
+    {
+        if (!first)
+            Setting();
+    }
     public override void Open()
     { 
         base.Open();
@@ -55,7 +62,7 @@ public class InventoryWindow : SubWindow
         Open(ItemType.Symbol);
     }
 
-    private void Awake()
+    public void Setting()
     {
         var inventory = InventorySystem.Instance.inventory;
 
@@ -63,5 +70,7 @@ public class InventoryWindow : SubWindow
         inventoryTypes[1].gameObject.GetComponent<ArmorType>().Setting(inventory);
         inventoryTypes[2].gameObject.GetComponent<RingType>().Setting(inventory);
         inventoryTypes[3].gameObject.GetComponent<SymbolType>().Setting(inventory);
+
+        first = true;
     }
 }

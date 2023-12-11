@@ -176,7 +176,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        weapons.Add(new InventoryItem(item,0, false, false, 0, -1));
+        weapons.Add(new InventoryItem(item,0, true, false, 0, -1));
     }
 
     private void AddArmor(Item item)
@@ -185,7 +185,7 @@ public class Inventory : MonoBehaviour
         if (addItem != null)
             return;
 
-        armors.Add(new InventoryItem(item, 0, false, false, 0, -1));
+        armors.Add(new InventoryItem(item, 0, true, false, 0, -1));
     }
 
     private void AddRing(Item item)

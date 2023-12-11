@@ -82,6 +82,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     {
         foodDatas[index] = null;
         isFullFood = false;
+        timer = max;
         counting--;
         if (counting <= 0)
             counting = 0;
@@ -114,6 +115,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             }
         }
         isFullFood = true;
+        timer = 0f;
     }
     public FoodData[] GetAllFoodData()
     {

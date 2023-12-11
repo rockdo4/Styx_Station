@@ -13,10 +13,7 @@ public class SaveLoad : MonoBehaviour
     private DiningRoomSystem diningRoomsystem;
     private void Start()
     {
-        if (diningRoomsystem == null)
-        {
-            diningRoomsystem = DiningRoomSystem.Instance;
-        }
+       
 
     }
     public void Save()
@@ -135,6 +132,10 @@ public class SaveLoad : MonoBehaviour
     }
     public void Load()
     {
+        if (diningRoomsystem == null)
+        {
+            diningRoomsystem = DiningRoomSystem.Instance;
+        }
 
         var path = Path.Combine(Application.persistentDataPath, "Test.json");
         if (File.Exists(path))
@@ -310,7 +311,7 @@ public class SaveLoad : MonoBehaviour
                 }
                 if(gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
                 {
-                    DiningRoomSystem.Instance.timerUpgradeLevel = int.Parse(foodtimerUpgradeLevel.ToString());
+                    diningRoomsystem.timerUpgradeLevel = int.Parse(foodtimerUpgradeLevel.ToString());
                 }
                 if (gameSaveDatas["foodSelectUpgradeLevelUp"] is JToken foodSelect)
                 {
@@ -318,7 +319,7 @@ public class SaveLoad : MonoBehaviour
                     if (t <= 0)
                         t = 1;
 
-                    DiningRoomSystem.Instance.selectFoodCount = t;
+                    diningRoomsystem.selectFoodCount = t;
                 }
                 if (gameSaveDatas["diningRoomSaveFoodData"] is JToken diningRoomSaveFoodDatats)
                 {
@@ -328,7 +329,7 @@ public class SaveLoad : MonoBehaviour
                     {
                         if (saveFoodData[i] != null)
                         {
-                            DiningRoomSystem.Instance.LoadFoodData(saveFoodData[i], i);
+                            diningRoomsystem.LoadFoodData(saveFoodData[i], i);
                         }
                     }
 
@@ -339,16 +340,30 @@ public class SaveLoad : MonoBehaviour
                     var timerData = JsonConvert.DeserializeObject<float>(str);
                     if(timerData <=0f)
                     {
-                        DiningRoomSystem.Instance.isLoad = false;
+                        diningRoomsystem.isLoad = false;
                     }
                     else
                     {
-                        DiningRoomSystem.Instance.timer = timerData;
-                        DiningRoomSystem.Instance.isLoad = true;
+                        diningRoomsystem.timer = timerData;
+                        diningRoomsystem.isLoad = true;
                     }
-                    DiningRoomSystem.Instance.LoadMaxTimer();
+                    int count = 0;
+                    for(int i =0;i < DiningRoomSystem.Instance.saveFood.Length; ++i)
+                    {
+                        if ( DiningRoomSystem.Instance.saveFood[i] != null)
+                        {
+                            count++;
+                        }
+                    }
+                    if(count >= DiningRoomSystem.Instance.selectFoodCount)
+                    {
+                        diningRoomsystem.timer = 0f;
+                        diningRoomsystem.isFullFood = true;
+                        diningRoomsystem.isLoad = true;
+                    }
+                    diningRoomsystem.LoadMaxTimer();
 
-                    DiningRoomSystem.Instance.CalculateTimer();
+                    diningRoomsystem.CalculateTimer();
                 }
             }
         }

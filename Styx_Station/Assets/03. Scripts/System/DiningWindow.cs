@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DiningWindow : Window
 {
+    public DingingRoomUpgradeWindow diningRoomUpgradeWindows;
+    public DingingRoomInfoPossibilityWindow infoWindow;
+
     public override void Open()
     {
         base.Open();
@@ -11,6 +14,8 @@ public class DiningWindow : Window
 
     public override void Close()
     {
+        diningRoomUpgradeWindows.Close();
+        infoWindow.Close();
         base.Close();
     }
 }

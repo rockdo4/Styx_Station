@@ -87,8 +87,13 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             counting = 0;
     }
 
-    public void SetFood(FoodData foodData)
+    public void SetFood(FoodData foodData,int index =-1)
     {
+        if(index >=0)
+        {
+            foodDatas[index] = foodData;
+            return;
+        }
         for(int i =0;i< selectFoodCount; i++)
         {
             if (foodDatas[i] == null)
@@ -120,9 +125,14 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     }
     public void LoadMaxTimer()
     {
-        for (int i = 0; i < timerUpgradeLevel; ++i)
+        for (int i = 1; i <=timerUpgradeLevel; ++i)
         {
-            max -= decreaseMaxTimer * i;
+            max -= decreaseMaxTimer;
+        }
+        if(timerUpgradeLevel >= maxTimerUpgradeLevel)
+        {
+            isMaxSelectUpgradeLevel = true;
+            timerUpgradeLevel = maxTimerUpgradeLevel;
         }
         if (!isLoad)
         {

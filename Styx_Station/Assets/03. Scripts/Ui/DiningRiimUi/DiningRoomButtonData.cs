@@ -24,7 +24,7 @@ public class DiningRoomButtonData : MonoBehaviour
         this.foodData = foodData;
         SetDiningRoomData();
     }
-    private void SetDiningRoomData()
+    public void SetDiningRoomData()
     {
         if (isPossibleButton)
         {

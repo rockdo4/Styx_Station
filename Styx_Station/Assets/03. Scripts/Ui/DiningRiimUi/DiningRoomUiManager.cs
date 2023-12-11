@@ -24,10 +24,14 @@ public class DiningRoomUIManager : MonoBehaviour
     public DiningRoomButtonData[] diningRoomButtdonDatas =new DiningRoomButtonData[6];
     public DiningRoomUIFoodDataInfo diningRoomUIFoodDataInfo;
 
-    public TextMeshProUGUI makeFoodTimerText;
 
+    public TextMeshProUGUI makeFoodTimerText;
     [SerializeField] private string timeRemainingStringTableKey;
     [HideInInspector] private StringTableData timeRemainingStrinTableData;
+
+    private int timerUpgradeLevel;
+    public TextMeshProUGUI timerUpgradeText;
+    public TextMeshProUGUI timerText;
 
     private void Awake()
     {
@@ -35,15 +39,36 @@ public class DiningRoomUIManager : MonoBehaviour
     }
     private void Start()
     {
-        makeFoodData = DiningRoomSystem.Instance.GetAllFoodData();
+        
         prevSelectCount = DiningRoomSystem.Instance.selectFoodCount;
+
+        TimerUpgradeTextSetting();
         DiningRoomButtonDataSetIsPossibleButton();
         if (!isResetDiningTable)
         {
             isResetDiningTable = true;
             SettingGradeFood();
-            timeRemainingStrinTableData = MakeTableData.Instance.stringTable.dic[timeRemainingStringTableKey];
+            if (MakeTableData.Instance.stringTable != null)
+                timeRemainingStrinTableData = MakeTableData.Instance.stringTable.dic[timeRemainingStringTableKey];
+            else
+            { 
+                MakeTableData.Instance.stringTable = new StringTable();
+                timeRemainingStrinTableData = MakeTableData.Instance.stringTable.dic[timeRemainingStringTableKey];
+            }
         }
+        if (!DiningRoomSystem.Instance.isAwkeTime)
+        {
+            var savefood = DiningRoomSystem.Instance.saveFood;
+            for (int i = 0; i < savefood.Length; i++)
+            {
+                if (savefood[i] != null)
+                {
+                    LoadFood(savefood[i]);
+                }
+            }
+            DiningRoomSystem.Instance.isAwkeTime = true;
+        }
+        makeFoodData = DiningRoomSystem.Instance.GetAllFoodData();
         MakeFood();
     }
     private void FixedUpdate()
@@ -53,7 +78,7 @@ public class DiningRoomUIManager : MonoBehaviour
     private void Update()
     {
         MakeFood();
-        if(prevSelectCount !=  DiningRoomSystem.Instance.selectFoodCount)
+        if (prevSelectCount !=  DiningRoomSystem.Instance.selectFoodCount)
         {
             DiningRoomButtonDataSetIsPossibleButton();
         }
@@ -67,6 +92,7 @@ public class DiningRoomUIManager : MonoBehaviour
             if (i < prevSelectCount)
             {
                 diningRoomButtdonDatas[i].isPossibleButton = true;
+                diningRoomButtdonDatas[i].SetDiningRoomData();
             }
             else
                 break;
@@ -85,7 +111,7 @@ public class DiningRoomUIManager : MonoBehaviour
             int temp = 0;
             for (int i = 0; i < DiningRoomSystem.Instance.counting; ++i)
             {
-                var food = ChooseFoodByProbability();
+                var food =ChooseFoodByProbability();
                 DiningRoomSystem.Instance.SetFood(food);
                 temp++;
             }
@@ -115,7 +141,7 @@ public class DiningRoomUIManager : MonoBehaviour
     {
         if (fGradeFood.Count == 0 || eGradeFood.Count == 0 || dGradeFood.Count == 0 || cGradeFood.Count == 0 || bGradeFood.Count == 0
             || aGradeFood.Count == 0 || sGradeFood.Count == 0)
-        { 
+        {
             if (MakeTableData.Instance.diningRoomTable != null)
             {
                 foodId = MakeTableData.Instance.diningRoomTable.GetFoodTableID();
@@ -229,6 +255,19 @@ public class DiningRoomUIManager : MonoBehaviour
         }
     }
 
+    private void TimerUpgradeTextSetting()
+    {
+        if (timerUpgradeLevel != DiningRoomSystem.Instance.timerUpgradeLevel || !DiningRoomSystem.Instance.isAwkeTime)
+        {
+            timerUpgradeLevel = DiningRoomSystem.Instance.timerUpgradeLevel;
+            timerUpgradeText.text = $"LV.{timerUpgradeLevel + 1} > LV.{timerUpgradeLevel + 2}";
+            TimeSpan timeSpanMax = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max);
+            var timerStr = timeSpanMax.ToString(@"hh\:mm\:ss");
+            TimeSpan timeSpanDecrease = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max - (DiningRoomSystem.Instance.decreaseMaxTimer * (timerUpgradeLevel + 1)));
+            var timerStr2 = timeSpanDecrease.ToString(@"hh\:mm\:ss");
+            timerText.text = $"{timerStr} > {timerStr2}";
+        }
+    }
     private void SetDiningRoomTimerText()
     {
         TimeSpan timeSpan = TimeSpan.FromSeconds(DiningRoomSystem.Instance.timer);
@@ -270,6 +309,91 @@ public class DiningRoomUIManager : MonoBehaviour
                     break;
             }
             makeFoodTimerText.text = $"{str} : {timer} \t{makeCount}/{selecCount}";
+        }
+    }
+
+    public void LoadFood(SaveFoodData foodData)
+    {
+        SettingGradeFood();
+
+        switch ((FoodType)foodData.Food_Type)
+        {
+            case FoodType.F:
+                foreach (var f in fGradeFood)
+                {
+                    if (f.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        DiningRoomSystem.Instance.SetFood(f);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.E:
+                foreach (var e in eGradeFood)
+                {
+                    if (e.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        DiningRoomSystem.Instance.SetFood(e);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.D:
+                foreach (var d in dGradeFood)
+                {
+                    if (d.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        DiningRoomSystem.Instance.SetFood(d);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.C:
+                foreach (var c in cGradeFood)
+                {
+                    if (c.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        DiningRoomSystem.Instance.SetFood(c);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.B:
+                foreach (var b in bGradeFood)
+                {
+                    if (b.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        DiningRoomSystem.Instance.SetFood(b);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.A:
+                foreach (var a in aGradeFood)
+                {
+                    if (a.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        DiningRoomSystem.Instance.SetFood(a);
+                        return;
+                    }
+                }
+                break;
+
+            case FoodType.S:
+                foreach (var s in sGradeFood)
+                {
+                    if (s.Food_Name_ID == foodData.Food_Name_ID)
+                    {
+                        DiningRoomSystem.Instance.SetFood(s);
+                        return;
+                    }
+                }
+                break;
         }
     }
 

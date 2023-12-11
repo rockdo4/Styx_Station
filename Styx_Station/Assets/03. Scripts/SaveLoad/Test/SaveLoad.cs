@@ -101,24 +101,23 @@ public class SaveLoad : MonoBehaviour
 
         data.gameSaveDatas.stageData = GameData.stageData;
 
-        ////// ui �Ŵ������� ��������;
-        //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-        //var datas = getCode.thisIsTestCode.diningRoomUiButton.foodDatas;
-        //for(int i =0;i<datas.Length;++i)
-        //{
-        //    var texture = getCode.thisIsTestCode.diningRoomUiButton.foodButton[i].GetComponent<Image>();
-        //    if (datas[i] !=null && texture.sprite != getCode.thisIsTestCode.diningRoomUiButton.cookImage)
-        //    {
-        //        SaveFoodData foodData =new SaveFoodData();
-        //        foodData.Food_Type = datas[i].Food_Type;
-        //        foodData.Food_Name_ID = datas[i].Food_Name_ID;
-        //        data.gameSaveDatas.diningRoomSaveFoodData[i] = foodData;
-        //    }
-        //}
-
-        //data.gameSaveDatas.foodTimerUpgradeLevelUp = getCode.thisIsTestCode.foodTimerUpgradeLevelUp;
-        //data.gameSaveDatas.foodSelectUpgradeLevelUp = getCode.thisIsTestCode.foodSelectUpgradeLevelUp;
-        //data.gameSaveDatas.diningRoomTimer = getCode.thisIsTestCode.timer;
+        if (DiningRoomSystem.Instance != null)
+        {
+            var foodDatas = DiningRoomSystem.Instance.foodDatas;
+            for (int i = 0; i < foodDatas.Length; ++i)
+            {
+                if (foodDatas[i] != null)
+                {
+                    SaveFoodData foodData = new SaveFoodData();
+                    foodData.Food_Type = foodDatas[i].Food_Type;
+                    foodData.Food_Name_ID = foodDatas[i].Food_Name_ID;
+                    data.gameSaveDatas.diningRoomSaveFoodData[i] = foodData;
+                }
+            }
+            data.gameSaveDatas.foodTimerUpgradeLevelUp = DiningRoomSystem.Instance.timerUpgradeLevel;
+            data.gameSaveDatas.foodSelectUpgradeLevelUp = DiningRoomSystem.Instance.selectFoodUpgrade;
+            data.gameSaveDatas.diningRoomTimer = DiningRoomSystem.Instance.timer;
+        }
 
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
@@ -311,18 +310,16 @@ public class SaveLoad : MonoBehaviour
                 }
                 if (gameSaveDatas["diningRoomSaveFoodData"] is JToken diningRoomSaveFoodDatats)
                 {
-                    //string str = diningRoomSaveFoodDatats.ToString();
-                    //var saveFoodData = JsonConvert.DeserializeObject<SaveFoodData[]>(str);
-                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    //for (int i=0;i<saveFoodData.Length;i++)
-                    //{
-                    //    if (saveFoodData[i] != null)
-                    //    {
-                    //        getCode.thisIsTestCode.diningRoomUiButton.loadCurrentIndex = i;
-                    //        getCode.thisIsTestCode.LoadFood(saveFoodData[i]);
-                    //    }
-                    //}
-                       
+                    string str = diningRoomSaveFoodDatats.ToString();
+                    var saveFoodData = JsonConvert.DeserializeObject<SaveFoodData[]>(str);
+                    for (int i = 0; i < saveFoodData.Length; i++)
+                    {
+                        if (saveFoodData[i] != null)
+                        {
+                            DiningRoomSystem.Instance.LoadFoodData(saveFoodData[i], i);
+                        }
+                    }
+
                 }
                 if (gameSaveDatas["diningRoomTimer"] is JToken timer)
                 {

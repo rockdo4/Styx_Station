@@ -10,9 +10,20 @@ using System;
 
 public class SaveLoad : MonoBehaviour
 {
+    private DiningRoomSystem diningRoomsystem;
+    private void Start()
+    {
+        if (diningRoomsystem == null)
+        {
+            diningRoomsystem = DiningRoomSystem.Instance;
+        }
+
+    }
     public void Save()
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
+
+       
 
         data.gameSaveDatas.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
         data.gameSaveDatas.playerdata.playerPowerboost = SharedPlayerStats.GetPlayerPowerBoost();
@@ -101,9 +112,9 @@ public class SaveLoad : MonoBehaviour
 
         data.gameSaveDatas.stageData = GameData.stageData;
 
-        if (DiningRoomSystem.Instance != null)
+        if (diningRoomsystem != null)
         {
-            var foodDatas = DiningRoomSystem.Instance.foodDatas;
+            var foodDatas = diningRoomsystem.foodDatas;
             for (int i = 0; i < foodDatas.Length; ++i)
             {
                 if (foodDatas[i] != null)
@@ -114,11 +125,11 @@ public class SaveLoad : MonoBehaviour
                     data.gameSaveDatas.diningRoomSaveFoodData[i] = foodData;
                 }
             }
-            data.gameSaveDatas.foodTimerUpgradeLevelUp = DiningRoomSystem.Instance.timerUpgradeLevel;
-            data.gameSaveDatas.foodSelectUpgradeLevelUp = DiningRoomSystem.Instance.selectFoodCount;
-            data.gameSaveDatas.diningRoomTimer = DiningRoomSystem.Instance.timer;
+            data.gameSaveDatas.foodTimerUpgradeLevelUp = diningRoomsystem.timerUpgradeLevel;
+            data.gameSaveDatas.foodSelectUpgradeLevelUp = diningRoomsystem.selectFoodCount;
+            data.gameSaveDatas.diningRoomTimer = diningRoomsystem.timer;
         }
-
+        
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
     }
@@ -299,14 +310,15 @@ public class SaveLoad : MonoBehaviour
                 }
                 if(gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
                 {
-                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    //getCode.thisIsTestCode.foodTimerUpgradeLevelUp = int.Parse(foodtimerUpgradeLevel.ToString());
+                    DiningRoomSystem.Instance.timerUpgradeLevel = int.Parse(foodtimerUpgradeLevel.ToString());
                 }
                 if (gameSaveDatas["foodSelectUpgradeLevelUp"] is JToken foodSelect)
                 {
-                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    //var number = getCode.thisIsTestCode.foodSelectUpgradeLevelUp = int.Parse(foodSelect.ToString());
-                    //getCode.thisIsTestCode.diningRoomUiButton.upgradeSelectFoodCount = number+2;
+                    var t = int.Parse(foodSelect.ToString());
+                    if (t <= 0)
+                        t = 1;
+
+                    DiningRoomSystem.Instance.selectFoodCount = t;
                 }
                 if (gameSaveDatas["diningRoomSaveFoodData"] is JToken diningRoomSaveFoodDatats)
                 {
@@ -323,11 +335,20 @@ public class SaveLoad : MonoBehaviour
                 }
                 if (gameSaveDatas["diningRoomTimer"] is JToken timer)
                 {
-                    //string str = timer.ToString();
-                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    //var timerData = JsonConvert.DeserializeObject<float>(str);
-                    //getCode.thisIsTestCode.timer = timerData;
+                    string str = timer.ToString();
+                    var timerData = JsonConvert.DeserializeObject<float>(str);
+                    if(timerData <=0f)
+                    {
+                        DiningRoomSystem.Instance.isLoad = false;
+                    }
+                    else
+                    {
+                        DiningRoomSystem.Instance.timer = timerData;
+                        DiningRoomSystem.Instance.isLoad = true;
+                    }
+                    DiningRoomSystem.Instance.LoadMaxTimer();
 
+                    DiningRoomSystem.Instance.CalculateTimer();
                 }
             }
         }

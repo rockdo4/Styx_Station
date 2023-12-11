@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TreeEditor;
 using UnityEngine;
 
 public class DiningRoomSystem : Singleton<DiningRoomSystem>
@@ -23,15 +25,15 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     public SaveFoodData[] saveFood = new SaveFoodData[6];
 
     [HideInInspector]public bool isAwkeTime;
+    [HideInInspector] public bool isLoad;
 
     public float decreaseMaxTimer=30f;
     private void Awake()
     {
-        for(int i=0;i<=timerUpgradeLevel;++i)
-        {
-            max -= decreaseMaxTimer * i;
-        }
-        timer = max;
+        
+    }
+    private void Start()
+    {
     }
     private void Update()
     {
@@ -68,6 +70,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             return;
         }
         selectFoodCount++;
+        isFullFood = false;
         if(selectFoodCount >=maxSelectfoodCount)
         {
             isMaxSelectUpgradeLevel = true; 
@@ -114,6 +117,47 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     public void LoadFoodData(SaveFoodData saveFoodData,int index)
     {
         saveFood[index] = saveFoodData;
+    }
+    public void LoadMaxTimer()
+    {
+        for (int i = 0; i < timerUpgradeLevel; ++i)
+        {
+            max -= decreaseMaxTimer * i;
+        }
+        if (!isLoad)
+        {
+            timer = max;
+            isLoad = true;
+        }
+    }
+    public void CalculateTimer()
+    {
+        var exitTime =DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
+        var nowTimeStr =DateTime.Now.ToString(GameData.datetimeString);
+        var nowTimeSpan = DateTime.ParseExact(nowTimeStr, GameData.datetimeString, null);
+
+        TimeSpan timeDifference = nowTimeSpan.Subtract(exitTime);
+        float tmepTime = 0f;
+        if(timeDifference.TotalSeconds >0f)
+        {
+             timer -= (float)timeDifference.TotalSeconds;
+             tmepTime = timer;
+        }
+
+        while(tmepTime <0f)
+        {
+            if (timer < 0f)
+            {
+                counting++;
+                tmepTime += max;
+                timer = max;
+                if (counting >= selectFoodCount)
+                {
+                    FoodDatasNullCheck();
+                }
+            }
+        }
+        
     }
 
     public void ResetSaveFoodData()

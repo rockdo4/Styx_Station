@@ -8,9 +8,11 @@ public class DiningRoomButtonData : MonoBehaviour
     [HideInInspector] public bool isPossibleButton;
     public Button button;
     public Image imageObject;
+    public Image lockImageObject;
     public Sprite lockSprite;
     public Sprite backGround;
     [HideInInspector] public bool onClick;
+    
 
     private void Awake()
     {
@@ -22,10 +24,11 @@ public class DiningRoomButtonData : MonoBehaviour
         this.foodData = foodData;
         SetDiningRoomData();
     }
-    private void SetDiningRoomData()
+    public void SetDiningRoomData()
     {
         if (isPossibleButton)
         {
+            lockImageObject.gameObject.SetActive(false);
             if (foodData == null)
             {
                 imageObject.sprite = backGround;
@@ -39,7 +42,7 @@ public class DiningRoomButtonData : MonoBehaviour
         }
         else
         {
-            imageObject.sprite = lockSprite;
+            lockImageObject.sprite = lockSprite;
             button.interactable = false;
         }
     }

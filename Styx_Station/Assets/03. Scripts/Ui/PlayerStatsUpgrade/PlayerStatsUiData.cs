@@ -47,7 +47,6 @@ public class PlayerStatsUiData : MonoBehaviour
             clickTime = PlayerStatsUIManager.Instance.clickTime;
         }
     }
-
     private void Update()
     {
         if (onClickButton)
@@ -65,7 +64,6 @@ public class PlayerStatsUiData : MonoBehaviour
                     action.Invoke();
                 }
                 SetTextLevelAndPrice(index);
-                Debug.Log($"time :{clickTime}");
             }
         }
     }

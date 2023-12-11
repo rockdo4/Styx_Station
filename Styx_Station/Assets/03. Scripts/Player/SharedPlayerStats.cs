@@ -21,7 +21,7 @@ public static class SharedPlayerStats
 
     private static int playerAttackSpeed = 1;
     public static int PlayerAttackSpeed { set { playerAttackSpeed = value; } }
-    private static int attackSpeedMax = 200;
+    private static int attackSpeedMax = 300;
     private static bool isAttackSpeedMax = false;
     public static bool IsAttackSpeedMax
     {

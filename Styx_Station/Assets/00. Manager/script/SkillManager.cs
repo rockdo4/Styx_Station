@@ -108,7 +108,7 @@ public class SkillManager : MonoBehaviour
 
     private void SetEquipSkillCool()
     {
-        for(int i =0; i< equipSkillFlags.Length;i++)
+        for (int i = 0; i < equipSkillFlags.Length - 1; i++)
         {
             equipSkillFlags[i] = skillCools[equipSkills[i].skillIndex + 1];
         }
@@ -169,8 +169,8 @@ public class SkillManager : MonoBehaviour
         {
             FindeSkillBase(0).UseSkill(player);
             skillcool |= equipSkillFlags[0];
-            StartCoroutine(Skill1CoolDown(equipSkills[0].skill.Skill_Cool));
-            skillcool &= ~equipSkillFlags[0];
+            StartCoroutine(Skill1CoolDown(equipSkills[0].skill.Skill_Cool, equipSkillFlags[0]));
+            //skillcool &= ~equipSkillFlags[0];
             //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
@@ -199,8 +199,8 @@ public class SkillManager : MonoBehaviour
         {
             FindeSkillBase(1).UseSkill(player);
             skillcool |= equipSkillFlags[1];
-            StartCoroutine(Skill2CoolDown(equipSkills[1].skill.Skill_Cool));
-            skillcool &= ~equipSkillFlags[1];
+            StartCoroutine(Skill2CoolDown(equipSkills[1].skill.Skill_Cool, equipSkillFlags[1]));
+            //skillcool &= ~equipSkillFlags[1];
             //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
@@ -229,8 +229,8 @@ public class SkillManager : MonoBehaviour
         {
             FindeSkillBase(2).UseSkill(player);
             skillcool |= equipSkillFlags[2];
-            StartCoroutine(Skill3CoolDown(equipSkills[2].skill.Skill_Cool));
-            skillcool &= ~equipSkillFlags[2];
+            StartCoroutine(Skill3CoolDown(equipSkills[2].skill.Skill_Cool, equipSkillFlags[2]));
+            //skillcool &= ~equipSkillFlags[2];
             //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
@@ -259,8 +259,8 @@ public class SkillManager : MonoBehaviour
         {
             FindeSkillBase(3).UseSkill(player);
             skillcool |= equipSkillFlags[3];
-            StartCoroutine(Skill4CoolDown(equipSkills[3].skill.Skill_Cool));
-            skillcool &= ~equipSkillFlags[3];
+            StartCoroutine(Skill4CoolDown(equipSkills[3].skill.Skill_Cool, equipSkillFlags[3]));
+            //skillcool &= ~equipSkillFlags[3];
             //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
@@ -289,8 +289,8 @@ public class SkillManager : MonoBehaviour
         {
             FindeSkillBase(4).UseSkill(player);
             skillcool |= equipSkillFlags[4];
-            StartCoroutine(Skill5CoolDown(equipSkills[4].skill.Skill_Cool));
-            skillcool &= ~equipSkillFlags[4];
+            StartCoroutine(Skill5CoolDown(equipSkills[4].skill.Skill_Cool, equipSkillFlags[4]));
+            //skillcool &= ~equipSkillFlags[4];
             //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
@@ -319,53 +319,53 @@ public class SkillManager : MonoBehaviour
         {
             FindeSkillBase(5).UseSkill(player);
             skillcool |= equipSkillFlags[5];
-            StartCoroutine(Skill6CoolDown(equipSkills[5].skill.Skill_Cool));
-            skillcool &= ~equipSkillFlags[5];
+            StartCoroutine(Skill6CoolDown(equipSkills[5].skill.Skill_Cool, equipSkillFlags[5]));
+            //skillcool &= ~equipSkillFlags[5];
             //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
-
+    
     private SkillBase FindeSkillBase(int skillIndex)
     {
         return skills[skillIndex];
     }
-    IEnumerator Skill1CoolDown(float cooldown)
+    IEnumerator Skill1CoolDown(float cooldown, SkillCool cool)
     {
         //skillcool |= SkillCool.skill001;
         yield return new WaitForSeconds(cooldown);
-        //skillcool &= ~SkillCool.skill001;
+        skillcool &= ~cool;
     }
 
-    IEnumerator Skill2CoolDown(float cooldown)
+    IEnumerator Skill2CoolDown(float cooldown, SkillCool cool)
     {
         //skillcool |= SkillCool.skill002;
         yield return new WaitForSeconds(cooldown);
-        //skillcool &= ~SkillCool.skill002;
+        skillcool &= ~cool;
     }
 
-    IEnumerator Skill3CoolDown(float cooldown)
+    IEnumerator Skill3CoolDown(float cooldown, SkillCool cool)
     {
         //skillcool |= SkillCool.skill003;
         yield return new WaitForSeconds(cooldown);
-        //skillcool &= ~SkillCool.skill003;
+        skillcool &= ~cool;
     }
 
-    IEnumerator Skill4CoolDown(float cooldown)
+    IEnumerator Skill4CoolDown(float cooldown, SkillCool cool)
     {
         //skillcool |= SkillCool.skill006;
         yield return new WaitForSeconds(cooldown);
-        //skillcool &= ~SkillCool.skill006;
+        skillcool &= ~cool;
     }
-    IEnumerator Skill5CoolDown(float cooldown)
+    IEnumerator Skill5CoolDown(float cooldown, SkillCool cool)
     {
         //skillcool |= SkillCool.skill006;
         yield return new WaitForSeconds(cooldown);
-        //skillcool &= ~SkillCool.skill006;
+        skillcool &= ~cool;
     }
-    IEnumerator Skill6CoolDown(float cooldown)
+    IEnumerator Skill6CoolDown(float cooldown, SkillCool cool)
     {
         //skillcool |= SkillCool.skill006;
         yield return new WaitForSeconds(cooldown);
-        //skillcool &= ~SkillCool.skill006;
+        skillcool &= ~cool;
     }
 }

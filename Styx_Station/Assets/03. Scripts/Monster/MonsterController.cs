@@ -34,6 +34,7 @@ public class MonsterController : PoolAble //MonoBehaviour
     public GameObject skullImage;
     public GameObject lightningImage;
 
+    private int initialSortingOrder = 0;
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
@@ -64,6 +65,8 @@ public class MonsterController : PoolAble //MonoBehaviour
         executeHit = GetComponentInChildren<ExecuteHit>();
 
         skullImage.SetActive(false);
+
+        initialSortingOrder = GetComponentInChildren<SortingGroup>().sortingOrder;
     }
     private void Start()
     {
@@ -164,6 +167,11 @@ public class MonsterController : PoolAble //MonoBehaviour
             }
             yield return new WaitForSeconds(1);
         }
+    }
+    public override void ReleaseObject()
+    {
+        GetComponentInChildren<SortingGroup>().sortingOrder = initialSortingOrder;
+        base.ReleaseObject();
     }
 
     //public void Hit()

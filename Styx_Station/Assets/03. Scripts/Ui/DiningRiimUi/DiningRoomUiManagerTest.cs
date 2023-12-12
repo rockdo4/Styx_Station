@@ -328,7 +328,7 @@ public class DiningRoomUiManagerTest : MonoBehaviour
         Log.Instance.MakeLogText(log);
         currentButtonIndex = -1;
         // 상시 습득으로 변경 추후 한번만인지 ? 확인후 변경해야함 ...
-        PlayerBuff.Instance.GetBuffAll(data.Food_ATK, data.Food_Cri, data.Food_Skill, data.Food_Boss, data.Food_Silup, data.Food_Du);
+        PlayerBuff.Instance.GetBuffAll(data.Food_ATK, data.Food_Cri, data.Food_Skill, data.Food_Boss, data.Food_Silup, data.Food_Du, data.Food_Type);
     }
     public void SellFood()
     {

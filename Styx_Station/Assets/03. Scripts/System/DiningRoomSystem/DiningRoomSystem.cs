@@ -30,6 +30,8 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     }
     private void Start()
     {
+        if (selectFoodCount == maxSelectfoodCount)
+            isMaxSelectUpgradeLevel = true;
         if (!isLoad)
         {
             timer = max;
@@ -143,7 +145,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             isLoad = true;
         }
     }
-    public void CalculateTimer()
+    public void CalculateTimer(int count)
     {
         var exitTime =DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
         var nowTimeStr =DateTime.Now.ToString(GameData.datetimeString);
@@ -157,14 +159,18 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
              tmepTime = timer;
         }
 
-        while(tmepTime <0f)
+        int newCount = selectFoodCount - count;
+        if (newCount <= 0)
+            return;
+
+        while (tmepTime <0f)
         {
             if (timer < 0f)
             {
                 counting++;
                 tmepTime += max;
                 timer = max;
-                if (counting >= selectFoodCount)
+                if (counting >= newCount)
                 {
                     break;  
                 }

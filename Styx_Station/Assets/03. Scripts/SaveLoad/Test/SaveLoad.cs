@@ -11,9 +11,10 @@ using System;
 public class SaveLoad : MonoBehaviour
 {
     private DiningRoomSystem diningRoomsystem;
+    private PlayerBuff playerbuff;
     private void Start()
     {
-       
+        playerbuff= PlayerBuff.Instance;
 
     }
     public void Save()
@@ -108,7 +109,6 @@ public class SaveLoad : MonoBehaviour
             GameData.stageData.wave = 1;
 
         data.gameSaveDatas.stageData = GameData.stageData;
-
         if (diningRoomsystem != null)
         {
             var foodDatas = diningRoomsystem.foodDatas;
@@ -126,7 +126,10 @@ public class SaveLoad : MonoBehaviour
             data.gameSaveDatas.foodSelectUpgradeLevelUp = diningRoomsystem.selectFoodCount;
             data.gameSaveDatas.diningRoomTimer = diningRoomsystem.timer;
         }
-        
+
+        data.gameSaveDatas.playerBuff = playerbuff.buffData;
+
+
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
     }
@@ -379,7 +382,14 @@ public class SaveLoad : MonoBehaviour
                     }
                     diningRoomsystem.LoadMaxTimer();
 
-                    diningRoomsystem.CalculateTimer();
+                    diningRoomsystem.CalculateTimer(count);
+                }
+                if (gameSaveDatas["playerBuff"] is JToken buffTimer)
+                {
+                    string str = buffTimer.ToString();
+                    var buffData = JsonConvert.DeserializeObject<PlayerBuffData>(str);
+                    PlayerBuff.Instance.buffData = buffData;
+
                 }
             }
         }

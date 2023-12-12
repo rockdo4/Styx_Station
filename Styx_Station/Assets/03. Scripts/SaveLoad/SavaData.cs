@@ -157,4 +157,6 @@ public class GameSaveData
     public int foodSelectUpgradeLevelUp;
     public SaveFoodData[] diningRoomSaveFoodData = new SaveFoodData[6];
     public float diningRoomTimer;
+
+    public PlayerBuffData playerBuff;
 }

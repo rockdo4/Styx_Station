@@ -19,6 +19,7 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI foodSellPomegranateText;
     [SerializeField] private TextMeshProUGUI foodInfoText;
     private StringTableData foodInfoStringTable;
+    public int currentIndex;
 
     public Button sellButton;
     public Button eatButton;
@@ -43,8 +44,17 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
     }
 
 
-    public void SetFoodData(FoodData foodData)
+    public void SetFoodData(FoodData foodData,int index)
     {
+        if(PlayerBuff.Instance.buffData.foodType > foodData.Food_Type)
+        {
+            eatButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            eatButton.gameObject.SetActive(true);
+        }
+        currentIndex=index;
         this.foodData = foodData;
         foodImage.sprite = this.foodData.sprite;
         isSetting=true; 

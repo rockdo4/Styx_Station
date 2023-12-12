@@ -17,7 +17,7 @@ public class WeaponType : InventoryType
 
     public int selectIndex = -1;
 
-    private List<Button> weaponButtons = new List<Button>();
+    public List<Button> weaponButtons { get; private set; } = new List<Button>();
 
     public override void Open()
     {

@@ -15,12 +15,13 @@ public class BlackCloud : SkillBase
     }
     public override void UseSkill(GameObject attacker)
     {
-        var blackCloud = ObjectPoolManager.instance.GetGo(blackCloudPrefab.name);
+        var blackCloudObj = ObjectPoolManager.instance.GetGo(blackCloudPrefab.name);
         //var tornado = Object.Instantiate(tornadoShotPrefab);
         if (blackCloud == null)
         {
             Debug.Log("ERR: blackCloud is null");
             return;
         }
+        blackCloudObj.GetComponent<BlackCloudShot>().SetBlackCloudShot(blackCloud.skill.Skill_ATK_NUM);
     }
 }

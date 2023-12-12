@@ -2,7 +2,7 @@ using System.Collections;
 using System.Numerics;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public class Shooter : PoolAble
 {
     public BigInteger GetDamage(BigInteger currDamage, float damageMultiplier)
     {

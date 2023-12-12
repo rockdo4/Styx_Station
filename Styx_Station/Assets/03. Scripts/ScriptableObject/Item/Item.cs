@@ -6,51 +6,36 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Items/Item")]
 public class Item : ScriptableObject, IItemEquiptable, IItemDequiptable
 {
-    [Tooltip("아이템 이름 - Inspector 창에서만 적용")]
     public string itemName;
 
-    [Tooltip("장비 종류")]
     public ItemType type;
 
-    [Tooltip("아이템 등급")]
     public Tier tier;
 
-    [Tooltip("세부 등급")]
     public Enchant enchant;
 
-    [Tooltip("강화 필요 수치")]
     public List<int> itemLevUpNum = new List<int>();
 
     [System.Serializable]
     public struct Option
     {
-        [Tooltip("기본 옵션")]
         public ItemOptionString option;
-        [Tooltip("기본 스탯")]
         public float value;
-        [Tooltip("강화 시 스탯 추가 증가량")]
         public float upgradeValue;
     }
 
-    [Tooltip("아이템 기본 옵션")]
     public List<Option> options = new List<Option>();
 
     [System.Serializable]
     public struct AddOption
     {
-        [Tooltip("추가 옵션")]
         public AddOptionString option;
-        [Tooltip("증가량")]
         public float value;
-        [Tooltip("고정 옵션 증가치")]
         public float upgradeValue;
     }
 
-    [Tooltip("아이템 추가 옵션")]
     public List<AddOption> addOptions = new List<AddOption>();
 
-    [Tooltip("아이템 아이콘")]
-    [JsonIgnore]
     public Sprite itemIcon;
 
     public void AcquireValue()

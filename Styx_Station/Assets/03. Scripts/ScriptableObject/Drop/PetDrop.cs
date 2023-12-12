@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Drops/PetDrop")]
 public class PetDrop : ScriptableObject
 {
-    [Tooltip("드롭 아이템 테이블")]
     public List<AddPet> pets = new List<AddPet>();
 
     [System.Serializable]

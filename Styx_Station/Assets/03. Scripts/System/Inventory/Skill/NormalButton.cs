@@ -1,12 +1,13 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class NormalButton : MonoBehaviour
 {
     public SkillInventory inventory;
 
-    public TextMeshProUGUI skillName;
+    public Image skillImage;
 
     public int skillIndex;
     public int equipIndex;
@@ -16,11 +17,11 @@ public class NormalButton : MonoBehaviour
 
         if (skillIndex < 0)
         {
-            skillName.text = "None";
+            skillImage.sprite = null;
             return;
         }
 
-        skillName.text = inventory.skills[skillIndex].skill.Skill_Name;
+        skillImage.sprite = inventory.skills[skillIndex].skill.image;
     }
     public void OnClickDequip(bool equipMode)
     {
@@ -30,7 +31,7 @@ public class NormalButton : MonoBehaviour
         inventory.DequipSkill(skillIndex, equipIndex);
 
         skillIndex = -1;
-        skillName.text = "None";
+        skillImage.sprite = null;
     }
 
     public void OnClickEquip(SkillWindow window)
@@ -51,7 +52,7 @@ public class NormalButton : MonoBehaviour
         }
 
         skillIndex = window.selectIndex;
-        skillName.text = inventory.skills[skillIndex].skill.Skill_Name;
+        skillImage.sprite = inventory.skills[skillIndex].skill.image;
 
         window.equipMode = false;
         inventory.EquipSkill(skillIndex, equipIndex);

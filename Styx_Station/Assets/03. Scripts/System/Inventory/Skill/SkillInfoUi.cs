@@ -34,6 +34,18 @@ public class SkillInfoUi : MonoBehaviour
             lev.text = $"Lv.{skill.upgradeLev}\n\n({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.skill.Skill_LVUP_NU.Count-1]})";
     }
 
+    public void OnClickEquip()
+    {
+        if (inventory.skills[selectIndex].equip)
+        {
+            var skill = inventory.skills[selectIndex];
+            var index = skill.equipIndex;
+            inventory.DequipSkill(selectIndex, index);
+            var button = UIManager.Instance.skill.equipButtons[index].gameObject.GetComponent<NormalButton>();
+
+        }
+    }
+
     public void OnClickUpgrade()
     {
         gameObject.GetComponent<Upgrade>().SkillUpgrade(selectIndex);

@@ -26,10 +26,17 @@ public class UIManager : Singleton<UIManager>
 
     private Coroutine move;
 
-    private SkillWindow skill;
+    public SkillWindow skill;
 
     public void Open(WindowType inventoryType)
     {
+        if (!first)
+        {
+            wayPoint = wayPoints[0].transform.position - wayPoints[1].transform.position;
+            buttonPos = buttons.transform.position;
+            first = true;
+        }
+
         if (windows[(int)currentWindow].gameObject.activeSelf)
             windows[(int)currentWindow].Close();
 
@@ -41,6 +48,9 @@ public class UIManager : Singleton<UIManager>
     public void OnClickInfo()
     {
         Open(WindowType.Info);
+
+        CloseMainMenu();
+        SkillButtonOff();
     }
     public void OnClickDiningRoom()
     {
@@ -68,29 +78,43 @@ public class UIManager : Singleton<UIManager>
         {
             wayPoint = wayPoints[0].transform.position - wayPoints[1].transform.position;
             buttonPos = buttons.transform.position;
-            skill = windows[(int)WindowType.Info].GetComponent<InfoWindow>().inventorys[2].GetComponent<SkillWindow>();
             first = true;
         }
 
         windows[(int)currentWindow].Close();
 
-        if (menu && move == null)
-        {
-            foreach (var button in windowButtons)
-            {
-                button.GetComponent<Button>().interactable = false;
-            }
-
-            move = StartCoroutine(LeftMove());
-
-            menu = false;
-        }
+        CloseMainMenu();
     }
 
     public void CloseTrain()
     {
         OnClickClose();
 
+        OpenMainMenu();
+    }
+    public void SkillButtonOn()
+    {
+        skill.Setting();
+
+        foreach (var button in skill.slotButtons)
+        {
+            button.gameObject.SetActive(true);
+        }
+        skill.slotButtons[6].SetActive(false);
+    }
+
+    public void SkillButtonOff()
+    {
+        skill.Setting();
+
+        foreach (var button in skill.slotButtons)
+        {
+            button.gameObject.SetActive(false);
+        }
+    }
+
+    public void OpenMainMenu()
+    {
         if (!menu && move == null)
         {
             foreach (var button in windowButtons)
@@ -101,6 +125,21 @@ public class UIManager : Singleton<UIManager>
             move = StartCoroutine(RightMove());
 
             menu = true;
+        }
+    }
+
+    public void CloseMainMenu()
+    {
+        if (menu && move == null)
+        {
+            foreach (var button in windowButtons)
+            {
+                button.GetComponent<Button>().interactable = false;
+            }
+
+            move = StartCoroutine(LeftMove());
+
+            menu = false;
         }
     }
 
@@ -119,10 +158,8 @@ public class UIManager : Singleton<UIManager>
         {
             button.GetComponent<Button>().interactable = true;
         }
-        foreach (var button in skill.equipButtons)
-        {
-            button.gameObject.SetActive(true);
-        }
+        SkillButtonOn();
+
         buttons.transform.position = buttonPos;
         move = null;
     }
@@ -130,10 +167,7 @@ public class UIManager : Singleton<UIManager>
     {
         float timer = 0f;
 
-        foreach (var button in skill.equipButtons)
-        {
-            button.gameObject.SetActive(false);
-        }
+        SkillButtonOff();
 
         while (timer < 1f)
         {

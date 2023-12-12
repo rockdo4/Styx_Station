@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Drops/ItemDrop")]
 public class ItemDrop: ScriptableObject
 {
-    [Tooltip("드롭 아이템 테이블")]
     public List<AddItem> items = new List<AddItem>();
 
     [System.Serializable]

@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Drops/SkillDrop")]
 public class SkillDrop : ScriptableObject
 {
-    [Tooltip("드롭 아이템 테이블")]
     public List<AddSkill> skills = new List<AddSkill>();
 
     [System.Serializable]

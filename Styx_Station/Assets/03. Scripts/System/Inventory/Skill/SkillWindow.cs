@@ -13,15 +13,16 @@ public class SkillWindow : SubWindow
 
     public GameObject info;
 
+    public List<GameObject> slotButtons = new List<GameObject>();
     public List<Button> equipButtons = new List<Button>();
     public List<Button> skillButtons = new List<Button>();
+
+    private bool first = false;
 
     public override void Open()
     {
         selectIndex = -1;
         equipMode = false;
-
-        EquipSkillUpdate();
 
         base.Open();
 
@@ -51,27 +52,27 @@ public class SkillWindow : SubWindow
     }
 
 
-    private void Awake()
+    public void Setting()
     {
-        inventory = InventorySystem.Instance.skillInventory;
-        info.GetComponent<SkillInfoUi>().Inventory();
-        equipMode = false;
+        if (!first)
+        {
+            inventory = InventorySystem.Instance.skillInventory;
+            info.GetComponent<SkillInfoUi>().Inventory();
+            equipMode = false;
 
-        for(int i = 0; i<skillButtons.Count;++i)
-        { 
-            var button = skillButtons[i].GetComponent<SkillButton>();
-            if (button == null)
-                continue;
+            for (int i = 0; i < skillButtons.Count; ++i)
+            {
+                var button = skillButtons[i].GetComponent<SkillButton>();
+                if (button == null)
+                    continue;
 
-            button.skillIndex = i;
-            button.inventory = inventory;
-            button.image = button.transform.GetChild(0).gameObject;
-            skillButtons[i].onClick.AddListener(()=>button.OnClickOpenInfo(this));
+                button.skillIndex = i;
+                button.inventory = inventory;
+                button.image = button.transform.GetChild(0).gameObject;
+                skillButtons[i].onClick.AddListener(() => button.OnClickOpenInfo(this));
+            }
+            first = true;
         }
-    }
-
-    private void EquipSkillUpdate()
-    {
     }
 
     public void WindowUpdate()
@@ -108,5 +109,18 @@ public class SkillWindow : SubWindow
             return;
 
         equipMode = true;
+        foreach(var slot in slotButtons)
+        {
+            slot.gameObject.SetActive(true);
+        }
+    }
+
+    public void OnClickEquipClose()
+    {
+        equipMode = false;
+        foreach (var slot in slotButtons)
+        {
+            slot.gameObject.SetActive(false);
+        }
     }
 }

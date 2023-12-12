@@ -166,9 +166,15 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
                 timer = max;
                 if (counting >= selectFoodCount)
                 {
-                    FoodDatasNullCheck();
+                    break;  
                 }
             }
+            else
+            {
+                break;
+            }
+            timer += tmepTime;
+
         }
         
     }

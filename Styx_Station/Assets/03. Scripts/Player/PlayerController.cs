@@ -15,10 +15,7 @@ public class PlayerController : MonoBehaviour
     private ExcuteAttackPlayer executeHit;
     public AttackDefinition weapon;
 
-    // ?? 
-    [Header("플레이어 1초당 이동하는 속도")]
     public float playerMoveSpeed = 3f;
-    [Header("백그라운드 길이-> 백그라운드 / 플레이어 속도로 상태 변경")]
     public float backgroundLength = 6f;
     // ??
 

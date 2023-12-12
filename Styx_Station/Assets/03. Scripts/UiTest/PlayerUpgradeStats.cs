@@ -28,7 +28,6 @@ public class PlayerUpgradeStats : MonoBehaviour
     public int money1GainRate;
     private BigInteger test = new BigInteger(500000000); // test code               
 
-    //[Tooltip("a")]
     private LswTestUi lswtest;
     
     private void Awake()

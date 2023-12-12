@@ -30,6 +30,11 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     }
     private void Start()
     {
+        if (!isLoad)
+        {
+            timer = max;
+            isLoad = true;
+        }
     }
     private void Update()
     {

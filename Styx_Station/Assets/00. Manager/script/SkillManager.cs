@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static SkillInventory;
 
@@ -36,6 +37,31 @@ public class SkillManager : MonoBehaviour
     private SkillCool skillcool = SkillCool.None;
     private SkillInventory inventory;
     private InventorySKill[] equipSkills;
+    private SkillCool[] equipSkillFlags = new SkillCool[6];
+
+    private SkillCool[] skillCools = new SkillCool[] 
+    { 
+        SkillCool.None,
+        SkillCool.skill001,
+        SkillCool.skill002,
+        SkillCool.skill003,
+        SkillCool.skill004,
+        SkillCool.skill005,
+        SkillCool.skill006,
+        SkillCool.skill007,
+        SkillCool.skill008,
+        SkillCool.skill009,
+        SkillCool.skill010,
+        SkillCool.skill011,
+        SkillCool.skill012,
+        SkillCool.skill013,
+        SkillCool.skill014,
+        SkillCool.skill015,
+        SkillCool.skill016,
+        SkillCool.skill017,
+        SkillCool.skill018,
+    };
+
 
     public List<SkillBase> skills = new List<SkillBase>(); //스킬 인벤토리의 skill index와 index 맞추기
     private GameObject player;
@@ -71,6 +97,8 @@ public class SkillManager : MonoBehaviour
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
         skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab));
 
+        SetEquipSkillCool();
+
     }
 
     private void Start()
@@ -78,7 +106,13 @@ public class SkillManager : MonoBehaviour
         //skills.Add(new TripleShot(inventory.skills[0], shooterPrefab));
     }
 
-
+    private void SetEquipSkillCool()
+    {
+        for(int i =0; i< equipSkillFlags.Length;i++)
+        {
+            equipSkillFlags[i] = skillCools[equipSkills[i].skillIndex + 1];
+        }
+    }
     private void Update()
     {
         if(player.GetComponent<PlayerController>().currentStates == States.Move)
@@ -97,12 +131,22 @@ public class SkillManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            UseSkill6();
+            UseSkill3();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            UseSkill3();
+            UseSkill4();
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            UseSkill5();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            UseSkill6();
         }
     }
 
@@ -113,14 +157,21 @@ public class SkillManager : MonoBehaviour
             Debug.Log("ERR: Player is Null");
             return;
         }
-        if ((skillcool & SkillCool.skill001) != 0) //쿨 도는 중
+        //if ((skillcool & SkillCool.skill001) != 0) //쿨 도는 중
+        //{
+        //    Debug.Log("스킬 쿨 대기 중");
+        //}
+        if ((skillcool & equipSkillFlags[0]) != 0)
         {
             Debug.Log("스킬 쿨 대기 중");
         }
         else
         {
             FindeSkillBase(0).UseSkill(player);
-            StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
+            skillcool |= equipSkillFlags[0];
+            StartCoroutine(Skill1CoolDown(equipSkills[0].skill.Skill_Cool));
+            skillcool &= ~equipSkillFlags[0];
+            //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
 
@@ -131,14 +182,26 @@ public class SkillManager : MonoBehaviour
             Debug.Log("ERR: Player is Null");
             return;
         }
-        if ((skillcool & SkillCool.skill002) != 0) //쿨 도는 중
+        //if ((skillcool & SkillCool.skill002) != 0) //쿨 도는 중
+        //{
+        //    Debug.Log("스킬 쿨 대기 중");
+        //}
+        //else
+        //{
+        //    FindeSkillBase(1).UseSkill(player);
+        //    StartCoroutine(Skill2CoolDown(inventory.skills[1].skill.Skill_Cool));
+        //}
+        if ((skillcool & equipSkillFlags[1]) != 0)
         {
             Debug.Log("스킬 쿨 대기 중");
         }
         else
         {
             FindeSkillBase(1).UseSkill(player);
-            StartCoroutine(Skill2CoolDown(inventory.skills[1].skill.Skill_Cool));
+            skillcool |= equipSkillFlags[1];
+            StartCoroutine(Skill2CoolDown(equipSkills[1].skill.Skill_Cool));
+            skillcool &= ~equipSkillFlags[1];
+            //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
 
@@ -149,14 +212,86 @@ public class SkillManager : MonoBehaviour
             Debug.Log("ERR: Player is Null");
             return;
         }
-        if ((skillcool & SkillCool.skill003) != 0) //쿨 도는 중
+        //if ((skillcool & SkillCool.skill003) != 0) //쿨 도는 중
+        //{
+        //    Debug.Log("스킬 쿨 대기 중");
+        //}
+        //else
+        //{
+        //    FindeSkillBase(2).UseSkill(player);
+        //    StartCoroutine(Skill3CoolDown(inventory.skills[2].skill.Skill_Cool));
+        //}
+        if ((skillcool & equipSkillFlags[2]) != 0)
         {
             Debug.Log("스킬 쿨 대기 중");
         }
         else
         {
             FindeSkillBase(2).UseSkill(player);
-            StartCoroutine(Skill3CoolDown(inventory.skills[2].skill.Skill_Cool));
+            skillcool |= equipSkillFlags[2];
+            StartCoroutine(Skill3CoolDown(equipSkills[2].skill.Skill_Cool));
+            skillcool &= ~equipSkillFlags[2];
+            //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
+        }
+    }
+
+    public void UseSkill4()
+    {
+        if (player == null)
+        {
+            Debug.Log("ERR: Player is Null");
+            return;
+        }
+        //if ((skillcool & SkillCool.skill006) != 0) //쿨 도는 중
+        //{
+        //    Debug.Log("스킬 쿨 대기 중");
+        //}
+        //else
+        //{
+        //    FindeSkillBase(3).UseSkill(player);
+        //    StartCoroutine(Skill6CoolDown(inventory.skills[5].skill.Skill_Cool));
+        //}
+        if ((skillcool & equipSkillFlags[3]) != 0)
+        {
+            Debug.Log("스킬 쿨 대기 중");
+        }
+        else
+        {
+            FindeSkillBase(3).UseSkill(player);
+            skillcool |= equipSkillFlags[3];
+            StartCoroutine(Skill4CoolDown(equipSkills[3].skill.Skill_Cool));
+            skillcool &= ~equipSkillFlags[3];
+            //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
+        }
+    }
+
+    public void UseSkill5()
+    {
+        if (player == null)
+        {
+            Debug.Log("ERR: Player is Null");
+            return;
+        }
+        //if ((skillcool & SkillCool.skill006) != 0) //쿨 도는 중
+        //{
+        //    Debug.Log("스킬 쿨 대기 중");
+        //}
+        //else
+        //{
+        //    FindeSkillBase(3).UseSkill(player);
+        //    StartCoroutine(Skill6CoolDown(inventory.skills[5].skill.Skill_Cool));
+        //}
+        if ((skillcool & equipSkillFlags[4]) != 0)
+        {
+            Debug.Log("스킬 쿨 대기 중");
+        }
+        else
+        {
+            FindeSkillBase(4).UseSkill(player);
+            skillcool |= equipSkillFlags[4];
+            StartCoroutine(Skill5CoolDown(equipSkills[4].skill.Skill_Cool));
+            skillcool &= ~equipSkillFlags[4];
+            //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
 
@@ -167,14 +302,26 @@ public class SkillManager : MonoBehaviour
             Debug.Log("ERR: Player is Null");
             return;
         }
-        if ((skillcool & SkillCool.skill006) != 0) //쿨 도는 중
+        //if ((skillcool & SkillCool.skill006) != 0) //쿨 도는 중
+        //{
+        //    Debug.Log("스킬 쿨 대기 중");
+        //}
+        //else
+        //{
+        //    FindeSkillBase(3).UseSkill(player);
+        //    StartCoroutine(Skill6CoolDown(inventory.skills[5].skill.Skill_Cool));
+        //}
+        if ((skillcool & equipSkillFlags[5]) != 0)
         {
             Debug.Log("스킬 쿨 대기 중");
         }
         else
         {
-            FindeSkillBase(3).UseSkill(player);
-            StartCoroutine(Skill6CoolDown(inventory.skills[5].skill.Skill_Cool));
+            FindeSkillBase(5).UseSkill(player);
+            skillcool |= equipSkillFlags[5];
+            StartCoroutine(Skill6CoolDown(equipSkills[5].skill.Skill_Cool));
+            skillcool &= ~equipSkillFlags[5];
+            //StartCoroutine(Skill1CoolDown(inventory.skills[0].skill.Skill_Cool));
         }
     }
 
@@ -182,32 +329,43 @@ public class SkillManager : MonoBehaviour
     {
         return skills[skillIndex];
     }
-
     IEnumerator Skill1CoolDown(float cooldown)
     {
-        skillcool |= SkillCool.skill001;
+        //skillcool |= SkillCool.skill001;
         yield return new WaitForSeconds(cooldown);
-        skillcool &= ~SkillCool.skill001;
+        //skillcool &= ~SkillCool.skill001;
     }
 
     IEnumerator Skill2CoolDown(float cooldown)
     {
-        skillcool |= SkillCool.skill002;
+        //skillcool |= SkillCool.skill002;
         yield return new WaitForSeconds(cooldown);
-        skillcool &= ~SkillCool.skill002;
+        //skillcool &= ~SkillCool.skill002;
     }
 
     IEnumerator Skill3CoolDown(float cooldown)
     {
-        skillcool |= SkillCool.skill003;
+        //skillcool |= SkillCool.skill003;
         yield return new WaitForSeconds(cooldown);
-        skillcool &= ~SkillCool.skill003;
+        //skillcool &= ~SkillCool.skill003;
     }
 
+    IEnumerator Skill4CoolDown(float cooldown)
+    {
+        //skillcool |= SkillCool.skill006;
+        yield return new WaitForSeconds(cooldown);
+        //skillcool &= ~SkillCool.skill006;
+    }
+    IEnumerator Skill5CoolDown(float cooldown)
+    {
+        //skillcool |= SkillCool.skill006;
+        yield return new WaitForSeconds(cooldown);
+        //skillcool &= ~SkillCool.skill006;
+    }
     IEnumerator Skill6CoolDown(float cooldown)
     {
-        skillcool |= SkillCool.skill006;
+        //skillcool |= SkillCool.skill006;
         yield return new WaitForSeconds(cooldown);
-        skillcool &= ~SkillCool.skill006;
+        //skillcool &= ~SkillCool.skill006;
     }
 }

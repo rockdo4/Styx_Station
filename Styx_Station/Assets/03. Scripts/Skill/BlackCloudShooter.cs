@@ -1,17 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class BlackCloudShot : MonoBehaviour
+public class BlackCloudShooter : Shooter
 {
     private float timer = 0f;
     private float timeLimit = 0.5f;
     private int hitCount = 0;
     private GameObject[] monsters = new GameObject[5];
+    private GameObject caster;
+    private float multiple;
 
-    public void SetBlackCloudShot(int h)
+    public void SetBlackCloudShot(int h, float m, GameObject attacer)
     {
         hitCount = h;
+        caster = attacer;
+        multiple = m;
     }
 
     private void OnEnable()
@@ -26,6 +31,11 @@ public class BlackCloudShot : MonoBehaviour
         {
             timer = 0f;
             FindMonsters();
+
+            foreach(GameObject monster in monsters)
+            {
+                HitMonster(monster);
+            }
         }
     }
 
@@ -33,6 +43,7 @@ public class BlackCloudShot : MonoBehaviour
     {
         GameObject[] monstersTemp = GameObject.FindGameObjectsWithTag("Enemy")
             .Where(obj => obj.activeSelf)
+            .Where(obj => obj.GetComponent<MonsterStats>().currHealth > 0)
             .ToArray();
         
 
@@ -45,7 +56,10 @@ public class BlackCloudShot : MonoBehaviour
             List<int> selNum = GetRandomNumbers(0, monsters.Length, hitCount);
             for(int i = 0; i < selNum.Count; i++)
             {
-                monsters[i] = monstersTemp[selNum[i]];
+                if (monstersTemp[selNum[i]].GetComponent<MonsterStats>() != null )
+                {
+                    monsters[i] = monstersTemp[selNum[i]];
+                }
             }
         }
     }
@@ -62,5 +76,28 @@ public class BlackCloudShot : MonoBehaviour
             }
         }
         return numbers;
+    }
+
+    private void HitMonster(GameObject defender)
+    {
+        if (defender == null)
+            return;
+        if (defender.GetComponent<MonsterStats>().currHealth < 0)
+            return;
+
+        var attackerStats = caster.GetComponent<ResultPlayerStats>();
+        var target = defender.GetComponent<MonsterStats>();
+        Attack attack = CreateAttackToMonster(attackerStats, target, multiple);
+
+        var attackables = defender.GetComponents<IAttackable>();
+        foreach (var attackable in attackables)
+        {
+            attackable.OnAttack(caster, attack);
+        }
+    }
+
+    private void ReleaseCloud()
+    {
+        ReleaseObject();
     }
 }

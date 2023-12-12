@@ -22,6 +22,10 @@ public class BlackCloud : SkillBase
             Debug.Log("ERR: blackCloud is null");
             return;
         }
-        blackCloudObj.GetComponent<BlackCloudShot>().SetBlackCloudShot(blackCloud.skill.Skill_ATK_NUM);
+        blackCloudObj.GetComponent<BlackCloudShooter>().
+            SetBlackCloudShot(
+            blackCloud.skill.Skill_ATK_NUM,
+            damageMultiplier,
+            attacker);
     }
 }

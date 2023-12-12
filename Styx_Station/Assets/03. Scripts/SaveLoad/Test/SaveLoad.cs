@@ -10,9 +10,17 @@ using System;
 
 public class SaveLoad : MonoBehaviour
 {
+    private DiningRoomSystem diningRoomsystem;
+    private void Start()
+    {
+       
+
+    }
     public void Save()
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
+
+       
 
         data.gameSaveDatas.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
         data.gameSaveDatas.playerdata.playerPowerboost = SharedPlayerStats.GetPlayerPowerBoost();
@@ -101,9 +109,9 @@ public class SaveLoad : MonoBehaviour
 
         data.gameSaveDatas.stageData = GameData.stageData;
 
-        if (DiningRoomSystem.Instance != null)
+        if (diningRoomsystem != null)
         {
-            var foodDatas = DiningRoomSystem.Instance.foodDatas;
+            var foodDatas = diningRoomsystem.foodDatas;
             for (int i = 0; i < foodDatas.Length; ++i)
             {
                 if (foodDatas[i] != null)
@@ -114,16 +122,20 @@ public class SaveLoad : MonoBehaviour
                     data.gameSaveDatas.diningRoomSaveFoodData[i] = foodData;
                 }
             }
-            data.gameSaveDatas.foodTimerUpgradeLevelUp = DiningRoomSystem.Instance.timerUpgradeLevel;
-            data.gameSaveDatas.foodSelectUpgradeLevelUp = DiningRoomSystem.Instance.selectFoodCount;
-            data.gameSaveDatas.diningRoomTimer = DiningRoomSystem.Instance.timer;
+            data.gameSaveDatas.foodTimerUpgradeLevelUp = diningRoomsystem.timerUpgradeLevel;
+            data.gameSaveDatas.foodSelectUpgradeLevelUp = diningRoomsystem.selectFoodCount;
+            data.gameSaveDatas.diningRoomTimer = diningRoomsystem.timer;
         }
-
+        
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
     }
     public void Load()
     {
+        if (diningRoomsystem == null)
+        {
+            diningRoomsystem = DiningRoomSystem.Instance;
+        }
 
         var path = Path.Combine(Application.persistentDataPath, "Test.json");
         if (File.Exists(path))
@@ -313,14 +325,15 @@ public class SaveLoad : MonoBehaviour
                 }
                 if(gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
                 {
-                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    //getCode.thisIsTestCode.foodTimerUpgradeLevelUp = int.Parse(foodtimerUpgradeLevel.ToString());
+                    diningRoomsystem.timerUpgradeLevel = int.Parse(foodtimerUpgradeLevel.ToString());
                 }
                 if (gameSaveDatas["foodSelectUpgradeLevelUp"] is JToken foodSelect)
                 {
-                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    //var number = getCode.thisIsTestCode.foodSelectUpgradeLevelUp = int.Parse(foodSelect.ToString());
-                    //getCode.thisIsTestCode.diningRoomUiButton.upgradeSelectFoodCount = number+2;
+                    var t = int.Parse(foodSelect.ToString());
+                    if (t <= 0)
+                        t = 1;
+
+                    diningRoomsystem.selectFoodCount = t;
                 }
                 if (gameSaveDatas["diningRoomSaveFoodData"] is JToken diningRoomSaveFoodDatats)
                 {
@@ -330,230 +343,43 @@ public class SaveLoad : MonoBehaviour
                     {
                         if (saveFoodData[i] != null)
                         {
-                            DiningRoomSystem.Instance.LoadFoodData(saveFoodData[i], i);
+                            diningRoomsystem.LoadFoodData(saveFoodData[i], i);
                         }
                     }
 
                 }
                 if (gameSaveDatas["diningRoomTimer"] is JToken timer)
                 {
-                    //string str = timer.ToString();
-                    //var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                    //var timerData = JsonConvert.DeserializeObject<float>(str);
-                    //getCode.thisIsTestCode.timer = timerData;
+                    string str = timer.ToString();
+                    var timerData = JsonConvert.DeserializeObject<float>(str);
+                    if(timerData <=0f)
+                    {
+                        diningRoomsystem.isLoad = false;
+                    }
+                    else
+                    {
+                        diningRoomsystem.timer = timerData;
+                        diningRoomsystem.isLoad = true;
+                    }
+                    int count = 0;
+                    for(int i =0;i < DiningRoomSystem.Instance.saveFood.Length; ++i)
+                    {
+                        if ( DiningRoomSystem.Instance.saveFood[i] != null)
+                        {
+                            count++;
+                        }
+                    }
+                    if(count >= DiningRoomSystem.Instance.selectFoodCount)
+                    {
+                        diningRoomsystem.timer = 0f;
+                        diningRoomsystem.isFullFood = true;
+                        diningRoomsystem.isLoad = true;
+                    }
+                    diningRoomsystem.LoadMaxTimer();
 
+                    diningRoomsystem.CalculateTimer();
                 }
             }
         }
-    }
-    /*
-    public void Load()
-    {
-
-        var path = Path.Combine(Application.persistentDataPath, "Test.json");
-        if (File.Exists(path))
-        {
-            var json = File.ReadAllText(path);
-
-            JObject jsonObject = JObject.Parse(json);
-            string dataString = jsonObject["playerdata"].ToString();
-            var data = JsonConvert.DeserializeObject<PlayerData>(dataString);
-            SharedPlayerStats.PlayerPower = data.playerPower;
-            SharedPlayerStats.PlayerPowerBoost = data.playerPowerboost;
-            SharedPlayerStats.PlayerAttackSpeed = data.playerAttackSpeed;
-            SharedPlayerStats.Critical = data.critical;
-            SharedPlayerStats.CriticalPower = data.criticalPower;
-            SharedPlayerStats.MonsterDamage = data.monsterDamage;
-            SharedPlayerStats.MaxHp = data.maxHp;
-            SharedPlayerStats.Healing = data.healing;
-
-            CurrencyManager.money1 = BigInteger.Parse(data.money1);
-            CurrencyManager.money2 = BigInteger.Parse(data.money2);
-            CurrencyManager.money3 = BigInteger.Parse(data.money3);
-
-
-            var inventory = InventorySystem.Instance.inventory;
-
-            if (jsonObject.TryGetValue("weaponData", out JToken weaponToken))
-            {
-                string weapons = weaponToken.ToString();
-                var wData = JsonConvert.DeserializeObject<List<InventoryData>>(weapons);
-                foreach (var item in wData)
-                {
-                    var itemData = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                    if (itemData != null)
-                    {
-                        itemData.upgradeLev = item.upgradeLev;
-                        itemData.acquire = item.acquire;
-                        itemData.equip = item.equip;
-                        itemData.stock = item.stock;
-                    }
-                }
-            }
-
-            if (jsonObject.TryGetValue("armorData", out JToken armorToken))
-            {
-                string armors = armorToken.ToString();
-                var aData = JsonConvert.DeserializeObject<List<InventoryData>>(armors);
-                foreach (var item in aData)
-                {
-                    var itemData = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                    if (itemData != null)
-                    {
-                        itemData.upgradeLev = item.upgradeLev;
-                        itemData.acquire = item.acquire;
-                        itemData.equip = item.equip;
-                        itemData.stock = item.stock;
-                    }
-                }
-            }
-
-            inventory.CustomReset();
-
-            if (jsonObject.TryGetValue("customRingData", out JToken ringToken))
-            {
-                string customRings = ringToken.ToString();
-                var rData = JsonConvert.DeserializeObject<List<CustomData>>(customRings);
-                foreach (var item in rData)
-                {
-                    var baseItem = inventory.rings.Where(x => x.item.name == item.baseName).FirstOrDefault();
-                    var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
-                    dummy.upgradeLev = item.upgradeLev;
-                }
-            }
-
-            if (jsonObject.TryGetValue("customSymbolData", out JToken symbolToken))
-            {
-                string customSymbols = symbolToken.ToString();
-                var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);
-                foreach (var item in sData)
-                {
-                    var baseItem = inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
-                    var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
-                    dummy.upgradeLev = item.upgradeLev;
-                }
-            }
-
-            if (jsonObject.TryGetValue("equipItem", out JToken equipToken))
-            {
-                string equipItem = equipToken.ToString();
-                var equipItemData = JsonConvert.DeserializeObject<List<EquipData>>(equipItem);
-
-                foreach (var item in equipItemData)
-                {
-                    switch (item.itemType)
-                    {
-                        case ItemType.Weapon:
-                            var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                            if (weapon != null)
-                                inventory.EquipItem(weapon.index, item.itemType);
-                            break;
-
-                        case ItemType.Armor:
-                            var aromr = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                            if (aromr != null)
-                                inventory.EquipItem(aromr.index, item.itemType);
-                            break;
-
-                        case ItemType.Ring:
-                            var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
-                            if (ring != null)
-                                inventory.EquipItem(ring.item.index, item.itemType);
-                            break;
-
-                        case ItemType.Symbol:
-                            var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
-                            if (symbol != null)
-                                inventory.EquipItem(symbol.item.index, item.itemType);
-                            break;
-                    }
-                }
-            }
-
-            var skillInventory = InventorySystem.Instance.skillInventory;
-
-            if (jsonObject.TryGetValue("skillData", out JToken skillToken))
-            {
-                string skills = skillToken.ToString();
-                var sData = JsonConvert.DeserializeObject<List<SkillData>>(skills);
-                foreach (var skill in sData)
-                {
-                    var skillData = skillInventory.skills.Where(x => x.skill.name == skill.skillName).FirstOrDefault();
-                    if (skillData != null)
-                    {
-                        skillData.upgradeLev = skill.skillLevel;
-                        skillData.acquire = skill.acquire;
-                        skillData.equip = skill.equip;
-                        skillData.stock = skill.stock;
-                    }
-                }
-            }
-
-            if (jsonObject.TryGetValue("equipSkill", out JToken equipSkillToken))
-            {
-                string equipSkill = equipSkillToken.ToString();
-                var equipSkillData = JsonConvert.DeserializeObject<List<EquipSkillData>>(equipSkill);
-
-                foreach (var equip in equipSkillData)
-                {
-                    var skill = skillInventory.skills.Where(x => x.skill.name == equip.skillName).FirstOrDefault();
-                    if (skill != null)
-                        skillInventory.EquipSkill(skill.skillIndex, equip.equipIndex);
-                }
-            }
-
-
-
-            if (jsonObject.ContainsKey("exitTime"))
-            {
-                string str = jsonObject["exitTime"].ToString();
-                GameData.exitTime.Clear();
-                GameData.exitTime.Append(str);
-            }
-
-            if (jsonObject.ContainsKey("keyAccumulateTime"))
-            {
-                string str = jsonObject["keyAccumulateTime"].ToString();
-                if (str != "")
-                {
-                    GameData.keyPrevAccumlateTime.Clear();
-                    GameData.keyPrevAccumlateTime.Append(str);
-                }
-            }
-            else
-            {
-                GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
-            }
-
-            if (jsonObject.ContainsKey("diningRoomSaveFoodData"))
-            {
-                string str = jsonObject["diningRoomSaveFoodData"].ToString();
-                var saveFoodData = JsonConvert.DeserializeObject<SaveFoodData[]>(str);
-
-                var getCode = GetComponent<PlayerStatsUpgardeUI>();
-                foreach (var item in saveFoodData)
-                {
-                    if (item != null)
-                    {
-                        getCode.thisIsTestCode.LoadFood(item);  
-                    }
-                }
-               
-            }
-
-        }
-    }*/
-
-    public void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    Save();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    Load();
-        //}
     }
 }

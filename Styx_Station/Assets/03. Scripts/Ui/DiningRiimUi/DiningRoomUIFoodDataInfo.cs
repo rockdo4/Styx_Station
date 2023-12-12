@@ -19,10 +19,19 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI foodSellPomegranateText;
     [SerializeField] private TextMeshProUGUI foodInfoText;
     private StringTableData foodInfoStringTable;
+
+    public Button sellButton;
+    public Button eatButton;
     private void Start()
     {
         language = Global.language;
         DataZero();
+
+        if( foodData == null )
+        {
+            sellButton.interactable = false;
+            eatButton.interactable = false;
+        }
     }
 
     private void Update()
@@ -69,6 +78,8 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
         foodSellSliverText.text = $"{foodData.Food_Sil}";
         foodSellPomegranateText.text = $"{foodData.Food_Soul}";
         SetStringTableData();
+        sellButton.interactable = true;
+        eatButton.interactable = true;
     }
 
     private void SetStringTableData()
@@ -97,5 +108,8 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
         foodSellPomegranateText.text = "";
         foodInfoText.text = "";
         foodInfoStringTable = defaultFoodDataInfo;
+
+        sellButton.interactable = false;
+        eatButton.interactable = false;
     }
 }

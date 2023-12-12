@@ -78,7 +78,7 @@ public class DiningRoomUIManager : MonoBehaviour
             {
                 if (savefood[i] != null)
                 {
-                    LoadFood(savefood[i]);
+                    LoadFood(savefood[i],i);
                 }
             }
             DiningRoomSystem.Instance.isAwkeTime = true;
@@ -305,21 +305,31 @@ public class DiningRoomUIManager : MonoBehaviour
             }
             else
             {
-
                 selectFoodUpgradePrice += selectFoodUpgradeAmount;
             }
-            if (selectFoodUpgradeLevel >= 5)
+
+            if (selectFoodUpgradeLevel == DiningRoomSystem.Instance.maxSelectfoodCount-1)
             {
                 selectFoodUpgradeText.text = $"LV.{selectFoodUpgradeLevel} > Max";
                 selectFoodText.text = $"LV.{selectFoodUpgradeLevel} > Max";
+                selectFoodUpgradePriceText.text = $"{UnitConverter.OutString(selectFoodUpgradePrice)}";
+            }
+            else if (selectFoodUpgradeLevel >= DiningRoomSystem.Instance.maxSelectfoodCount)
+            {
+                selectFoodUpgradeText.text = $"Max";
+                selectFoodText.text = $"Max";
+                selectFoodUpgradePriceText.text = "Max";
+                selectFoodUpgradeButton.interactable = false;
+                DiningRoomSystem.Instance.isMaxSelectUpgradeLevel = true;
             }
             else
             {
                 selectFoodUpgradeText.text = $"LV.{selectFoodUpgradeLevel} > LV.{selectFoodUpgradeLevel + 1}";
                 selectFoodText.text = $"LV.{selectFoodUpgradeLevel} > LV.{selectFoodUpgradeLevel + 1}";
+                selectFoodUpgradePriceText.text = $"{UnitConverter.OutString(selectFoodUpgradePrice)}";
             }
-
-            selectFoodUpgradePriceText.text = $"{selectFoodUpgradePrice}";
+            
+           
         }
     }
     private void TimerUpgradeTextSetting()
@@ -327,29 +337,44 @@ public class DiningRoomUIManager : MonoBehaviour
         if ( timerUpgradeLevel != DiningRoomSystem.Instance.timerUpgradeLevel || !DiningRoomSystem.Instance.isAwkeTime)
         {
             timerUpgradeLevel = DiningRoomSystem.Instance.timerUpgradeLevel;
-            timerUpgradeText.text = $"LV.{timerUpgradeLevel + 1} > LV.{timerUpgradeLevel + 2}";
-            TimeSpan timeSpanMax = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max);
-            var timerStr = timeSpanMax.ToString(@"hh\:mm\:ss");
-            TimeSpan timeSpanDecrease = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max - DiningRoomSystem.Instance.decreaseMaxTimer);
-            var timerStr2 = timeSpanDecrease.ToString(@"hh\:mm\:ss");
-            timerText.text = $"{timerStr} > {timerStr2}";
-            if(!DiningRoomSystem.Instance.isAwkeTime)
+            if (timerUpgradeLevel < DiningRoomSystem.Instance.maxTimerUpgradeLevel - 2)
+                timerUpgradeText.text = $"LV.{timerUpgradeLevel + 1} > LV.{timerUpgradeLevel + 2}";
+            else if (timerUpgradeLevel == DiningRoomSystem.Instance.maxTimerUpgradeLevel - 1)
+            {
+                timerUpgradeText.text = $"LV.{timerUpgradeLevel + 1} > Max";
+            }
+            else
+            {
+                timerUpgradeText.text = $"Max";
+            }
+
+            if (!DiningRoomSystem.Instance.isAwkeTime)
             {
                 for (int i = 0; i <= timerUpgradeLevel; ++i)
                 {
                     timerUpgradePrice += (timerUpgradeAmount * (timerUpgradeLevel * 14)) / 10;
                 }
-               
             }
             else
             {
                 timerUpgradePrice += (timerUpgradeAmount * (timerUpgradeLevel * 14)) / 10;
             }
-            
-            upgradePriceText.text = $"{timerUpgradePrice}";
 
-            
-          
+            if (timerUpgradeLevel < DiningRoomSystem.Instance.maxTimerUpgradeLevel)
+            {
+                TimeSpan timeSpanMax = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max);
+                var timerStr = timeSpanMax.ToString(@"hh\:mm\:ss");
+                TimeSpan timeSpanDecrease = TimeSpan.FromSeconds(DiningRoomSystem.Instance.max - DiningRoomSystem.Instance.decreaseMaxTimer);
+                var timerStr2 = timeSpanDecrease.ToString(@"hh\:mm\:ss");
+                timerText.text = $"{timerStr} > {timerStr2}";
+                upgradePriceText.text = $"{UnitConverter.OutString(timerUpgradePrice)}";
+            }
+            else
+            {
+                timerText.text = "30:00";
+                upgradePriceText.text = "Max";
+                timerUpgradeButton.interactable = false;    
+            }
         }
     }
     private void SetDiningRoomTimerText()
@@ -396,7 +421,7 @@ public class DiningRoomUIManager : MonoBehaviour
         }
     }
 
-    public void LoadFood(SaveFoodData foodData)
+    public void LoadFood(SaveFoodData foodData,int index)
     {
         SettingGradeFood();
 
@@ -407,7 +432,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     if (f.Food_Name_ID == foodData.Food_Name_ID)
                     {
-                        DiningRoomSystem.Instance.SetFood(f);
+                        DiningRoomSystem.Instance.SetFood(f,index);
                         return;
                     }
                 }
@@ -418,7 +443,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     if (e.Food_Name_ID == foodData.Food_Name_ID)
                     {
-                        DiningRoomSystem.Instance.SetFood(e);
+                        DiningRoomSystem.Instance.SetFood(e,index);
                         return;
                     }
                 }
@@ -429,7 +454,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     if (d.Food_Name_ID == foodData.Food_Name_ID)
                     {
-                        DiningRoomSystem.Instance.SetFood(d);
+                        DiningRoomSystem.Instance.SetFood(d, index);
                         return;
                     }
                 }
@@ -440,7 +465,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     if (c.Food_Name_ID == foodData.Food_Name_ID)
                     {
-                        DiningRoomSystem.Instance.SetFood(c);
+                        DiningRoomSystem.Instance.SetFood(c, index);
                         return;
                     }
                 }
@@ -451,7 +476,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     if (b.Food_Name_ID == foodData.Food_Name_ID)
                     {
-                        DiningRoomSystem.Instance.SetFood(b);
+                        DiningRoomSystem.Instance.SetFood(b , index);
                         return;
                     }
                 }
@@ -462,7 +487,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     if (a.Food_Name_ID == foodData.Food_Name_ID)
                     {
-                        DiningRoomSystem.Instance.SetFood(a);
+                        DiningRoomSystem.Instance.SetFood(a , index);
                         return;
                     }
                 }
@@ -473,7 +498,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     if (s.Food_Name_ID == foodData.Food_Name_ID)
                     {
-                        DiningRoomSystem.Instance.SetFood(s);
+                        DiningRoomSystem.Instance.SetFood(s, index);
                         return;
                     }
                 }

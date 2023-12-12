@@ -19,6 +19,7 @@ public class PlayerStatsUiData : MonoBehaviour
     private Dictionary<int, Action> upgradePlayerStatsAction;
     private Dictionary<int, Func<string>> upgradeLevel;
     private Dictionary<int, Func<string>> upgradePrice;
+    private Dictionary<int, Action> buttonCheckingAction;
 
     private float time;
     private float clickTime = 0.5f;// 추후 변경예정
@@ -66,6 +67,10 @@ public class PlayerStatsUiData : MonoBehaviour
                 SetTextLevelAndPrice(index);
             }
         }
+    }
+    private void LateUpdate()
+    {
+        
     }
 
     private void SettingPlayerStatsUIBUtton()
@@ -170,6 +175,10 @@ public class PlayerStatsUiData : MonoBehaviour
              { 6, () => SharedPlayerStats.GetHp() },
              { 7, () => SharedPlayerStats.GetHealing() },
         };
+        buttonCheckingAction = new Dictionary<int, Action>
+        {
+            {0,()=>PlayerPowerButtonCheck() },
+        };
     }
     public void SetTextLevelAndPrice(int index)
     {
@@ -193,5 +202,16 @@ public class PlayerStatsUiData : MonoBehaviour
         }
     }
 
+    private void PlayerPowerButtonCheck()
+    {
+        if (CurrencyManager.money1 < CurrencyManager.playerPowerPrice)
+        {
+            button.interactable = false;
+        }
+        else
+        {
+            button.interactable = true;
+        }
+    }
 }
 

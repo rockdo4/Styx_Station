@@ -6014,6 +6014,7 @@ GameObject:
   - component: {fileID: 320162536}
   - component: {fileID: 320162538}
   - component: {fileID: 320162537}
+  - component: {fileID: 320162539}
   m_Layer: 5
   m_Name: UpgradeString
   m_TagString: Untagged
@@ -6087,12 +6088,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 39.25
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -6103,7 +6104,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -6137,6 +6138,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 320162535}
   m_CullTransparentMesh: 1
+--- !u!114 &320162539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320162535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: SikdangDisplay001
+  textMeshProUGUI: {fileID: 320162537}
 --- !u!1 &324744887
 GameObject:
   m_ObjectHideFlags: 0
@@ -7669,6 +7687,7 @@ GameObject:
   - component: {fileID: 378032527}
   - component: {fileID: 378032529}
   - component: {fileID: 378032528}
+  - component: {fileID: 378032530}
   m_Layer: 5
   m_Name: Text (TMP) (2)
   m_TagString: Untagged
@@ -7715,7 +7734,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC74C\uC2DD \uC800\uC7A5 \uACF5\uAC04 \uD655\uC7A5"
+  m_text: Expanding food storage space
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
   m_sharedMaterial: {fileID: -1984255071315151199, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
@@ -7742,12 +7761,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 19.2
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -7758,7 +7777,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -7792,6 +7811,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378032526}
   m_CullTransparentMesh: 1
+--- !u!114 &378032530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378032526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: SikdangDisplay002
+  textMeshProUGUI: {fileID: 378032528}
 --- !u!1 &383458720
 GameObject:
   m_ObjectHideFlags: 0
@@ -8008,22 +8044,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 807377810}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1845239544}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 807377814}
+        m_TargetAssemblyTypeName: DingingRoomInfoPossibilityWindow, Assembly-CSharp
+        m_MethodName: Open
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10836,7 +10860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &562340106
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10910,6 +10934,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75573f27a4c609d479763d45b11ab3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diningRoomUpgradeWindows: {fileID: 1845239548}
+  infoWindow: {fileID: 807377814}
 --- !u!114 &562340110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15116,7 +15142,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -15135,22 +15161,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1845239544}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 807377810}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1845239548}
+        m_TargetAssemblyTypeName: DingingRoomUpgradeWindow, Assembly-CSharp
+        m_MethodName: Open
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -15476,6 +15490,7 @@ GameObject:
   - component: {fileID: 807377811}
   - component: {fileID: 807377813}
   - component: {fileID: 807377812}
+  - component: {fileID: 807377814}
   m_Layer: 5
   m_Name: food?
   m_TagString: Untagged
@@ -15543,6 +15558,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807377810}
   m_CullTransparentMesh: 1
+--- !u!114 &807377814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807377810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74c19f681640a7a49a5a8e4fe1a891f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  infoPossibilityButton: {fileID: 398541826}
+  window: {fileID: 1845239548}
 --- !u!224 &814591602 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1802495619194962286, guid: 2be41e8b60dbc194b829d31b6089b576, type: 3}
@@ -22734,6 +22763,8 @@ MonoBehaviour:
   foodSellSliverText: {fileID: 1370921879}
   foodSellPomegranateText: {fileID: 964932128}
   foodInfoText: {fileID: 1493310222}
+  sellButton: {fileID: 1004140887}
+  eatButton: {fileID: 1000986500}
 --- !u!1 &1163938802
 GameObject:
   m_ObjectHideFlags: 0
@@ -23605,10 +23636,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1845239544}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1845239548}
+        m_TargetAssemblyTypeName: DingingRoomUpgradeWindow, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -29408,7 +29439,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC2DD\uB2F9\uCE78"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
   m_sharedMaterial: {fileID: -1984255071315151199, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
@@ -29435,12 +29466,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 40
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -29451,7 +29482,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -29497,6 +29528,7 @@ GameObject:
   - component: {fileID: 1464678088}
   - component: {fileID: 1464678087}
   - component: {fileID: 1464678086}
+  - component: {fileID: 1464678089}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -29618,6 +29650,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464678084}
   m_CullTransparentMesh: 1
+--- !u!114 &1464678089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464678084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: PlayerStatsButton001
+  textMeshProUGUI: {fileID: 465763623}
 --- !u!1 &1464814493
 GameObject:
   m_ObjectHideFlags: 0
@@ -30061,10 +30110,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 807377810}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 807377814}
+        m_TargetAssemblyTypeName: DingingRoomInfoPossibilityWindow, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -31633,6 +31682,7 @@ GameObject:
   - component: {fileID: 1588863571}
   - component: {fileID: 1588863574}
   - component: {fileID: 1588863573}
+  - component: {fileID: 1588863575}
   m_Layer: 5
   m_Name: sikdangkan
   m_TagString: Untagged
@@ -31698,6 +31748,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588863570}
   m_CullTransparentMesh: 1
+--- !u!114 &1588863575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588863570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: SikdangDisplay003
+  textMeshProUGUI: {fileID: 1460518016}
 --- !u!1 &1594203057
 GameObject:
   m_ObjectHideFlags: 0
@@ -32434,6 +32501,7 @@ GameObject:
   - component: {fileID: 1655882007}
   - component: {fileID: 1655882006}
   - component: {fileID: 1655882005}
+  - component: {fileID: 1655882008}
   m_Layer: 5
   m_Name: sikdangkan
   m_TagString: Untagged
@@ -32543,6 +32611,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655882003}
   m_CullTransparentMesh: 1
+--- !u!114 &1655882008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655882003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: SikdangDisplay005
+  textMeshProUGUI: {fileID: 2017824206}
 --- !u!1 &1656424026
 GameObject:
   m_ObjectHideFlags: 0
@@ -33628,6 +33713,7 @@ MonoBehaviour:
   isMaxSelectUpgradeLevel: 0
   isFullFood: 0
   isAwkeTime: 0
+  isLoad: 0
   decreaseMaxTimer: 30
 --- !u!1 &1718481654
 GameObject:
@@ -35749,13 +35835,14 @@ GameObject:
   - component: {fileID: 1845239545}
   - component: {fileID: 1845239547}
   - component: {fileID: 1845239546}
+  - component: {fileID: 1845239548}
   m_Layer: 5
   m_Name: foodupgradechang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1845239545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35815,6 +35902,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845239544}
   m_CullTransparentMesh: 1
+--- !u!114 &1845239548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845239544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762c60a1b3eb8494382344bac8178add, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeButton: {fileID: 791341698}
+  windwo: {fileID: 807377814}
 --- !u!1 &1846779642
 GameObject:
   m_ObjectHideFlags: 0
@@ -37863,6 +37964,7 @@ GameObject:
   - component: {fileID: 1942004318}
   - component: {fileID: 1942004320}
   - component: {fileID: 1942004319}
+  - component: {fileID: 1942004321}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -37942,12 +38044,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
-  m_fontSizeBase: 45
+  m_fontSize: 40
+  m_fontSizeBase: 20
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -37958,7 +38060,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 20
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -37992,6 +38094,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942004317}
   m_CullTransparentMesh: 1
+--- !u!114 &1942004321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942004317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22611eebf24e1824eb6d4547eea31cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  language: 1
+  korfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  engfont: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  stringTableKey: SikdangDisplay004
+  textMeshProUGUI: {fileID: 1942004319}
 --- !u!1001 &1945657804
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39080,10 +39199,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 562340105}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 562340109}
+        m_TargetAssemblyTypeName: DiningWindow, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -39527,9 +39646,9 @@ MonoBehaviour:
   m_fontSize: 45
   m_fontSizeBase: 45
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 50
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -39540,7 +39659,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

@@ -72,21 +72,6 @@ public class SkillWindow : SubWindow
 
     private void EquipSkillUpdate()
     {
-        for (int i = 0; i < equipButtons.Count; ++i)
-        {
-            var equipUi = equipButtons[i].GetComponent<NormalButton>();
-            var equipSkill = inventory.equipSkills[i];
-            if (equipSkill != null)
-            {
-                equipUi.skillIndex = equipSkill.skillIndex;
-                equipUi.skillName.text = equipSkill.skill.Skill_Name;
-            }
-            else
-            {
-                equipUi.skillIndex = -1;
-                equipUi.skillName.text = "None";
-            }
-        }
     }
 
     public void WindowUpdate()

@@ -16,7 +16,7 @@ public class ArmorType : InventoryType
 
     public int selectIndex = -1;
 
-    private List<Button> armorButtons = new List<Button>();
+    public List<Button> armorButtons { get; private set; } = new List<Button>();
 
     public override void Open()
     {

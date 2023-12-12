@@ -4,7 +4,6 @@ public class BlackCloud : SkillBase
 {
     private SkillInventory.InventorySKill blackCloud;
     private GameObject blackCloudPrefab;
-    private GameObject caster;
     private float damageMultiplier;
 
     public BlackCloud(SkillInventory.InventorySKill skill, GameObject blackCloudPrefab)
@@ -16,6 +15,12 @@ public class BlackCloud : SkillBase
     }
     public override void UseSkill(GameObject attacker)
     {
-        
+        var blackCloud = ObjectPoolManager.instance.GetGo(blackCloudPrefab.name);
+        //var tornado = Object.Instantiate(tornadoShotPrefab);
+        if (blackCloud == null)
+        {
+            Debug.Log("ERR: blackCloud is null");
+            return;
+        }
     }
 }

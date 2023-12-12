@@ -69,6 +69,7 @@ public class SkillManager : MonoBehaviour
         skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone));
         skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab));
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
+        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab));
 
     }
 

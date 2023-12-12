@@ -158,6 +158,8 @@ public class SaveLoad : MonoBehaviour
                     SharedPlayerStats.MaxHp = playerD.maxHp;
                     SharedPlayerStats.Healing = playerD.healing;
 
+                    SharedPlayerStats.CheckLimitAll();
+
                     CurrencyManager.money1 = BigInteger.Parse(playerD.money1);
                     CurrencyManager.money2 = BigInteger.Parse(playerD.money2);
                     CurrencyManager.money3 = BigInteger.Parse(playerD.money3);

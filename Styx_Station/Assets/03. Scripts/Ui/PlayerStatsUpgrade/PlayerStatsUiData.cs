@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
 public class PlayerStatsUiData : MonoBehaviour
 {
@@ -70,7 +72,7 @@ public class PlayerStatsUiData : MonoBehaviour
     }
     private void LateUpdate()
     {
-        
+        ButtonCheckingAction(index);
     }
 
     private void SettingPlayerStatsUIBUtton()
@@ -94,18 +96,23 @@ public class PlayerStatsUiData : MonoBehaviour
 
     private void SettingAction()
     {
-        upgradePlayerStatsAction = new Dictionary<int, Action>
+        if (upgradePlayerStatsAction == null)
         {
-            {0,SharedPlayerStats.IncreasePlayerPower },
-            {1,SharedPlayerStats.IncreasePlayerPowerBoost },
-            {2,SharedPlayerStats.IncreasePlayerAttackSpeed },
-            {3,SharedPlayerStats.IncreaseAttackCritical },
-            {4,SharedPlayerStats.IncreaseAttackCriticalPower },
-            {5,SharedPlayerStats.IncreaseMonsterDamagePower },
-            {6,SharedPlayerStats.IncreaseHp },
-            {7,SharedPlayerStats.IncreaseHealing },
-        };
-        upgradeLevel = new Dictionary<int, Func<string>>
+            upgradePlayerStatsAction = new Dictionary<int, Action>
+            {
+                {0,SharedPlayerStats.IncreasePlayerPower },
+                {1,SharedPlayerStats.IncreasePlayerPowerBoost },
+                {2,SharedPlayerStats.IncreasePlayerAttackSpeed },
+                {3,SharedPlayerStats.IncreaseAttackCritical },
+                {4,SharedPlayerStats.IncreaseAttackCriticalPower },
+                {5,SharedPlayerStats.IncreaseMonsterDamagePower },
+                {6,SharedPlayerStats.IncreaseHp },
+                {7,SharedPlayerStats.IncreaseHealing },
+            };
+        }
+        if(upgradeLevel ==null)
+        {
+            upgradeLevel = new Dictionary<int, Func<string>>
         {
             { 0, () =>
             {
@@ -118,7 +125,7 @@ public class PlayerStatsUiData : MonoBehaviour
             },
             { 1, () =>
             {
-                int boost = SharedPlayerStats.GetPlayerPowerBoost();
+                int boost = SharedPlayerStats.GetPlayerPowerBoost()-1;
                 float f= boost/10f;
                 return $"{f:F1}%";
             }},
@@ -147,13 +154,16 @@ public class PlayerStatsUiData : MonoBehaviour
                 if(PlayerStatsUIManager.Instance.playerStats != null)
                 {
                     PlayerStatsUIManager.Instance.playerStats.SettingPlayerMaxHP();
-                    return UnitConverter.OutString(PlayerStatsUIManager.Instance.playerStats.playerMaxHp);
+                    return UnitConverter.OutString(PlayerStatsUIManager.Instance.playerStats.playerMaxHp-1);
                 }
                 else return UnitConverter.OutString(SharedPlayerStats.GetHp() - 1);
             }},
             { 7 ,()=>UnitConverter.OutString(10 + SharedPlayerStats.GetHealing() - 1)},
         };
-        upgradePrice = new Dictionary<int, Func<string>>
+        }
+        if(upgradePrice ==null)
+        {
+            upgradePrice = new Dictionary<int, Func<string>>
         {
             { 0, () => UnitConverter.OutString(CurrencyManager.playerPowerPrice) },
             { 1, () => UnitConverter.OutString(CurrencyManager.playerPowerBoostPrice) },
@@ -164,7 +174,7 @@ public class PlayerStatsUiData : MonoBehaviour
             { 6 ,()=> UnitConverter.OutString(CurrencyManager.maxHpPrice) },
             { 7 ,()=> UnitConverter.OutString(CurrencyManager.healingPrice) },
         };
-        currentLevelTextFunc = new Dictionary<int, Func<int>>
+            currentLevelTextFunc = new Dictionary<int, Func<int>>
         {
              { 0, () => SharedPlayerStats.GetPlayerPower() },
              { 1, () => SharedPlayerStats.GetPlayerPowerBoost() },
@@ -175,10 +185,21 @@ public class PlayerStatsUiData : MonoBehaviour
              { 6, () => SharedPlayerStats.GetHp() },
              { 7, () => SharedPlayerStats.GetHealing() },
         };
-        buttonCheckingAction = new Dictionary<int, Action>
+        }
+        if(buttonCheckingAction ==null)
         {
-            {0,()=>PlayerPowerButtonCheck() },
-        };
+                buttonCheckingAction = new Dictionary<int, Action>
+            {
+                {0,()=>PlayerPowerButtonCheck() },
+                {1,()=>PlayerPowerBoostButtonCheck()},
+                {2,()=>PlayerAttackSpeedButton() },
+                {3,()=>PlayerCriticalButton() },
+                {4,()=>PlayerCriticalPowerButton() },
+                {5,()=>MonsterDamageButton()},
+                {6,()=>PlayerMaxHpButton()},
+                {7,()=>PlayerHealingButton()},
+            };
+        }
     }
     public void SetTextLevelAndPrice(int index)
     {
@@ -201,16 +222,141 @@ public class PlayerStatsUiData : MonoBehaviour
             currentLevelText.text = $"{action3()}";
         }
     }
-
+    public void ButtonCheckingAction(int index)
+    {
+        if (buttonCheckingAction == null)
+        {
+            SettingAction();
+        }
+        if (buttonCheckingAction.TryGetValue(index, out Action action))
+        {
+            action();
+        }
+    }
     private void PlayerPowerButtonCheck()
     {
-        if (CurrencyManager.money1 < CurrencyManager.playerPowerPrice)
+        if (CurrencyManager.money1 > CurrencyManager.playerPowerPrice)
         {
-            button.interactable = false;
+            button.interactable = true;
         }
         else
         {
+            button.interactable = false;
+        }
+    }
+    private void PlayerPowerBoostButtonCheck()
+    {
+        if(SharedPlayerStats.IsPlayerPowerBoostAmplifiable && !SharedPlayerStats.IsPlayerPowerBoostMax)
+        {
+            if (CurrencyManager.money2 < CurrencyManager.playerPowerBoostPrice)
+            {
+                button.interactable = false;
+            }
+            else if (CurrencyManager.money2 > CurrencyManager.playerPowerBoostPrice )
+            {
+                button.interactable = true;
+            }
+        }
+        else if(SharedPlayerStats.IsPlayerPowerBoostMax)
+        {
+            button.interactable = false;
+            ButtonTextMax();
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }
+    private void PlayerAttackSpeedButton()
+    {
+        if (CurrencyManager.money1 > CurrencyManager.playerAttackSpeedPrice && !SharedPlayerStats.IsAttackSpeedMax)
+        {
             button.interactable = true;
+        }
+        else if(SharedPlayerStats.IsAttackSpeedMax)
+        {
+            button.interactable = false;
+            ButtonTextMax(); 
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }
+    private void PlayerCriticalButton()
+    {
+        if(CurrencyManager.money1 > CurrencyManager.criticalPrice && !SharedPlayerStats.IsAttackCriticalMax)
+        {
+            button.interactable = true;
+        }
+        else if(SharedPlayerStats.IsAttackCriticalMax)
+        {
+            button.interactable = false;
+            ButtonTextMax();
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }
+    private void PlayerCriticalPowerButton()
+    {
+        if (CurrencyManager.money2 > CurrencyManager.criticalPowerPrice)
+        {
+            button.interactable = true;
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }
+    private void MonsterDamageButton()
+    {
+        if (CurrencyManager.money2 > CurrencyManager.monsterDamagerPrice && !SharedPlayerStats.IsMonsterDamagePowerMax)
+        {
+            button.interactable = true;
+        }
+        else if (SharedPlayerStats.IsMonsterDamagePowerMax)
+        {
+            button.interactable = false;
+            ButtonTextMax();
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }
+    private  void PlayerMaxHpButton()
+    {
+        if (CurrencyManager.money1 > CurrencyManager.maxHpPrice)
+        {
+            button.interactable = true;
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }
+
+    private void PlayerHealingButton()
+    {
+        if (CurrencyManager.money1 > CurrencyManager.healingPrice)
+        {
+            button.interactable = true;
+        }
+        else
+        {
+            button.interactable = false;
+        }
+    }    
+
+    private void ButtonTextMax()
+    {
+        currentLevelText.text = "Max";
+        var getText = button.GetComponentInChildren<TextMeshProUGUI>();
+        if (getText != null)
+        {
+            getText.text = "Max";
         }
     }
 }

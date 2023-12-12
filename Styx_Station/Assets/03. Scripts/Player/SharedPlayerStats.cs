@@ -12,7 +12,7 @@ public static class SharedPlayerStats
     public static int PlayerPowerBoost { set { playerPowerBoost = value; } }
     public static bool IsPlayerPowerBoostAmplifiable { get; set; }
 
-    private static int playerPowerBoostMax = 4440;
+    private static int playerPowerBoostMax = 4441;
     private static bool isPlayerPowerBoostMax = false;
     public static bool IsPlayerPowerBoostMax
     {
@@ -21,7 +21,7 @@ public static class SharedPlayerStats
 
     private static int playerAttackSpeed = 1;
     public static int PlayerAttackSpeed { set { playerAttackSpeed = value; } }
-    private static int attackSpeedMax = 300;
+    private static int attackSpeedMax = 301;
     private static bool isAttackSpeedMax = false;
     public static bool IsAttackSpeedMax
     {
@@ -30,7 +30,7 @@ public static class SharedPlayerStats
 
     private static int critical = 1;
     public static int Critical { set { critical = value; } }
-    private static int attackCriticalMax = 1000;
+    private static int attackCriticalMax = 1001;
     private static bool isAttackCriticalMax = false;
     public static bool IsAttackCriticalMax
     {
@@ -43,7 +43,7 @@ public static class SharedPlayerStats
 
     private static int monsterDamage = 1;
     public static int MonsterDamage { set { monsterDamage = value; } }
-    private static int monsterDamagePowerMax = 4440;
+    private static int monsterDamagePowerMax = 4441;
     private static bool isMonsterDamagePowerMax = false;
     public static bool IsMonsterDamagePowerMax
     {
@@ -59,6 +59,15 @@ public static class SharedPlayerStats
 
     private static BigInteger prevPrice = new BigInteger(0);
 
+    public static void CheckLimitAll()
+    {
+        PlayerPowerBoostCondition();
+        PlayerPowerBoosMaxCondition();
+        PlayerAttackSpeedMaxCondition();
+        PlayerAttackCriticalMaxCondition();
+        MonsterDamageMaxCondition();
+    }
+
     public static void IncreasePlayerPower()
     { 
 
@@ -73,10 +82,7 @@ public static class SharedPlayerStats
         {
             CurrencyManager.money1 -= CurrencyManager.playerPowerPrice;
             playerPower++;
-            if(playerPower>=1000 &&!IsPlayerPowerBoostAmplifiable)
-            {
-                IsPlayerPowerBoostAmplifiable = true;
-            }
+            PlayerPowerBoostCondition();
         }
         else
         {
@@ -120,11 +126,7 @@ public static class SharedPlayerStats
                 CurrencyManager.playerPowerBoostPrice = prevPrice;
             }
         }
-        if (playerPowerBoost >= playerPowerBoostMax)
-        {
-            isPlayerPowerBoostMax = true;
-            playerPowerBoost = playerPowerBoostMax;
-        }
+        PlayerPowerBoosMaxCondition();
     }
     public static int GetPlayerPowerBoost()
     {
@@ -155,11 +157,7 @@ public static class SharedPlayerStats
             }
         }
 
-        if (playerAttackSpeed >= attackSpeedMax)
-        {
-            isAttackSpeedMax = true;
-            playerAttackSpeed = attackSpeedMax;
-        }
+        PlayerAttackSpeedMaxCondition();
     }
     public static int GetPlayerAttackSpeed()
     {
@@ -191,11 +189,7 @@ public static class SharedPlayerStats
             }
         }
 
-        if (critical >= attackCriticalMax)
-        {
-            isAttackCriticalMax = true;
-            critical = attackCriticalMax;
-        }
+        PlayerAttackCriticalMaxCondition();
     }
     public static int GetAttackCritical()
     {
@@ -268,11 +262,7 @@ public static class SharedPlayerStats
                 CurrencyManager.monsterDamagerPrice =prevPrice;
         }
 
-        if (monsterDamage >= monsterDamagePowerMax)
-        {
-            isMonsterDamagePowerMax = true;
-            monsterDamage = monsterDamagePowerMax;
-        }
+        MonsterDamageMaxCondition();
     }
     public static int GetMonsterDamagePower()
     {
@@ -325,6 +315,50 @@ public static class SharedPlayerStats
         else
         {
             CurrencyManager.healingPrice = prevPrice;
+        }
+    }
+
+    private static void PlayerPowerBoostCondition()
+    {
+        if (playerPower > 1000 && !IsPlayerPowerBoostAmplifiable)
+        {
+            IsPlayerPowerBoostAmplifiable = true;
+        }
+    }
+
+    private static void PlayerPowerBoosMaxCondition()
+    {
+        if (playerPowerBoost >= playerPowerBoostMax)
+        {
+            isPlayerPowerBoostMax = true;
+            playerPowerBoost = playerPowerBoostMax;
+        }
+    }
+
+    private static void PlayerAttackSpeedMaxCondition()
+    {
+        if (playerAttackSpeed >= attackSpeedMax)
+        {
+            isAttackSpeedMax = true;
+            playerAttackSpeed = attackSpeedMax;
+        }
+    }
+
+    private static void PlayerAttackCriticalMaxCondition()
+    {
+        if (critical >= attackCriticalMax)
+        {
+            isAttackCriticalMax = true;
+            critical = attackCriticalMax;
+        }
+    }
+
+    private static void MonsterDamageMaxCondition()
+    {
+        if (monsterDamage >= monsterDamagePowerMax)
+        {
+            isMonsterDamagePowerMax = true;
+            monsterDamage = monsterDamagePowerMax;
         }
     }
 

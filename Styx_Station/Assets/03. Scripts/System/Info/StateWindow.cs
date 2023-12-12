@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class StateWindow : SubWindow
 {
+
+    private void Start()
+    {
+    }
     public override void Open()
     {
         CurrencyManager.SetPlayerStatsAllRest();
-
+        SharedPlayerStats.CheckLimitAll();
         base.Open();
     }
 

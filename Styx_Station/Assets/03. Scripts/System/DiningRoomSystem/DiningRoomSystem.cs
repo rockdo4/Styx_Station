@@ -30,6 +30,11 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     }
     private void Start()
     {
+        if (!isLoad)
+        {
+            timer = max;
+            isLoad = true;
+        }
     }
     private void Update()
     {
@@ -161,9 +166,15 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
                 timer = max;
                 if (counting >= selectFoodCount)
                 {
-                    FoodDatasNullCheck();
+                    break;  
                 }
             }
+            else
+            {
+                break;
+            }
+            timer += tmepTime;
+
         }
         
     }

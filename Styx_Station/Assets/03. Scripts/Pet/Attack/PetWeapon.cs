@@ -11,7 +11,6 @@ public class PetWeapon : AttackDefinition
     [SerializeField]
     private string scriptName = "PetWeaopn";
     public AttackType type;
-    [Tooltip("This is flightSpeed")]
     public float speed =1.5f;
 
     public override void ExecuteAttack(GameObject attacker, GameObject defender)

@@ -11,8 +11,8 @@ public class MakeTableData : Singleton<MakeTableData>
 
     private void Awake()
     {
-        //gameSaveLoad = gameObject.AddComponent<SaveLoad>();
-        //gameSaveLoad.Load();
+        gameSaveLoad = gameObject.AddComponent<SaveLoad>();
+        gameSaveLoad.Load();
     }
     private void Start()
     {

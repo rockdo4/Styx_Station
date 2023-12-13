@@ -22,6 +22,7 @@ public class PlayerBuff : Singleton<PlayerBuff>
 
     public void GetBuffAll(int power, int critcal, int skill, int boss, int siling, float timer, FoodType type)
     {
+        buffData.timer = 0f;
         buffData.playerPowerBuff = power;
         buffData.criticalPowerBuff = critcal;
         buffData.skillBuff = skill;
@@ -39,6 +40,7 @@ public class PlayerBuff : Singleton<PlayerBuff>
         buffData.bossAttackBuff = 0;
         buffData.silingBuff = 0;
         buffData.foodBuffMaxTimer = 0f;
+        buffData.foodType = FoodType.None;
         buffData.isEatFood = false;
     }
 }

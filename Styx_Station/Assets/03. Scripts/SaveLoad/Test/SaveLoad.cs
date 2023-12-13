@@ -388,7 +388,12 @@ public class SaveLoad : MonoBehaviour
                 {
                     string str = buffTimer.ToString();
                     var buffData = JsonConvert.DeserializeObject<PlayerBuffData>(str);
-                    PlayerBuff.Instance.buffData = buffData;
+                    if(buffData.isEatFood) 
+                        PlayerBuff.Instance.buffData = buffData;
+                    else
+                    {
+                        PlayerBuff.Instance.Reset();
+                    }
 
                 }
             }

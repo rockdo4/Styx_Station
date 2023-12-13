@@ -8,6 +8,7 @@ public class MakeTableData : Singleton<MakeTableData>
     [HideInInspector] public StringTable stringTable;
     [HideInInspector] public DiningTable diningRoomTable;
     [HideInInspector] public StageTable stageTable;
+    [HideInInspector] public LabTable labTable;
 
     private void Awake()
     {
@@ -22,7 +23,8 @@ public class MakeTableData : Singleton<MakeTableData>
             diningRoomTable = new DiningTable();
         if(stageTable == null)
             stageTable = new StageTable();
-
+        if(labTable == null)
+            labTable = new LabTable();
         
         UnitConverter.InitUnitConverter();
     }

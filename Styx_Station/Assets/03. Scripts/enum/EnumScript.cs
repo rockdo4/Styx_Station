@@ -24,6 +24,7 @@ public enum Enchant
 
 public enum ItemType
 {
+    None = -1, //Lsw -> QuestSystemDefault
     Weapon,
     Armor,
     Ring,
@@ -113,7 +114,7 @@ public enum InfoWindowType
 }
 
 
-public enum MonsterType //���� spawner�� monstertypes�� �׻� ������ �� �����ؾ���. ���� ����
+public enum MonsterType 
 {
     protoRange1,
     protoMelee1,
@@ -130,4 +131,46 @@ public enum SkillType
 { 
     LineAttackRange,
     CircleAttack,
+}
+
+public enum QuestType
+{
+    EneyDeathCount = 1,
+    WaveClear,
+    DungeonClear,
+    Gatcha,
+    PlayerStatsUpgrade,
+
+    QuestTypeClearAndWait =1000,
+}
+
+public enum DungeonType
+{
+    None = -1,
+    SweepHomeBase,
+    CleaingUpTrainTracks,
+    BreakDownTrain,
+}
+
+public enum GatchaType
+{
+    None=-1,
+    Weapon,
+    Armor,
+    Skill,
+    Pet,
+}
+
+public enum UpgradeType
+{
+    Power,
+    PowerBoost,
+    AttackSpeed,
+    Critical,
+    CriticalPower,
+    MonsterDamage,
+    MaxHp,
+    Healing,
+    Weapon,
+    Skill
 }

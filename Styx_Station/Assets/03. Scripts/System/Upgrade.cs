@@ -79,51 +79,6 @@ public class Upgrade : MonoBehaviour
         item.upgradeLev += 1;
     }
 
-    public int CustomUpgradeWeight(Inventory.InventoryItem item)
-    {
-        int weight = 0;
-
-        switch (item.upgradeLev / 10)
-        {
-            case 0:
-                weight = 5 * item.upgradeLev;
-                break;
-            case 1:
-                weight = 10 * item.upgradeLev;
-                break;
-            case 2:
-                weight = 20 * item.upgradeLev;
-                break;
-            case 3:
-                weight = 40 * item.upgradeLev;
-                break;
-            case 4:
-                weight = 80 * item.upgradeLev;
-                break;
-            case 5:
-                weight = 160 * item.upgradeLev;
-                break;
-            case 6:
-                weight = 320 * item.upgradeLev;
-                break;
-            case 7:
-                weight = 640 * item.upgradeLev;
-                break;
-            case 8:
-                weight = 1280 * item.upgradeLev;
-                break;
-            case 9:
-                weight = 2560 * item.upgradeLev;
-                break;
-
-            default:
-                weight = 2560 * item.upgradeLev;
-                break;
-        }
-
-        return weight;
-    }
-
     private void RingUpgrade(int index)
     {
         var item = itemInventory.customRings[index].item;
@@ -139,12 +94,11 @@ public class Upgrade : MonoBehaviour
         if (item.item.itemLevUpNum.Count > item.upgradeLev)
             num = item.item.itemLevUpNum[item.upgradeLev];
 
-        int weight = CustomUpgradeWeight(item); 
 
-        if (CurrencyManager.itemAsh < num + weight)
+        if (CurrencyManager.itemAsh < num)
             return;
 
-        CurrencyManager.itemAsh -= num + weight;
+        CurrencyManager.itemAsh -= num;
 
         item.upgradeLev += 1;
     }
@@ -164,12 +118,10 @@ public class Upgrade : MonoBehaviour
         if (item.item.itemLevUpNum.Count > item.upgradeLev)
             num = item.item.itemLevUpNum[item.upgradeLev];
 
-        int weight = CustomUpgradeWeight(item);
-
-        if (CurrencyManager.itemAsh < num + weight)
+        if (CurrencyManager.itemAsh < num)
             return;
 
-        CurrencyManager.itemAsh -= num + weight;
+        CurrencyManager.itemAsh -= num;
 
         item.upgradeLev += 1;
     }

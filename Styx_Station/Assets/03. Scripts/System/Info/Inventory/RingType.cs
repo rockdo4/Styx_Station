@@ -57,7 +57,7 @@ public class RingType : InventoryType
     public void Setting(Inventory inventory)
     {
         this.inventory = inventory;
-        //info.GetComponent<RingEquipInfoUi>().Inventory();
+        info.GetComponent<RingEquipInfoUi>().Inventory();
 
         for (int i = 0; i < inventory.customRings.Count; ++i)
         {
@@ -71,7 +71,7 @@ public class RingType : InventoryType
             ui.image = button.transform.GetChild(0).gameObject;
             ui.itemLv = button.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
 
-            //button.onClick.AddListener(() => ui.OnClickEquip(equipRing.gameObject));
+           // button.onClick.AddListener(() => ui.OnClickEquip(this));
             customRingButtons.Add(button);
         }
     }

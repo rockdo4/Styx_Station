@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RingEquipInfoUi : MonoBehaviour
+public class SymbolEquipInfoUi : MonoBehaviour
 {
     private Inventory inventory;
 
@@ -26,57 +26,57 @@ public class RingEquipInfoUi : MonoBehaviour
 
     public void InfoUpdate()
     {
-        var ring = inventory.customRings[selectIndex].item;
+        var symbol = inventory.customSymbols[selectIndex].item;
 
-        if (ring.acquire)
+        if (symbol.acquire)
             equip.interactable = true;
 
-        else if (!ring.acquire)
+        else if (!symbol.acquire)
             equip.interactable = false;
 
-        if (ring.upgradeLev < ring.item.itemLevUpNum.Count)
-            lev.text = $"Lv.{ring.upgradeLev}\n\n({CurrencyManager.itemAsh} / {ring.item.itemLevUpNum[ring.upgradeLev]})";
+        if (symbol.upgradeLev < symbol.item.itemLevUpNum.Count)
+            lev.text = $"Lv.{symbol.upgradeLev}\n\n({CurrencyManager.itemAsh} / {symbol.item.itemLevUpNum[symbol.upgradeLev]})";
 
         else
-            lev.text = $"Lv.{ring.upgradeLev}\n\n({CurrencyManager.itemAsh} / {ring.item.itemLevUpNum[ring.item.itemLevUpNum.Count-1]})";
+            lev.text = $"Lv.{symbol.upgradeLev}\n\n({CurrencyManager.itemAsh} / {symbol.item.itemLevUpNum[symbol.item.itemLevUpNum.Count - 1]})";
     }
 
     public void OnClickRingEquip()
     {
-        if (!inventory.customRings[selectIndex].item.acquire)
+        if (!inventory.customSymbols[selectIndex].item.acquire)
             return;
 
-        var equip = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().equipButtons[2];
+        var equip = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().equipButtons[3];
 
         if (equip == null)
             return;
 
-        var item = inventory.GetEquipItem(2);
+        var item = inventory.GetEquipItem(3);
 
         if (item == null)
         {
-            inventory.EquipItem(selectIndex, ItemType.Ring);
-            equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.customRings[selectIndex].item.item.itemIcon;
+            inventory.EquipItem(selectIndex, ItemType.Symbol);
+            equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.customSymbols[selectIndex].item.item.itemIcon;
             AlphaChange(equip, true);
             return;
         }
 
         if (item.index != selectIndex)
         {
-            inventory.DequipItem(item, ItemType.Ring);
+            inventory.DequipItem(item, ItemType.Symbol);
             AlphaChange(equip, false);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = null;
         }
         else if (item.index == selectIndex)
         {
-            inventory.DequipItem(item, ItemType.Ring);
+            inventory.DequipItem(item, ItemType.Symbol);
             AlphaChange(equip, false);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = null;
             return;
         }
 
-        inventory.EquipItem(selectIndex, ItemType.Ring);
-        equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.customRings[selectIndex].item.item.itemIcon;
+        inventory.EquipItem(selectIndex, ItemType.Symbol);
+        equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.customSymbols[selectIndex].item.item.itemIcon;
         AlphaChange(equip, true);
     }
 
@@ -103,7 +103,7 @@ public class RingEquipInfoUi : MonoBehaviour
 
     public void OnClickUpgrade()
     {
-        gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Ring);
+        gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Symbol);
 
         InfoUpdate();
     }

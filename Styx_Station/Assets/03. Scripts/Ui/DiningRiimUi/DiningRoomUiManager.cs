@@ -89,8 +89,17 @@ public class DiningRoomUIManager : MonoBehaviour
     private void FixedUpdate()
     {
         SetDiningRoomTimerText();
-        if(!DiningRoomSystem.Instance.isMaxSelectUpgradeLevel && !DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
+        if(!DiningRoomSystem.Instance.isMaxSelectUpgradeLevel || !DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
             CheckUpgradeButton();
+
+        if(CurrencyManager.money1 < timerUpgradePrice)
+        {
+            timerUpgradeButton.interactable = false;
+        }
+        else
+        {
+            timerUpgradeButton.interactable = true;
+        }    
     }
     private void Update()
     {
@@ -149,7 +158,7 @@ public class DiningRoomUIManager : MonoBehaviour
         {
             if(diningRoomButtdonDatas[i].onClick)
             {
-                diningRoomUIFoodDataInfo.SetFoodData(diningRoomButtdonDatas[i].foodData);
+                diningRoomUIFoodDataInfo.SetFoodData(diningRoomButtdonDatas[i].foodData,i);
                 diningRoomButtdonDatas[i].onClick = false;
             }
         }
@@ -260,12 +269,12 @@ public class DiningRoomUIManager : MonoBehaviour
         {
             for (int i = 0; i < DiningRoomSystem.Instance.selectFoodCount; ++i)
             {
-                if (diningRoomButtdonDatas[i].foodData == diningRoomUIFoodDataInfo.foodData)
+                if (diningRoomButtdonDatas[i].foodData == diningRoomUIFoodDataInfo.foodData && i== diningRoomUIFoodDataInfo.currentIndex)
                 {
                     DiningRoomSystem.Instance.ReMoveFoodData(i);
                     diningRoomUIFoodDataInfo.DataZero();
                     PlayerBuff.Instance.GetBuffAll(diningRoomButtdonDatas[i].foodData.Food_ATK, diningRoomButtdonDatas[i].foodData.Food_Cri, diningRoomButtdonDatas[i].foodData.Food_Skill,
-                        diningRoomButtdonDatas[i].foodData.Food_Boss, diningRoomButtdonDatas[i].foodData.Food_Silup, diningRoomButtdonDatas[i].foodData.Food_Du);
+                        diningRoomButtdonDatas[i].foodData.Food_Boss, diningRoomButtdonDatas[i].foodData.Food_Silup, diningRoomButtdonDatas[i].foodData.Food_Du, diningRoomButtdonDatas[i].foodData.Food_Type);
                     break;
                 }
             }
@@ -278,7 +287,7 @@ public class DiningRoomUIManager : MonoBehaviour
         {
             for (int i = 0; i < DiningRoomSystem.Instance.selectFoodCount; ++i)
             {
-                if (diningRoomButtdonDatas[i].foodData == diningRoomUIFoodDataInfo.foodData)
+                if (diningRoomButtdonDatas[i].foodData == diningRoomUIFoodDataInfo.foodData && i == diningRoomUIFoodDataInfo.currentIndex)
                 {
                     DiningRoomSystem.Instance.ReMoveFoodData(i);
                     diningRoomUIFoodDataInfo.DataZero();
@@ -544,15 +553,15 @@ public class DiningRoomUIManager : MonoBehaviour
     }
     private void CheckUpgradeButton()
     {
-        if (CurrencyManager.money1 < timerUpgradePrice || DiningRoomSystem.Instance.isMaxSelectUpgradeLevel)
+        if (CurrencyManager.money1 < timerUpgradePrice || DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
         {
-            timerUpgradeButton.interactable = false;
+            timerUpgradeButton.interactable = false; 
         }
         else
         {
             timerUpgradeButton.interactable = true;
         }
-        if (CurrencyManager.money3 < selectFoodUpgradePrice || DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
+        if (CurrencyManager.money3 < selectFoodUpgradePrice || DiningRoomSystem.Instance.isMaxSelectUpgradeLevel)
         {
             selectFoodUpgradeButton.interactable = false;
         }

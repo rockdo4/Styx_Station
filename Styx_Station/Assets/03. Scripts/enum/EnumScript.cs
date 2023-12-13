@@ -67,6 +67,7 @@ public enum PlayerTier
 }
 public enum FoodType
 {
+    None =-1,
     F,
     E,
     D,

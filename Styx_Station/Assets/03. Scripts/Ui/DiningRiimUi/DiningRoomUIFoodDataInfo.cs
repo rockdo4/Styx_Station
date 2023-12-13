@@ -6,7 +6,9 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
 {
     private Language language;
     private StringTableData defaultFoodDataInfo = new StringTableData();
-    
+
+    private int[] buffInt = new int[6];
+
     [HideInInspector] public FoodData foodData;
     private bool isSetting = false;
     [SerializeField] private Image foodImage;
@@ -18,7 +20,11 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
     [SerializeField] private TextMeshProUGUI foodSellSliverText;
     [SerializeField] private TextMeshProUGUI foodSellPomegranateText;
     [SerializeField] private TextMeshProUGUI foodInfoText;
+    [SerializeField] private TextMeshProUGUI foodBuffInfoText;
     private StringTableData foodInfoStringTable;
+    private StringTableData foodBuffInfoStringTable;
+    public int currentIndex;
+
 
     public Button sellButton;
     public Button eatButton;
@@ -43,8 +49,17 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
     }
 
 
-    public void SetFoodData(FoodData foodData)
+    public void SetFoodData(FoodData foodData,int index)
     {
+        if(PlayerBuff.Instance.buffData.foodType > foodData.Food_Type)
+        {
+            eatButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            eatButton.gameObject.SetActive(true);
+        }
+        currentIndex=index;
         this.foodData = foodData;
         foodImage.sprite = this.foodData.sprite;
         isSetting=true; 
@@ -75,6 +90,8 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
         foodNameStringTable = MakeTableData.Instance.stringTable.dic[foodData.Food_Name_ID];
         var str = foodData.Food_ID + "_FoodInfo";
         foodInfoStringTable = MakeTableData.Instance.stringTable.dic[str];
+        var buffStr = foodData.Food_ID + "_Buff";
+        foodBuffInfoStringTable = MakeTableData.Instance.stringTable.dic[buffStr];
         foodSellSliverText.text = $"{foodData.Food_Sil}";
         foodSellPomegranateText.text = $"{foodData.Food_Soul}";
         SetStringTableData();
@@ -85,15 +102,46 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
     private void SetStringTableData()
     {
         language = Global.language;
-        switch(Global.language)
+        string foodBuffStr;
+        int currentBuffInt = 0;
+        if (foodData.Food_ATK > 0)
+        {
+            buffInt[currentBuffInt] = foodData.Food_ATK;
+            currentBuffInt++;
+        }
+        if (foodData.Food_Cri > 0)
+        {
+            buffInt[currentBuffInt] = foodData.Food_Cri;
+            currentBuffInt++;
+        }
+        if (foodData.Food_Skill > 0)
+        {
+            buffInt[currentBuffInt] = foodData.Food_Skill;
+            currentBuffInt++;
+        }
+        if (foodData.Food_Boss > 0)
+        {
+            buffInt[0] = foodData.Food_Boss;
+            currentBuffInt++;
+        }
+        if (foodData.Food_Silup > 0)
+        {
+            buffInt[currentBuffInt] = foodData.Food_Silup;
+            currentBuffInt++;
+        }
+        switch (Global.language)
         {
             case Language.KOR:
                 foodNameText.text = foodNameStringTable.KOR;
-                foodInfoText.text=foodInfoStringTable.KOR;
+                foodInfoText.text = foodInfoStringTable.KOR;
+                foodBuffStr = string.Format(foodBuffInfoStringTable.KOR, buffInt[0], buffInt[1], buffInt[2], buffInt[3], buffInt[4]);
+                foodBuffInfoText.text = foodBuffStr;
                 break;
             case Language.ENG:
                 foodNameText.text = foodNameStringTable.ENG;
-                foodInfoText.text =foodInfoStringTable.ENG;
+                foodInfoText.text = foodInfoStringTable.ENG;
+                foodBuffStr = string.Format(foodBuffInfoStringTable.ENG, buffInt[0], buffInt[1], buffInt[2], buffInt[3], buffInt[4]);
+                foodBuffInfoText.text = foodBuffStr;
                 break;
         }
     }

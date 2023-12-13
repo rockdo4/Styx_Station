@@ -7,7 +7,7 @@ public class NormalButton : MonoBehaviour
 {
     public SkillInventory inventory;
 
-    public Image skillImage;
+    public GameObject skillImage;
 
     public int skillIndex;
     public int equipIndex;
@@ -17,11 +17,11 @@ public class NormalButton : MonoBehaviour
 
         if (skillIndex < 0)
         {
-            skillImage.sprite = null;
+            skillImage.GetComponent<Image>().sprite = null;
             return;
         }
 
-        skillImage.sprite = inventory.skills[skillIndex].skill.image;
+        skillImage.GetComponent<Image>().sprite = inventory.skills[skillIndex].skill.image;
     }
     public void OnClickDequip(bool equipMode)
     {
@@ -31,7 +31,7 @@ public class NormalButton : MonoBehaviour
         inventory.DequipSkill(skillIndex, equipIndex);
 
         skillIndex = -1;
-        skillImage.sprite = null;
+        skillImage.GetComponent<Image>().sprite = null;
     }
 
     public void OnClickEquip(SkillWindow window)
@@ -52,10 +52,11 @@ public class NormalButton : MonoBehaviour
         }
 
         skillIndex = window.selectIndex;
-        skillImage.sprite = inventory.skills[skillIndex].skill.image;
+        skillImage.GetComponent<Image>().sprite = inventory.skills[skillIndex].skill.image;
 
         window.equipMode = false;
         inventory.EquipSkill(skillIndex, equipIndex);
         window.WindowUpdate();
+        window.OnClickEquipClose();
     }
 }

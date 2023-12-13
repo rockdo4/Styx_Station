@@ -29,7 +29,7 @@ public class SkillInventory : MonoBehaviour
 
     public List<InventorySKill> skills { get; set; } = new List<InventorySKill>();
 
-    public InventorySKill[] equipSkills { get; private set; }  = new InventorySKill[5];
+    public InventorySKill[] equipSkills { get; private set; }  = new InventorySKill[6];
 
     public void SkillSorting()
     {

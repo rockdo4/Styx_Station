@@ -84,6 +84,7 @@ public class UIManager : Singleton<UIManager>
         windows[(int)currentWindow].Close();
 
         CloseMainMenu();
+        SkillButtonOn();
     }
 
     public void CloseTrain()

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class SkillInfoUi : MonoBehaviour
 {
     private SkillInventory inventory;
+    private SkillWindow window;
 
     public int selectIndex;
 
@@ -22,6 +23,7 @@ public class SkillInfoUi : MonoBehaviour
     public void Inventory()
     {
         inventory = InventorySystem.Instance.skillInventory;
+        window = UIManager.Instance.skill;
     }
     public void InfoUpdate()
     {
@@ -42,7 +44,10 @@ public class SkillInfoUi : MonoBehaviour
             var index = skill.equipIndex;
             inventory.DequipSkill(selectIndex, index);
             var button = UIManager.Instance.skill.equipButtons[index].gameObject.GetComponent<NormalButton>();
+            button.skillIndex = -1;
+            button.skillImage.GetComponent<Image>().sprite = null;
 
+            window.AlphaChange(UIManager.Instance.skill.equipButtons[index], false);
         }
     }
 
@@ -52,4 +57,6 @@ public class SkillInfoUi : MonoBehaviour
 
         InfoUpdate();
     }
+
+
 }

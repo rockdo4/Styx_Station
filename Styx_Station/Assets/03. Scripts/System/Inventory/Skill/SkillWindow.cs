@@ -71,6 +71,17 @@ public class SkillWindow : SubWindow
                 button.image = button.transform.GetChild(0).gameObject;
                 skillButtons[i].onClick.AddListener(() => button.OnClickOpenInfo(this));
             }
+            for(int i = 0; i<equipButtons.Count; ++i)
+            {
+                var button = equipButtons[i].GetComponent<NormalButton>();
+                if (button == null) 
+                    continue;
+
+                button.skillIndex = -1;
+                button.equipIndex = i;
+                button.inventory = inventory;
+                equipButtons[i].onClick.AddListener(() => button.OnClickEquip(this));
+            }
             first = true;
         }
     }
@@ -83,6 +94,11 @@ public class SkillWindow : SubWindow
         {
             var ui = button.GetComponent<NormalButton>();
             button.interactable = true;
+            if(ui.skillIndex > -1)
+                AlphaChange(button, true);
+            else
+                AlphaChange(button, false);
+
             ui.UiUpdate();
         }
     }
@@ -121,6 +137,26 @@ public class SkillWindow : SubWindow
         foreach (var slot in slotButtons)
         {
             slot.gameObject.SetActive(false);
+        }
+    }
+    public void AlphaChange(Button button, bool value)
+    {
+        Color color = new Color();
+        switch (value)
+        {
+            case true:
+                {
+                    color = new Color(1f, 1f, 1f, 1f);
+                    button.GetComponent<NormalButton>().skillImage.GetComponent<Image>().color = color;
+                }
+                break;
+
+            case false:
+                {
+                    color = new Color(1f, 1f, 1f, 0f);
+                    button.GetComponent<NormalButton>().skillImage.GetComponent<Image>().color = color;
+                }
+                break;
         }
     }
 }

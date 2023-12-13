@@ -79,7 +79,7 @@ public class SaveLoad : MonoBehaviour
 
         foreach (var skill in skillInventory.skills)
         {
-            SkillData skillData = new SkillData(skill.skill.name, skill.upgradeLev, skill.acquire, skill.equip, skill.stock);
+            SkillData skillData = new SkillData(skill.skill.name, skill.upgradeLev, skill.acquire, skill.stock);
             data.gameSaveDatas.skillData.Add(skillData);
         }
 
@@ -228,6 +228,8 @@ public class SaveLoad : MonoBehaviour
 
                 var uiInvenvtory = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>();
                 uiInvenvtory.Setting();
+                var uiSkill = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[2].GetComponent<SkillWindow>();
+                uiSkill.Setting();
 
                 if (gameSaveDatas["equipItem"] is JToken equipToken)
                 {
@@ -256,7 +258,6 @@ public class SaveLoad : MonoBehaviour
                                 {
                                     armorInfo.selectIndex = armor.index;
                                     armorInfo.OnClickArmorEquip();
-                                    //inventory.EquipItem(aromr.index, item.itemType);
                                 }
                                     break;
 
@@ -287,7 +288,6 @@ public class SaveLoad : MonoBehaviour
                         {
                             skillData.upgradeLev = skill.skillLevel;
                             skillData.acquire = skill.acquire;
-                            skillData.equip = skill.equip;
                             skillData.stock = skill.stock;
                         }
                     }
@@ -301,8 +301,14 @@ public class SaveLoad : MonoBehaviour
                     {
                         var skill = skillInventory.skills.Where(x => x.skill.name == equip.skillName).FirstOrDefault();
                         if (skill != null)
-                            skillInventory.EquipSkill(skill.skillIndex, equip.equipIndex);
+                        {
+                            uiSkill.selectIndex = skill.skillIndex;
+                            uiSkill.equipMode = true;
+                            uiSkill.equipButtons[equip.equipIndex].GetComponent<NormalButton>().OnClickEquip(uiSkill);
+                            uiSkill.selectIndex = -1;
+                        }
                     }
+                    UIManager.Instance.SkillButtonOn();
                 }
                 if (gameSaveDatas["exitTime"] is JToken exitTime)
                 {

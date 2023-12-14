@@ -79,6 +79,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         waitForSeconds = new WaitForSeconds(waitTime);
     }
 
+    public void SetWave()
+    {
+        CurrentStage = currStage.stageId;
+        CurrentWave = currStage.waveId;
+        CurrentChpater = currStage.chapterId;
+
+        SetCurrentStageText();
+    }
+
     public void StartWave()
     {
         playerController.GetComponent<ResultPlayerStats>().ResetHp();
@@ -125,6 +134,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             currStage.monsterHealthIncrease,
             currStage.monsterAttackSpeedIncrease);
         aliveMonsterCount = currStage.monster1Count + currStage.monster2Count;
+        
     }
 
     public void EndWave()
@@ -153,6 +163,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void SetStageByIndexStage(int stageIndex)
     {
         currStage = stageList.GetStageByStageIndex(stageIndex);
+        SetWave();
     }
 
     public void UpdateCurrentChapter()

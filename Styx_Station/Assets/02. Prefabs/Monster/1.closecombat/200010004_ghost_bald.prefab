@@ -2373,6 +2373,7 @@ GameObject:
   - component: {fileID: 603242784484096835}
   - component: {fileID: 3378379358740566636}
   - component: {fileID: 7719417120536312124}
+  - component: {fileID: 5561288787740586973}
   m_Layer: 16
   m_Name: UnitRoot
   m_TagString: Untagged
@@ -2419,7 +2420,7 @@ Animator:
   m_GameObject: {fileID: 5486804775700168133}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c2fc0aafc4ba14749a6cc196ffeb52b8, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7506ebd48de072d41b6b563f778ad515, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2430,6 +2431,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5561288787740586973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5486804775700168133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0003fbc680796014b99931bf7f04f2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  target: {fileID: 0}
+  attacker: {fileID: 0}
 --- !u!1 &5497587774128791615
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,7 @@ public class MonsterScriptEditor : Editor
                 var MonsterAttackedRedEffectCheck = monster.prefab.GetComponent<MonsterAttackedRedEffect>();
                 var rec = monster.prefab.GetComponent<RectTransform>();
                 var child = monster.prefab.transform.GetChild(0);
+                var animator = child.GetComponent<Animator>();
 
                 //{
                 //    GameObject fpos = Instantiate(firepos);
@@ -39,6 +40,10 @@ public class MonsterScriptEditor : Editor
                 //    Canvas canvasObj = Instantiate(canvas);
                 //    canvasObj.transform.parent = monster.prefab.transform;
                 //}
+                {
+                    var ani = monster.prefab.GetComponentInChildren<Animator>();
+                    ani.runtimeAnimatorController = controller;
+                }
                 if (child != null && child.GetComponent<ExecuteHit>() == null)
                 {
                     child.AddComponent<ExecuteHit>();
@@ -93,7 +98,7 @@ public class MonsterScriptEditor : Editor
 
                 if (monsterattackCheck == null)
                 {
-                    var mon = monster.prefab.AddComponent<AttackedTakeDamage>();
+                    var mon = monster.prefab.AddComponent<MonsterAttackedTakeDamage>();
                 }
                 else
                 {

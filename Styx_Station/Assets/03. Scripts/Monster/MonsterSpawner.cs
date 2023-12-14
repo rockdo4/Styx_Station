@@ -164,6 +164,11 @@ public class MonsterSpawner : MonoBehaviour
                 yield break;
             }
             GameObject monster = ObjectPoolManager.instance.GetGo(monsterTable.GetMonster(monsterTypeIndex).name);
+            if(monster == null)
+            {
+                Debug.Log("ERR: 오브젝트 풀에서 받아오기 실패");
+                yield break;
+            }
             monster.transform.position = spawnPoint.transform.position;
 
             string healths = (BigInteger.Parse(monsterTable.GetMonster(monsterTypeIndex).maxHealth) + increaseHealth).ToString();

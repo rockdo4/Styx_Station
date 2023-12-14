@@ -80,6 +80,11 @@ public class MonsterController : PoolAble //MonoBehaviour
 
     public void SetExcuteHit()
     {
+        if(executeHit == null)
+        {
+            Debug.Log("ERR: No executeHit");
+            return;
+        }
         executeHit.weapon = weapon;
         executeHit.target = target;
         executeHit.attacker = gameObject;

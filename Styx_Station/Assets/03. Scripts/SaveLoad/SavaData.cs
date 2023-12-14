@@ -151,7 +151,8 @@ public class GameSaveData
 
     public string exitTime = string.Empty;
     public string keyAccumulateTime = string.Empty;
-    public StageData stageData;
+    //public StageData stageData;
+    public int stageIndex;
 
     public int foodTimerUpgradeLevelUp;
     public int foodSelectUpgradeLevelUp;

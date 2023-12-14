@@ -115,6 +115,10 @@ public class WaveManager : MonoBehaviour
         ScrollBackground(true);
         //StartWave();
     }
+    public void SetStageByIndexStage(int stageIndex)
+    {
+        currStage = stageList.GetStageByStageIndex(stageIndex);
+    }
 
     public void UpdateCurrentChapter()
     {
@@ -147,6 +151,11 @@ public class WaveManager : MonoBehaviour
     public int GetIndex(int chapterId, int stageId, int waveId)
     {
         return 100000000 + (chapterId * 10000) + ((stageId - 1) * 5) + waveId;
+    }
+
+    public int GetCurrentIndex()
+    {
+        return currStage.index;
     }
 
     public void DecreaseAliveMonsterCount()

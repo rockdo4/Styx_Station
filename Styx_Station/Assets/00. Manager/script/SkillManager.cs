@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static SkillInventory;
 
@@ -32,13 +31,8 @@ public enum SkillCool
     skill018 = 1 << 17,
 }
 
-public class SkillManager : MonoBehaviour
+public class SkillManager : Singleton<SkillManager>
 {
-    private SkillCool skillcool = SkillCool.None;
-    private SkillInventory inventory;
-    private InventorySKill[] equipSkills;
-    private SkillCool[] equipSkillFlags = new SkillCool[6];
-
     private SkillCool[] skillCools = new SkillCool[] 
     { 
         SkillCool.None,
@@ -62,8 +56,12 @@ public class SkillManager : MonoBehaviour
         SkillCool.skill018,
     };
 
-
+    private SkillCool skillcool = SkillCool.None;
+    private SkillInventory inventory;
+    private InventorySKill[] equipSkills;
+    private SkillCool[] equipSkillFlags = new SkillCool[6];
     public List<SkillBase> skills = new List<SkillBase>(); //스킬 인벤토리의 skill index와 index 맞추기
+    
     private GameObject player;
 
     public GameObject tripleShotShooterPrefab;
@@ -82,14 +80,15 @@ public class SkillManager : MonoBehaviour
     private void Awake()
     {
         inventory = InventorySystem.Instance.skillInventory;
-        equipSkills = inventory.equipSkills;
+        //equipSkills = inventory.equipSkills;
+        SetEquipSkill();
         player = GameObject.FindGameObjectWithTag("Player");
 
-        inventory.EquipSkill(0, 0); //트리플샷, skill001
-        inventory.EquipSkill(1, 1); //화살비, skill002
-        inventory.EquipSkill(2, 2); //독화살, skill003
-        inventory.EquipSkill(5, 3); //회오리샷, skill006
-        inventory.EquipSkill(6, 4); //먹구름, skill007
+        //inventory.EquipSkill(0, 0); //트리플샷, skill001
+        //inventory.EquipSkill(1, 1); //화살비, skill002
+        //inventory.EquipSkill(2, 2); //독화살, skill003
+        //inventory.EquipSkill(5, 3); //회오리샷, skill006
+        //inventory.EquipSkill(6, 4); //먹구름, skill007
 
         skills.Add(new TripleShot(inventory.skills[0], tripleShotShooterPrefab));
         skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone));
@@ -97,8 +96,7 @@ public class SkillManager : MonoBehaviour
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
         skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab));
 
-        SetEquipSkillCool();
-
+        //SetEquipSkillCool();
     }
 
     private void Start()
@@ -113,6 +111,19 @@ public class SkillManager : MonoBehaviour
             equipSkillFlags[i] = skillCools[equipSkills[i].skillIndex + 1];
         }
     }
+
+    public void SetEquipSkill()
+    {
+        equipSkills = inventory.equipSkills;
+        SetEquipSkillCool();
+    }
+
+    public void SetEquipSkillByIndex(int index)
+    {
+        equipSkills[index] = inventory.equipSkills[index];
+        equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
+    }
+
     private void Update()
     {
         if(player.GetComponent<PlayerController>().currentStates == States.Move)
@@ -167,7 +178,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            FindeSkillBase(0).UseSkill(player);
+            FindeSkillBase(equipSkills[0].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[0];
             StartCoroutine(Skill1CoolDown(equipSkills[0].skill.Skill_Cool, equipSkillFlags[0]));
             //skillcool &= ~equipSkillFlags[0];
@@ -197,7 +208,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            FindeSkillBase(1).UseSkill(player);
+            FindeSkillBase(equipSkills[1].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[1];
             StartCoroutine(Skill2CoolDown(equipSkills[1].skill.Skill_Cool, equipSkillFlags[1]));
             //skillcool &= ~equipSkillFlags[1];
@@ -227,7 +238,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            FindeSkillBase(2).UseSkill(player);
+            FindeSkillBase(equipSkills[2].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[2];
             StartCoroutine(Skill3CoolDown(equipSkills[2].skill.Skill_Cool, equipSkillFlags[2]));
             //skillcool &= ~equipSkillFlags[2];
@@ -257,7 +268,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            FindeSkillBase(3).UseSkill(player);
+            FindeSkillBase(equipSkills[3].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[3];
             StartCoroutine(Skill4CoolDown(equipSkills[3].skill.Skill_Cool, equipSkillFlags[3]));
             //skillcool &= ~equipSkillFlags[3];
@@ -287,7 +298,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            FindeSkillBase(4).UseSkill(player);
+            FindeSkillBase(equipSkills[4].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[4];
             StartCoroutine(Skill5CoolDown(equipSkills[4].skill.Skill_Cool, equipSkillFlags[4]));
             //skillcool &= ~equipSkillFlags[4];
@@ -317,7 +328,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            FindeSkillBase(5).UseSkill(player);
+            FindeSkillBase(equipSkills[5].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[5];
             StartCoroutine(Skill6CoolDown(equipSkills[5].skill.Skill_Cool, equipSkillFlags[5]));
             //skillcool &= ~equipSkillFlags[5];

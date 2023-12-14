@@ -17,7 +17,7 @@ public class QuestListTable : DataTable<QuestListTable>
 
     public List<QuestTableDatas> questList = new List<QuestTableDatas>();
 
-    public int currentIndex = 1;
+    
 
     public override void Load()
     {

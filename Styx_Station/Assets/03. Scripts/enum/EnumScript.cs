@@ -137,7 +137,8 @@ public enum SkillType
 
 public enum QuestType
 {
-    EneyDeathCount = 1,
+    Nonne=-1,
+    EneyDeathCount=1,
     WaveClear,
     DungeonClear,
     Gatcha,
@@ -149,7 +150,7 @@ public enum QuestType
 public enum DungeonType
 {
     None = -1,
-    SweepHomeBase,
+    SweepHomeBase=1,
     CleaingUpTrainTracks,
     BreakDownTrain,
 }
@@ -157,14 +158,17 @@ public enum DungeonType
 public enum GatchaType
 {
     None=-1,
-    Weapon,
+    Weapon = 1,
     Armor,
+    Ring,
+    Sysmbol,
     Skill,
     Pet,
 }
 
 public enum UpgradeType
 {
+    None=-1,
     Power,
     PowerBoost,
     AttackSpeed,
@@ -175,4 +179,12 @@ public enum UpgradeType
     Healing,
     Weapon,
     Skill
+}
+
+public enum RewardType
+{
+    None =-1,
+    Sliver,
+    StyxPomegranate,
+    SoulStone,
 }

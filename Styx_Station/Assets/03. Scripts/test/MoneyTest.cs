@@ -61,4 +61,11 @@ public class MoneyTest : MonoBehaviour
         ll[1].text = $"{UnitConverter.OutString(CurrencyManager.money2)}";
         ll[2].text = $"{UnitConverter.OutString(CurrencyManager.money3)}";
     }
+
+    public void PrintText()
+    {
+        ll[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
+        ll[1].text = $"{UnitConverter.OutString(CurrencyManager.money2)}";
+        ll[2].text = $"{UnitConverter.OutString(CurrencyManager.money3)}";
+    }
 }

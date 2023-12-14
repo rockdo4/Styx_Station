@@ -2,7 +2,7 @@
 //using UnityEditor;
 
 //[CustomEditor(typeof(PlayerObject))]
-//public class PlayerScriptObjectEditor :Editor
+//public class PlayerScriptObjectEditor : Editor
 //{
 //    public RuntimeAnimatorController animator;
 //    public override void OnInspectorGUI()
@@ -20,7 +20,7 @@
 //        {
 //            EditorGUILayout.HelpBox("Error: player Stats is 0", MessageType.Error);
 //        }
-//        if(!check &&  playerObject.playerCharacter != null)
+//        if (!check && playerObject.playerCharacter != null)
 //        {
 //            if (GUILayout.Button("Add Component"))
 //            {
@@ -68,6 +68,5 @@
 //                }
 //            }
 //        }
-       
 //    }
 //}

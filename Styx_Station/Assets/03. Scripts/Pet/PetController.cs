@@ -118,7 +118,7 @@ public class PetController : MonoBehaviour
     {
         if (masterPlayer != null)
             return -1;
-        return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (int)petlevel * 10/ 100;
+        return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPowerByNonInventory() * (int)petlevel * 10/ 100;
     }
     public StateManager GetPetStateManager()
     {

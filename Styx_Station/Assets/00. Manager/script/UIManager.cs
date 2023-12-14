@@ -27,7 +27,8 @@ public class UIManager : Singleton<UIManager>
     private Coroutine move;
 
     public SkillWindow skill;
-
+    //12.14 이승우 퀘스트 오브젝트 가져오기
+    public QuestSystemUi questSystemUi;
     public void Open(WindowType inventoryType)
     {
         if (!first)

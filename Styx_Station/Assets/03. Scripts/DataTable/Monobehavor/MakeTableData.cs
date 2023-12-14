@@ -10,6 +10,7 @@ public class MakeTableData : Singleton<MakeTableData>
     [HideInInspector] public StageTable stageTable;
     [HideInInspector] public LabTable labTable;
     [HideInInspector] public QuestListTable questTable;
+    public int currentIndex = 0;
 
     private void Awake()
     {

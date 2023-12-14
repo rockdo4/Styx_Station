@@ -12,7 +12,7 @@ public class Stage : ScriptableObject
     public float waveTimer;
     public int monsterAttackIncrease;
     public int monsterHealthIncrease;
-    public int monsterAttackSpeedIncrease;
+    public float monsterAttackSpeedIncrease;
     public MonsterTypeBase monster1;
     public int monster1Count;
     public MonsterTypeBase monster2;

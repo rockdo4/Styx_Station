@@ -13,7 +13,8 @@ public class MonsterSpawner : MonoBehaviour
     public int spawnTimeBat;
     public WaitForSeconds WaitSecond;
     
-    public List<MonsterTypeBase> MonsterTypes;
+    public MonsterTable monsterTable;
+    //private List<MonsterTypeBase> MonsterTypes;
 
     public float spawnYPosSpacing;    //½ºÆù yÁÂÇ¥ °£°Ý
     public int spawnYPosCount;   //½ºÆù yÁÂÇ¥ °¹¼ö
@@ -32,7 +33,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private int[] monsterCount = new int[4]
     {
-        -1, -1, -1, -1
+        0, 0 , 0, 0
     };
     //public int monster1Count;
     //public int monster2Count;
@@ -54,52 +55,17 @@ public class MonsterSpawner : MonoBehaviour
         WaitSecond = new WaitForSeconds(spawnTimeBat);
     }
 
-    //private void Update()
-    //{
-    //    if (timer + spawnTimeBat <= Time.time)
-    //    {
-    //        int randNum = Random.Range(0, MonsterTypes.Count);
-    //        timer = Time.time;
-    //        GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[randNum].name);
-    //        monster.transform.position = spawnPoint.transform.position;
-
-    //        monster.GetComponent<MonsterStats>().SetStats(
-    //            MonsterTypes[randNum].maxHealth, MonsterTypes[randNum].damage, MonsterTypes[randNum].attackType, MonsterTypes[randNum].speed);
-    //        monster.GetComponent<MonsterController>().weapon = MonsterTypes[randNum].weapon;
-
-    //        monster.GetComponent<MonsterController>().SetExcuteHit();
-    //        monster.GetComponent<MonsterController>().SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
-    //    }
-    //}
-
     private int FindMonsterIndex(string name)
     {
-        for (int i = 0; i < MonsterTypes.Count; i++)
+        for (int i = 0; i < monsterTable.GetTableSize(); i++)
         {
-            if (MonsterTypes[i].name == name)
+            if (monsterTable.GetMonster(i).name == name)
             {
                 return i;
             }
         }
         return -1;
     }
-    public void SpawnMonster(
-        string m1Name, int m1Count, 
-        int AIncrease, int HIncrease, int SIncrease)
-    {
-        increaseAttack = AIncrease;
-        increaseHealth = HIncrease;
-
-        monsterCount[0] = m1Count;
-        monsterCount[1] = -1;
-        monsterCount[2] = -1;
-        monsterCount[3] = -1;
-
-        monsterIndex[0] = FindMonsterIndex(m1Name);
-
-        spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0]));
-    }
-
     public void SpawnMonster(
         string m1Name, int m1Count, 
         string m2Name, int m2Count, 
@@ -110,14 +76,14 @@ public class MonsterSpawner : MonoBehaviour
 
         bool isFindM1 = false;
         bool isFindM2 = false;
-        for(int i = 0; i < MonsterTypes.Count; i++)
+        for(int i = 0; i < monsterTable.GetTableSize(); i++)
         {
-            if (MonsterTypes[i].name == m1Name && !isFindM1)
+            if (monsterTable.GetMonster(i).name == m1Name && !isFindM1)
             {
                 monsterCount[0] = i;
                 isFindM1 = true;
             }
-            else if(MonsterTypes[i].name == m2Name && !isFindM2)
+            else if(monsterTable.GetMonster(i).name == m2Name && !isFindM2)
             {
                 monsterCount[1] = i;
                 isFindM2 = true;
@@ -135,21 +101,26 @@ public class MonsterSpawner : MonoBehaviour
         spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0] + monsterCount[1]));
     }
 
-    public void SpawnMonster(string m1Name, int m1Count, 
-        string m2Name, int m2Count, 
-        string m3Name, int m3Count, 
-        int AIncrease, int HIncrease, int SIncrease)
-    {
-
-    }
-
     public void SpawnMonster(string m1Name, int m1Count,
         string m2Name, int m2Count,
         string m3Name, int m3Count,
         string m4Name, int m4Count,
-        int AIncrease, int HIncrease, int SIncrease)
+        int AIncrease, int HIncrease, float SIncrease)
     {
+        increaseAttack = AIncrease;
+        increaseHealth = HIncrease;
 
+        monsterCount[0] = m1Count;
+        monsterCount[1] = m2Count;
+        monsterCount[2] = m3Count;
+        monsterCount[3] = m4Count;
+
+        monsterIndex[0] = FindMonsterIndex(m1Name);
+        monsterIndex[1] = FindMonsterIndex(m2Name);
+        monsterIndex[2] = FindMonsterIndex(m3Name);
+        monsterIndex[3] = FindMonsterIndex(m4Name);
+
+        spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0] + monsterCount[1] + monsterCount[2] + monsterCount[3]));
     }
     IEnumerator SpawnMonsterCo(int count)
     {
@@ -157,52 +128,53 @@ public class MonsterSpawner : MonoBehaviour
         while (spawnedCount < count)
         {
             yield return WaitSecond;
-            //Debug.Log("SpawnMonster");
-            int monsterTypeIndex = -1;
-            int randNum;
-            if(monsterCount[0] <= 0 || monsterCount[1] <= 0 || monsterCount[2] <= 0 || monsterCount[3] <= 0 )
-            {
-                if(monsterCount[1] <= 0)
-                {
-                    monsterTypeIndex = monsterIndex[0];
-                }
-                else
-                {
-                    monsterTypeIndex = monsterIndex[1];
-                }
-            }
-            else
-            {
-                randNum = Random.Range(0, maxMonsterTypeCount);
-                switch (randNum)
-                {
-                    case 0:
-                        monsterTypeIndex = monsterIndex[0];
-                        monsterCount[0]--;
-                        break;
 
-                    case 1:
-                        monsterTypeIndex = monsterIndex[1];
-                        monsterCount[1]--;
-                        break;
+            int monsterTypeIndex = -1;
+            int availableMonsterTypes = 0;
+            for (int i = 0; i < maxMonsterTypeCount; i++)
+            {
+                if (monsterCount[i] > 0)
+                {
+                    availableMonsterTypes++;
                 }
             }
-            if(monsterTypeIndex < 0 )
+            if(availableMonsterTypes > 0)
+            {
+                int randNum = Random.Range(0, availableMonsterTypes);
+                int countDown = randNum;
+
+                for(int i = 0; i< maxMonsterTypeCount; i++)
+                {
+                    if (monsterCount[i] > 0)
+                    {
+                        if(countDown == 0)
+                        {
+                            monsterTypeIndex = monsterIndex[i];
+                            monsterCount[i]--;
+                            break;
+                        }
+                    }
+                    countDown--;
+                }
+            }
+
+            if (monsterTypeIndex < 0)
             {
                 Debug.Log("ERR: wrong MonsterTypeIndex");
+                yield break;
             }
-            GameObject monster = ObjectPoolManager.instance.GetGo(MonsterTypes[monsterTypeIndex].name);
+            GameObject monster = ObjectPoolManager.instance.GetGo(monsterTable.GetMonster(monsterTypeIndex).name);
             monster.transform.position = spawnPoint.transform.position;
 
-            string healths = (BigInteger.Parse(MonsterTypes[monsterTypeIndex].maxHealth) + increaseHealth).ToString();
-            string attacks = (BigInteger.Parse(MonsterTypes[monsterTypeIndex].damage) + increaseAttack).ToString();
+            string healths = (BigInteger.Parse(monsterTable.GetMonster(monsterTypeIndex).maxHealth) + increaseHealth).ToString();
+            string attacks = (BigInteger.Parse(monsterTable.GetMonster(monsterTypeIndex).damage) + increaseAttack).ToString();
             monster.GetComponent<MonsterStats>().SetStats(
                 healths,
                 attacks,
-                MonsterTypes[monsterTypeIndex].attackType,
-                MonsterTypes[monsterTypeIndex].speed);
+                monsterTable.GetMonster(monsterTypeIndex).attackType,
+                monsterTable.GetMonster(monsterTypeIndex).speed);
             var monsterController = monster.GetComponent<MonsterController>();
-            monsterController.weapon = MonsterTypes[monsterTypeIndex].weapon;
+            monsterController.weapon = monsterTable.GetMonster(monsterTypeIndex).weapon;
             monster.GetComponent<Collider2D>().enabled = true;
 
             monsterController.SetExcuteHit();

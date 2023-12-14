@@ -110,7 +110,7 @@ public class SaveLoad : MonoBehaviour
 
         //data.gameSaveDatas.stageData = GameData.stageData;
 
-        data.gameSaveDatas.stageIndex = WaveManager.instance.GetCurrentIndex();
+        data.gameSaveDatas.stageIndex = WaveManager.Instance.GetCurrentIndex();
 
         if (diningRoomsystem != null)
         {
@@ -410,7 +410,7 @@ public class SaveLoad : MonoBehaviour
                     string str = stageIndex.ToString();
                     var stageData = JsonConvert.DeserializeObject<int>(str);
                     
-                    WaveManager.instance.SetStageByIndexStage(stageData);
+                    WaveManager.Instance.SetStageByIndexStage(stageData);
                 }
             }
         }

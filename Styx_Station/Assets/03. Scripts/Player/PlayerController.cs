@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
             {
                 IsStartTarget = true;
                 SetState(States.Idle);
-                WaveManager.instance.StartWave();
+                WaveManager.Instance.StartWave();
                 playerStartTimer = 0f;
             }
         }

@@ -12,4 +12,9 @@ public class MonsterTable : ScriptableObject
     {
         return table.Count;
     }
+
+    public MonsterTypeBase GetMonster(int index)
+    {
+        return table[index];
+    }
 }

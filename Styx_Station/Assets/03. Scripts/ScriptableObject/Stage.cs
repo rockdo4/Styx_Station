@@ -17,6 +17,10 @@ public class Stage : ScriptableObject
     public int monster1Count;
     public MonsterTypeBase monster2;
     public int monster2Count;
+    public MonsterTypeBase monster3;
+    public int monster3Count;
+    public MonsterTypeBase monster4;
+    public int monster4Count;
     public bool isBossWave;
     public MonsterTypeBase bossMonster;
     public int rewardExperience;

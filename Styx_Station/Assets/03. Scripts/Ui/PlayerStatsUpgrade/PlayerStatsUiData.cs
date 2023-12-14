@@ -65,8 +65,12 @@ public class PlayerStatsUiData : MonoBehaviour
                 if (upgradePlayerStatsAction.TryGetValue(index, out var action))
                 {
                     action.Invoke();
+                   
                 }
-                UIManager.Instance.questSystemUi.UpgradeQuestSet(index);
+                if (button.interactable)
+                {
+                    UIManager.Instance.questSystemUi.UpgradeQuestSet(index);
+                }
                 SetTextLevelAndPrice(index);
             }
         }

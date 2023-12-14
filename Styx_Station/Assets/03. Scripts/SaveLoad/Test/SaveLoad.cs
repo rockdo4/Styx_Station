@@ -111,7 +111,7 @@ public class SaveLoad : MonoBehaviour
 
         //data.gameSaveDatas.stageData = GameData.stageData;
 
-        data.gameSaveDatas.stageIndex = WaveManager.Instance.GetCurrentIndex();
+        data.gameSaveDatas.stageIndex = waveManager.GetCurrentIndex();
 
         if (diningRoomsystem != null)
         {

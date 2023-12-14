@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class NormalButton : MonoBehaviour
 {
     public SkillInventory inventory;
+    private SkillManager skillManager;
 
     public GameObject skillImage;
 
@@ -25,10 +26,41 @@ public class NormalButton : MonoBehaviour
 
         skillImage.GetComponent<Image>().sprite = inventory.skills[skillIndex].skill.image;
     }
+
+    public void Setting()
+    {
+        skillManager = SkillManager.Instance;
+    }
     public void OnClickActive(SkillWindow window)
     {
         if (window.equipMode)
             return;
+
+        if (skillIndex < 0)
+            return;
+
+        switch (equipIndex)
+        { 
+            case 0:
+                skillManager.UseSkill1();
+                break;
+            case 1:
+                skillManager.UseSkill2();
+                break;
+            case 2:
+                skillManager.UseSkill3();
+                break;
+            case 3:
+                skillManager.UseSkill4();
+                break;
+            case 4:
+                skillManager.UseSkill5();
+                break;
+            case 5:
+                skillManager.UseSkill6();
+                break;
+        
+        }
 
 
     }
@@ -55,7 +87,7 @@ public class NormalButton : MonoBehaviour
 
         window.equipMode = false;
         inventory.EquipSkill(skillIndex, equipIndex);
-        SkillManager.Instance.SetEquipSkillByIndex(equipIndex);
+        skillManager.SetEquipSkillByIndex(equipIndex);
         window.WindowUpdate();
         window.OnClickEquipClose();
     }

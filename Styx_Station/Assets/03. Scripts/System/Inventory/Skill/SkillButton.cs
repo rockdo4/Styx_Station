@@ -64,12 +64,13 @@ public class SkillButton : MonoBehaviour
             info.equip.interactable = false;
         }
 
-        if(skillIndex>7)
+        info.InfoUpdate();
+
+        if (skillIndex > 7)
         {
             info.equip.interactable = false;
         }
 
-        info.InfoUpdate();
         window.info.SetActive(true);
     }
 }

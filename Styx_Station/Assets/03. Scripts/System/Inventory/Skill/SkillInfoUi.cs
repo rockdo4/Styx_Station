@@ -43,6 +43,7 @@ public class SkillInfoUi : MonoBehaviour
             var skill = inventory.skills[selectIndex];
             var index = skill.equipIndex;
             inventory.DequipSkill(selectIndex, index);
+            SkillManager.Instance.SetDequipSkillByIndex(index);
             var button = UIManager.Instance.skill.equipButtons[index].gameObject.GetComponent<NormalButton>();
             button.skillIndex = -1;
             button.skillImage.GetComponent<Image>().sprite = null;

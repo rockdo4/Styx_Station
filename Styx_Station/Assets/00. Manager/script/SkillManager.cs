@@ -93,6 +93,8 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new TripleShot(inventory.skills[0], tripleShotShooterPrefab));
         skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone));
         skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab));
+        skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab)); //임시
+        skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab)); //임시
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
         skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab));
 
@@ -108,12 +110,21 @@ public class SkillManager : Singleton<SkillManager>
     {
         for (int i = 0; i < equipSkillFlags.Length - 1; i++)
         {
+       
+            if (equipSkills[i] == null)
+            {
+                continue;
+            }
             equipSkillFlags[i] = skillCools[equipSkills[i].skillIndex + 1];
         }
     }
 
     public void SetEquipSkill()
     {
+        if(inventory.equipSkills == null)
+        {
+            return;
+        }
         equipSkills = inventory.equipSkills;
         SetEquipSkillCool();
     }
@@ -122,6 +133,11 @@ public class SkillManager : Singleton<SkillManager>
     {
         equipSkills[index] = inventory.equipSkills[index];
         equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
+    }
+
+    public void SetDequipSkillByIndex(int index)
+    {
+        equipSkills[index] = null;
     }
 
     private void Update()
@@ -163,15 +179,15 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill1()
     {
+        if (equipSkills[0] == null)
+        {
+            return;
+        }
         if (player == null)
         {
             Debug.Log("ERR: Player is Null");
             return;
         }
-        //if ((skillcool & SkillCool.skill001) != 0) //쿨 도는 중
-        //{
-        //    Debug.Log("스킬 쿨 대기 중");
-        //}
         if ((skillcool & equipSkillFlags[0]) != 0)
         {
             Debug.Log("스킬 쿨 대기 중");
@@ -188,6 +204,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill2()
     {
+        if (equipSkills[1] == null)
+        {
+            return;
+        }
         if (player == null)
         {
             Debug.Log("ERR: Player is Null");
@@ -218,6 +238,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill3()
     {
+        if (equipSkills[2] == null)
+        {
+            return;
+        }
         if (player == null)
         {
             Debug.Log("ERR: Player is Null");
@@ -248,6 +272,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill4()
     {
+        if (equipSkills[3] == null)
+        {
+            return;
+        }
         if (player == null)
         {
             Debug.Log("ERR: Player is Null");
@@ -278,6 +306,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill5()
     {
+        if (equipSkills[4] == null)
+        {
+            return;
+        }
         if (player == null)
         {
             Debug.Log("ERR: Player is Null");
@@ -308,6 +340,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill6()
     {
+        if (equipSkills[5] == null)
+        {
+            return;
+        }
         if (player == null)
         {
             Debug.Log("ERR: Player is Null");

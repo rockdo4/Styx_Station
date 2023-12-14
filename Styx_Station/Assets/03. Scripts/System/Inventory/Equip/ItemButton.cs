@@ -198,6 +198,114 @@ public class ItemButton : MonoBehaviour
         window.info.SetActive(true);
     }
 
+    public void OnClickRingOpenInfo(RingType window)
+    {
+        if (window == null)
+            return;
+
+        window.selectIndex = itemIndex;
+        var info = window.info.GetComponent<RingEquipInfoUi>();
+        Color color = new Color();
+        switch (inventory.customRings[itemIndex].item.item.tier)
+        {
+            case Tier.Common:
+                {
+                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Uncommon:
+                {
+                    color = new Color(0, 0, 0, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Rare:
+                {
+                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Unique:
+                {
+                    color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Legendry:
+                {
+                    color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+        }
+        info.itemName.color = color;
+        info.tier.color = color;
+        info.selectIndex = itemIndex;
+        info.itemImage.GetComponent<Image>().sprite = inventory.customRings[itemIndex].item.item.itemIcon;
+
+        info.InfoUpdate();
+        window.info.SetActive(true);
+    }
+
+    public void OnClickSymbolOpenInfo(SymbolType window)
+    {
+        if (window == null)
+            return;
+
+        window.selectIndex = itemIndex;
+        var info = window.info.GetComponent<SymbolEquipInfoUi>();
+        Color color = new Color();
+        switch (inventory.customSymbols[itemIndex].item.item.tier)
+        {
+            case Tier.Common:
+                {
+                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Uncommon:
+                {
+                    color = new Color(0, 0, 0, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Rare:
+                {
+                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Unique:
+                {
+                    color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Legendry:
+                {
+                    color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                    info.outBox.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+        }
+        info.itemName.color = color;
+        info.tier.color = color;
+        info.selectIndex = itemIndex;
+        info.itemImage.GetComponent<Image>().sprite = inventory.customSymbols[itemIndex].item.item.itemIcon;
+
+        info.InfoUpdate();
+        window.info.SetActive(true);
+    }
+
     public void OnClickEquip(GameObject button)
     {
         var equip = button.GetComponent<EquipButton>();

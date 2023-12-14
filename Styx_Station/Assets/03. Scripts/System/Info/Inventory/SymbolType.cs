@@ -7,11 +7,18 @@ using UnityEngine.UI;
 
 public class SymbolType : InventoryType
 {
+    private Inventory inventory;
+
     public GameObject symbols;
 
     public Button symbolSlot;
 
-    private List<Button> customSymbolButtons = new List<Button>();
+    public GameObject info;
+
+    public int selectIndex = -1;
+
+    public List<Button> customSymbolButtons { get; private set; } = new List<Button>();
+    
     public override void Open()
     {
         base.Open();
@@ -28,11 +35,30 @@ public class SymbolType : InventoryType
 
     public override void Close()
     {
+        OnClickCloseSymbolInfo();
+        
         base.Close();
     }
 
+    public void OnClickCloseSymbolInfo()
+    {
+        selectIndex = -1;
+        info.SetActive(false);
+
+        foreach (var symbol in customSymbolButtons)
+        {
+            var button = symbol.GetComponent<ItemButton>();
+            if (button == null)
+                continue;
+
+            button.InfoUpdate();
+        }
+    }
     public void Setting(Inventory inventory)
     {
+        this.inventory = inventory;
+        info.GetComponent<SymbolEquipInfoUi>().Inventory();
+
         for (int i = 0; i < inventory.customRings.Count; ++i)
         {
             Button button = Instantiate(symbolSlot, symbols.transform);
@@ -43,9 +69,9 @@ public class SymbolType : InventoryType
             ui.type = ItemType.Symbol;
             ui.itemIndex = i;
             ui.image = button.transform.GetChild(0).gameObject;
-            ui.itemLv = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            ui.itemLv = button.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
 
-            //button.onClick.AddListener(() => ui.OnClickEquip(equipSymbol.gameObject));
+            button.onClick.AddListener(() => ui.OnClickSymbolOpenInfo(this));
             customSymbolButtons.Add(button);
         }
     }

@@ -71,7 +71,7 @@ public class RingType : InventoryType
             ui.image = button.transform.GetChild(0).gameObject;
             ui.itemLv = button.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
 
-           // button.onClick.AddListener(() => ui.OnClickEquip(this));
+            button.onClick.AddListener(() => ui.OnClickRingOpenInfo(this));
             customRingButtons.Add(button);
         }
     }

@@ -101,7 +101,9 @@ public enum WindowType
     Lab,
     Cleaning,
     BossRush,
-    Survival,
+    Menu,
+    Shop,
+    Mission,
 }
 
 public enum InfoWindowType

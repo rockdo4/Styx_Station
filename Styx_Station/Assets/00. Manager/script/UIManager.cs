@@ -72,6 +72,21 @@ public class UIManager : Singleton<UIManager>
         Open(WindowType.BossRush);
     }
 
+    public void OnClickMenu()
+    {
+        Open(WindowType.Menu);
+    }
+
+    public void OnClickShop()
+    {
+        Open(WindowType.Shop);
+    }
+
+    public void OnClickMission()
+    {
+        Open(WindowType.Mission);
+    }
+
     public void OnClickClose()
     {
         if (!first)

@@ -140,15 +140,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void UpdateCurrentWave()
     {
         CurrentWave++;
-        //if(CurrentWave > 5)
-        //{
-        //    CurrentWave = 1;
-        //    UpdateCurrentStage();
-        //}
-        if(CurrentWave > 4) //임시, 4번째 웨이브 계속 반복하도록
+        if (CurrentWave > 5)
         {
-            CurrentWave = 4;
+            CurrentWave = 1;
+            UpdateCurrentStage();
         }
+        //if(CurrentWave > 4) //임시, 4번째 웨이브 계속 반복하도록
+        //{
+        //    CurrentWave = 4;
+        //}
         SetCurrentStageText();
     }
 

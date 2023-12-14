@@ -23,19 +23,19 @@ public class Stage : ScriptableObject
     public int monster4Count;
     public bool isBossWave;
     public MonsterTypeBase bossMonster;
-    public int rewardExperience;
+    //public int rewardExperience;
     public int rewardCoins;
-    public MoneyType rewardSpecialCurrency1;
-    public int specialCurrency1Amount;
-    public MoneyType rewardSpecialCurrency2;
-    public int specialCurrency2Amount;
-    public int rewardItem1Id; //itemTable의 index
-    public int rewardItem1Amount;
-    public int rewardItem2Id; //itemTable의 index
-    public int rewardItem2Amount;
-    public int rewardItem3Id; //itemTable의 index
-    public int rewardItem3Amount;
-    public int rewardItem4Id; //itemTable의 index
-    public int rewardItem4Amount;
+    //public MoneyType rewardSpecialCurrency1;
+    //public int specialCurrency1Amount;
+    //public MoneyType rewardSpecialCurrency2;
+    //public int specialCurrency2Amount;
+    //public int rewardItem1Id;
+    //public int rewardItem1Amount;
+    //public int rewardItem2Id;
+    //public int rewardItem2Amount;
+    //public int rewardItem3Id;
+    //public int rewardItem3Amount;
+    //public int rewardItem4Id;
+    //public int rewardItem4Amount;
     public int linkedQuestId; 
 }

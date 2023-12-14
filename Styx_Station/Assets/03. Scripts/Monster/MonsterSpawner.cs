@@ -103,7 +103,7 @@ public class MonsterSpawner : MonoBehaviour
     public void SpawnMonster(
         string m1Name, int m1Count, 
         string m2Name, int m2Count, 
-        int AIncrease, int HIncrease, int SIncrease)
+        int AIncrease, int HIncrease, float SIncrease)
     {
         increaseAttack = AIncrease;
         increaseHealth = HIncrease;

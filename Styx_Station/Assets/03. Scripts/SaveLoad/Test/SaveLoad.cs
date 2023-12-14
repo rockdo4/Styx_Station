@@ -101,14 +101,17 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.keyAccumulateTime = GameData.keyPrevAccumlateTime.ToString();
 
 
-        if (GameData.stageData.chapter == 0)
-            GameData.stageData.chapter = 1;
-        if (GameData.stageData.stage == 0)
-            GameData.stageData.stage = 1;
-        if (GameData.stageData.wave == 0)
-            GameData.stageData.wave = 1;
+        //if (GameData.stageData.chapter == 0)
+        //    GameData.stageData.chapter = 1;
+        //if (GameData.stageData.stage == 0)
+        //    GameData.stageData.stage = 1;
+        //if (GameData.stageData.wave == 0)
+        //    GameData.stageData.wave = 1;
 
-        data.gameSaveDatas.stageData = GameData.stageData;
+        //data.gameSaveDatas.stageData = GameData.stageData;
+
+        data.gameSaveDatas.stageIndex = WaveManager.Instance.GetCurrentIndex();
+
         if (diningRoomsystem != null)
         {
             var foodDatas = diningRoomsystem.foodDatas;
@@ -401,6 +404,13 @@ public class SaveLoad : MonoBehaviour
                         PlayerBuff.Instance.Reset();
                     }
 
+                }
+                if (gameSaveDatas["stageIndex"] is JToken stageIndex)
+                {
+                    string str = stageIndex.ToString();
+                    var stageData = JsonConvert.DeserializeObject<int>(str);
+                    
+                    WaveManager.Instance.SetStageByIndexStage(stageData);
                 }
             }
         }

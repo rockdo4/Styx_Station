@@ -20,8 +20,8 @@ public class BackgroundLoop : MonoBehaviour
         if(transform.position.x < centerPos.x - width) //화면 밖으로 나갔을 때
         {
             Reposition(); //다음 sky 배견화면 사진 옆으로 이동하게 함
-            WaveManager.instance.ScrollBackground(false);
-            WaveManager.instance.StartWave();
+            WaveManager.Instance.ScrollBackground(false);
+            WaveManager.Instance.StartWave();
         }
     }
 

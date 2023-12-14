@@ -88,8 +88,8 @@ public class SaveDataV3 : SaveData
 
     public string exitTime = string.Empty;
     public string keyAccumulateTime = string.Empty;
-    public StageData stageData;
-
+    //public StageData stageData;
+    public int stageData;
 
     public SaveFoodData[] diningRoomSaveFoodData = new SaveFoodData[6]; // sprite고려 -> 안되어서 이미지 FileName으로 작업해볼예정
 
@@ -107,7 +107,8 @@ public class SaveDataV3 : SaveData
         v4.gameSaveDatas.equipSkill = equipSkill;
         v4.gameSaveDatas.exitTime = exitTime;
         v4.gameSaveDatas.keyAccumulateTime = keyAccumulateTime;
-        v4.gameSaveDatas.stageData= stageData;
+        v4.gameSaveDatas.stageIndex = stageData;
+        //v4.gameSaveDatas.stageData= stageData;
         v4.gameSaveDatas.diningRoomSaveFoodData = diningRoomSaveFoodData;
 
 
@@ -151,7 +152,8 @@ public class GameSaveData
 
     public string exitTime = string.Empty;
     public string keyAccumulateTime = string.Empty;
-    public StageData stageData;
+    //public StageData stageData;
+    public int stageIndex;
 
     public int foodTimerUpgradeLevelUp;
     public int foodSelectUpgradeLevelUp;

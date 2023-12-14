@@ -13,7 +13,7 @@ public class PlayerDieState : PlayerStateBase
 
     public override void Enter()
     {
-        WaveManager.instance.EndWave();
+        WaveManager.Instance.EndWave();
         timer = 0f;
     }
 

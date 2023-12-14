@@ -82,17 +82,17 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void StartWave()
     {
         playerController.GetComponent<ResultPlayerStats>().ResetHp();
-        spawner.SpawnMonster(currStage.monster1.name, 
-            currStage.monster1Count, 
-            currStage.monster2.name, 
-            currStage.monster2Count,
-            currStage.monster3.name,
-            currStage.monster3Count,
-            currStage.monster4.name,
-            currStage.monster4Count,
-            currStage.monsterAttackIncrease,
-            currStage.monsterHealthIncrease,
-            currStage.monsterAttackSpeedIncrease);
+        //spawner.SpawnMonster(currStage.monster1.name, 
+        //    currStage.monster1Count, 
+        //    currStage.monster2.name, 
+        //    currStage.monster2Count,
+        //    currStage.monster3.name,
+        //    currStage.monster3Count,
+        //    currStage.monster4.name,
+        //    currStage.monster4Count,
+        //    currStage.monsterAttackIncrease,
+        //    currStage.monsterHealthIncrease,
+        //    currStage.monsterAttackSpeedIncrease);
         aliveMonsterCount = currStage.monster1Count + currStage.monster2Count;
     }
 

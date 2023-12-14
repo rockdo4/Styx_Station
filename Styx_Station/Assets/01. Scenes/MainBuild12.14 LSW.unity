@@ -3069,6 +3069,7 @@ MonoBehaviour:
   skillImage: {fileID: 2112137759}
   skillIndex: 0
   equipIndex: 0
+  cool: {fileID: 0}
 --- !u!1 &66041051
 GameObject:
   m_ObjectHideFlags: 0
@@ -8424,6 +8425,7 @@ RectTransform:
   - {fileID: 964300957}
   - {fileID: 712606911}
   - {fileID: 1507307381}
+  - {fileID: 323494534}
   - {fileID: 703232283}
   m_Father: {fileID: 1755279869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16194,6 +16196,7 @@ MonoBehaviour:
   skillImage: {fileID: 912403307}
   skillIndex: 0
   equipIndex: 0
+  cool: {fileID: 0}
 --- !u!1 &312255231
 GameObject:
   m_ObjectHideFlags: 0
@@ -16669,6 +16672,140 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &323494533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 323494534}
+  - component: {fileID: 323494535}
+  - component: {fileID: 323494536}
+  m_Layer: 5
+  m_Name: FoodBuffInfoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &323494534
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323494533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 174141777}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 8, y: -92.724976}
+  m_SizeDelta: {x: 720.6436, y: 101.52}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &323494535
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323494533}
+  m_CullTransparentMesh: 1
+--- !u!114 &323494536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323494533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: " \uC74C\uC2DD\uC758 \uC124\uBA85"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  m_sharedMaterial: {fileID: -1984255071315151199, guid: ce692489c22a98b41a5bff621bc00bc5, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &323655638
 GameObject:
   m_ObjectHideFlags: 0
@@ -32295,17 +32432,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 0
   spawnTimeBat: 2
-  MonsterTypes:
-  - {fileID: 11400000, guid: 86d6c6b5884d55f42af696f5e607dac8, type: 2}
-  - {fileID: 11400000, guid: 403a238994103f74f90c249d1455cfde, type: 2}
+  monsterTable: {fileID: 0}
   spawnYPosSpacing: 0.1
   spawnYPosCount: 4
   spawnMonstercount: 1
   spawnPoint: {fileID: 1032267759}
-  monster1Index: 0
-  monster2Index: 0
-  monster1Count: 0
-  monster2Count: 0
   maxMonsterTypeCount: 2
   increaseAttack: 0
   increaseHealth: 0
@@ -34603,8 +34734,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8, y: -148}
-  m_SizeDelta: {x: 720.6436, y: 190.9684}
+  m_AnchoredPosition: {x: 8, y: -194.64435}
+  m_SizeDelta: {x: 720.6436, y: 97.6797}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &703232284
 CanvasRenderer:
@@ -40044,6 +40175,7 @@ MonoBehaviour:
   skillImage: {fileID: 2106624777}
   skillIndex: 0
   equipIndex: 0
+  cool: {fileID: 0}
 --- !u!1001 &821774395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41722,7 +41854,7 @@ MonoBehaviour:
   foodSellSliverText: {fileID: 1134726147}
   foodSellPomegranateText: {fileID: 964300959}
   foodInfoText: {fileID: 703232285}
-  foodBuffInfoText: {fileID: 0}
+  foodBuffInfoText: {fileID: 323494536}
   currentIndex: 0
   sellButton: {fileID: 675745139}
   eatButton: {fileID: 268428894}
@@ -52411,6 +52543,7 @@ MonoBehaviour:
   skillImage: {fileID: 80770701}
   skillIndex: 0
   equipIndex: 0
+  cool: {fileID: 0}
 --- !u!1 &1050789041
 GameObject:
   m_ObjectHideFlags: 0
@@ -56020,6 +56153,7 @@ MonoBehaviour:
   skillImage: {fileID: 2112695625}
   skillIndex: 0
   equipIndex: 0
+  cool: {fileID: 0}
 --- !u!1 &1134726144
 GameObject:
   m_ObjectHideFlags: 0
@@ -82245,6 +82379,7 @@ MonoBehaviour:
   skillImage: {fileID: 1002270740}
   skillIndex: 0
   equipIndex: 0
+  cool: {fileID: 0}
 --- !u!1 &1651124346
 GameObject:
   m_ObjectHideFlags: 0
@@ -93647,6 +93782,7 @@ MonoBehaviour:
   - {fileID: 5854510}
   - {fileID: 1866347906}
   - {fileID: 795683042}
+  - {fileID: 779429294}
 --- !u!1 &1939699756
 GameObject:
   m_ObjectHideFlags: 0
@@ -98994,6 +99130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4169f1bc4f1ea1b4bad0e2fd5b5f3153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  info: {fileID: 0}
+  itemGacha: {fileID: 0}
+  skillGacha: {fileID: 0}
 --- !u!1001 &2059235852
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,10 +12,11 @@ public class SaveLoad : MonoBehaviour
 {
     private DiningRoomSystem diningRoomsystem;
     private PlayerBuff playerbuff;
+    private WaveManager waveManager;
     private void Start()
     {
         playerbuff= PlayerBuff.Instance;
-
+        waveManager = WaveManager.Instance;
     }
     public void Save()
     {

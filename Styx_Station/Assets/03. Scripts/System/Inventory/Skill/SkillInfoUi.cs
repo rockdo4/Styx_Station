@@ -29,6 +29,12 @@ public class SkillInfoUi : MonoBehaviour
     {
         var skill = inventory.skills[selectIndex];
 
+        if(skill.acquire)
+            equip.interactable = true;
+
+        else if(!skill.acquire)
+            equip.interactable = false;
+
         if (skill.upgradeLev < skill.skill.Skill_LVUP_NU.Count)
             lev.text = $"Lv.{skill.upgradeLev}\n\n({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.upgradeLev]})";
        
@@ -47,7 +53,6 @@ public class SkillInfoUi : MonoBehaviour
             var button = UIManager.Instance.skill.equipButtons[index].gameObject.GetComponent<NormalButton>();
             button.skillIndex = -1;
             button.skillImage.GetComponent<Image>().sprite = null;
-
             window.AlphaChange(UIManager.Instance.skill.equipButtons[index], false);
         }
     }

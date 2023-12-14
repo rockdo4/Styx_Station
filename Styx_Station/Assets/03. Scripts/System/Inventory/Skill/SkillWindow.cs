@@ -80,6 +80,8 @@ public class SkillWindow : SubWindow
                 button.skillIndex = -1;
                 button.equipIndex = i;
                 button.inventory = inventory;
+                button.Setting();
+                equipButtons[i].onClick.AddListener(() => button.OnClickActive(this));
                 equipButtons[i].onClick.AddListener(() => button.OnClickEquip(this));
             }
             first = true;

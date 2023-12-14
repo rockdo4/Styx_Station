@@ -48,7 +48,7 @@ public class SkillInventory : MonoBehaviour
         if (addSkill != null)
             return;
 
-        skills.Add(new InventorySKill(skill, 0, true, false, 0, -1, -1));
+        skills.Add(new InventorySKill(skill, 0, false, false, 0, -1, -1));
     }
 
     public void Reset()

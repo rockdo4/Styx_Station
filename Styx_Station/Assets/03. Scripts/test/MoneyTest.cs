@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
@@ -25,6 +24,7 @@ public class MoneyTest : MonoBehaviour
         ll[0].text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
         ll[1].text = $"{UnitConverter.OutString(CurrencyManager.money2)}";
         ll[2].text = $"{UnitConverter.OutString(CurrencyManager.money3)}";
+        ll[3].text = $"{UnitConverter.OutString(CurrencyManager.itemAsh)}";
     }
 
     public void IncreaseTestMoney1() //test code

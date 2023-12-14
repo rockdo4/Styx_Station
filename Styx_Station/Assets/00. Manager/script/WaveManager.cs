@@ -84,7 +84,7 @@ public class WaveManager : MonoBehaviour
         playerController.GetComponent<ResultPlayerStats>().ResetHp();
         spawner.SpawnMonster(currStage.monster1.name, 
             currStage.monster1Count, 
-            currStage.monster2.name, 
+            currStage.monster2.prefab.name, 
             currStage.monster2Count,
             currStage.monsterAttackIncrease,
             currStage.monsterHealthIncrease,

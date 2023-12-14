@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design.Serialization;
 using System.Numerics;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static UnityEngine.GraphicsBuffer;
@@ -20,12 +21,25 @@ public class MonsterSpawner : MonoBehaviour
     public int spawnMonstercount = 1;
     public GameObject spawnPoint;
 
-    public int monster1Index;
-    public int monster2Index;
-    public int monster1Count;
-    public int monster2Count;
+    private int[] monsterIndex = new int[4]
+    {
+        -1, -1, -1, -1
+    };
+    //public int monster1Index;
+    //public int monster2Index;
+    //public int monster3Index;
+    //public int monster4Index;
 
-    public int maxMonsterTypeCount = 2;
+    private int[] monsterCount = new int[4]
+    {
+        -1, -1, -1, -1
+    };
+    //public int monster1Count;
+    //public int monster2Count;
+    //public int monster3Count;
+    //public int monster4Count;
+
+    public int maxMonsterTypeCount = 4;
 
     public int increaseAttack;
     public int increaseHealth;
@@ -58,7 +72,38 @@ public class MonsterSpawner : MonoBehaviour
     //    }
     //}
 
-    public void SpawnMonster(string m1Name, int m1Count, string m2Name, int m2Count, int AIncrease, int HIncrease, int SIncrease)
+    private int FindMonsterIndex(string name)
+    {
+        for (int i = 0; i < MonsterTypes.Count; i++)
+        {
+            if (MonsterTypes[i].name == name)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public void SpawnMonster(
+        string m1Name, int m1Count, 
+        int AIncrease, int HIncrease, int SIncrease)
+    {
+        increaseAttack = AIncrease;
+        increaseHealth = HIncrease;
+
+        monsterCount[0] = m1Count;
+        monsterCount[1] = -1;
+        monsterCount[2] = -1;
+        monsterCount[3] = -1;
+
+        monsterIndex[0] = FindMonsterIndex(m1Name);
+
+        spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0]));
+    }
+
+    public void SpawnMonster(
+        string m1Name, int m1Count, 
+        string m2Name, int m2Count, 
+        int AIncrease, int HIncrease, int SIncrease)
     {
         increaseAttack = AIncrease;
         increaseHealth = HIncrease;
@@ -69,25 +114,42 @@ public class MonsterSpawner : MonoBehaviour
         {
             if (MonsterTypes[i].name == m1Name && !isFindM1)
             {
-                monster1Index = i;
+                monsterCount[0] = i;
                 isFindM1 = true;
             }
             else if(MonsterTypes[i].name == m2Name && !isFindM2)
             {
-                monster2Index = i;
+                monsterCount[1] = i;
                 isFindM2 = true;
             }
         }
         if(!isFindM1 || !isFindM2)
         {
             Debug.Log("ERR: Wrong MonsterName. m1 = 0, m2 = 1 로 대신 생성합니다.");
-            monster1Index = 0;
-            monster2Index = 1;
+            monsterIndex[0] = 0;
+            monsterIndex[1] = 1;
         }
-        monster1Count = m1Count;
-        monster2Count = m2Count;
+        monsterCount[0] = m1Count;
+        monsterCount[1] = m2Count;
 
-        spawnCo = StartCoroutine(SpawnMonsterCo(monster1Count + monster2Count));
+        spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0] + monsterCount[1]));
+    }
+
+    public void SpawnMonster(string m1Name, int m1Count, 
+        string m2Name, int m2Count, 
+        string m3Name, int m3Count, 
+        int AIncrease, int HIncrease, int SIncrease)
+    {
+
+    }
+
+    public void SpawnMonster(string m1Name, int m1Count,
+        string m2Name, int m2Count,
+        string m3Name, int m3Count,
+        string m4Name, int m4Count,
+        int AIncrease, int HIncrease, int SIncrease)
+    {
+
     }
     IEnumerator SpawnMonsterCo(int count)
     {
@@ -98,15 +160,15 @@ public class MonsterSpawner : MonoBehaviour
             //Debug.Log("SpawnMonster");
             int monsterTypeIndex = -1;
             int randNum;
-            if(monster1Count <= 0 || monster2Count <=0)
+            if(monsterCount[0] <= 0 || monsterCount[1] <= 0 || monsterCount[2] <= 0 || monsterCount[3] <= 0 )
             {
-                if(monster2Count <= 0)
+                if(monsterCount[1] <= 0)
                 {
-                    monsterTypeIndex = monster1Index;
+                    monsterTypeIndex = monsterIndex[0];
                 }
                 else
                 {
-                    monsterTypeIndex = monster2Index;
+                    monsterTypeIndex = monsterIndex[1];
                 }
             }
             else
@@ -115,13 +177,13 @@ public class MonsterSpawner : MonoBehaviour
                 switch (randNum)
                 {
                     case 0:
-                        monsterTypeIndex = monster1Index;
-                        monster1Count--;
+                        monsterTypeIndex = monsterIndex[0];
+                        monsterCount[0]--;
                         break;
 
                     case 1:
-                        monsterTypeIndex = monster2Index;
-                        monster2Count--;
+                        monsterTypeIndex = monsterIndex[1];
+                        monsterCount[1]--;
                         break;
                 }
             }

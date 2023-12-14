@@ -15918,11 +15918,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4129169840598786021, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
       propertyPath: MaxHp
-      value: 2000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4129169840598786021, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
       propertyPath: attackPower
-      value: 177
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4129169840598786021, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
       propertyPath: playerAttackRange
@@ -29439,6 +29439,9 @@ MonoBehaviour:
   spawnYPosCount: 4
   spawnMonstercount: 1
   spawnPoint: {fileID: 1032267759}
+  bossSize: 2
+  tankSize: 1.5
+  spawnSize: 1
   maxMonsterTypeCount: 4
   increaseAttack: 0
   increaseHealth: 0
@@ -67014,7 +67017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 233.74115, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1450245222
@@ -87449,7 +87452,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 233.74115, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1897910717

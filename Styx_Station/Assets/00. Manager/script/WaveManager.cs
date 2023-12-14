@@ -91,50 +91,57 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void StartWave()
     {
         playerController.GetComponent<ResultPlayerStats>().ResetHp();
-        string monName2;
-        string monName3;
-        string monName4;
 
-        if(currStage.monster2 == null)
+        if(currStage.isBossWave)
         {
-            monName2 = "";
+            spawner.spawnBoss(currStage.bossMonster.name);
         }
         else
         {
-            monName2 = currStage.monster2.name;
+            string monName2;
+            string monName3;
+            string monName4;
+
+            if (currStage.monster2 == null)
+            {
+                monName2 = "";
+            }
+            else
+            {
+                monName2 = currStage.monster2.name;
+            }
+            if (currStage.monster3 == null)
+            {
+                monName3 = "";
+            }
+            else
+            {
+                monName3 = currStage.monster3.name;
+            }
+            if (currStage.monster4 == null)
+            {
+                monName4 = "";
+            }
+            else
+            {
+                monName4 = currStage.monster4.name;
+            }
+            spawner.SpawnMonster(currStage.monster1.name,
+                currStage.monster1Count,
+                monName2,
+                //currStage.monster2.name,
+                currStage.monster2Count,
+                monName3,
+                //currStage.monster3.name,
+                currStage.monster3Count,
+                monName4,
+                //currStage.monster4.name,
+                currStage.monster4Count,
+                currStage.monsterAttackIncrease,
+                currStage.monsterHealthIncrease,
+                currStage.monsterAttackSpeedIncrease);
+            aliveMonsterCount = currStage.monster1Count + currStage.monster2Count + currStage.monster3Count + currStage.monster4Count;
         }
-        if (currStage.monster3 == null)
-        {
-            monName3 = "";
-        }
-        else
-        {
-            monName3 = currStage.monster3.name;
-        }
-        if (currStage.monster4 == null)
-        {
-            monName4 = "";
-        }
-        else
-        {
-            monName4 = currStage.monster4.name;
-        }
-        spawner.SpawnMonster(currStage.monster1.name,
-            currStage.monster1Count,
-            monName2,
-            //currStage.monster2.name,
-            currStage.monster2Count,
-            monName3,
-            //currStage.monster3.name,
-            currStage.monster3Count,
-            monName4,
-            //currStage.monster4.name,
-            currStage.monster4Count,
-            currStage.monsterAttackIncrease,
-            currStage.monsterHealthIncrease,
-            currStage.monsterAttackSpeedIncrease);
-        aliveMonsterCount = currStage.monster1Count + currStage.monster2Count + currStage.monster3Count + currStage.monster4Count;
-        
     }
 
     public void EndWave()

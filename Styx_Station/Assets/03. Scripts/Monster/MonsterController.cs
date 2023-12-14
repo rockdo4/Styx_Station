@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -35,6 +36,9 @@ public class MonsterController : PoolAble //MonoBehaviour
     public GameObject lightningImage;
 
     private int initialSortingOrder = 0;
+
+    public int coin;
+    public int pomegranate;
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
@@ -76,6 +80,12 @@ public class MonsterController : PoolAble //MonoBehaviour
         states.Add(new MonsterDieState(this));
 
         SetState(States.Idle);
+    }
+
+    public void SetMoney(int c, int p)
+    {
+        coin = c;
+        pomegranate = p;
     }
 
     public void SetExcuteHit()

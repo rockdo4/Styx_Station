@@ -22,6 +22,10 @@ public class MonsterSpawner : MonoBehaviour
     public int spawnMonstercount = 1;
     public GameObject spawnPoint;
 
+    public int bossSize = 2;
+    public float tankSize = 1.5f;
+    public float spawnSize = 1f;
+
     private int[] monsterIndex = new int[4]
     {
         -1, -1, -1, -1
@@ -35,6 +39,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         0, 0 , 0, 0
     };
+
     //public int monster1Count;
     //public int monster2Count;
     //public int monster3Count;
@@ -101,6 +106,22 @@ public class MonsterSpawner : MonoBehaviour
         spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0] + monsterCount[1]));
     }
 
+    public void spawnBoss(string bName)
+    {
+        increaseAttack = 0;
+        increaseHealth = 0;
+
+        monsterCount[0] = 1;
+        monsterCount[1] = 0;
+        monsterCount[2] = 0;
+        monsterCount[3] = 0;
+
+        monsterIndex[0] = FindMonsterIndex(bName);
+
+        spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0]));
+
+        spawnSize = bossSize;
+    }
     public void SpawnMonster(string m1Name, int m1Count,
         string m2Name, int m2Count,
         string m3Name, int m3Count,
@@ -206,6 +227,10 @@ public class MonsterSpawner : MonoBehaviour
             monsterController.SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
             monsterController.SetIdlePoint(idlePoint);
             monsterController.isTargetDie = false;
+            monsterController.transform.localScale = new UnityEngine.Vector3(spawnSize, spawnSize, 1);
+            //monsterController.SetMoney(coinAmount[selectIndex], pomegranateAmount[selectIndex]);
+            monsterController.SetMoney(monsterTable.GetMonster(monsterTypeIndex).monster_coin, monsterTable.GetMonster(monsterTypeIndex).monster_pommegrande);
+            spawnSize = 1f;
             spawnedCount++;
         }
     }

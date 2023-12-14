@@ -34,11 +34,11 @@ public class MonsterTypeBase : ScriptableObject
     [Header("monster_size")]
     public int monster_size;
 
-    [Header("monster_exp")]
-    public int monster_exp;
+    [Header("monster_coin")] 
+    public int monster_coin;
 
-    [Header("monster_drop")]
-    public int monster_drop;
+    [Header("monster_pommegrande")]
+    public int monster_pommegrande;
 
     [Header("monster_description")]
     public string monster_description;

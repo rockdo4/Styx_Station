@@ -133,7 +133,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             currStage.monsterAttackIncrease,
             currStage.monsterHealthIncrease,
             currStage.monsterAttackSpeedIncrease);
-        aliveMonsterCount = currStage.monster1Count + currStage.monster2Count;
+        aliveMonsterCount = currStage.monster1Count + currStage.monster2Count + currStage.monster3Count + currStage.monster4Count;
         
     }
 

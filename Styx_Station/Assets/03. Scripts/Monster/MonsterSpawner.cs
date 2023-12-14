@@ -130,39 +130,59 @@ public class MonsterSpawner : MonoBehaviour
             yield return WaitSecond;
 
             int monsterTypeIndex = -1;
-            int availableMonsterTypes = 0;
-            for (int i = 0; i < maxMonsterTypeCount; i++)
+            //int availableMonsterTypes = 0;
+            //for (int i = 0; i < maxMonsterTypeCount; i++)
+            //{
+            //    if (monsterCount[i] > 0)
+            //    {
+            //        availableMonsterTypes++;
+            //    }
+            //}
+            //if(availableMonsterTypes > 0)
+            //{
+            //    int randNum = Random.Range(0, availableMonsterTypes);
+            //    int countDown = randNum;
+
+            //    for(int i = 0; i< maxMonsterTypeCount; i++)
+            //    {
+            //        if (monsterCount[i] > 0)
+            //        {
+            //            if(countDown == 0)
+            //            {
+            //                monsterTypeIndex = monsterIndex[i];
+            //                monsterCount[i]--;
+            //                break;
+            //            }
+            //        }
+            //        countDown--;
+            //    }
+            //}
+
+            List<int> availableMonsterIndexes = new List<int>();
+            for(int i =0; i < maxMonsterTypeCount; i++)
             {
                 if (monsterCount[i] > 0)
                 {
-                    availableMonsterTypes++;
+                    availableMonsterIndexes.Add(i);
                 }
             }
-            if(availableMonsterTypes > 0)
+            if(availableMonsterIndexes.Count == 0)
             {
-                int randNum = Random.Range(0, availableMonsterTypes);
-                int countDown = randNum;
-
-                for(int i = 0; i< maxMonsterTypeCount; i++)
-                {
-                    if (monsterCount[i] > 0)
-                    {
-                        if(countDown == 0)
-                        {
-                            monsterTypeIndex = monsterIndex[i];
-                            monsterCount[i]--;
-                            break;
-                        }
-                    }
-                    countDown--;
-                }
-            }
-
-            if (monsterTypeIndex < 0)
-            {
-                Debug.Log("ERR: wrong MonsterTypeIndex");
+                Debug.Log("ERR: No available monster types");
                 yield break;
             }
+
+            int randIndex = Random.Range(0, availableMonsterIndexes.Count);
+            int selectIndex = availableMonsterIndexes[randIndex];
+
+            monsterTypeIndex = monsterIndex[selectIndex];
+            monsterCount[selectIndex]--;
+
+            //if (monsterTypeIndex < 0)
+            //{
+            //    Debug.Log("ERR: wrong MonsterTypeIndex");
+            //    yield break;
+            //}
             GameObject monster = ObjectPoolManager.instance.GetGo(monsterTable.GetMonster(monsterTypeIndex).name);
             if(monster == null)
             {

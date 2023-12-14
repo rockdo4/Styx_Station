@@ -12,6 +12,8 @@ public class NormalButton : MonoBehaviour
     public int skillIndex;
     public int equipIndex;
 
+    public Slider cool;
+
     public void UiUpdate()
     {
 
@@ -23,15 +25,12 @@ public class NormalButton : MonoBehaviour
 
         skillImage.GetComponent<Image>().sprite = inventory.skills[skillIndex].skill.image;
     }
-    public void OnClickDequip(bool equipMode)
+    public void OnClickActive(SkillWindow window)
     {
-        if (equipMode)
+        if (window.equipMode)
             return;
 
-        inventory.DequipSkill(skillIndex, equipIndex);
 
-        skillIndex = -1;
-        skillImage.GetComponent<Image>().sprite = null;
     }
 
     public void OnClickEquip(SkillWindow window)

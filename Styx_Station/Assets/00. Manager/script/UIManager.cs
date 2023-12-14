@@ -44,14 +44,14 @@ public class UIManager : Singleton<UIManager>
         currentWindow = inventoryType;
 
         windows[(int)inventoryType].Open();
+
+        OpenMainMenu();
+        SkillButtonOff();
     }
 
     public void OnClickInfo()
     {
         Open(WindowType.Info);
-
-        CloseMainMenu();
-        SkillButtonOff();
     }
     public void OnClickDiningRoom()
     {

@@ -1,18 +1,19 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopSystem : Singleton<ShopSystem>
 {
-    private ItemDropTable itemTable;
-    private SkillDropTable skillTable;
-    private PetDropTable petTable;
+    public ItemDropTable itemTable { get; private set; }
+    public SkillDropTable skillTable { get; private set; }
+    public PetDropTable petTable { get; private set; }
 
     public int currentItemRank = 0;
     public int currentItemRankUp = 0;
-    public int currentSkillRank;
-    public int currentSkillRankUp;
-    public int currentPetRank;
-    public int currentPetRankUp;
+    public int currentSkillRank= 0;
+    public int currentSkillRankUp = 0;
+    public int currentPetRank=0;
+    public int currentPetRankUp=0;
 
     private Inventory inventory;
     private SkillInventory skillInventory;
@@ -31,7 +32,7 @@ public class ShopSystem : Singleton<ShopSystem>
         petInventory = InventorySystem.Instance.petInventory;
     }
 
-    public void ItemGacha(int count)
+    public void ItemGacha(GachaInfo info, int count)
     {
         if (count < 1)
             return;
@@ -43,25 +44,79 @@ public class ShopSystem : Singleton<ShopSystem>
             if(item == null)
                 continue;
 
+            currentItemRankUp += 1;
+
             switch(item.type)
             {
                 case ItemType.Weapon:
-                    WeaponItem(item);
+                    WeaponItem(info.slots[i].gameObject, item);
                     break;
                 case ItemType.Armor:
-                    ArmorItem(item);
+                    ArmorItem(info.slots[i].gameObject, item);
                     break;
+            }
+        }
+
+        if (currentItemRankUp >= itemTable.drops[currentItemRank].RankUp)
+        {
+            currentItemRankUp -= itemTable.drops[currentItemRank].RankUp;
+            currentItemRank += 1;
+
+            if(currentItemRank> itemTable.drops.Count-1)
+            {
+                currentItemRank = itemTable.drops.Count - 1;
             }
         }
     }
 
-    private void WeaponItem(Item item)
+    private void WeaponItem(GameObject obj, Item item)
     {
         var weapon = inventory.weapons.Where(x=>x.item.name == item.name).FirstOrDefault();
 
         if (weapon == null)
             return;
 
+        var slot = obj.transform.GetChild(0);
+        slot.GetComponent<Image>().sprite = weapon.item.itemIcon;
+        Color color = new Color();
+        switch (weapon.item.tier)
+        {
+            case Tier.Common:
+                {
+                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Uncommon:
+                {
+                    color = new Color(0, 0, 0, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Rare:
+                {
+                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Unique:
+                {
+                    color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Legendry:
+                {
+                    color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+        }
+        obj.SetActive(true);
         if (!weapon.acquire)
         {
             weapon.acquire = true;
@@ -69,17 +124,57 @@ public class ShopSystem : Singleton<ShopSystem>
         }
 
         weapon.stock += 1;
-        Debug.Log(weapon.stock);
     }
 
-    private void ArmorItem(Item item)
+    private void ArmorItem(GameObject obj, Item item)
     {
         var armor = inventory.armors.Where(x => x.item.name == item.name).FirstOrDefault();
 
         if (armor == null)
             return;
 
-        if(!armor.acquire)
+        var slot = obj.transform.GetChild(0);
+        slot.GetComponent<Image>().sprite = armor.item.itemIcon;
+        Color color = new Color();
+        switch (armor.item.tier)
+        {
+            case Tier.Common:
+                {
+                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Uncommon:
+                {
+                    color = new Color(0, 0, 0, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Rare:
+                {
+                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Unique:
+                {
+                    color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+
+            case Tier.Legendry:
+                {
+                    color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                    obj.GetComponent<Outline>().effectColor = color;
+                }
+                break;
+        }
+        obj.SetActive(true);
+        if (!armor.acquire)
         {
             armor.acquire = true;
             return;
@@ -88,7 +183,7 @@ public class ShopSystem : Singleton<ShopSystem>
         armor.stock += 1;
     }
 
-    public void SkillGacha(int count)
+    public void SkillGacha(GachaInfo info, int count)
     {
         if (count < 1)
             return;
@@ -100,11 +195,55 @@ public class ShopSystem : Singleton<ShopSystem>
             if (skill == null)
                 continue;
 
+            currentSkillRankUp += 1;
+
             var baseSkill = skillInventory.skills.Where(x=>x.skill.name == skill.name).FirstOrDefault();
 
             if (baseSkill == null)
                 continue;
 
+            var obj = info.slots[i].gameObject;
+            var slot = obj.transform.GetChild(0);
+            slot.GetComponent<Image>().sprite = baseSkill.skill.image;
+            Color color = new Color();
+            switch (baseSkill.skill.Skill_Tier)
+            {
+                case Tier.Common:
+                    {
+                        color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Uncommon:
+                    {
+                        color = new Color(0, 0, 0, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Rare:
+                    {
+                        color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Unique:
+                    {
+                        color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Legendry:
+                    {
+                        color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+            }
+            obj.SetActive(true);
             if (!baseSkill.acquire)
             {
                 baseSkill.acquire = true;
@@ -112,6 +251,17 @@ public class ShopSystem : Singleton<ShopSystem>
             }
 
             baseSkill.stock += 1;
+        }
+
+        if (currentSkillRankUp >= skillTable.drops[currentSkillRank].RankUp)
+        {
+            currentSkillRankUp -= skillTable.drops[currentSkillRank].RankUp;
+            currentSkillRank += 1;
+
+            if (currentSkillRank > skillTable.drops.Count - 1)
+            {
+                currentSkillRank = skillTable.drops.Count - 1;
+            }
         }
     }
 }

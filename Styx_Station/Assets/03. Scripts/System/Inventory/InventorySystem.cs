@@ -114,12 +114,4 @@ public class InventorySystem : MonoBehaviour
 
         petInventory.PetSorting();
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            shopSystem.ItemGacha(10);
-        }
-    }
 }

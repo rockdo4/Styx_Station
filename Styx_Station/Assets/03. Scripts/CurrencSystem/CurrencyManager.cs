@@ -25,7 +25,7 @@ public static class CurrencyManager
         switch(a)
         {
             case 0:
-                money1 += money;
+                money1 += money + ((money *PlayerBuff.Instance.buffData.silingBuff)*PlayerBuff.Instance.percent);
                 break;
 
             case 1:

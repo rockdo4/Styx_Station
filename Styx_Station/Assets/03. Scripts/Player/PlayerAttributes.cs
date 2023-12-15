@@ -22,14 +22,7 @@ public class PlayerAttributes : MonoBehaviour
     {
         if(MaxHp != hp)
         {
-            if(hp > MaxHp)
-            {
-                MaxHp = hp; 
-            }
-            else
-            {
-                hp = MaxHp; 
-            }
+            hp = MaxHp;
         }
     }
     private void FixedUpdate()

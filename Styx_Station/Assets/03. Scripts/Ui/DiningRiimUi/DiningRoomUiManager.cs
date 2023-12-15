@@ -92,14 +92,14 @@ public class DiningRoomUIManager : MonoBehaviour
         if(!DiningRoomSystem.Instance.isMaxSelectUpgradeLevel || !DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
             CheckUpgradeButton();
 
-        if(CurrencyManager.money1 < timerUpgradePrice)
-        {
-            timerUpgradeButton.interactable = false;
-        }
-        else
-        {
-            timerUpgradeButton.interactable = true;
-        }    
+        //if(CurrencyManager.money1 < timerUpgradePrice || DiningRoomSystem.Instance.isMaxTimerUpgradeLevel)
+        //{
+        //    timerUpgradeButton.interactable = false;
+        //}
+        //else
+        //{
+        //    timerUpgradeButton.interactable = true;
+        //}    
     }
     private void Update()
     {
@@ -380,11 +380,13 @@ public class DiningRoomUIManager : MonoBehaviour
             }
             else
             {
-                timerText.text = "30:00";
+                int t = (int)(DiningRoomSystem.Instance.max / 60);
+                timerText.text = $"{t}:00";
                 upgradePriceText.text = "Max";
                 timerUpgradeButton.interactable = false;    
             }
         }
+        
     }
     private void SetDiningRoomTimerText()
     {
@@ -516,7 +518,7 @@ public class DiningRoomUIManager : MonoBehaviour
     }
     public void TimerUpgradeButton()
     {
-        
+
         if (CurrencyManager.money1>=timerUpgradePrice)
         {
             CurrencyManager.money1 -= timerUpgradePrice;

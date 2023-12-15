@@ -156,7 +156,7 @@ public class DiningRoomUIFoodDataInfo : MonoBehaviour
         foodSellPomegranateText.text = "";
         foodInfoText.text = "";
         foodInfoStringTable = defaultFoodDataInfo;
-
+        foodBuffInfoText.text = "";
         sellButton.interactable = false;
         eatButton.interactable = false;
     }

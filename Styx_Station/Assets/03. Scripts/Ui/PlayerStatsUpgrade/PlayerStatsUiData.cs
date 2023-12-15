@@ -159,7 +159,7 @@ public class PlayerStatsUiData : MonoBehaviour
                 if(PlayerStatsUIManager.Instance.playerStats != null)
                 {
                     PlayerStatsUIManager.Instance.playerStats.SettingPlayerMaxHP();
-                    return UnitConverter.OutString(PlayerStatsUIManager.Instance.playerStats.playerMaxHp-1);
+                    return UnitConverter.OutString(PlayerStatsUIManager.Instance.playerStats.playerUpgradeMaxHP);
                 }
                 else return UnitConverter.OutString(SharedPlayerStats.GetHp() - 1);
             }},

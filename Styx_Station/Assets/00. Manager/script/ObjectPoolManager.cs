@@ -44,7 +44,7 @@ public class ObjectPoolManager : MonoBehaviour
     private void Init()
     {
         IsReady = false;
-        for(int i =0;i<objectInfos.Length; i++)
+        for (int i = 0; i < objectInfos.Length; i++)
         {
             IObjectPool<GameObject> pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
                 OnDestroyPoolObject, true, objectInfos[i].count, objectInfos[i].maxCount);
@@ -58,7 +58,7 @@ public class ObjectPoolManager : MonoBehaviour
             objPoolDic.Add(objectInfos[i].objectName, pool);
 
             //오브젝트 미리 생성
-            for(int j = 0; j < objectInfos[i].count; j++)
+            for (int j = 0; j < objectInfos[i].count; j++)
             {
                 objectName = objectInfos[i].objectName;
                 PoolAble poolAbleGo = CreatePooledItem().GetComponent<PoolAble>();

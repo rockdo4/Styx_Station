@@ -22,6 +22,10 @@ public class MonsterSpawner : MonoBehaviour
     public int spawnMonstercount = 1;
     public GameObject spawnPoint;
 
+    public int bossSize = 2;
+    public float tankSize = 1.5f;
+    public float spawnSize = 1f;
+
     private int[] monsterIndex = new int[4]
     {
         -1, -1, -1, -1
@@ -35,6 +39,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         0, 0 , 0, 0
     };
+
     //public int monster1Count;
     //public int monster2Count;
     //public int monster3Count;
@@ -101,6 +106,22 @@ public class MonsterSpawner : MonoBehaviour
         spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0] + monsterCount[1]));
     }
 
+    public void spawnBoss(string bName)
+    {
+        increaseAttack = 0;
+        increaseHealth = 0;
+
+        monsterCount[0] = 1;
+        monsterCount[1] = 0;
+        monsterCount[2] = 0;
+        monsterCount[3] = 0;
+
+        monsterIndex[0] = FindMonsterIndex(bName);
+
+        spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0]));
+
+        spawnSize = bossSize;
+    }
     public void SpawnMonster(string m1Name, int m1Count,
         string m2Name, int m2Count,
         string m3Name, int m3Count,
@@ -130,40 +151,65 @@ public class MonsterSpawner : MonoBehaviour
             yield return WaitSecond;
 
             int monsterTypeIndex = -1;
-            int availableMonsterTypes = 0;
-            for (int i = 0; i < maxMonsterTypeCount; i++)
+            //int availableMonsterTypes = 0;
+            //for (int i = 0; i < maxMonsterTypeCount; i++)
+            //{
+            //    if (monsterCount[i] > 0)
+            //    {
+            //        availableMonsterTypes++;
+            //    }
+            //}
+            //if(availableMonsterTypes > 0)
+            //{
+            //    int randNum = Random.Range(0, availableMonsterTypes);
+            //    int countDown = randNum;
+
+            //    for(int i = 0; i< maxMonsterTypeCount; i++)
+            //    {
+            //        if (monsterCount[i] > 0)
+            //        {
+            //            if(countDown == 0)
+            //            {
+            //                monsterTypeIndex = monsterIndex[i];
+            //                monsterCount[i]--;
+            //                break;
+            //            }
+            //        }
+            //        countDown--;
+            //    }
+            //}
+
+            List<int> availableMonsterIndexes = new List<int>();
+            for(int i =0; i < maxMonsterTypeCount; i++)
             {
                 if (monsterCount[i] > 0)
                 {
-                    availableMonsterTypes++;
+                    availableMonsterIndexes.Add(i);
                 }
             }
-            if(availableMonsterTypes > 0)
+            if(availableMonsterIndexes.Count == 0)
             {
-                int randNum = Random.Range(0, availableMonsterTypes);
-                int countDown = randNum;
-
-                for(int i = 0; i< maxMonsterTypeCount; i++)
-                {
-                    if (monsterCount[i] > 0)
-                    {
-                        if(countDown == 0)
-                        {
-                            monsterTypeIndex = monsterIndex[i];
-                            monsterCount[i]--;
-                            break;
-                        }
-                    }
-                    countDown--;
-                }
-            }
-
-            if (monsterTypeIndex < 0)
-            {
-                Debug.Log("ERR: wrong MonsterTypeIndex");
+                Debug.Log("ERR: No available monster types");
                 yield break;
             }
+
+            int randIndex = Random.Range(0, availableMonsterIndexes.Count);
+            int selectIndex = availableMonsterIndexes[randIndex];
+
+            monsterTypeIndex = monsterIndex[selectIndex];
+            monsterCount[selectIndex]--;
+
+            //if (monsterTypeIndex < 0)
+            //{
+            //    Debug.Log("ERR: wrong MonsterTypeIndex");
+            //    yield break;
+            //}
             GameObject monster = ObjectPoolManager.instance.GetGo(monsterTable.GetMonster(monsterTypeIndex).name);
+            if(monster == null)
+            {
+                Debug.Log("ERR: 오브젝트 풀에서 받아오기 실패");
+                yield break;
+            }
             monster.transform.position = spawnPoint.transform.position;
 
             string healths = (BigInteger.Parse(monsterTable.GetMonster(monsterTypeIndex).maxHealth) + increaseHealth).ToString();
@@ -181,6 +227,10 @@ public class MonsterSpawner : MonoBehaviour
             monsterController.SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
             monsterController.SetIdlePoint(idlePoint);
             monsterController.isTargetDie = false;
+            monsterController.transform.localScale = new UnityEngine.Vector3(spawnSize, spawnSize, 1);
+            //monsterController.SetMoney(coinAmount[selectIndex], pomegranateAmount[selectIndex]);
+            monsterController.SetMoney(monsterTable.GetMonster(monsterTypeIndex).monster_coin, monsterTable.GetMonster(monsterTypeIndex).monster_pommegrande);
+            spawnSize = 1f;
             spawnedCount++;
         }
     }

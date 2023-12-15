@@ -79,52 +79,69 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         waitForSeconds = new WaitForSeconds(waitTime);
     }
 
+    public void SetWave()
+    {
+        CurrentStage = currStage.stageId;
+        CurrentWave = currStage.waveId;
+        CurrentChpater = currStage.chapterId;
+
+        SetCurrentStageText();
+    }
+
     public void StartWave()
     {
         playerController.GetComponent<ResultPlayerStats>().ResetHp();
-        string monName2;
-        string monName3;
-        string monName4;
 
-        if(currStage.monster2 == null)
+        if(currStage.isBossWave)
         {
-            monName2 = "";
+            spawner.spawnBoss(currStage.bossMonster.name);
         }
         else
         {
-            monName2 = currStage.monster2.name;
+            string monName2;
+            string monName3;
+            string monName4;
+
+            if (currStage.monster2 == null)
+            {
+                monName2 = "";
+            }
+            else
+            {
+                monName2 = currStage.monster2.name;
+            }
+            if (currStage.monster3 == null)
+            {
+                monName3 = "";
+            }
+            else
+            {
+                monName3 = currStage.monster3.name;
+            }
+            if (currStage.monster4 == null)
+            {
+                monName4 = "";
+            }
+            else
+            {
+                monName4 = currStage.monster4.name;
+            }
+            spawner.SpawnMonster(currStage.monster1.name,
+                currStage.monster1Count,
+                monName2,
+                //currStage.monster2.name,
+                currStage.monster2Count,
+                monName3,
+                //currStage.monster3.name,
+                currStage.monster3Count,
+                monName4,
+                //currStage.monster4.name,
+                currStage.monster4Count,
+                currStage.monsterAttackIncrease,
+                currStage.monsterHealthIncrease,
+                currStage.monsterAttackSpeedIncrease);
+            aliveMonsterCount = currStage.monster1Count + currStage.monster2Count + currStage.monster3Count + currStage.monster4Count;
         }
-        if (currStage.monster3 == null)
-        {
-            monName3 = "";
-        }
-        else
-        {
-            monName3 = currStage.monster3.name;
-        }
-        if (currStage.monster4 == null)
-        {
-            monName4 = "";
-        }
-        else
-        {
-            monName4 = currStage.monster4.name;
-        }
-        spawner.SpawnMonster(currStage.monster1.name,
-            currStage.monster1Count,
-            monName2,
-            //currStage.monster2.name,
-            currStage.monster2Count,
-            monName3,
-            //currStage.monster3.name,
-            currStage.monster3Count,
-            monName4,
-            //currStage.monster4.name,
-            currStage.monster4Count,
-            currStage.monsterAttackIncrease,
-            currStage.monsterHealthIncrease,
-            currStage.monsterAttackSpeedIncrease);
-        aliveMonsterCount = currStage.monster1Count + currStage.monster2Count;
     }
 
     public void EndWave()
@@ -153,6 +170,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void SetStageByIndexStage(int stageIndex)
     {
         currStage = stageList.GetStageByStageIndex(stageIndex);
+        SetWave();
     }
 
     public void UpdateCurrentChapter()
@@ -170,6 +188,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     }
     public void UpdateCurrentWave()
     {
+        if(CurrentChpater == 2 && CurrentStage == 3 && CurrentWave == 5) //최대 40 스테이지까지 제한
+        {
+            return;
+        }
         CurrentWave++;
         if (CurrentWave > 5)
         {
@@ -183,6 +205,16 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         SetCurrentStageText();
     }
 
+    public void DecreaseCurrentWave()
+    {
+        CurrentWave--;
+        if (CurrentWave < 0)
+        {
+            CurrentWave = 1;
+            UpdateCurrentStage();
+        }
+        currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
+    }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {
         return 100000000 + (chapterId * 10000) + ((stageId - 1) * 5) + waveId;
@@ -240,6 +272,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
                 monster.gameObject.transform.position = monster.GetComponent<MonsterController>().idlePos.position;
                 monster.GetComponent<MonsterController>().ReleaseObject();
             }
+        }
+
+        var pets = GameObject.FindGameObjectsWithTag("Pet");
+        foreach (var pet in pets)
+        {
+            var initialPos = pet.GetComponentInChildren<PetController>().initialPos;
+            pet.gameObject.transform.position = initialPos;
+            pet.GetComponentInChildren<PetController>().SetState(States.Idle);
+            //pet.GetComponentInChildren<PetController>().isArrive = false;
         }
     }
 

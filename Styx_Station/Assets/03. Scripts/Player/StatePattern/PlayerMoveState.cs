@@ -19,6 +19,12 @@ public class PlayerMoveState : PlayerStateBase
         stateDuration = playertController.backgroundLength /playertController.playerMoveSpeed;
 
         playertController.GetAnimator().SetFloat("RunState", 0.15f);
+
+        var pets = GameObject.FindGameObjectsWithTag("Pet");
+        foreach (var pet in pets)
+        {
+            pet.GetComponent<PetController>().isArrive = false;
+        }
         //playertController.GetAnimator().SetTrigger("Run");
 
     }

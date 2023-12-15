@@ -42,22 +42,22 @@ public class NormalButton : MonoBehaviour
         switch (equipIndex)
         { 
             case 0:
-                skillManager.UseSkill1();
+                skillManager.UseSkill1(cool);
                 break;
             case 1:
-                skillManager.UseSkill2();
+                skillManager.UseSkill2(cool);
                 break;
             case 2:
-                skillManager.UseSkill3();
+                skillManager.UseSkill3(cool);
                 break;
             case 3:
-                skillManager.UseSkill4();
+                skillManager.UseSkill4(cool);
                 break;
             case 4:
-                skillManager.UseSkill5();
+                skillManager.UseSkill5(cool);
                 break;
             case 5:
-                skillManager.UseSkill6();
+                skillManager.UseSkill6(cool);
                 break;
         
         }

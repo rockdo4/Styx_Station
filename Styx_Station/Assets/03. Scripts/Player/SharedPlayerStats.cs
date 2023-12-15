@@ -12,6 +12,7 @@ public static class SharedPlayerStats
     public static int PlayerPowerBoost { set { playerPowerBoost = value; } }
     public static bool IsPlayerPowerBoostAmplifiable { get; set; }
 
+
     private static int playerPowerBoostMax = 4441;
     private static bool isPlayerPowerBoostMax = false;
     public static bool IsPlayerPowerBoostMax
@@ -69,7 +70,7 @@ public static class SharedPlayerStats
     }
 
     public static void IncreasePlayerPower()
-    { 
+    {
 
         prevPrice = CurrencyManager.playerPowerPrice;
         if (playerPower < 50)
@@ -111,7 +112,7 @@ public static class SharedPlayerStats
             }
             else
             {
-                var price =CurrencyManager.playerPowerBoostPrice += (playerPowerBoost - 1) + (playerPowerBoost / 10);
+                var price = CurrencyManager.playerPowerBoostPrice += (playerPowerBoost - 1) + (playerPowerBoost / 10);
                 price /= 10;
                 CurrencyManager.playerPowerBoostPrice = price;
             }
@@ -259,7 +260,7 @@ public static class SharedPlayerStats
                 monsterDamage++;
             }
             else
-                CurrencyManager.monsterDamagerPrice =prevPrice;
+                CurrencyManager.monsterDamagerPrice = prevPrice;
         }
 
         MonsterDamageMaxCondition();
@@ -367,5 +368,17 @@ public static class SharedPlayerStats
         return healing;
     }
 
+
+    public static void ResetAll()
+    {
+        playerPower = 1;
+        playerPowerBoost = 1;
+        playerAttackSpeed = 1;
+        critical = 1;
+        criticalPower = 1;
+        monsterDamage = 1;
+        maxHp = 1;
+        healing = 1;
+    }
 
 }

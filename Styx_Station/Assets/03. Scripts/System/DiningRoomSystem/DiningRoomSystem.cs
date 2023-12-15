@@ -4,11 +4,11 @@ using UnityEngine;
 public class DiningRoomSystem : Singleton<DiningRoomSystem>
 {
     public float timer = 0;
-    public float max = 3600f;
+    public float max = 3600f; //12.15 180f
     [HideInInspector] public int counting = 0;
 
     public int timerUpgradeLevel = 0;
-    [HideInInspector] public int maxTimerUpgradeLevel = 60;
+    [HideInInspector] public int maxTimerUpgradeLevel = 10; // 60
     [HideInInspector] public bool isMaxTimerUpgradeLevel;
 
     public int selectFoodCount = 1;
@@ -23,7 +23,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     [HideInInspector]public bool isAwkeTime;
     [HideInInspector] public bool isLoad;
 
-    public float decreaseMaxTimer=30f;
+    public float decreaseMaxTimer = 10f; //30f
     private void Awake()
     {
         
@@ -43,7 +43,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
         if (!isFullFood)
         {
             timer -= Time.deltaTime;
-            if (timer <= 0)
+            if (timer < 1f)
             {
                 counting++;
                 timer = max;

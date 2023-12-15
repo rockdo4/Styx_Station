@@ -671,7 +671,9 @@ MonoBehaviour:
   executeHit: {fileID: 0}
   isTargetDie: 0
   skullImage: {fileID: 1226609908981290742}
-  lightningImage: {fileID: 0}
+  lightningImage: {fileID: 2890198329919009033}
+  coin: 0
+  pomegranate: 0
 --- !u!50 &2402691784416510467
 Rigidbody2D:
   serializedVersion: 4
@@ -4116,6 +4118,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5565929119448378071}
     m_Modifications:
+    - target: {fileID: 609170535541134029, guid: e553464754c755241a82f0c06ce2db82, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3688869616796598574, guid: e553464754c755241a82f0c06ce2db82, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -4213,6 +4219,11 @@ RectTransform:
 --- !u!1 &1226609908981290742 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2536326251864490686, guid: e553464754c755241a82f0c06ce2db82, type: 3}
+  m_PrefabInstance: {fileID: 3618392157975237704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2890198329919009033 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1885618935010927937, guid: e553464754c755241a82f0c06ce2db82, type: 3}
   m_PrefabInstance: {fileID: 3618392157975237704}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5839466707994053029

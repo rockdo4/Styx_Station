@@ -32,6 +32,29 @@ public class ArmorEquipInfoUi : MonoBehaviour
         else if (!armor.acquire)
             equip.interactable = false;
 
+        var stringTable = MakeTableData.Instance.stringTable;
+
+        if (Global.language == Language.KOR)
+        {
+            tier.text = $"{stringTable.GetStringTableData(armor.item.tier.ToString()).KOR}";
+            itemName.text = $"{stringTable.GetStringTableData(armor.item.name + "_Name").KOR}";
+            string text = string.Format(stringTable.GetStringTableData(armor.item.name + "_Info").KOR,
+                armor.item.options[0].value + armor.upgradeLev * armor.item.options[0].upgradeValue,
+                //weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue
+                0);
+            itemText.text = $"{text}";
+        }
+        else if (Global.language == Language.ENG)
+        {
+            tier.text = $"{stringTable.GetStringTableData(armor.item.tier.ToString()).ENG}";
+            itemName.text = $"{stringTable.GetStringTableData(armor.item.name + "_Name").ENG}";
+            string text = string.Format(stringTable.GetStringTableData(armor.item.name + "_Info").ENG,
+                armor.item.options[0].value + armor.upgradeLev * armor.item.options[0].upgradeValue,
+                //weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue
+                0);
+            itemText.text = $"{text}";
+        }
+
         if (armor.upgradeLev < armor.item.itemLevUpNum.Count)
             lev.text = $"Lv.{armor.upgradeLev}\n\n({armor.stock} / {armor.item.itemLevUpNum[armor.upgradeLev]})";
 

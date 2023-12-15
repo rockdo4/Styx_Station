@@ -188,6 +188,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     }
     public void UpdateCurrentWave()
     {
+        if(CurrentChpater == 2 && CurrentStage == 3 && CurrentWave == 5) //최대 40 스테이지까지 제한
+        {
+            return;
+        }
         CurrentWave++;
         if (CurrentWave > 5)
         {
@@ -201,6 +205,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         SetCurrentStageText();
     }
 
+    public void DecreaseCurrentWave()
+    {
+        CurrentWave--;
+        if (CurrentWave < 0)
+        {
+            CurrentWave = 1;
+            UpdateCurrentStage();
+        }
+    }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {
         return 100000000 + (chapterId * 10000) + ((stageId - 1) * 5) + waveId;
@@ -258,6 +271,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
                 monster.gameObject.transform.position = monster.GetComponent<MonsterController>().idlePos.position;
                 monster.GetComponent<MonsterController>().ReleaseObject();
             }
+        }
+
+        var pets = GameObject.FindGameObjectsWithTag("Pet");
+        foreach (var pet in pets)
+        {
+            var initialPos = pet.GetComponentInChildren<PetController>().initialPos;
+            pet.gameObject.transform.position = initialPos;
+            pet.GetComponentInChildren<PetController>().SetState(States.Idle);
+            //pet.GetComponentInChildren<PetController>().isArrive = false;
         }
     }
 

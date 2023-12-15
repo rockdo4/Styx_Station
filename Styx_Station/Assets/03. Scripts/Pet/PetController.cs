@@ -18,7 +18,7 @@ public class PetController : MonoBehaviour
     public float attackSpeed;
     public float range;
 
-    private bool isArrive = false;
+    public bool isArrive = false;
     private float delay = 0;
     private StateManager petStateManager = new StateManager();
     private List<StateBase> petStateBases = new List<StateBase>();
@@ -27,6 +27,8 @@ public class PetController : MonoBehaviour
     public LayerMask layerMask;
 
     public States currentStates;
+
+    public Vector2 initialPos = Vector2.zero;
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -37,7 +39,8 @@ public class PetController : MonoBehaviour
         petStateBases.Add(new PetRun(this));
         petStateBases.Add(new PetAttack(this));
 
-       
+        initialPos = transform.position;
+
         SetState(States.Move);
     }
 
@@ -76,6 +79,7 @@ public class PetController : MonoBehaviour
                 if (Vector2.Distance(transform.position, pos) <= 0.5f)
                 {
                     isArrive = true;
+                    //delay = 0;
                     SetState(States.Idle);
                 }
             }

@@ -213,6 +213,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             CurrentWave = 1;
             UpdateCurrentStage();
         }
+        currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
     }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {

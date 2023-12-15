@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class InfoWindow : Window
 {
     private Inventory inventory;
-
+    private StringTable stringTable;
     public Button[] equipButtons = new Button[4];
 
     public TextMeshProUGUI state;
@@ -23,14 +23,36 @@ public class InfoWindow : Window
     public void Awake()
     {
         inventory = InventorySystem.Instance.inventory;
+        stringTable = MakeTableData.Instance.stringTable;
     }
 
     public override void Open()
     {
         Open(InfoWindowType.State);
+
         base.Open();
+
+        InfoTextUpdate();
     }
 
+    public void InfoTextUpdate()
+    {
+        if (Global.language == Language.KOR)
+        {
+            tabs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo001").KOR}";
+            tabs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo002").KOR}";
+            tabs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo003").KOR}";
+            tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").KOR}";
+
+        }
+        else if (Global.language == Language.ENG)
+        {
+            tabs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo001").ENG}";
+            tabs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo002").ENG}";
+            tabs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo003").ENG}";
+            tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").ENG}";
+        }
+    }
     public override void Close()
     {
         base.Close();

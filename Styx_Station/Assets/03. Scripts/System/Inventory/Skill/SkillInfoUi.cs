@@ -6,6 +6,7 @@ public class SkillInfoUi : MonoBehaviour
 {
     private SkillInventory inventory;
     private SkillWindow window;
+    private StringTable stringTable;
 
     public int selectIndex;
 
@@ -20,6 +21,7 @@ public class SkillInfoUi : MonoBehaviour
     public Button equip;
     public Button upgrade;
 
+    private bool first = false;
     public void Inventory()
     {
         inventory = InventorySystem.Instance.skillInventory;
@@ -29,11 +31,24 @@ public class SkillInfoUi : MonoBehaviour
     {
         var skill = inventory.skills[selectIndex];
 
-        if(skill.acquire)
-            equip.interactable = true;
+        if (!first)
+        {
+            stringTable = MakeTableData.Instance.stringTable;
+            first = true;
+        }
 
-        else if(!skill.acquire)
-            equip.interactable = false;
+        if (Global.language == Language.KOR)
+        {
+            tier.text = $"{stringTable.GetStringTableData(skill.skill.Skill_Tier.ToString()).KOR}";
+            skillName.text = $"{stringTable.GetStringTableData(skill.skill.name + "_Name").KOR}";
+            coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill003").KOR}";
+        }
+        else if (Global.language == Language.ENG)
+        {
+            tier.text = $"{stringTable.GetStringTableData(skill.skill.Skill_Tier.ToString()).ENG}";
+            skillName.text = $"{stringTable.GetStringTableData(skill.skill.name + "_Name").ENG}";
+            coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill003").ENG}";
+        }
 
         if (skill.upgradeLev < skill.skill.Skill_LVUP_NU.Count)
             lev.text = $"Lv.{skill.upgradeLev}\n\n({skill.stock} / {skill.skill.Skill_LVUP_NU[skill.upgradeLev]})";

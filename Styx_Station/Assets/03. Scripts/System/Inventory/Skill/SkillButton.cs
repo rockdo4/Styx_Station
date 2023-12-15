@@ -1,4 +1,6 @@
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -59,12 +61,19 @@ public class SkillButton : MonoBehaviour
         info.tier.color = color;
         info.selectIndex = skillIndex;
         info.skillImage.GetComponent<Image>().sprite = inventory.skills[skillIndex].skill.image;
+
+        info.InfoUpdate();
+
+        if (inventory.skills[skillIndex].acquire)
+            info.equip.interactable = true;
+
+        else if (!inventory.skills[skillIndex].acquire)
+            info.equip.interactable = false;
+
         if (inventory.skills[skillIndex].skill.Skill_Type == SkillType.Passive)
         {
             info.equip.interactable = false;
         }
-
-        info.InfoUpdate();
 
         if (skillIndex > 7)
         {

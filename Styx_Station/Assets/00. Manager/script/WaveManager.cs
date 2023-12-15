@@ -208,12 +208,12 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void DecreaseCurrentWave()
     {
         CurrentWave--;
-        if (CurrentWave < 0)
+        if (CurrentWave <= 0)
         {
             CurrentWave = 1;
-            UpdateCurrentStage();
         }
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
+        SetCurrentStageText();
     }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {

@@ -8,8 +8,8 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     [HideInInspector] public int counting = 0;
 
     public int timerUpgradeLevel = 0;
-    [HideInInspector] public int maxTimerUpgradeLevel = 10; // 60
-    [HideInInspector] public bool isMaxTimerUpgradeLevel;
+    public int maxTimerUpgradeLevel =12; // 60
+     public bool isMaxTimerUpgradeLevel;
 
     public int selectFoodCount = 1;
     [HideInInspector] public int maxSelectfoodCount = 6;
@@ -30,8 +30,16 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     }
     private void Start()
     {
-        if (selectFoodCount == maxSelectfoodCount)
+        if (selectFoodCount >= maxSelectfoodCount)
+        {
             isMaxSelectUpgradeLevel = true;
+            selectFoodCount = maxSelectfoodCount;
+        }
+        if (timerUpgradeLevel >= maxTimerUpgradeLevel)
+        {
+            timerUpgradeLevel = maxTimerUpgradeLevel;
+            isMaxTimerUpgradeLevel = true;
+        }
         if (!isLoad)
         {
             timer = max;
@@ -57,13 +65,14 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
 
     public void UpgradeTimerLevel()
     {
-        timerUpgradeLevel++;
-        max -= decreaseMaxTimer;
+       
         if (timerUpgradeLevel >= maxTimerUpgradeLevel)
         {
             timerUpgradeLevel = maxTimerUpgradeLevel;
             isMaxTimerUpgradeLevel = true;
         }
+        timerUpgradeLevel++;
+        max -= decreaseMaxTimer;
     }
 
     public void UpgradeSelectFoodLevel()

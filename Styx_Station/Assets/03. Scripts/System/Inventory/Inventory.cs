@@ -286,6 +286,14 @@ public class Inventory : MonoBehaviour
                 SymbolEquip(customSymbols[itemIndex].item);
                 break;
         }
+
+        var find = GameObject.FindWithTag("Player");
+        if(find !=null)
+        {
+            var stats = find.GetComponent<ResultPlayerStats>();
+            if(stats != null)
+                stats.SettingPlayerMaxHP();
+        }
     }
 
     public void DequipItem(InventoryItem item, ItemType type)
@@ -313,6 +321,13 @@ public class Inventory : MonoBehaviour
             case ItemType.Symbol:
                 SymbolDequip(item);
                 break;
+        }
+        var find = GameObject.FindWithTag("Player");
+        if (find != null)
+        {
+            var stats = find.GetComponent<ResultPlayerStats>();
+            if (stats != null)
+                stats.SettingPlayerMaxHP();
         }
     }
 

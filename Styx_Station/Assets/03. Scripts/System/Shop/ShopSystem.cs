@@ -20,7 +20,7 @@ public class ShopSystem : Singleton<ShopSystem>
     private PetInventory petInventory;
 
     private void Awake()
-    {
+    {  
         itemTable = Resources.Load<ItemDropTable>("Table/GachaTable_Equip");
 
         skillTable = Resources.Load<SkillDropTable>("Table/SkillDropTable");
@@ -30,7 +30,7 @@ public class ShopSystem : Singleton<ShopSystem>
         inventory = InventorySystem.Instance.inventory;
         skillInventory = InventorySystem.Instance.skillInventory;
         petInventory = InventorySystem.Instance.petInventory;
-    }
+     }
 
     public void ItemGacha(GachaInfo info, int count)
     {

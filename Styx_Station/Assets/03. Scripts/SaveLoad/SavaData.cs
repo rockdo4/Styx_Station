@@ -160,5 +160,10 @@ public class GameSaveData
     public SaveFoodData[] diningRoomSaveFoodData = new SaveFoodData[6];
     public float diningRoomTimer;
 
+    public int itemRank;
+    public int itemRankUp;
+    public int skillRank;
+    public int skillRankUp;
+
     public PlayerBuffData playerBuff;
 }

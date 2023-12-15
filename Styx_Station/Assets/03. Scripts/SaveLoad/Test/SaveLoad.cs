@@ -13,10 +13,12 @@ public class SaveLoad : MonoBehaviour
     private DiningRoomSystem diningRoomsystem;
     private PlayerBuff playerbuff;
     private WaveManager waveManager;
+    private ShopSystem shop;
     private void Start()
     {
         playerbuff= PlayerBuff.Instance;
         waveManager = WaveManager.Instance;
+        shop = ShopSystem.Instance;
     }
     public void Save()
     {
@@ -35,6 +37,11 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.playerdata.money1 = CurrencyManager.money1.ToString();
         data.gameSaveDatas.playerdata.money2 = CurrencyManager.money2.ToString();
         data.gameSaveDatas.playerdata.money3 = CurrencyManager.money3.ToString();
+
+        data.gameSaveDatas.itemRank = shop.currentItemRank;
+        data.gameSaveDatas.itemRankUp = shop.currentItemRankUp;
+        data.gameSaveDatas.skillRank = shop.currentSkillRank;
+        data.gameSaveDatas.skillRankUp = shop.currentSkillRankUp;
 
         var inventory = InventorySystem.Instance.inventory;
 
@@ -393,6 +400,32 @@ public class SaveLoad : MonoBehaviour
                     diningRoomsystem.LoadMaxTimer();
 
                     diningRoomsystem.CalculateTimer(count);
+                }
+                var shop = ShopSystem.Instance;
+
+                if (gameSaveDatas["itemRank"] is JToken rank)
+                {
+                    string str = rank.ToString();
+                    var itemRank = JsonConvert.DeserializeObject<int>(str);
+                    shop.currentItemRank = itemRank;
+                }
+                if (gameSaveDatas["itemRankUp"]is JToken rankUp)
+                {
+                    string str = rankUp.ToString();
+                    var itemRankUp = JsonConvert.DeserializeObject<int>(str);
+                    shop.currentItemRankUp = itemRankUp;
+                }
+                if (gameSaveDatas["skillRank"] is JToken rank_s)
+                {
+                    string str = rank_s.ToString();
+                    var skillRank = JsonConvert.DeserializeObject<int>(str);
+                    shop.currentSkillRank = skillRank;
+                }
+                if (gameSaveDatas["skillRankUp"]is JToken rankUp_s)
+                {
+                    string str = rankUp_s.ToString();
+                    var skillRankUp = JsonConvert.DeserializeObject<int>(str);
+                    shop.currentSkillRankUp = skillRankUp;
                 }
                 if (gameSaveDatas["playerBuff"] is JToken buffTimer)
                 {

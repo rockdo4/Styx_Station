@@ -128,21 +128,29 @@ public class GachaInfo : MonoBehaviour
             case 0:
 
                 if (CurrencyManager.money3 < item.minValue)
+                {
+                    OnClickGachaInfoClose();
                     return;
-
+                }
                 CurrencyManager.money3 -= item.minValue;
                 shop.ItemGacha(this, item.minGacha);
                 break;
             case 1:
                 if (CurrencyManager.money3 < item.middleValue)
+                {
+                    OnClickGachaInfoClose();
                     return;
+                }
 
                 CurrencyManager.money3 -= item.middleValue;
                 shop.ItemGacha(this, item.middleGach);
                 break;
             case 2:
                 if (CurrencyManager.money3 < item.maxValue)
+                {
+                    OnClickGachaInfoClose();
                     return;
+                }
 
                 CurrencyManager.money3 -= item.maxValue;
                 shop.ItemGacha(this,item.maxGacha);
@@ -156,21 +164,30 @@ public class GachaInfo : MonoBehaviour
         {
             case 0:
                 if (CurrencyManager.money3 < skill.minValue)
+                {
+                    OnClickGachaInfoClose();
                     return;
+                }
 
                 CurrencyManager.money3 -= skill.minValue;
                 shop.SkillGacha(this, skill.minGacha);
                 break;
             case 1:
                 if (CurrencyManager.money3 < skill.middleValue)
+                {
+                    OnClickGachaInfoClose();
                     return;
+                }
 
                 CurrencyManager.money3 -= skill.middleValue;
                 shop.SkillGacha(this, skill.middleGach);
                 break;
             case 2:
                 if (CurrencyManager.money3 < skill.maxValue)
+                {
+                    OnClickGachaInfoClose();
                     return;
+                }
 
                 CurrencyManager.money3 -= skill.maxValue;
                 shop.SkillGacha(this, skill.maxGacha);

@@ -324,11 +324,14 @@ public class LabSystem : Singleton<LabSystem>
     {
         foreach (var data in savedatas)
         {
-            foreach (var re01 in Re001_Vertex)
+            foreach (var re in Re001_Vertex)
             {
-                if (re01.vertexID == data.Id)
+                if (re.vertexID == data.Id)
                 {
-                    re01.isClear = data.isClear;
+                    if(data.isClear)
+                    {
+                        re.GetClear(true);
+                    }
                     break;
                 }
             }
@@ -342,7 +345,10 @@ public class LabSystem : Singleton<LabSystem>
             {
                 if (re.vertexID == data.Id)
                 {
-                    re.isClear = data.isClear;
+                    if (data.isClear)
+                    {
+                        re.GetClear(true);
+                    }
                     break;
                 }
             }
@@ -356,7 +362,10 @@ public class LabSystem : Singleton<LabSystem>
             {
                 if (re.vertexID == data.Id)
                 {
-                    re.isClear = data.isClear;
+                    if (data.isClear)
+                    {
+                        re.GetClear(true);
+                    }
                     break;
                 }
             }
@@ -370,7 +379,10 @@ public class LabSystem : Singleton<LabSystem>
             {
                 if (re.vertexID == data.Id)
                 {
-                    re.isClear = data.isClear;
+                    if (data.isClear)
+                    {
+                        re.GetClear(true);
+                    }
                     break;
                 }
             }
@@ -384,7 +396,10 @@ public class LabSystem : Singleton<LabSystem>
             {
                 if (re.vertexID == data.Id)
                 {
-                    re.isClear = data.isClear;
+                    if (data.isClear)
+                    {
+                        re.GetClear(true);
+                    }
                     break;
                 }
             }
@@ -398,7 +413,10 @@ public class LabSystem : Singleton<LabSystem>
             {
                 if (re.vertexID == data.Id)
                 {
-                    re.isClear = data.isClear;
+                    if (data.isClear)
+                    {
+                        re.GetClear(true);
+                    }
                     break;
                 }
             }

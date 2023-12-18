@@ -483,42 +483,48 @@ public class SaveLoad : MonoBehaviour
                     string str = labATK1.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
 
-                    //LabSystem.Instance.LoadRe1(labData);
+                    GameData.Re_AtkSaveDataList=labData;
                 }
-                if (gameSaveDatas["Re002_Lab_SaveDatas"] is JToken labATK2)
+                if (gameSaveDatas["Re002_Lab_SaveDatas"] is JToken labHp1)
+                {
+                    string str = labHp1.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_HPSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re003_Lab_SaveDatas"] is JToken labCri)
+                {
+                    string str = labCri.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_CriSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re004_Lab_SaveDatas"] is JToken labSil)
+                {
+                    string str = labSil.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_SilupSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re005_Lab_SaveDatas"] is JToken labATK2)
                 {
                     string str = labATK2.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-
-                    //LabSystem.Instance.LoadRe2(labData);
+                    GameData.Re_MidAtkSaveDataList=labData;
                 }
-                if (gameSaveDatas["Re003_Lab_SaveDatas"] is JToken labATK3)
+                if (gameSaveDatas["Re006_Lab_SaveDatas"] is JToken labHp2)
                 {
-                    string str = labATK3.ToString();
+                    string str = labHp2.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-
-                    //LabSystem.Instance.LoadRe3(labData);
+                    GameData.Re_MidHPSaveDataList=labData;
                 }
-                if (gameSaveDatas["Re004_Lab_SaveDatas"] is JToken labATK4)
+                if (gameSaveDatas["currentLavSaveData"] is JToken currentLabSaveData)
                 {
-                    string str = labATK4.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    string str = currentLabSaveData.ToString();
+                    var currentLab = JsonConvert.DeserializeObject<CurrentLavSaveData>(str);
 
-                    //LabSystem.Instance.LoadRe4(labData);
-                }
-                if (gameSaveDatas["Re005_Lab_SaveDatas"] is JToken labATK5)
-                {
-                    string str = labATK5.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-
-                    //LabSystem.Instance.LoadRe5(labData);
-                }
-                if (gameSaveDatas["Re006_Lab_SaveDatas"] is JToken labATK6)
-                {
-                    string str = labATK6.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-
-                    //LabSystem.Instance.LoadRe6(labData);
+                    if(currentLab.isResearching)
+                    {
+                        GameData.currnetLabSaveData = currentLab;
+                        LabSystem.Instance.maxTimerTic = currentLab.maxTimer;
+                    }
                 }
             }
         }

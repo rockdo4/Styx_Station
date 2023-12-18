@@ -34,6 +34,36 @@ public class LabMainVertex : MonoBehaviour
     private LabSystem copLabManager;
 
     private void Start()
+    {       
+        AwakeSetting();
+    }
+  
+    private void Update()
+    {
+        if(copLabManager != null && copLabManager.isResearching && copLabManager.level == LabTypeLevel && labType == copLabManager.labType)
+        {
+            if (!coolTime.gameObject.activeSelf)
+            {
+                coolTime.gameObject.SetActive(true);
+            }
+            var timerTic = (float)(copLabManager.timerTic / copLabManager.milSeconds);
+            if(copLabManager.maxTimerTic >0f)
+            {
+                var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
+                coolTime.fillAmount = (timerTic / maxTimerTic);
+            }
+            else
+            {
+                coolTime.fillAmount = 0f;
+            }
+           
+        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    GetClear(true);
+        //}
+    }
+    private void AwakeSetting()
     {
         if (!isAwakeTime)
         {
@@ -76,47 +106,19 @@ public class LabMainVertex : MonoBehaviour
 
             vertexButton.onClick.AddListener(() => labInfowindow.SetVertex(labType, labTypeNameStringDatas, labTypeBuffStringDatas, labTableDatas, LabTypeLevel));
         }
-
-
     }
-  
-    private void Update()
-    {
-        if(copLabManager != null && copLabManager.isResearching && copLabManager.level == LabTypeLevel && labType == copLabManager.labType)
-        {
-            if (!coolTime.gameObject.activeSelf)
-            {
-                coolTime.gameObject.SetActive(true);
-            }
-            var timerTic = (float)(copLabManager.timerTic / copLabManager.milSeconds);
-            if(copLabManager.maxTimerTic >0f)
-            {
-                var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
-                coolTime.fillAmount = (timerTic / maxTimerTic);
-            }
-            else
-            {
-                coolTime.fillAmount = 0f;
-            }
-           
-        }
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    GetClear(true);
-        //}
-    }
-
     public void GetClear(bool clear)
     {
         isClear = clear;
-        
-        foreach(var edge in edges) 
+        AwakeSetting();
+        foreach (var edge in edges) 
         {
             edge.VertexClearCheck();
         }
         SetAssignedAcitve();
         vertexButton.interactable = false;
         vertexButton.onClick.RemoveAllListeners();
+        //
     }
 
 

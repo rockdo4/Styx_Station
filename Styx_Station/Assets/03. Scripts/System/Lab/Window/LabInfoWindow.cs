@@ -13,6 +13,7 @@ public class LabInfoWindow : Window
     public string increaseStringKey;
     public string needPomegranteStringKey;
     public string timerStringKey;
+    public string finishResearchStringKey;
 
     private bool isOneLevelStringKeySetting;
     public LabTableDatas labTableData;
@@ -23,6 +24,7 @@ public class LabInfoWindow : Window
     public StringTableData increaseStringTableData;
     public StringTableData needPomegranteStringTableData;
     public StringTableData timerStringDatas;
+    public StringTableData buttonText;
 
     public int level;
     private int timer;
@@ -32,6 +34,7 @@ public class LabInfoWindow : Window
     public TextMeshProUGUI researchTypeBuffText;
     public TextMeshProUGUI researchTaxText;
     public TextMeshProUGUI researchTimer;
+    public TextMeshProUGUI researchButtonText;
 
     public int buffPercent;
     private int price;
@@ -49,6 +52,7 @@ public class LabInfoWindow : Window
                 increaseStringTableData = MakeTableData.Instance.stringTable.GetStringTableData(increaseStringKey);
                 needPomegranteStringTableData= MakeTableData.Instance.stringTable.GetStringTableData(needPomegranteStringKey);
                 timerStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(timerStringKey);
+                buttonText = MakeTableData.Instance.stringTable.GetStringTableData(finishResearchStringKey);
             }
             else
             {
@@ -57,6 +61,7 @@ public class LabInfoWindow : Window
                 increaseStringTableData = MakeTableData.Instance.stringTable.GetStringTableData(increaseStringKey);
                 needPomegranteStringTableData = MakeTableData.Instance.stringTable.GetStringTableData(needPomegranteStringKey);
                 timerStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(timerStringKey);
+                buttonText = MakeTableData.Instance.stringTable.GetStringTableData(finishResearchStringKey);
             }
         }
         this.labType = labType;
@@ -137,6 +142,7 @@ public class LabInfoWindow : Window
                 strPrice = string.Format(needPomegranteStringTableData.KOR, price);
                 researchTaxText.text = $"{strPrice}";
                 researchTimer.text = $"{timerStringDatas.KOR}{strTimer}";
+                researchButtonText.text = $"{buttonText.KOR}";
                 break;
             case Language.ENG:
                 researchTypeText.text = $"{labTypeNameStringDatas.ENG} {level+1} {levelStringTableData.ENG}";
@@ -144,6 +150,7 @@ public class LabInfoWindow : Window
                 strPrice = string.Format(needPomegranteStringTableData.ENG, price);
                 researchTaxText.text = $"{strPrice}";
                 researchTimer.text = $"{timerStringDatas.ENG}{strTimer}";
+                researchButtonText.text = $"{buttonText.ENG}";
                 break;
         }
         base.Open();

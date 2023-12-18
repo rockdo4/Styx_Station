@@ -40,6 +40,7 @@ public class LabSystem : Singleton<LabSystem>
     public StringTableData labBuffStringTable;
     public LabTableDatas labTalbeData;
 
+    public bool isTimerZero;
     private void Start()
     {
         IsClearRe001();
@@ -62,6 +63,7 @@ public class LabSystem : Singleton<LabSystem>
                 timerTic = 0;
                 var labComplete = UIManager.Instance.windows[(int)WindowType.Lab].GetComponent<LabWindow>();
                 labComplete.labCompleteWindwo.Open();
+                isTimerZero=true;
                 switch (labType)
                 {
                     case LabType.LabPower1:

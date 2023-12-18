@@ -135,7 +135,6 @@ public class LabMainVertex : MonoBehaviour
 
     public void SetAssignedAcitve()
     {
-        GetClear(true);
         foreach (var v in edges)
         {
             if (isClear)

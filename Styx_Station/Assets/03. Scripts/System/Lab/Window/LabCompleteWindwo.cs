@@ -61,6 +61,7 @@ public class LabCompleteWindwo : Window
         {
             LabSystem.Instance.isResearching = false;
             LabSystem.Instance.IsDoneTime();
+            LabSystem.Instance.isTimerZero = false;
         }
     }
 }

@@ -9,7 +9,7 @@ public class LabWindow : Window
     public override void Open()
     {
         labInfoWindow.Close();
-        if(LabSystem.Instance.isResearching) 
+        if(LabSystem.Instance.isTimerZero) 
             labCompleteWindwo.Open();
         base.Open();
     }

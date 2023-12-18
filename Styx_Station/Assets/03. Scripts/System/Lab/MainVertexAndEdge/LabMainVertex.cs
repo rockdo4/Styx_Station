@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class LabMainVertex : MonoBehaviour
 {
+    public string vertexID;
     private bool isAwakeTime;
     private Button vertexButton;
     public List<LabMainEdge> edges = new List<LabMainEdge>();
@@ -34,7 +35,7 @@ public class LabMainVertex : MonoBehaviour
 
     private void Start()
     {
-        if(!isAwakeTime)
+        if (!isAwakeTime)
         {
             if (MakeTableData.Instance != null)
             {
@@ -60,26 +61,25 @@ public class LabMainVertex : MonoBehaviour
 
             }
             coolTime.gameObject.SetActive(false);
-            isAwakeTime = true; 
+            isAwakeTime = true;
 
+            if (isClear)
+                SetAssignedAcitve();
+            else
+                SetNoneActive();
         }
-       
-
 
         if (vertexButton == null)
         {
             vertexButton = GetComponent<Button>();
             var labInfowindow = popUpLabInfoObject.gameObject.GetComponent<LabInfoWindow>();
-            
-            vertexButton.onClick.AddListener(() => labInfowindow.SetVertex(labType,labTypeNameStringDatas, labTypeBuffStringDatas, labTableDatas, LabTypeLevel));
-        }
-       
 
-        if (isClear)
-            SetAssignedAcitve();
-        else
-            SetNoneActive();
+            vertexButton.onClick.AddListener(() => labInfowindow.SetVertex(labType, labTypeNameStringDatas, labTypeBuffStringDatas, labTableDatas, LabTypeLevel));
+        }
+
+
     }
+  
     private void Update()
     {
         if(copLabManager != null && copLabManager.isResearching && copLabManager.level == LabTypeLevel && labType == copLabManager.labType)
@@ -89,9 +89,16 @@ public class LabMainVertex : MonoBehaviour
                 coolTime.gameObject.SetActive(true);
             }
             var timerTic = (float)(copLabManager.timerTic / copLabManager.milSeconds);
-            var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
-            coolTime.fillAmount = (timerTic / maxTimerTic);
-
+            if(copLabManager.maxTimerTic >0f)
+            {
+                var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
+                coolTime.fillAmount = (timerTic / maxTimerTic);
+            }
+            else
+            {
+                coolTime.fillAmount = 0f;
+            }
+           
         }
         //if(Input.GetKeyDown(KeyCode.Space))
         //{
@@ -128,6 +135,7 @@ public class LabMainVertex : MonoBehaviour
 
     public void SetAssignedAcitve()
     {
+        GetClear(true);
         foreach (var v in edges)
         {
             if (isClear)

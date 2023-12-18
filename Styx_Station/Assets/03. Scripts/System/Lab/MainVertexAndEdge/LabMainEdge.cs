@@ -19,6 +19,7 @@ public class LabMainEdge : MonoBehaviour
 
     public void VertexClearCheck()
     {
+       
         int counting = 0;
         for(int i=0;i<prevVertex.Count; i++) 
         {
@@ -31,6 +32,7 @@ public class LabMainEdge : MonoBehaviour
             isPrevVertexClear = true;
         else
             isPrevVertexClear = false;
+
         if (!isPrevVertexClear)
         {
             foreach (var vertex in nextVertex)
@@ -58,6 +60,7 @@ public class LabMainEdge : MonoBehaviour
 
     private void NextVertexAssignedSetting(LabMainVertex vertex)
     {
+
         var image = vertex.GetComponent<Image>();
         image.color = assignedActive;
         var button = vertex.GetComponent<Button>();

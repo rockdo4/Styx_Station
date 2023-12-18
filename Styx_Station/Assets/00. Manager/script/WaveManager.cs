@@ -198,7 +198,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {
-        return 100000000 + ((chapterId - 1) * 25) + ((stageId - 1) * 5) + waveId;
+        return 100000000 + 10000+((chapterId - 1) * 25) + ((stageId - 1) * 5) + waveId;
     }
 
     public int GetCurrentIndex()

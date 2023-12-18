@@ -28,6 +28,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public int maxWaveLevel = 5; //최대 웨이브 레벨
     public int maxStageLevel = 10; //최대 스테이지 레벨
 
+    private bool IsRepeating = false;
+
     public MonsterSpawner spawner;
     public int aliveMonsterCount;
 
@@ -132,7 +134,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void ChangeWage()
     {
         StopArrows();
-        UpdateCurrentWave();
+        if(!IsRepeating)
+        {
+            UpdateCurrentWave();
+        }
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
         if(currStage == null)
         {
@@ -310,5 +315,11 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void IncreaseMoney1()
     {
         CurrencyManager.GetSilver(currStage.rewardCoins, 0);
+    }
+
+    public void SetRepeat(bool isR) //true: 반복, false: 반복X
+    {
+        IsRepeating = isR;
+        UIManager.Instance.SetActiveRepeatButton(isR);
     }
 }

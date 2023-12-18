@@ -15,6 +15,7 @@ public class PlayerDieState : PlayerStateBase
     {
         WaveManager.Instance.EndWave();
         WaveManager.Instance.DecreaseCurrentWave();
+        WaveManager.Instance.SetRepeat(true);
         timer = 0f;
     }
 

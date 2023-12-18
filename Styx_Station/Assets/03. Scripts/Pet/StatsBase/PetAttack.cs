@@ -27,6 +27,11 @@ public class PetAttack : PetStateBase
 
     public override void FixedUpate()
     {
+        if (petController.masterPlayer.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
+        {
+            petController.SetState(States.Idle);
+            return;
+        }
         var findEnemy = Physics2D.OverlapCircleAll(petController.transform.position, petController.range, petController.layerMask);
 
         if (findEnemy.Length <1||findEnemy[0] == null)

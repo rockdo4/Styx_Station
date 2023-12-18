@@ -11,6 +11,13 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
+        if (attacker.GetComponent<ResultPlayerStats>() != null)
+        {
+            if (attacker.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
+            {
+                return;
+            }
+        }
         //Debug.Log($"Damage: {attack.Damage}");
         stats.currHealth -= attack.Damage;
         //Debug.Log($"Health: {stats.currHealth}");

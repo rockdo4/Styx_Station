@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using UnityEngine;
 
-public class ProjectileBow : PoolAble
+public class MonsterArrow : PoolAble
 {
     public event Action<GameObject, GameObject> OnCollided;
 
@@ -14,6 +14,8 @@ public class ProjectileBow : PoolAble
     private GameObject caster; //°ø°ÝÀÚ
     private float distance;
     private float timeElapsed = 0f;
+
+    public bool isReleased = false;
 
     private void Awake()
     {
@@ -33,6 +35,7 @@ public class ProjectileBow : PoolAble
     private void OnEnable()
     {
         timeElapsed = 0f;
+        isReleased = false;
     }
 
     private void FixedUpdate()
@@ -71,9 +74,10 @@ public class ProjectileBow : PoolAble
         if (OnCollided != null)
             OnCollided(caster, other.gameObject);
 
-        if(gameObject.activeSelf)
+        if(!isReleased)
         {
             ReleaseObject();
+            isReleased = true;
         }
     }
 

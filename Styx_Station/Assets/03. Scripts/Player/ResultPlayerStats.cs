@@ -223,7 +223,7 @@ public class ResultPlayerStats : MonoBehaviour
             prevUpgradeHp = hp;
             playerMaxHp = (prevUpgradeHp * increaseUpgradeHp) + playerAttribute.MaxHp;
         }
-        Debug.Log(playerCurrentHp);
+        //Debug.Log(playerCurrentHp);
         playerCurrentHp -= damage;
         if(playerCurrentHp <= 0) 
         {

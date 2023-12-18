@@ -89,6 +89,7 @@ public class PetController : MonoBehaviour
     {
         petStateManager.ChangeState(petStateBases[(int)state]);
         currentStates = state;
+        Debug.Log(currentStates);
     }
 
     public Animator GetAnimator()

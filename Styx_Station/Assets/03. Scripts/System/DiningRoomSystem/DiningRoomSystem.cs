@@ -65,14 +65,16 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
 
     public void UpgradeTimerLevel()
     {
-       
+
+        timerUpgradeLevel++;
         if (timerUpgradeLevel >= maxTimerUpgradeLevel)
         {
             timerUpgradeLevel = maxTimerUpgradeLevel;
             isMaxTimerUpgradeLevel = true;
         }
-        timerUpgradeLevel++;
-        max -= decreaseMaxTimer;
+        if(!isMaxTimerUpgradeLevel)
+            max -= decreaseMaxTimer;
+
     }
 
     public void UpgradeSelectFoodLevel()

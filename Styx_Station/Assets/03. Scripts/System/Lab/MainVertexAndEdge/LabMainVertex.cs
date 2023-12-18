@@ -4,12 +4,15 @@ using UnityEngine.UI;
 
 public class LabMainVertex : MonoBehaviour
 {
+    private bool isAwakeTime;
     private Button vertexButton;
     public List<LabMainEdge> edges = new List<LabMainEdge>();
     public int LabTypeLevel;
     public bool isClear;
     [SerializeField] private bool isResearching;
 
+
+    public LabType labType;
 
     public string labTableName;
     private LabTableDatas labTableDatas;
@@ -19,12 +22,6 @@ public class LabMainVertex : MonoBehaviour
     public string labTypeBuffStringTableKey;
     private StringTableData labTypeBuffStringDatas;
 
-    public string labTaxStringTableKey;
-    private StringTableData labTaxBuffStringDatas;
-
-    public string timerStringTableKey;
-    private StringTableData timerStringDatas;
-
 
     public LabInfoWindow popUpLabInfoObject;
     //public GameObject popUpLabSucceedObject;
@@ -32,34 +29,49 @@ public class LabMainVertex : MonoBehaviour
     protected Color noneActive = new Color(1, 1, 1, 0.3f);
     protected Color assignedActive = Color.white;
 
+    public Image coolTime;
+    private LabSystem copLabManager;
+
     private void Start()
     {
-        if (MakeTableData.Instance != null)
+        if(!isAwakeTime)
         {
-            labTableDatas = MakeTableData.Instance.labTable.GetLabTableData(labTableName);
+            if (MakeTableData.Instance != null)
+            {
+                labTableDatas = MakeTableData.Instance.labTable.GetLabTableData(labTableName);
+            }
+            else if (MakeTableData.Instance == null)
+            {
+                MakeTableData.Instance.labTable = new LabTable();
+                labTableDatas = MakeTableData.Instance.labTable.GetLabTableData(labTableName);
+            }
+            if (MakeTableData.Instance.stringTable != null)
+            {
+                labTypeNameStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(labTableDatas.Re_Name_ID);
+            }
+            else if (MakeTableData.Instance.stringTable == null)
+            {
+                MakeTableData.Instance.stringTable = new StringTable();
+                labTypeNameStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(labTableDatas.Re_Name_ID);
+            }
+            if (LabSystem.Instance != null)
+            {
+                copLabManager = LabSystem.Instance;
+
+            }
+            coolTime.gameObject.SetActive(false);
+            isAwakeTime = true; 
+
         }
-        else if (MakeTableData.Instance == null)
-        {
-            MakeTableData.Instance.labTable = new LabTable();
-            labTableDatas = MakeTableData.Instance.labTable.GetLabTableData(labTableName);
-        }
-        if(MakeTableData.Instance.stringTable !=null)
-        {
-            labTypeNameStringDatas =MakeTableData.Instance.stringTable.GetStringTableData(labTableDatas.Re_Name_ID);
-        }
-        else if(MakeTableData.Instance.stringTable ==null)
-        {
-            MakeTableData.Instance.stringTable = new StringTable();
-            labTypeNameStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(labTableDatas.Re_Name_ID);
-        }
+       
 
 
         if (vertexButton == null)
         {
             vertexButton = GetComponent<Button>();
             var labInfowindow = popUpLabInfoObject.gameObject.GetComponent<LabInfoWindow>();
-            labInfowindow.SetVertex(labTypeNameStringDatas, labTypeBuffStringDatas, labTaxBuffStringDatas, timerStringDatas,LabTypeLevel,0f);
-            vertexButton.onClick.AddListener(() => labInfowindow.Open());
+            
+            vertexButton.onClick.AddListener(() => labInfowindow.SetVertex(labType,labTypeNameStringDatas, labTypeBuffStringDatas, labTableDatas, LabTypeLevel));
         }
        
 
@@ -70,10 +82,21 @@ public class LabMainVertex : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(copLabManager != null && copLabManager.isResearching && copLabManager.level == LabTypeLevel && labType == copLabManager.labType)
         {
-            GetClear(true);
+            if (!coolTime.gameObject.activeSelf)
+            {
+                coolTime.gameObject.SetActive(true);
+            }
+            var timerTic = (float)(copLabManager.timerTic / copLabManager.milSeconds);
+            var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
+            coolTime.fillAmount = (timerTic / maxTimerTic);
+
         }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    GetClear(true);
+        //}
     }
 
     public void GetClear(bool clear)
@@ -84,6 +107,9 @@ public class LabMainVertex : MonoBehaviour
         {
             edge.VertexClearCheck();
         }
+        SetAssignedAcitve();
+        vertexButton.interactable = false;
+        vertexButton.onClick.RemoveAllListeners();
     }
 
 
@@ -110,5 +136,10 @@ public class LabMainVertex : MonoBehaviour
                 image.color = assignedActive;
             }
         }
+    }
+
+    public Button GetButton()
+    {
+        return vertexButton;
     }
 }

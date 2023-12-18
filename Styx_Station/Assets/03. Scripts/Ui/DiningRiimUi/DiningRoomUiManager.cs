@@ -59,6 +59,7 @@ public class DiningRoomUIManager : MonoBehaviour
         TimerUpgradeTextSetting();
         SelectUpgradeTextSetting();
         DiningRoomButtonDataSetIsPossibleButton();
+        CheckUpgradeButton();
         if (!isResetDiningTable)
         {
             isResetDiningTable = true;
@@ -533,6 +534,7 @@ public class DiningRoomUIManager : MonoBehaviour
         {
             timerUpgradeButton.interactable = false;
         }
+        DiningRoomSystem.Instance.max -= DiningRoomSystem.Instance.decreaseMaxTimer;
         TimerUpgradeTextSetting();
     }
     public void SelectFoodUpgradeButton()

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LabWindow : Window
 {
+    public LabInfoWindow labInfoWindow;
     public override void Open()
     {
         base.Open();
@@ -11,6 +12,7 @@ public class LabWindow : Window
 
     public override void Close()
     {
+        labInfoWindow.Close();
         base.Close();
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +33,8 @@ public class UIManager : Singleton<UIManager>
 
     //12.18 윤유림 웨이브 반복 버튼
     public GameObject RepeatButton;
+    public Slider timerSlider;
+    public TextMeshProUGUI timerText;
     public void Open(WindowType inventoryType)
     {
         if (!first)
@@ -167,6 +170,16 @@ public class UIManager : Singleton<UIManager>
     public void SetActiveRepeatButton(bool isActive)
     {
         RepeatButton.SetActive(isActive);
+    }
+
+    public void SetTimerSlierValue(float value)
+    {
+        timerSlider.value = value;
+    }
+
+    public void SetTimerText(string text)
+    {
+        timerText.text = text;
     }
 
     IEnumerator LeftMove()

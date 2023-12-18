@@ -8,7 +8,6 @@ public class ExecuteHit : MonoBehaviour
     public AttackDefinition weapon;
     public GameObject target;
     public GameObject attacker;
-
     public void Hit()
     {
         if (weapon == null || target == null)

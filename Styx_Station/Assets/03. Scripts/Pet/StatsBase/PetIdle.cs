@@ -23,6 +23,10 @@ public class PetIdle : PetStateBase
 
     public override void FixedUpate()
     {
+        if (petController.masterPlayer.GetComponent<PlayerController>().currentStates == States.Die)
+        {
+            return;
+        }
         var master = petController.masterPlayer.GetComponent<PlayerController>();
         if (master != null)
         {

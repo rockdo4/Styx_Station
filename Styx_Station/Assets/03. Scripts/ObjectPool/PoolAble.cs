@@ -9,6 +9,7 @@ public class PoolAble : MonoBehaviour
 
     public virtual void ReleaseObject()
     {
+        //Debug.Log($"Release{this.name}");
         ObjPool.Release(gameObject);
     }
 }

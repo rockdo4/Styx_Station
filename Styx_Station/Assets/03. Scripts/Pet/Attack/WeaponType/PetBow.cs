@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -11,7 +9,7 @@ public class PetBow : PoolAble
     public float speed;
     public GameObject targetObject;
     private ContactFilter2D filter2D = new ContactFilter2D();
-    private bool isRelease;
+    public bool isRelease;
     private Rigidbody2D rb;
     private void Awake()
     {

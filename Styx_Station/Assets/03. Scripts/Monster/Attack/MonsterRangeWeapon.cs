@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Attack/MonsterRangeWeapon")]
 public class MonsterRangeWeapon : AttackDefinition
 {
-    public ProjectileBow bowPrefab;
+    public MonsterArrow bowPrefab;
     public float speed; //발사체 이동 속도
     public override void ExecuteAttack(GameObject attacker, GameObject defender)
     {
@@ -30,7 +30,7 @@ public class MonsterRangeWeapon : AttackDefinition
         //var bow = Instantiate(bowPrefab, startPos, Quaternion.identity);
         var bow = ObjectPoolManager.instance.GetGo(bowPrefab.name);
         bow.transform.position = startPos;
-        var projectileBow = bow.GetComponent<ProjectileBow>();
+        var projectileBow = bow.GetComponent<MonsterArrow>();
         if (!projectileBow.CheckOnCollided())
         {
             projectileBow.OnCollided += OnBowCollided;

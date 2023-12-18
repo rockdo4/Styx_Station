@@ -6,34 +6,9 @@ using System.Linq;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
-    //public static WaveManager instance
-    //{
-    //    get
-    //    {
-    //        // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
-    //        if (m_instance == null)
-    //        {
-    //            // 씬에서 GameManager 오브젝트를 찾아 할당
-    //            m_instance = FindObjectOfType<WaveManager>();
-    //        }
-
-    //        // 싱글톤 오브젝트를 반환
-    //        return m_instance;
-    //    }
-    //}
-
-    //private static WaveManager m_instance; // 싱글톤이 할당될 static 변수
-
     private void Awake()
     {
-        //// 씬에 싱글톤 오브젝트가 된 다른 GameManager 오브젝트가 있다면
-        //if (instance != this)
-        //{
-        //    // 자신을 파괴
-        //    Destroy(gameObject);
-        //}
-
-        //추후 세이브한 것으로 변경해야함. 일단 무조건 시작시 1번 스테이지로 초기화
+        //시작시 1번 스테이지로 초기화
         currStage = stageList.GetStage(0);
 
         CurrentStage = currStage.stageId;
@@ -52,6 +27,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public int CurrentChpater { get; private set; } //현재 챕터
     public int maxWaveLevel = 5; //최대 웨이브 레벨
     public int maxStageLevel = 10; //최대 스테이지 레벨
+
+    private bool IsRepeating = false;
 
     public MonsterSpawner spawner;
     public int aliveMonsterCount;
@@ -156,7 +133,11 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void ChangeWage()
     {
-        UpdateCurrentWave();
+        StopArrows();
+        if(!IsRepeating)
+        {
+            UpdateCurrentWave();
+        }
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
         if(currStage == null)
         {
@@ -289,9 +270,22 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
             .Where(arrow => arrow.activeSelf)
             .ToArray();
-        foreach( var arrow in Arrows)
+        foreach(var arrow in Arrows)
         {
             arrow.GetComponent<PoolAble>().ReleaseObject();
+
+            if(arrow.GetComponent<PlayerArrow>() != null )
+            {
+                arrow.GetComponent<PlayerArrow>().isRelease = true;
+            }
+            else if (arrow.GetComponent<MonsterArrow>() != null)
+            {
+                arrow.GetComponent<MonsterArrow>().isReleased = true;
+            }
+            else if (arrow.GetComponent<PetBow>() != null)
+            {
+                arrow.GetComponent<PetBow>().isRelease = true;
+            }
         }
 
     }
@@ -321,5 +315,11 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void IncreaseMoney1()
     {
         CurrencyManager.GetSilver(currStage.rewardCoins, 0);
+    }
+
+    public void SetRepeat(bool isR) //true: 반복, false: 반복X
+    {
+        IsRepeating = isR;
+        UIManager.Instance.SetActiveRepeatButton(isR);
     }
 }

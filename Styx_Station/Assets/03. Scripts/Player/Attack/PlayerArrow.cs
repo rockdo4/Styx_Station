@@ -14,7 +14,7 @@ public class PlayerArrow : PoolAble
     private Vector3 startPos; //시작 위치
     private GameObject caster; //공격자
     private float increaseAttackSpeed = 0.01f;
-    private bool isRelease = false;
+    public bool isRelease = false;
     private ContactFilter2D filter2D = new ContactFilter2D();
     private Camera mainCamera;
 

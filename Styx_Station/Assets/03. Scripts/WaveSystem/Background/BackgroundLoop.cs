@@ -11,7 +11,7 @@ public class BackgroundLoop : MonoBehaviour
     private void Awake()
     {
         var boxCollider = GetComponent<BoxCollider2D>();
-        width = boxCollider.size.x; // * 0.56f;
+        width = boxCollider.size.x * 0.6f; ; // * 0.56f;
         centerPos = center.position;
     }
 

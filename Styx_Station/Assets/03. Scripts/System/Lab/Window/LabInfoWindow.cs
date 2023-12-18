@@ -24,7 +24,7 @@ public class LabInfoWindow : Window
     private StringTableData timerStringDatas;
 
     private int level;
-    private float timer;
+    private int timer;
     public float seconds = 60f;
 
     public TextMeshProUGUI researchTypeText;
@@ -91,18 +91,18 @@ public class LabInfoWindow : Window
                 break;
         }
         price = labTableData.Re_Pom * (int)Math.Pow(labTableData.Re_PomUp, this.level);
-        timer = (float)(labTableData.Re_Time * Math.Pow(labTableData.Re_TimeUP, this.level) * seconds);
-        reasearchButton.onClick.AddListener(() => UIManager.Instance.labManager.StartResearching(timer, this.labType,this.level));
+        timer = (int)(labTableData.Re_Time * Math.Pow(labTableData.Re_TimeUP, this.level) * seconds);
+        reasearchButton.onClick.AddListener(() => LabSystem.Instance.StartResearching(timer, this.labType,this.level));
         Open();
     }
 
     private void FixedUpdate()
     {
-        if(UIManager.Instance.labManager.isResearching)
+        if(LabSystem.Instance.isResearching)
         {
             var strTimer = string.Empty;
-            timerString = TimeSpan.FromSeconds(UIManager.Instance.labManager.timer);
-            strTimer = timerString.ToString(@"hh\:mm\:ss");
+            timerString = TimeSpan.FromSeconds(LabSystem.Instance.timerTic / LabSystem.Instance.milSeconds);
+            strTimer = timerString.ToString(@"dd\:hh\:mm\:ss");
             switch (Global.language)
             {
                 case Language.KOR:
@@ -123,7 +123,7 @@ public class LabInfoWindow : Window
   
 
         timerString = TimeSpan.FromSeconds(timer);
-        strTimer = timerString.ToString(@"hh\:mm\:ss");
+        strTimer = timerString.ToString(@"dd\:hh\:mm\:ss");
         switch (Global.language)
         {
             case Language.KOR:

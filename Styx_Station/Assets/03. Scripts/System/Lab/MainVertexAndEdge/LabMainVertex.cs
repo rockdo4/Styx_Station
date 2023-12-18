@@ -30,7 +30,7 @@ public class LabMainVertex : MonoBehaviour
     protected Color assignedActive = Color.white;
 
     public Image coolTime;
-    private LabManager copLabManager;
+    private LabSystem copLabManager;
 
     private void Start()
     {
@@ -54,9 +54,9 @@ public class LabMainVertex : MonoBehaviour
                 MakeTableData.Instance.stringTable = new StringTable();
                 labTypeNameStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(labTableDatas.Re_Name_ID);
             }
-            if (UIManager.Instance.labManager != null)
+            if (LabSystem.Instance != null)
             {
-                copLabManager = UIManager.Instance.labManager;
+                copLabManager = LabSystem.Instance;
 
             }
             coolTime.gameObject.SetActive(false);
@@ -82,12 +82,15 @@ public class LabMainVertex : MonoBehaviour
     }
     private void Update()
     {
-        if(copLabManager != null && copLabManager.isResearching)
+        if(copLabManager != null && copLabManager.isResearching && copLabManager.level == LabTypeLevel && labType == copLabManager.labType)
         {
-            if(!coolTime.gameObject.activeSelf)
+            if (!coolTime.gameObject.activeSelf)
+            {
                 coolTime.gameObject.SetActive(true);
-
-            coolTime.fillAmount = (copLabManager.timer / copLabManager.maxTimer);
+            }
+            var timerTic = (float)(copLabManager.timerTic / copLabManager.milSeconds);
+            var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
+            coolTime.fillAmount = (timerTic / maxTimerTic);
 
         }
         //if(Input.GetKeyDown(KeyCode.Space))
@@ -104,6 +107,7 @@ public class LabMainVertex : MonoBehaviour
         {
             edge.VertexClearCheck();
         }
+        SetAssignedAcitve();
         vertexButton.interactable = false;
         vertexButton.onClick.RemoveAllListeners();
     }

@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LabManager : MonoBehaviour
+public class LabSystem : Singleton<LabSystem>
 {
     public List<LabMainVertex> Re001_Vertex;
     public List<LabMainEdge> Re001_Edge;
     public GameObject Re001_Clear;
-    public float maxTimer;
-    public float timer;
+
+    public int maxTimerTic;
+    public int timerTic;
+    [HideInInspector] public int milSeconds = 1000;
     public bool isResearching;
-    private int level = -1;
-    private LabType labType;
+    [HideInInspector]public int level = -1;
+    [HideInInspector]public LabType labType;
 
     private void Start()
     {
@@ -22,13 +24,17 @@ public class LabManager : MonoBehaviour
     {
         if(isResearching)
         {
-            timer -= Time.deltaTime;
-            if(timer <= 0)
+            timerTic -= (int)(Time.deltaTime* milSeconds);
+            if (timerTic <= 0)
             {
                 isResearching = false;
-                maxTimer = 0f;
-                timer = 0f;
+                maxTimerTic = 0;
+                timerTic = 0;
                 IsDoneTime();
+            }
+            if(level ==9)
+            {
+                Debug.Log(timerTic);
             }
         }
     }
@@ -38,6 +44,8 @@ public class LabManager : MonoBehaviour
         {
             case LabType.LabPower1:
                 Re001_Vertex[level].GetClear(true);
+                if(level ==9)
+                    IsClearRe001(); 
                 break;
             case LabType.LabHp1:
                 break;
@@ -57,11 +65,12 @@ public class LabManager : MonoBehaviour
             edge.VertexClearCheck();
         }
     }
-    public void StartResearching(float timer , LabType labType,int index)
+    public void StartResearching(int timer , LabType labType,int index)
     {
         this.labType = labType;
-        maxTimer =timer;
-        this.timer= timer;
+        timer *= milSeconds;
+        maxTimerTic =timer;
+        this.timerTic= maxTimerTic;
         isResearching = true;
         level = index;
         foreach (var vertex in Re001_Vertex)
@@ -73,6 +82,8 @@ public class LabManager : MonoBehaviour
         {
             case LabType.LabPower1:
                 Re001_Vertex[level].GetButton().interactable = true;
+                Re001_Vertex[level].coolTime.transform.position = Re001_Vertex[level].transform.position;
+             
                 break;
             case LabType.LabHp1:
                 break;

@@ -29,6 +29,8 @@ public class UIManager : Singleton<UIManager>
     public SkillWindow skill;
     //12.14 이승우 퀘스트 오브젝트 가져오기
     public QuestSystemUi questSystemUi;
+    //12.18 이승우 LabManager 추가
+    public LabManager labManager;
     public void Open(WindowType inventoryType)
     {
         if (!first)

@@ -6425,14 +6425,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 481683737}
-  LabTypeLevel: 0
+  LabTypeLevel: 2
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &139344672
 GameObject:
   m_ObjectHideFlags: 0
@@ -11435,14 +11435,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 1423578414}
-  LabTypeLevel: 0
+  LabTypeLevel: 4
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &188168681
 GameObject:
   m_ObjectHideFlags: 0
@@ -13479,14 +13479,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   edges: []
-  LabTypeLevel: 0
+  LabTypeLevel: 9
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &236330587
 GameObject:
   m_ObjectHideFlags: 0
@@ -13552,12 +13552,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
-  m_fontSizeBase: 36
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
-  m_fontSizeMax: 35
+  m_fontSizeMax: 26
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -15506,13 +15506,14 @@ GameObject:
   - component: {fileID: 272312793}
   - component: {fileID: 272312792}
   - component: {fileID: 272312791}
+  - component: {fileID: 272312794}
   m_Layer: 5
   m_Name: Research
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &272312790
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15551,6 +15552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a485af7bac3ce94d9f2de4d71c1128c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  labInfoWindow: {fileID: 463368627}
 --- !u!114 &272312792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15589,6 +15591,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272312789}
   m_CullTransparentMesh: 1
+--- !u!114 &272312794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272312789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f889294bad3f24098acd67fb690c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Re001_Vertex:
+  - {fileID: 328015352}
+  - {fileID: 1970862461}
+  - {fileID: 135678383}
+  - {fileID: 2027601651}
+  - {fileID: 186491340}
+  - {fileID: 2030076521}
+  - {fileID: 920181894}
+  - {fileID: 1793272563}
+  - {fileID: 2071012303}
+  - {fileID: 229132276}
+  Re001_Edge:
+  - {fileID: 853068436}
+  - {fileID: 1572927153}
+  - {fileID: 1505229762}
+  - {fileID: 481683737}
+  - {fileID: 1085663303}
+  - {fileID: 1423578414}
+  - {fileID: 2050485785}
+  - {fileID: 2058673427}
+  - {fileID: 2006740208}
+  - {fileID: 1635383132}
+  Re001_Clear: {fileID: 1648121855}
+  maxTimer: 0
+  timer: 0
+  isResearching: 0
 --- !u!1 &272650932
 GameObject:
   m_ObjectHideFlags: 0
@@ -17408,6 +17448,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2070857621}
     m_Modifications:
+    - target: {fileID: 3715163512731843352, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
+      propertyPath: coolTime
+      value: 
+      objectReference: {fileID: 1582037008}
+    - target: {fileID: 3715163512731843352, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
+      propertyPath: popUpLabInfoObject
+      value: 
+      objectReference: {fileID: 463368627}
+    - target: {fileID: 3715163512731843352, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
+      propertyPath: edges.Array.data[0]
+      value: 
+      objectReference: {fileID: 1572927153}
     - target: {fileID: 4801450293104250689, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -17495,43 +17547,24 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5328052718346519038, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 328015352}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
---- !u!1 &328015350 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5328052718346519038, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
-  m_PrefabInstance: {fileID: 328015349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &328015351 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4801450293104250689, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
   m_PrefabInstance: {fileID: 328015349}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &328015352
+--- !u!114 &328015352 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3715163512731843352, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
+  m_PrefabInstance: {fileID: 328015349}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328015350}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09c65f69e4ccd894f9e9a7de379d5df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  edges:
-  - {fileID: 1572927153}
-  LabTypeLevel: 0
-  isClear: 0
-  isResearching: 0
-  labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
-  popUpLabInfoObject: {fileID: 463368627}
 --- !u!1 &330170209
 GameObject:
   m_ObjectHideFlags: 0
@@ -23891,10 +23924,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b862d2e0e257247409758fd169847a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelStringKey: Re_Info00
+  increaseStringKey: Re_Info01
+  needPomegranteStringKey: Re_Info02
+  timerStringKey: Re_InFo03
+  seconds: 60
   researchTypeText: {fileID: 1157959041}
   researchTypeBuffText: {fileID: 223718676}
   researchTaxText: {fileID: 236330588}
   researchTimer: {fileID: 931786722}
+  reasearchButton: {fileID: 1056262800}
 --- !u!114 &463368628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47302,14 +47341,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 2058673427}
-  LabTypeLevel: 0
+  LabTypeLevel: 6
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &921560016
 GameObject:
   m_ObjectHideFlags: 0
@@ -62847,6 +62886,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215071607}
   m_CullTransparentMesh: 1
+--- !u!1 &1217408083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1217408084}
+  - component: {fileID: 1217408086}
+  - component: {fileID: 1217408085}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1217408084
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217408083}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1494623944}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1217408085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217408083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1217408086
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217408083}
+  m_CullTransparentMesh: 1
 --- !u!1 &1220417437
 GameObject:
   m_ObjectHideFlags: 0
@@ -75255,6 +75369,7 @@ RectTransform:
   - {fileID: 1211993907}
   - {fileID: 736959571}
   - {fileID: 1613815801}
+  - {fileID: 1217408084}
   m_Father: {fileID: 2046822880}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -78336,7 +78451,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1545543117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1934580153}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: OnClickLab
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1547421838
 GameObject:
   m_ObjectHideFlags: 0
@@ -78793,6 +78920,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554392826}
+  m_CullTransparentMesh: 1
+--- !u!1 &1558401117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1558401118}
+  - component: {fileID: 1558401120}
+  - component: {fileID: 1558401119}
+  m_Layer: 5
+  m_Name: ReATK1-1 IMage (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1558401118
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558401117}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2070857621}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 238, y: 321}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1558401119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558401117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1558401120
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558401117}
   m_CullTransparentMesh: 1
 --- !u!1001 &1562037622
 PrefabInstance:
@@ -79460,6 +79662,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580422746}
+  m_CullTransparentMesh: 1
+--- !u!1 &1582037006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1582037007}
+  - component: {fileID: 1582037009}
+  - component: {fileID: 1582037008}
+  m_Layer: 5
+  m_Name: ReATK1-1 IMage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1582037007
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582037006}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2070857621}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 129, y: 165}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1582037008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582037006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1582037009
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582037006}
   m_CullTransparentMesh: 1
 --- !u!1 &1582965925
 GameObject:
@@ -82948,8 +83225,9 @@ GameObject:
   - component: {fileID: 1648121856}
   - component: {fileID: 1648121858}
   - component: {fileID: 1648121857}
+  - component: {fileID: 1648121859}
   m_Layer: 5
-  m_Name: Image (5)
+  m_Name: ReATKClear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83012,6 +83290,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648121855}
   m_CullTransparentMesh: 1
+--- !u!114 &1648121859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648121855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf80fc370eae4704f80ef567303d4330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prevVertex:
+  - {fileID: 229132276}
+  nextVertex: []
 --- !u!1 &1648427880
 GameObject:
   m_ObjectHideFlags: 0
@@ -86626,9 +86919,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: OnClickClose
+      - m_Target: {fileID: 272312791}
+        m_TargetAssemblyTypeName: LabWindow, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -89227,14 +89520,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 2006740208}
-  LabTypeLevel: 0
+  LabTypeLevel: 7
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &1794793194
 GameObject:
   m_ObjectHideFlags: 0
@@ -93679,7 +93972,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 233.54541, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1897910717
@@ -94734,6 +95027,7 @@ MonoBehaviour:
   buttons: {fileID: 608352178}
   skill: {fileID: 786700200}
   questSystemUi: {fileID: 1494623940}
+  labManager: {fileID: 272312794}
 --- !u!114 &1934580154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96083,14 +96377,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 1505229762}
-  LabTypeLevel: 0
+  LabTypeLevel: 1
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &1972391119
 GameObject:
   m_ObjectHideFlags: 0
@@ -98754,14 +99048,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 1085663303}
-  LabTypeLevel: 0
+  LabTypeLevel: 3
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1001 &2030076518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98890,14 +99184,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 2050485785}
-  LabTypeLevel: 0
+  LabTypeLevel: 5
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &2031739307
 GameObject:
   m_ObjectHideFlags: 0
@@ -101182,7 +101476,9 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1238287403}
+  - {fileID: 1582037007}
   - {fileID: 328015351}
+  - {fileID: 1558401118}
   - {fileID: 1970862460}
   - {fileID: 135678382}
   - {fileID: 2027601650}
@@ -101420,14 +101716,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   edges:
   - {fileID: 1635383132}
-  LabTypeLevel: 0
+  LabTypeLevel: 8
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
-  labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
+  labTypeBuffStringTableKey: Re_BuffInfo00
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 1582037008}
 --- !u!1 &2074574009
 GameObject:
   m_ObjectHideFlags: 0

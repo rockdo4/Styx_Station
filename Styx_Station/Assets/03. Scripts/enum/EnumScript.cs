@@ -188,3 +188,15 @@ public enum RewardType
     StyxPomegranate,
     SoulStone,
 }
+
+public enum LabType
+{
+    LabPower1,
+    LabHp1,
+    LabCriticalPower,
+    LabSliverUp,
+    LabPower2,
+    LabHp2,
+
+    None =100,
+}

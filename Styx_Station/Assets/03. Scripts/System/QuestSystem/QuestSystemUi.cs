@@ -401,7 +401,6 @@ public class QuestSystemUi : MonoBehaviour
     {
         if (questData.upgradeType != (UpgradeType)index || questData.isMaxUpgrade)
         {
-            Debug.Log($"Upgrade Type¿Ã ¥Ÿ∏ß /{(UpgradeType)index}");
             return;
         }
 

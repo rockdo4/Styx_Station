@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 8521257587822866215}
   - component: {fileID: 4203408187825604597}
   - component: {fileID: 1395615511118814258}
+  - component: {fileID: 3715163512731843352}
   m_Layer: 5
   m_Name: ReATK1-1
   m_TagString: Untagged
@@ -160,7 +161,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5328052718346519038}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -255,3 +256,24 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3715163512731843352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328052718346519038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09c65f69e4ccd894f9e9a7de379d5df5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  edges:
+  - {fileID: 0}
+  LabTypeLevel: 0
+  isClear: 0
+  isResearching: 0
+  labType: 0
+  labTableName: Re001
+  labTypeBuffStringTableKey: Re_BuffInfo00
+  popUpLabInfoObject: {fileID: 0}

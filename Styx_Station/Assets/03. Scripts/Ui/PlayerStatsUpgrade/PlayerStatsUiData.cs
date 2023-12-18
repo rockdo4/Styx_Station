@@ -364,5 +364,12 @@ public class PlayerStatsUiData : MonoBehaviour
             getText.text = "Max";
         }
     }
+    private void OnApplicationFocus(bool pauseStatus)
+    {
+        if (!pauseStatus )
+        {
+            onClickButton = false;
+        }
+    }
 }
 

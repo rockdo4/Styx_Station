@@ -207,6 +207,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         playerController.SetState(States.Move);
 
         ScrollBackground(true);
+        SetWavePanel();
         //StartWave();
     }
 
@@ -232,6 +233,20 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     {
         currStage = stageList.GetStageByStageIndex(stageIndex);
         SetWave();
+    }
+
+    public void SetWavePanel()
+    {
+        for (int i = 0; i < CurrentWave - 1; i++)
+        {
+            UIManager.Instance.SetWavePanelClear(i, true);
+        }
+        for (int i = CurrentWave - 1; i < 5; i++)
+        {
+            UIManager.Instance.SetWavePanelClear(i, false);
+        }
+
+        UIManager.Instance.SetWavePanelPlayer(CurrentWave - 1);
     }
 
     public void SetTileMap()

@@ -476,6 +476,7 @@ public class SaveLoad : MonoBehaviour
                     
                     WaveManager.Instance.SetStageByIndexStage(stageData);
                     WaveManager.Instance.SetTileMap();
+                    WaveManager.Instance.SetWavePanel();
                 }
 
 

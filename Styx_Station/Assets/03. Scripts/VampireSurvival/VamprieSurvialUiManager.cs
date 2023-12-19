@@ -10,9 +10,11 @@ public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
     public VamprieSurvialJoystick vamprieJoystick;
     private PointerEventData vampriePointerEventData;
 
+    public bool isPause;
+    public bool isPlayerLevelup;
     private void Awake()
     {
-
+        UIManager.Instance.gameObject.SetActive(false);
     }
 
     private void Start()
@@ -25,7 +27,11 @@ public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
     }
     void Update()
     {
-        DrawAndMoveJoystick();
+        if(!isPause)
+        {
+            DrawAndMoveJoystick();
+
+        }
     }
 
     private void DrawAndMoveJoystick()
@@ -56,6 +62,7 @@ public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
     {
         SceneManager.LoadScene("Table_2 LswPlayerStats");
         Destroy(gameObject);
+        UIManager.Instance.gameObject.SetActive(true);
     }
     public void TestCode123()
     {

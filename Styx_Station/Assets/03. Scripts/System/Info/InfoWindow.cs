@@ -47,7 +47,7 @@ public class InfoWindow : Window
             tabs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo003").KOR}";
             tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").KOR}";
             string text = string.Format(stringTable.GetStringTableData("Playerinfo005").KOR,
-                stateSystem.TotalState.AttackPer,
+                stateSystem.TotalState.Attack,
                 stateSystem.TotalState.BloodSucking,
                 stateSystem.TotalState.SkillDamage,
                 stateSystem.TotalState.BossDamage,
@@ -65,7 +65,7 @@ public class InfoWindow : Window
             tabs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo003").ENG}";
             tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").ENG}";
             string text = string.Format(stringTable.GetStringTableData("Playerinfo005").ENG,
-                stateSystem.TotalState.AttackPer,
+                stateSystem.TotalState.Attack,
                 stateSystem.TotalState.HealHealth,
                 stateSystem.TotalState.SkillDamage,
                 stateSystem.TotalState.BossDamage,

@@ -8,11 +8,14 @@ public class Upgrade : MonoBehaviour
 
     private PetInventory petInventory;
 
+    private StateSystem stateSystem;
+
     private void Awake()
     {
         itemInventory = InventorySystem.Instance.inventory;
         skillInventory = InventorySystem.Instance.skillInventory;
         petInventory = InventorySystem.Instance.petInventory;
+        stateSystem = InventorySystem.Instance.state;
     }
     public void ItemUpgrade(int index, ItemType type)
     {
@@ -54,6 +57,9 @@ public class Upgrade : MonoBehaviour
         item.stock -= num;
 
         item.upgradeLev += 1;
+
+        stateSystem.EquipUpdate();
+        stateSystem.AcquireUpdate();
     }
 
     private void ArmorUpgrade(int index)
@@ -77,6 +83,9 @@ public class Upgrade : MonoBehaviour
         item.stock -= num;
 
         item.upgradeLev += 1;
+
+        stateSystem.EquipUpdate();
+        stateSystem.AcquireUpdate();
     }
 
     private void RingUpgrade(int index)
@@ -101,6 +110,8 @@ public class Upgrade : MonoBehaviour
         CurrencyManager.itemAsh -= num;
 
         item.upgradeLev += 1;
+
+        stateSystem.EquipUpdate();
     }
 
     private void SymbolUpgrade(int index)
@@ -124,6 +135,8 @@ public class Upgrade : MonoBehaviour
         CurrencyManager.itemAsh -= num;
 
         item.upgradeLev += 1;
+
+        stateSystem.EquipUpdate();
     }
 
     public void SkillUpgrade(int index)
@@ -146,6 +159,8 @@ public class Upgrade : MonoBehaviour
         skill.stock -= num;
 
         skill.upgradeLev += 1;
+
+        stateSystem.SkillUpdate();
     }
 
     public void PetUpgrade(int index)

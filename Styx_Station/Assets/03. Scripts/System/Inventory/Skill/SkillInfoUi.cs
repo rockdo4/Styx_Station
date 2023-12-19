@@ -43,18 +43,38 @@ public class SkillInfoUi : MonoBehaviour
             skillName.text = $"{stringTable.GetStringTableData(skill.skill.name + "_Name").KOR}";
             coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill001").KOR}";
 
-            string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").KOR,
-             skill.skill.Skill_ATK + skill.upgradeLev * skill.skill.Skill_ATK_LVUP);
-            skillText.text = $"{text}";
+            if (skill.skill.Skill_Type == SkillType.Active)
+            {
+                 string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").KOR,
+                 skill.skill.Skill_ATK + skill.upgradeLev * skill.skill.Skill_ATK_LVUP);
+                 skillText.text = $"{text}";
+            }
+            else if (skill.skill.Skill_Type == SkillType.Passive)
+            {
+                string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").KOR,
+                skill.skill.Skill_Res[0].Skill_RE_EFF + skill.upgradeLev * skill.skill.Skill_Res[0].Skill_RE_LVUP);
+                skillText.text = $"{text}";
+            }
+            
         }
         else if (Global.language == Language.ENG)
         {
             tier.text = $"{stringTable.GetStringTableData(skill.skill.Skill_Tier.ToString()).ENG}";
             skillName.text = $"{stringTable.GetStringTableData(skill.skill.name + "_Name").ENG}";
             coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill001").ENG}";
-            string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").ENG,
-            skill.skill.Skill_ATK + skill.upgradeLev * skill.skill.Skill_ATK_LVUP);
-            skillText.text = $"{text}";
+
+            if (skill.skill.Skill_Type == SkillType.Active)
+            {
+                string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").ENG,
+                skill.skill.Skill_ATK + skill.upgradeLev * skill.skill.Skill_ATK_LVUP);
+                skillText.text = $"{text}";
+            }
+            else if (skill.skill.Skill_Type == SkillType.Passive)
+            {
+                string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").ENG,
+                skill.skill.Skill_Res[0].Skill_RE_EFF + skill.upgradeLev * skill.skill.Skill_Res[0].Skill_RE_LVUP);
+                skillText.text = $"{text}";
+            }
         }
 
         if (skill.upgradeLev < skill.skill.Skill_LVUP_NU.Count)

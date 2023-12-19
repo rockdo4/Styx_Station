@@ -35,6 +35,7 @@ public class PlayerDieState : PlayerStateBase
         if(timer > duration)
         {
             timer = 0f;
+            UIManager.Instance.SetGameOverPopUpActive(true);
             playertController.transform.position = playertController.initialPos;
             playertController.GetAnimator().SetBool("EditChk", true);
             playertController.IsStartTarget = false;

@@ -180,6 +180,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill1(Slider cool)
     {
+        if(!WaveManager.Instance.isWaveInProgress)
+        {
+            return;
+        }
         if (equipSkills[0] == null)
         {
             return;
@@ -206,6 +210,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill2(Slider cool)
     {
+        if (!WaveManager.Instance.isWaveInProgress)
+        {
+            return;
+        }
         if (equipSkills[1] == null)
         {
             return;
@@ -241,6 +249,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill3(Slider cool)
     {
+        if (!WaveManager.Instance.isWaveInProgress)
+        {
+            return;
+        }
         if (equipSkills[2] == null)
         {
             return;
@@ -276,6 +288,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill4(Slider cool)
     {
+        if (!WaveManager.Instance.isWaveInProgress)
+        {
+            return;
+        }
         if (equipSkills[3] == null)
         {
             return;
@@ -311,6 +327,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill5(Slider cool)
     {
+        if (!WaveManager.Instance.isWaveInProgress)
+        {
+            return;
+        }
         if (equipSkills[4] == null)
         {
             return;
@@ -346,6 +366,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void UseSkill6(Slider cool)
     {
+        if (!WaveManager.Instance.isWaveInProgress)
+        {
+            return;
+        }
         if (equipSkills[5] == null)
         {
             return;

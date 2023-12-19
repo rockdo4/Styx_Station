@@ -9,6 +9,7 @@ public class MonsterAttackedRedEffect : MonoBehaviour, IAttackable
     private List<Color> originalColors = new List<Color>();
     private Color effectColor = new Color(1f, 0.64f, 0.64f);
     public float redIntensity = 0.8f;
+    //private PlayerController controller;
 
     private void Start()
     {
@@ -22,9 +23,14 @@ public class MonsterAttackedRedEffect : MonoBehaviour, IAttackable
         {
             gameObject.GetComponent<MonsterController>().SetOriginalColor(originalColors);
         }
+        //controller = gameObject.GetComponent<PlayerController>();
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
+        //if(controller.currentStates == States.Die)
+        //{
+        //    return;
+        //}
         StartCoroutine(ChangeColor());
     }
 

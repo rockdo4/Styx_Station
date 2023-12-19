@@ -479,6 +479,8 @@ public class SaveLoad : MonoBehaviour
                     var stageData = JsonConvert.DeserializeObject<int>(str);
                     
                     WaveManager.Instance.SetStageByIndexStage(stageData);
+                    WaveManager.Instance.SetTileMap();
+                    WaveManager.Instance.SetWavePanel();
                 }
 
 

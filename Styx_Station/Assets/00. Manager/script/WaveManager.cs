@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using Unity.VisualScripting;
+using System.Threading;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
@@ -22,6 +24,18 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         }
 
         playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        int tilemapCount = Background.transform.childCount;
+        for(int i = 0;i < tilemapCount; i++)
+        {
+            tileObjects[i] = Background.transform.GetChild(i).gameObject;
+            //tileMaps.Add(Background.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < tileObjects[0].transform.childCount; i++)
+        {
+            leftTileMaps.Add(tileObjects[0].transform.GetChild(i).gameObject);
+            rightTileMaps.Add(tileObjects[1].transform.GetChild(i).gameObject);
+        }
     }
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
@@ -30,6 +44,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public int maxStageLevel = 10; //최대 스테이지 레벨
 
     private bool IsRepeating = false;
+    public bool haveToChangeTile = false;
 
     public MonsterSpawner spawner;
     public int aliveMonsterCount;
@@ -37,15 +52,18 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public StageList stageList;
     public Stage currStage;
 
+    private int currTileMapIndex = 0;
+    private int clearWaveCount = 0;
     public GameObject Background;
+    private GameObject[] tileObjects = new GameObject[2];
+    public List<GameObject> leftTileMaps = new List<GameObject>();
+    public List<GameObject> rightTileMaps = new List<GameObject>();
     private List<ScrollingObject> backgroundList = new List<ScrollingObject>();
 
     private PlayerController playerController;
 
     private float waitTime = 2f;
     private WaitForSeconds waitForSeconds;
-
-    
 
     public float timeLimit = 0f;
     public float timer = 0f;
@@ -162,15 +180,26 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         //StartCoroutine(SetArrowStop());
     }
 
-    public void ChangeWage()
+    public void ChangeWave()
     {
         StopArrows();
         isWaveInProgress = false;
+
+        int stageNum = CurrentStage % 5;
+        if (stageNum == 0)
+        {
+            currTileMapIndex = CurrentChpater;
+            haveToChangeTile = true;
+            ChangeTileMap();
+        }
+
         if (!IsRepeating)
         {
             UpdateCurrentWave();
         }
+
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
+        clearWaveCount++;
         timeLimit = currStage.waveTimer;
         timer = 0f;
         if (currStage == null)
@@ -179,13 +208,68 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             return;
         }
         playerController.SetState(States.Move);
+        MoveMonPosition();
         ScrollBackground(true);
+        SetWavePanel();
         //StartWave();
+    }
+
+    public void MoveMonPosition()
+    {
+        var mons = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var item in mons)
+        {
+            item.gameObject.transform.position = item.GetComponent<MonsterController>().idlePos.position;
+        }
+    }
+
+    public void ChangeTileMap()
+    {
+        List<GameObject> changeTileList = new List<GameObject>();
+        if(clearWaveCount % 2 == 0) //짝수개 클리어, right 바꾸기
+        {
+            changeTileList = rightTileMaps;
+        }
+        else //홀수개 클리어, left 바꾸기
+        {
+            changeTileList = leftTileMaps;
+        }
+
+        changeTileList[currTileMapIndex].SetActive(true);
+        if(currTileMapIndex > 0)
+        {
+            changeTileList[currTileMapIndex - 1].SetActive(false);
+        }
     }
     public void SetStageByIndexStage(int stageIndex)
     {
         currStage = stageList.GetStageByStageIndex(stageIndex);
         SetWave();
+    }
+
+    public void SetWavePanel()
+    {
+        for (int i = 0; i < CurrentWave - 1; i++)
+        {
+            UIManager.Instance.SetWavePanelClear(i, true);
+        }
+        for (int i = CurrentWave - 1; i < 5; i++)
+        {
+            UIManager.Instance.SetWavePanelClear(i, false);
+        }
+
+        UIManager.Instance.SetWavePanelPlayer(CurrentWave - 1);
+    }
+
+    public void SetTileMap()
+    {
+        leftTileMaps[0].SetActive(false);
+        rightTileMaps[0].SetActive(false);
+
+        currTileMapIndex = CurrentChpater;
+
+        leftTileMaps[currTileMapIndex -1].SetActive(true);
+        rightTileMaps[currTileMapIndex -1].SetActive(true);
     }
 
     public void UpdateCurrentChapter()
@@ -231,6 +315,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         timeLimit = currStage.waveTimer;
         timer = 0f;
         SetCurrentStageText();
+        SetWavePanel();
     }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {
@@ -247,7 +332,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         aliveMonsterCount--;
         if(aliveMonsterCount <= 0)
         {
-            ChangeWage();
+            ChangeWave();
         }
     }
 

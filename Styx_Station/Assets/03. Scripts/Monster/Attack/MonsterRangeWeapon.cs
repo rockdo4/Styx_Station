@@ -16,13 +16,13 @@ public class MonsterRangeWeapon : AttackDefinition
             Debug.Log("ERR: No BezierPoint");
             return;
         }
-        if (rects[2] == null)
+        if (rects[3] == null)
         {
             Debug.Log("ERR: No FirePoint");
             return;
         }
 
-        var startPos = rects[2].transform.position;
+        var startPos = rects[3].transform.position;
         var targetPos = defender.transform.position;
         targetPos.y = startPos.y;
 
@@ -55,6 +55,10 @@ public class MonsterRangeWeapon : AttackDefinition
         var attackables = defender.GetComponents<IAttackable>();
         foreach (var attackable in attackables)
         {
+            if (defender.GetComponent<PlayerController>().currentStates == States.Die)
+            {
+                return;
+            }
             attackable.OnAttack(attacker, attack);
         }
     }

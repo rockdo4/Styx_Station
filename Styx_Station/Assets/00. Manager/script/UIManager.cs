@@ -35,7 +35,11 @@ public class UIManager : Singleton<UIManager>
     public GameObject RepeatButton;
     public Slider timerSlider;
     public TextMeshProUGUI timerText;
-    public TextMeshProUGUI stageText; 
+    public TextMeshProUGUI stageText;
+
+    public List<GameObject> WavePanels;
+
+    public GameObject gameOverPop;
     public void Open(WindowType inventoryType)
     {
         if (!first)
@@ -188,6 +192,19 @@ public class UIManager : Singleton<UIManager>
         string newTxt = $"{stage} - {wave}";
         stageText.SetText(newTxt);
     }
+
+    public void SetWavePanelClear(int index, bool clear) //clear: 웨이브 클리어, false: 웨이브 클리어x
+    {
+        WavePanels[index].transform.GetChild(0).gameObject.SetActive(clear); //clear wave
+        WavePanels[index].transform.GetChild(1).gameObject.SetActive(!clear); //unclearwave
+        WavePanels[index].transform.GetChild(2).gameObject.SetActive(false); //playerLocation
+    }
+
+    public void SetWavePanelPlayer(int index)
+    {
+        WavePanels[index].transform.GetChild(2).gameObject.SetActive(true);
+    }
+
     IEnumerator LeftMove()
     {
         float timer = 0f;
@@ -228,5 +245,10 @@ public class UIManager : Singleton<UIManager>
 
         buttons.transform.position = buttonPos - wayPoint;
         move = null;
+    }
+
+    public void SetGameOverPopUpActive(bool isActive)
+    {
+        gameOverPop.SetActive(isActive);
     }
 }

@@ -11,7 +11,7 @@ public class BackgroundLoop : MonoBehaviour
     private void Awake()
     {
         var boxCollider = GetComponent<BoxCollider2D>();
-        width = boxCollider.size.x * 0.6f; ; // * 0.56f;
+        width = boxCollider.size.x;// * 0.6f; ; // * 0.56f;
         centerPos = center.position;
     }
 
@@ -22,6 +22,11 @@ public class BackgroundLoop : MonoBehaviour
             Reposition(); //다음 sky 배견화면 사진 옆으로 이동하게 함
             WaveManager.Instance.ScrollBackground(false);
             WaveManager.Instance.StartWave();
+            if(WaveManager.Instance.haveToChangeTile)
+            {
+                WaveManager.Instance.ChangeTileMap();
+                WaveManager.Instance.haveToChangeTile = false;
+            }
         }
     }
 

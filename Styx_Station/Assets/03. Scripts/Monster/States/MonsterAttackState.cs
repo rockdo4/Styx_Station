@@ -44,6 +44,10 @@ public class MonsterAttackState : MonsterStateBase
         {
             monsterCtrl.SetState(States.Die);
         }
+        if(player.GetComponent<PlayerController>().currentStates == States.Die)
+        {
+            monsterCtrl.SetState(States.Idle);
+        }
         if (Time.time - lastAttackTime > attackBet)
         {
             monsterCtrl.animator.SetTrigger("Attack");

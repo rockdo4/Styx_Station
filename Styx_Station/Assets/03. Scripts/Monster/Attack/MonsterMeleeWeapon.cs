@@ -6,6 +6,14 @@ public class MonsterMeleeWeapon : AttackDefinition
 {
     public override void ExecuteAttack(GameObject attacker, GameObject defender)
     {
+        if(attacker.GetComponent<MonsterController>() != null)
+        {
+            range = attacker.GetComponent<MonsterController>().range;
+        }
+        else
+        {
+            Debug.Log("monsterController is null");
+        }
         //애니메이션 시작 -> 실제 타격 사이에 거리와 방향이 변경될 수 있기 때문에 체크 필요
         if (defender.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0) //남아있지만 죽은 상태일 수도 있음
         {
@@ -26,6 +34,10 @@ public class MonsterMeleeWeapon : AttackDefinition
         var attackables = defender.GetComponents<IAttackable>();
         foreach(var attackable in attackables)
         {
+            if (defender.GetComponent<PlayerController>().currentStates == States.Die)
+            {
+                return;
+            }
             attackable.OnAttack(attacker, attack);
         }
     }

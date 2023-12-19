@@ -2649,11 +2649,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1886957928798168240, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -7.81
+      value: -7.71
       objectReference: {fileID: 0}
     - target: {fileID: 1886957928798168240, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2
+      value: -1.11
       objectReference: {fileID: 0}
     - target: {fileID: 1886957928798168240, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2955,6 +2955,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7336726079978903648, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7401277679878090793, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -3105,6 +3109,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5982679202281003086, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1726931881527551177}
+    - targetCorrespondingSourceObject: {fileID: 5982679202281003086, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7394007063821725210}
     - targetCorrespondingSourceObject: {fileID: 8350112189171768995, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}
       insertIndex: -1
       addedObject: {fileID: 49454529545295815}
@@ -3190,7 +3197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: cff3331a8004aa449a238382cf3f1952, type: 2}
   playerMoveSpeed: 5
-  backgroundLength: 10.752
+  backgroundLength: 10.8
   destinationPoint: {fileID: 0}
   playerStartTime: 1.5
   layerMask:
@@ -3213,9 +3220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7f8f2e7ed41fb44bbb23380d9d8d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
-  MaxHp: 752137
-  attackPower: 10
+  hp: 1000
+  MaxHp: 500
+  attackPower: 30
   attackSpeed: 1
   playerAttackRange: 6
 --- !u!114 &5530669835995673607
@@ -3243,7 +3250,7 @@ MonoBehaviour:
   criticlDamage: 100
   skillDamage: 100
   increaseUpgradeHp: 5
-  increaseUpgradeHealing: 10
+  increaseUpgradeHealing: 100
 --- !u!114 &1726931881527551177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3256,6 +3263,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d356cf5bf52c144189d5746acef635d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7394007063821725210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612193596901925693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2bd82dfd9e287478bf536be805f4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redIntensity: 0.8
 --- !u!1 &3943068918353110480 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8350112189171768995, guid: 430851fd9fd5d9244b0732ff7dfb6773, type: 3}

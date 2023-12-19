@@ -45,7 +45,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     private float waitTime = 2f;
     private WaitForSeconds waitForSeconds;
 
-    public TextMeshProUGUI stageText; //임시로 여기서 함. 추후 uimanager로 이동함.
+    
 
     public float timeLimit = 0f;
     public float timer = 0f;
@@ -261,8 +261,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetCurrentStageText()
     {
-        string newTxt = $"{CurrentStage} - {CurrentWave}";
-        stageText.SetText(newTxt);  
+        UIManager.Instance.SetCurrentStageText(CurrentStage, CurrentWave);
     }
 
     IEnumerator SetMonstersStop()

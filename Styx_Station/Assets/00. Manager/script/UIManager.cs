@@ -35,6 +35,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject RepeatButton;
     public Slider timerSlider;
     public TextMeshProUGUI timerText;
+    public TextMeshProUGUI stageText; 
     public void Open(WindowType inventoryType)
     {
         if (!first)
@@ -182,6 +183,11 @@ public class UIManager : Singleton<UIManager>
         timerText.text = text;
     }
 
+    public void SetCurrentStageText(int stage, int wave)
+    {
+        string newTxt = $"{stage} - {wave}";
+        stageText.SetText(newTxt);
+    }
     IEnumerator LeftMove()
     {
         float timer = 0f;

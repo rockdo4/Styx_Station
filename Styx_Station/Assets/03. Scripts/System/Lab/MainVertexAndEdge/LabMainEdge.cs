@@ -12,7 +12,7 @@ public class LabMainEdge : MonoBehaviour
     protected Color noneActive = new Color(1, 1, 1, 0.3f);
     protected Color assignedActive = Color.white;
 
-    public void Start()
+    public void Awake()
     {
         VertexClearCheck();
     }

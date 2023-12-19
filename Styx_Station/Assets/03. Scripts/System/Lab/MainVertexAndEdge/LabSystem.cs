@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class LabSystem : Singleton<LabSystem>
 
     public int maxTimerTic;
     public int timerTic;
-    [HideInInspector] public int milSeconds = 1000;
+    [HideInInspector] public int milSeconds;
     public bool isResearching;
     [HideInInspector] public int level = -1;
     [HideInInspector] public LabType labType;
@@ -41,19 +42,46 @@ public class LabSystem : Singleton<LabSystem>
     public LabTableDatas labTalbeData;
 
     public bool isTimerZero;
+    public bool isLoad;
+    public bool isAwakeSet;
+    private void Awake()
+    {
+        milSeconds = GameData.tic;
+        if (!isAwakeSet)
+            isAwakeSet = true;
+    }
     private void Start()
     {
-        IsClearRe001();
-        IsClearRe002();
-        IsClearRe003();
-        IsClearRe004();
-        IsClearRe005();
-        IsClearRe006();
-        AllCheckEdges();
+        //IsClearRe001();
+        //IsClearRe002();
+        //IsClearRe003();
+        //IsClearRe004();
+        //IsClearRe005();
+        //IsClearRe006();
+        //AllCheckEdges();   
     }
 
     private void Update()
     {
+        if (isLoad)
+        {
+            StartResearching();
+            IsClearRe001();
+            IsClearRe002();
+            IsClearRe003();
+            IsClearRe004();
+            IsClearRe005();
+            IsClearRe006();
+            isLoad = false;
+        }
+        if (isAwakeSet && !isResearching)
+        {
+            AllCheckEdges();
+        }
+        else
+        {
+            isAwakeSet=false;
+        }
         if (isResearching && timerTic > 0)
         {
             timerTic -= (int)(Time.deltaTime * milSeconds);
@@ -96,31 +124,37 @@ public class LabSystem : Singleton<LabSystem>
         {
             case LabType.LabPower1:
                 Re001_Vertex[level].GetClear(true);
+                GameData.labBuffData.re_Atk1 = labTalbeData.Re_ATK * (int)Math.Pow(labTalbeData.Re_ATKUP, level);
                 if (level == 9)
                     IsClearRe001();
                 break;
             case LabType.LabHp1:
                 Re002_Vertex[level].GetClear(true);
+                GameData.labBuffData.re_Hp1 = labTalbeData.Re_HP * (int)Math.Pow(labTalbeData.Re_HPUP, level);
                 if (level == 9)
                     IsClearRe002();
                 break;
             case LabType.LabCriticalPower:
                 Re003_Vertex[level].GetClear(true);
+                GameData.labBuffData.re_Criticalpower = labTalbeData.Re_Cri * (int)Math.Pow(labTalbeData.Re_CriUP, level);
                 if (level == 9)
                     IsClearRe003();
                 break;
             case LabType.LabSliverUp:
                 Re004_Vertex[level].GetClear(true);
+                GameData.labBuffData.re_Sliup = labTalbeData.Re_Sil * (int)Math.Pow(labTalbeData.Re_SilUP, level);
                 if (level == 9)
                     IsClearRe004();
                 break;
             case LabType.LabPower2:
                 Re005_Vertex[level].GetClear(true);
+                GameData.labBuffData.re_Atk2 = labTalbeData.Re_ATK * (int)Math.Pow(labTalbeData.Re_ATKUP, level);
                 if (level == 9)
                     IsClearRe005();
                 break;
             case LabType.LabHp2:
                 Re006_Vertex[level].GetClear(true);
+                GameData.labBuffData.re_Hp2 = labTalbeData.Re_HP * (int)Math.Pow(labTalbeData.Re_HPUP, level);
                 if (level == 9)
                     IsClearRe006();
                 break;
@@ -150,7 +184,7 @@ public class LabSystem : Singleton<LabSystem>
                 break;
             case LabType.LabCriticalPower:
                 Re003_Vertex[level].GetButton().interactable = true;
-                Re003_Vertex[level].coolTime.transform.position = Re002_Vertex[level].transform.position;
+                Re003_Vertex[level].coolTime.transform.position = Re003_Vertex[level].transform.position;
                 break;
             case LabType.LabSliverUp:
                 Re004_Vertex[level].GetButton().interactable = true;
@@ -165,6 +199,38 @@ public class LabSystem : Singleton<LabSystem>
                 Re006_Vertex[level].coolTime.transform.position = Re006_Vertex[level].transform.position;
                 break;
         }
+    }
+    public void StartResearching()
+    {
+        AllButtonNull();
+        switch (labType)
+        {
+            case LabType.LabPower1:
+                Re001_Vertex[level].GetButton().interactable = true;
+                Re001_Vertex[level].coolTime.transform.position = Re001_Vertex[level].transform.position;
+                break;
+            case LabType.LabHp1:
+                Re002_Vertex[level].GetButton().interactable = true;
+                Re002_Vertex[level].coolTime.transform.position = Re002_Vertex[level].transform.position;
+                break;
+            case LabType.LabCriticalPower:
+                Re003_Vertex[level].GetButton().interactable = true;
+                Re003_Vertex[level].coolTime.transform.position = Re003_Vertex[level].transform.position;
+                break;
+            case LabType.LabSliverUp:
+                Re004_Vertex[level].GetButton().interactable = true;
+                Re004_Vertex[level].coolTime.transform.position = Re004_Vertex[level].transform.position;
+                break;
+            case LabType.LabPower2:
+                Re005_Vertex[level].GetButton().interactable = true;
+                Re005_Vertex[level].coolTime.transform.position = Re005_Vertex[level].transform.position;
+                break;
+            case LabType.LabHp2:
+                Re006_Vertex[level].GetButton().interactable = true;
+                Re006_Vertex[level].coolTime.transform.position = Re006_Vertex[level].transform.position;
+                break;
+        }
+
     }
 
     public void IsClearRe001()
@@ -336,6 +402,7 @@ public class LabSystem : Singleton<LabSystem>
                 }
             }
         }
+        IsClearRe001();
     }
     public void LoadRe2(List<LabSaveData> savedatas)
     {
@@ -353,6 +420,7 @@ public class LabSystem : Singleton<LabSystem>
                 }
             }
         }
+        IsClearRe002();
     }
     public void LoadRe3(List<LabSaveData> savedatas)
     {
@@ -370,6 +438,7 @@ public class LabSystem : Singleton<LabSystem>
                 }
             }
         }
+        IsClearRe003();
     }
     public void LoadRe4(List<LabSaveData> savedatas)
     {
@@ -387,6 +456,7 @@ public class LabSystem : Singleton<LabSystem>
                 }
             }
         }
+        IsClearRe004();
     }
     public void LoadRe5(List<LabSaveData> savedatas)
     {
@@ -404,6 +474,7 @@ public class LabSystem : Singleton<LabSystem>
                 }
             }
         }
+        IsClearRe005();
     }
     public void LoadRe6(List<LabSaveData> savedatas)
     {
@@ -421,6 +492,7 @@ public class LabSystem : Singleton<LabSystem>
                 }
             }
         }
+        IsClearRe006();
     }
 
     public void SaveDataSet(StringTableData name, StringTableData buff, LabTableDatas table)
@@ -428,5 +500,32 @@ public class LabSystem : Singleton<LabSystem>
         labStringTableName = name;
         labBuffStringTable = buff;
         labTalbeData = table;
+    }
+
+    public void Load()
+    {
+        //switch (labType)
+        //{
+        //    case LabType.LabPower1:
+        //        Re001_Vertex[level].coolTime.transform.position = Re001_Vertex[level].transform.position;
+        //        break;
+        //    case LabType.LabHp1:
+        //        Re002_Vertex[level].coolTime.transform.position = Re002_Vertex[level].transform.position;
+        //        break;
+        //    case LabType.LabCriticalPower:
+        //        Re003_Vertex[level].coolTime.transform.position = Re002_Vertex[level].transform.position;
+        //        break;
+        //    case LabType.LabSliverUp:
+        //        Re004_Vertex[level].coolTime.transform.position = Re004_Vertex[level].transform.position;
+        //        break;
+        //    case LabType.LabPower2:
+        //        Re005_Vertex[level].coolTime.transform.position = Re005_Vertex[level].transform.position;
+        //        break;
+        //    case LabType.LabHp2:
+        //        Re006_Vertex[level].coolTime.transform.position = Re006_Vertex[level].transform.position;
+        //        break;
+        //}
+        isLoad=true;
+        isAwakeSet = true;
     }
 }

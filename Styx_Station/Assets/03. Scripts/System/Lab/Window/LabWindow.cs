@@ -9,9 +9,11 @@ public class LabWindow : Window
     private bool isLoad;
     public override void Open()
     {
-      
+
+
+
         labInfoWindow.Close();
-        if(LabSystem.Instance.isTimerZero) 
+        if (LabSystem.Instance.isTimerZero)
             labCompleteWindwo.Open();
         base.Open();
         if (!isLoad)
@@ -22,6 +24,12 @@ public class LabWindow : Window
             LabSystem.Instance.LoadRe4(GameData.Re_SilupSaveDataList);
             LabSystem.Instance.LoadRe5(GameData.Re_MidAtkSaveDataList);
             LabSystem.Instance.LoadRe6(GameData.Re_MidHPSaveDataList);
+
+            if (LabSystem.Instance.isResearching)
+            {
+                labInfoWindow.SetVertex(LabSystem.Instance.labType, LabSystem.Instance.labStringTableName, LabSystem.Instance.labBuffStringTable, LabSystem.Instance.labTalbeData, LabSystem.Instance.level,false);
+                LabSystem.Instance.Load();
+            }
             isLoad = true;
         }
     }

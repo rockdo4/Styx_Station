@@ -32,6 +32,13 @@ public class MonsterIdleState : MonsterStateBase
         {
             return;
         }
+        if(player.GetComponent<PlayerController>() != null)
+        {
+            if(player.GetComponent<PlayerController>().currentStates == States.Die)
+            {
+                return;
+            }
+        }
         if (monsterStats.currHealth <= 0)
         {
             monsterCtrl.SetState(States.Die);

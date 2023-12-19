@@ -27,7 +27,8 @@ public class PetAttack : PetStateBase
 
     public override void FixedUpate()
     {
-        if (petController.masterPlayer.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
+        //if (petController.masterPlayer.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
+        if(petController.masterPlayer.GetComponent<PlayerController>().currentStates == States.Die)
         {
             petController.SetState(States.Idle);
             return;

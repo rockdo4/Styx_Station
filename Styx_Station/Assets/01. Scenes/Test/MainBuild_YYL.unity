@@ -5919,11 +5919,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &139344672
 GameObject:
   m_ObjectHideFlags: 0
@@ -8724,11 +8724,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &188168681
 GameObject:
   m_ObjectHideFlags: 0
@@ -10768,11 +10768,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &236330587
 GameObject:
   m_ObjectHideFlags: 0
@@ -12944,6 +12944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a485af7bac3ce94d9f2de4d71c1128c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  labInfoWindow: {fileID: 0}
 --- !u!114 &272312792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14884,11 +14885,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &330170209
 GameObject:
   m_ObjectHideFlags: 0
@@ -21248,10 +21249,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b862d2e0e257247409758fd169847a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelStringKey: 
+  increaseStringKey: 
+  needPomegranteStringKey: 
+  timerStringKey: 
+  seconds: 60
   researchTypeText: {fileID: 1157959041}
   researchTypeBuffText: {fileID: 223718676}
   researchTaxText: {fileID: 236330588}
   researchTimer: {fileID: 931786722}
+  reasearchButton: {fileID: 0}
 --- !u!114 &463368628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27426,8 +27433,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00036931, y: 0.001025}
-  m_SizeDelta: {x: 113.38, y: 111.81}
+  m_AnchoredPosition: {x: -4.6365213, y: 5.4946795}
+  m_SizeDelta: {x: 84.6302, y: 83.4583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &604064121
 MonoBehaviour:
@@ -42927,11 +42934,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &921560016
 GameObject:
   m_ObjectHideFlags: 0
@@ -47444,6 +47451,9 @@ MonoBehaviour:
   currStage: {fileID: 0}
   Background: {fileID: 1544338258}
   stageText: {fileID: 1897910718}
+  timeLimit: 0
+  timer: 0
+  isWaveInProgress: 0
 --- !u!4 &1016353212
 Transform:
   m_ObjectHideFlags: 0
@@ -59732,7 +59742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1234008235
 RectTransform:
   m_ObjectHideFlags: 0
@@ -59753,7 +59763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -860.2523, y: 182.66345}
+  m_AnchoredPosition: {x: 334, y: 207}
   m_SizeDelta: {x: -1806.6171, y: -968.1917}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1234008236
@@ -78255,8 +78265,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.30371094, y: -0.66345215}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -4.862921, y: 4.9987793}
+  m_SizeDelta: {x: 74.6429, y: 74.6429}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1596482486
 MonoBehaviour:
@@ -85379,8 +85389,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.8522949, y: -0.66185}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -4, y: 5}
+  m_SizeDelta: {x: 74.6429, y: 74.6429}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1743380435
 MonoBehaviour:
@@ -87527,11 +87537,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &1794793194
 GameObject:
   m_ObjectHideFlags: 0
@@ -95232,6 +95242,8 @@ MonoBehaviour:
   skill: {fileID: 786700200}
   questSystemUi: {fileID: 1494623940}
   RepeatButton: {fileID: 1234008234}
+  timerSlider: {fileID: 402397951}
+  timerText: {fileID: 740103614}
 --- !u!114 &1934580154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96477,11 +96489,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &1972391119
 GameObject:
   m_ObjectHideFlags: 0
@@ -99219,11 +99231,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1001 &2030076518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99355,11 +99367,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &2031739307
 GameObject:
   m_ObjectHideFlags: 0
@@ -101381,11 +101393,11 @@ MonoBehaviour:
   LabTypeLevel: 0
   isClear: 0
   isResearching: 0
+  labType: 0
   labTableName: Re001
   labTypeBuffStringTableKey: 
-  labTaxStringTableKey: 
-  timerStringTableKey: 
   popUpLabInfoObject: {fileID: 463368627}
+  coolTime: {fileID: 0}
 --- !u!1 &2074574009
 GameObject:
   m_ObjectHideFlags: 0
@@ -105361,8 +105373,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.08656311, y: -81.661804}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -4.571621, y: -55.46082}
+  m_SizeDelta: {x: 149.2859, y: 37.3215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2144327467
 MonoBehaviour:
@@ -105411,7 +105423,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45
+  m_fontSize: 34.55
   m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 1

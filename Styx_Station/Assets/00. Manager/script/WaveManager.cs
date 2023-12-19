@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
@@ -41,10 +42,14 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     private PlayerController playerController;
 
-    private float waitTime = 1f;
+    private float waitTime = 2f;
     private WaitForSeconds waitForSeconds;
 
     public TextMeshProUGUI stageText; //임시로 여기서 함. 추후 uimanager로 이동함.
+
+    public float timeLimit = 0f;
+    public float timer = 0f;
+    public bool isWaveInProgress = false;
 
     //public StageTable.StageTableData StageData { get; private set; }
 
@@ -56,6 +61,28 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         waitForSeconds = new WaitForSeconds(waitTime);
     }
 
+    private void Update()
+    {
+        if(isWaveInProgress)
+        {
+            timer += Time.deltaTime;
+            Debug.Log(timer);
+            UIManager.Instance.SetTimerSlierValue((timeLimit - timer) / timeLimit);
+            var timertext = FormatTime(timeLimit - timer);
+            UIManager.Instance.SetTimerText(timertext);
+
+            if(timer >= timeLimit)
+            {
+                playerController.GetAnimator().SetTrigger("Die");
+                playerController.SetState(States.Die);
+            }
+        }   
+    }
+    public string FormatTime(float time)
+    {
+        string timeString = string.Format("{0:F1}", time);
+        return timeString;
+    }
     public void SetWave()
     {
         CurrentStage = currStage.stageId;
@@ -68,8 +95,11 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void StartWave()
     {
         playerController.GetComponent<ResultPlayerStats>().ResetHp();
+        timeLimit = currStage.waveTimer;
+        timer = 0f;
+        isWaveInProgress = true;
 
-        if(currStage.isBossWave)
+        if (currStage.isBossWave)
         {
             spawner.spawnBoss(currStage.bossMonster.name);
         }
@@ -123,6 +153,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void EndWave()
     {
+        isWaveInProgress = false;
         aliveMonsterCount = 0;
         playerController.GetAnimator().StopPlayback();
         spawner.stopSpawn();
@@ -134,12 +165,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void ChangeWage()
     {
         StopArrows();
-        if(!IsRepeating)
+        isWaveInProgress = false;
+        if (!IsRepeating)
         {
             UpdateCurrentWave();
         }
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
-        if(currStage == null)
+        timeLimit = currStage.waveTimer;
+        timer = 0f;
+        if (currStage == null)
         {
             Debug.Log("ERR: currStage is null.");
             return;
@@ -194,11 +228,13 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             CurrentWave = 1;
         }
         currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
+        timeLimit = currStage.waveTimer;
+        timer = 0f;
         SetCurrentStageText();
     }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {
-        return 100000000 + 10000+((chapterId - 1) * 25) + ((stageId - 1) * 5) + waveId;
+        return 100000000 + 10000 + ((chapterId - 1) * 25) + ((stageId - 1) * 5) + waveId;
     }
 
     public int GetCurrentIndex()

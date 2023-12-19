@@ -14,11 +14,13 @@ public class SaveLoad : MonoBehaviour
     private PlayerBuff playerbuff;
     private WaveManager waveManager;
     private ShopSystem shop;
+    private LabSystem labSystem;
     private void Start()
     {
         playerbuff= PlayerBuff.Instance;
         waveManager = WaveManager.Instance;
         shop = ShopSystem.Instance;
+        labSystem = LabSystem.Instance;
     }
     public void Save()
     {
@@ -141,6 +143,34 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.playerBuff = playerbuff.buffData;
 
 
+        foreach (var datas in labSystem.Re001_Vertex)
+        {
+            data.gameSaveDatas.Re001_Lab_SaveDatas.Add(new LabSaveData(datas.vertexID, datas.isClear));
+        }
+        foreach (var datas in labSystem.Re002_Vertex)
+        {
+            data.gameSaveDatas.Re002_Lab_SaveDatas.Add(new LabSaveData(datas.vertexID, datas.isClear));
+        }
+        foreach (var datas in labSystem.Re003_Vertex)
+        {
+            data.gameSaveDatas.Re003_Lab_SaveDatas.Add(new LabSaveData(datas.vertexID, datas.isClear));
+        }
+        foreach (var datas in labSystem.Re004_Vertex)
+        {
+            data.gameSaveDatas.Re004_Lab_SaveDatas.Add(new LabSaveData(datas.vertexID, datas.isClear));
+        }
+        foreach (var datas in labSystem.Re005_Vertex)
+        {
+            data.gameSaveDatas.Re005_Lab_SaveDatas.Add(new LabSaveData(datas.vertexID, datas.isClear));
+        }
+        foreach (var datas in labSystem.Re006_Vertex)
+        {
+            data.gameSaveDatas.Re006_Lab_SaveDatas.Add(new LabSaveData(datas.vertexID, datas.isClear));
+        }
+        if(labSystem.isResearching)
+        {
+            data.gameSaveDatas.currentLavSaveData = new CurrentLavSaveData(labSystem.isResearching, labSystem.timerTic, labSystem.maxTimerTic, labSystem.labType, labSystem.level, labSystem.labStringTableName, labSystem.labBuffStringTable, labSystem.labTalbeData);
+        }
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
     }
@@ -445,6 +475,56 @@ public class SaveLoad : MonoBehaviour
                     var stageData = JsonConvert.DeserializeObject<int>(str);
                     
                     WaveManager.Instance.SetStageByIndexStage(stageData);
+                }
+
+
+                if (gameSaveDatas["Re001_Lab_SaveDatas"] is JToken labATK1)
+                {
+                    string str = labATK1.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+
+                    GameData.Re_AtkSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re002_Lab_SaveDatas"] is JToken labHp1)
+                {
+                    string str = labHp1.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_HPSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re003_Lab_SaveDatas"] is JToken labCri)
+                {
+                    string str = labCri.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_CriSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re004_Lab_SaveDatas"] is JToken labSil)
+                {
+                    string str = labSil.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_SilupSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re005_Lab_SaveDatas"] is JToken labATK2)
+                {
+                    string str = labATK2.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_MidAtkSaveDataList=labData;
+                }
+                if (gameSaveDatas["Re006_Lab_SaveDatas"] is JToken labHp2)
+                {
+                    string str = labHp2.ToString();
+                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
+                    GameData.Re_MidHPSaveDataList=labData;
+                }
+                if (gameSaveDatas["currentLavSaveData"] is JToken currentLabSaveData)
+                {
+                    string str = currentLabSaveData.ToString();
+                    var currentLab = JsonConvert.DeserializeObject<CurrentLavSaveData>(str);
+
+                    if(currentLab.isResearching)
+                    {
+                        GameData.currnetLabSaveData = currentLab;
+                        LabSystem.Instance.maxTimerTic = currentLab.maxTimer;
+                    }
                 }
             }
         }

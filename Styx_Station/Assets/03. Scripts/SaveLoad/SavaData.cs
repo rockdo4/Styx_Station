@@ -166,4 +166,13 @@ public class GameSaveData
     public int skillRankUp;
 
     public PlayerBuffData playerBuff;
+
+
+    public List<LabSaveData> Re001_Lab_SaveDatas = new List<LabSaveData>();
+    public List<LabSaveData> Re002_Lab_SaveDatas = new List<LabSaveData>();
+    public List<LabSaveData> Re003_Lab_SaveDatas = new List<LabSaveData>();
+    public List<LabSaveData> Re004_Lab_SaveDatas = new List<LabSaveData>();
+    public List<LabSaveData> Re005_Lab_SaveDatas = new List<LabSaveData>();
+    public List<LabSaveData> Re006_Lab_SaveDatas = new List<LabSaveData>();
+    public CurrentLavSaveData currentLavSaveData;
 }

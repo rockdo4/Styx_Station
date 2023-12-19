@@ -7,23 +7,26 @@ using UnityEngine.UI;
 
 public class LabInfoWindow : Window
 {
+    public LabCompleteWindwo labCompleteWindwo;
     private LabType labType;
     public string levelStringKey;
     public string increaseStringKey;
     public string needPomegranteStringKey;
     public string timerStringKey;
+    public string finishResearchStringKey;
 
     private bool isOneLevelStringKeySetting;
-    private LabTableDatas labTableData;
-    private StringTableData labTypeNameStringDatas;
-    private StringTableData labTypeBuffStringDatas;
+    public LabTableDatas labTableData;
+    public StringTableData labTypeNameStringDatas;
+    public StringTableData labTypeBuffStringDatas;
 
-    private StringTableData levelStringTableData;
-    private StringTableData increaseStringTableData;
-    private StringTableData needPomegranteStringTableData;
-    private StringTableData timerStringDatas;
+    public StringTableData levelStringTableData;
+    public StringTableData increaseStringTableData;
+    public StringTableData needPomegranteStringTableData;
+    public StringTableData timerStringDatas;
+    public StringTableData buttonText;
 
-    private int level;
+    public int level;
     private int timer;
     public float seconds = 60f;
 
@@ -31,8 +34,9 @@ public class LabInfoWindow : Window
     public TextMeshProUGUI researchTypeBuffText;
     public TextMeshProUGUI researchTaxText;
     public TextMeshProUGUI researchTimer;
+    public TextMeshProUGUI researchButtonText;
 
-    private int buffPercent;
+    public int buffPercent;
     private int price;
 
     public Button reasearchButton;
@@ -48,6 +52,7 @@ public class LabInfoWindow : Window
                 increaseStringTableData = MakeTableData.Instance.stringTable.GetStringTableData(increaseStringKey);
                 needPomegranteStringTableData= MakeTableData.Instance.stringTable.GetStringTableData(needPomegranteStringKey);
                 timerStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(timerStringKey);
+                buttonText = MakeTableData.Instance.stringTable.GetStringTableData(finishResearchStringKey);
             }
             else
             {
@@ -56,6 +61,7 @@ public class LabInfoWindow : Window
                 increaseStringTableData = MakeTableData.Instance.stringTable.GetStringTableData(increaseStringKey);
                 needPomegranteStringTableData = MakeTableData.Instance.stringTable.GetStringTableData(needPomegranteStringKey);
                 timerStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(timerStringKey);
+                buttonText = MakeTableData.Instance.stringTable.GetStringTableData(finishResearchStringKey);
             }
         }
         this.labType = labType;
@@ -93,6 +99,9 @@ public class LabInfoWindow : Window
         price = labTableData.Re_Pom * (int)Math.Pow(labTableData.Re_PomUp, this.level);
         timer = (int)(labTableData.Re_Time * Math.Pow(labTableData.Re_TimeUP, this.level) * seconds);
         reasearchButton.onClick.AddListener(() => LabSystem.Instance.StartResearching(timer, this.labType,this.level));
+
+        LabSystem.Instance.SaveDataSet(this.labTypeNameStringDatas, this.labTypeBuffStringDatas, this.labTableData);
+
         Open();
     }
 
@@ -118,6 +127,7 @@ public class LabInfoWindow : Window
 
     public override void Open()
     {
+        labCompleteWindwo.Close();
         var strPrice =string.Empty;
         var strTimer =string.Empty;
   
@@ -132,6 +142,7 @@ public class LabInfoWindow : Window
                 strPrice = string.Format(needPomegranteStringTableData.KOR, price);
                 researchTaxText.text = $"{strPrice}";
                 researchTimer.text = $"{timerStringDatas.KOR}{strTimer}";
+                researchButtonText.text = $"{buttonText.KOR}";
                 break;
             case Language.ENG:
                 researchTypeText.text = $"{labTypeNameStringDatas.ENG} {level+1} {levelStringTableData.ENG}";
@@ -139,6 +150,7 @@ public class LabInfoWindow : Window
                 strPrice = string.Format(needPomegranteStringTableData.ENG, price);
                 researchTaxText.text = $"{strPrice}";
                 researchTimer.text = $"{timerStringDatas.ENG}{strTimer}";
+                researchButtonText.text = $"{buttonText.ENG}";
                 break;
         }
         base.Open();

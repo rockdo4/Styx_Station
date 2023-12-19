@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class LabMainVertex : MonoBehaviour
 {
+    public string vertexID;
     private bool isAwakeTime;
     private Button vertexButton;
     public List<LabMainEdge> edges = new List<LabMainEdge>();
@@ -33,8 +34,38 @@ public class LabMainVertex : MonoBehaviour
     private LabSystem copLabManager;
 
     private void Start()
+    {       
+        AwakeSetting();
+    }
+  
+    private void Update()
     {
-        if(!isAwakeTime)
+        if(copLabManager != null && copLabManager.isResearching && copLabManager.level == LabTypeLevel && labType == copLabManager.labType)
+        {
+            if (!coolTime.gameObject.activeSelf)
+            {
+                coolTime.gameObject.SetActive(true);
+            }
+            var timerTic = (float)(copLabManager.timerTic / copLabManager.milSeconds);
+            if(copLabManager.maxTimerTic >0f)
+            {
+                var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
+                coolTime.fillAmount = (timerTic / maxTimerTic);
+            }
+            else
+            {
+                coolTime.fillAmount = 0f;
+            }
+           
+        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    GetClear(true);
+        //}
+    }
+    private void AwakeSetting()
+    {
+        if (!isAwakeTime)
         {
             if (MakeTableData.Instance != null)
             {
@@ -60,56 +91,34 @@ public class LabMainVertex : MonoBehaviour
 
             }
             coolTime.gameObject.SetActive(false);
-            isAwakeTime = true; 
+            isAwakeTime = true;
 
+            if (isClear)
+                SetAssignedAcitve();
+            else
+                SetNoneActive();
         }
-       
-
 
         if (vertexButton == null)
         {
             vertexButton = GetComponent<Button>();
             var labInfowindow = popUpLabInfoObject.gameObject.GetComponent<LabInfoWindow>();
-            
-            vertexButton.onClick.AddListener(() => labInfowindow.SetVertex(labType,labTypeNameStringDatas, labTypeBuffStringDatas, labTableDatas, LabTypeLevel));
+
+            vertexButton.onClick.AddListener(() => labInfowindow.SetVertex(labType, labTypeNameStringDatas, labTypeBuffStringDatas, labTableDatas, LabTypeLevel));
         }
-       
-
-        if (isClear)
-            SetAssignedAcitve();
-        else
-            SetNoneActive();
     }
-    private void Update()
-    {
-        if(copLabManager != null && copLabManager.isResearching && copLabManager.level == LabTypeLevel && labType == copLabManager.labType)
-        {
-            if (!coolTime.gameObject.activeSelf)
-            {
-                coolTime.gameObject.SetActive(true);
-            }
-            var timerTic = (float)(copLabManager.timerTic / copLabManager.milSeconds);
-            var maxTimerTic = (float)(copLabManager.maxTimerTic / copLabManager.milSeconds);
-            coolTime.fillAmount = (timerTic / maxTimerTic);
-
-        }
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    GetClear(true);
-        //}
-    }
-
     public void GetClear(bool clear)
     {
         isClear = clear;
-        
-        foreach(var edge in edges) 
+        AwakeSetting();
+        foreach (var edge in edges) 
         {
             edge.VertexClearCheck();
         }
         SetAssignedAcitve();
         vertexButton.interactable = false;
         vertexButton.onClick.RemoveAllListeners();
+        //
     }
 
 

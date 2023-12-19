@@ -32,10 +32,22 @@ public class WeaponEquipInfoUi : MonoBehaviour
         else if(!weapon.acquire)
             equip.interactable = false;
 
+        if (MakeTableData.Instance.stringTable == null)
+            MakeTableData.Instance.stringTable = new StringTable();
+
         var stringTable = MakeTableData.Instance.stringTable;
 
         if (Global.language == Language.KOR)
         {
+            if(weapon.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").KOR}";
+            }
+            else if(!weapon.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").KOR}";
+            }
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").KOR}";
             tier.text = $"{stringTable.GetStringTableData(weapon.item.tier.ToString()).KOR}";
             itemName.text = $"{stringTable.GetStringTableData(weapon.item.name + "_Name").KOR}";
             string text = string.Format(stringTable.GetStringTableData(weapon.item.name + "_Info").KOR,
@@ -44,8 +56,17 @@ public class WeaponEquipInfoUi : MonoBehaviour
                 0);
             itemText.text = $"{text}";
         }
-        else if(Global.language ==Language.ENG)
+        else if(Global.language == Language.ENG)
         {
+            if (weapon.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").ENG}";
+            }
+            else if (!weapon.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").ENG}";
+            }
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").ENG}";
             tier.text = $"{stringTable.GetStringTableData(weapon.item.tier.ToString()).ENG}";
             itemName.text = $"{stringTable.GetStringTableData(weapon.item.name + "_Name").ENG}";
             string text = string.Format(stringTable.GetStringTableData(weapon.item.name + "_Info").ENG,
@@ -78,6 +99,7 @@ public class WeaponEquipInfoUi : MonoBehaviour
             inventory.EquipItem(selectIndex, ItemType.Weapon);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.weapons[selectIndex].item.itemIcon;
             AlphaChange(equip, true);
+            InfoUpdate();
             return;
         }
 
@@ -92,12 +114,14 @@ public class WeaponEquipInfoUi : MonoBehaviour
             inventory.DequipItem(item, ItemType.Weapon);
             AlphaChange(equip, false);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = null;
+            InfoUpdate();
             return;
         }
          
         inventory.EquipItem(selectIndex, ItemType.Weapon);
         equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.weapons[selectIndex].item.itemIcon;
         AlphaChange(equip, true);
+        InfoUpdate();
     }
 
     private void AlphaChange(Button button, bool value)

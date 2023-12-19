@@ -8,6 +8,7 @@ public class InfoWindow : Window
 {
     private Inventory inventory;
     private StringTable stringTable;
+
     public Button[] equipButtons = new Button[4];
 
     public TextMeshProUGUI state;

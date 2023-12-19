@@ -41,7 +41,7 @@ public class SkillInfoUi : MonoBehaviour
         {
             tier.text = $"{stringTable.GetStringTableData(skill.skill.Skill_Tier.ToString()).KOR}";
             skillName.text = $"{stringTable.GetStringTableData(skill.skill.name + "_Name").KOR}";
-            coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill003").KOR}";
+            coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill001").KOR}";
 
             string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").KOR,
              skill.skill.Skill_ATK + skill.upgradeLev * skill.skill.Skill_ATK_LVUP);
@@ -51,7 +51,7 @@ public class SkillInfoUi : MonoBehaviour
         {
             tier.text = $"{stringTable.GetStringTableData(skill.skill.Skill_Tier.ToString()).ENG}";
             skillName.text = $"{stringTable.GetStringTableData(skill.skill.name + "_Name").ENG}";
-            coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill003").ENG}";
+            coolTime.text = $"{skill.skill.Skill_Cool} {stringTable.GetStringTableData("Playerskill001").ENG}";
             string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").ENG,
             skill.skill.Skill_ATK + skill.upgradeLev * skill.skill.Skill_ATK_LVUP);
             skillText.text = $"{text}";

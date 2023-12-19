@@ -38,6 +38,8 @@ public class UIManager : Singleton<UIManager>
     public TextMeshProUGUI stageText;
 
     public List<GameObject> WavePanels;
+
+    public GameObject gameOverPop;
     public void Open(WindowType inventoryType)
     {
         if (!first)
@@ -243,5 +245,10 @@ public class UIManager : Singleton<UIManager>
 
         buttons.transform.position = buttonPos - wayPoint;
         move = null;
+    }
+
+    public void SetGameOverPopUpActive(bool isActive)
+    {
+        gameOverPop.SetActive(isActive);
     }
 }

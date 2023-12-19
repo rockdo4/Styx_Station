@@ -34,7 +34,7 @@ public class MonsterMoveState : MonsterStateBase
             return;
         }
 
-        if(DistanceToPlayer <= monsterCtrl.weapon.range)
+        if(DistanceToPlayer <= monsterCtrl.range)
         {
             monsterCtrl.SetState(States.Attack);
             return;

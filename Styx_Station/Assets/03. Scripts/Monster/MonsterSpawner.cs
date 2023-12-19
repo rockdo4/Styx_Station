@@ -125,6 +125,24 @@ public class MonsterSpawner : MonoBehaviour
 
         spawnSize = bossSize;
     }
+    public void SpawnMonster(MonsterTypeBase m1, MonsterTypeBase m2, MonsterTypeBase m3, MonsterTypeBase m4, Stage stage,
+        int AIncrease, int HIncrease, float SIncrease)
+    {
+        increaseAttack = AIncrease;
+        increaseHealth = HIncrease;
+
+        monsterCount[0] = stage.monster1Count;
+        monsterCount[1] = stage.monster2Count;
+        monsterCount[2] = stage.monster3Count;
+        monsterCount[3] = stage.monster4Count;
+
+        monsterIndex[0] = m1.monster_Index;
+        monsterIndex[1] = m2.monster_Index;
+        monsterIndex[2] = m3.monster_Index;
+        monsterIndex[3] = m4.monster_Index;
+
+        spawnCo = StartCoroutine(SpawnMonsterCo(monsterCount[0] + monsterCount[1] + monsterCount[2] + monsterCount[3]));
+    }
     public void SpawnMonster(string m1Name, int m1Count,
         string m2Name, int m2Count,
         string m3Name, int m3Count,
@@ -154,33 +172,6 @@ public class MonsterSpawner : MonoBehaviour
             yield return WaitSecond;
 
             int monsterTypeIndex = -1;
-            //int availableMonsterTypes = 0;
-            //for (int i = 0; i < maxMonsterTypeCount; i++)
-            //{
-            //    if (monsterCount[i] > 0)
-            //    {
-            //        availableMonsterTypes++;
-            //    }
-            //}
-            //if(availableMonsterTypes > 0)
-            //{
-            //    int randNum = Random.Range(0, availableMonsterTypes);
-            //    int countDown = randNum;
-
-            //    for(int i = 0; i< maxMonsterTypeCount; i++)
-            //    {
-            //        if (monsterCount[i] > 0)
-            //        {
-            //            if(countDown == 0)
-            //            {
-            //                monsterTypeIndex = monsterIndex[i];
-            //                monsterCount[i]--;
-            //                break;
-            //            }
-            //        }
-            //        countDown--;
-            //    }
-            //}
 
             List<int> availableMonsterIndexes = new List<int>();
             for(int i =0; i < maxMonsterTypeCount; i++)
@@ -202,11 +193,6 @@ public class MonsterSpawner : MonoBehaviour
             monsterTypeIndex = monsterIndex[selectIndex];
             monsterCount[selectIndex]--;
 
-            //if (monsterTypeIndex < 0)
-            //{
-            //    Debug.Log("ERR: wrong MonsterTypeIndex");
-            //    yield break;
-            //}
             GameObject monster = ObjectPoolManager.instance.GetGo(monsterTable.GetMonster(monsterTypeIndex).name);
             if(monster == null)
             {
@@ -234,6 +220,7 @@ public class MonsterSpawner : MonoBehaviour
             //monsterController.SetMoney(coinAmount[selectIndex], pomegranateAmount[selectIndex]);
             monsterController.SetMoney(monsterTable.GetMonster(monsterTypeIndex).monster_coin, monsterTable.GetMonster(monsterTypeIndex).monster_pommegrande);
             monsterController.startDelay = Random.Range(0, idleTimeMax) * idleTimeBet;
+            monsterController.range = monsterTable.GetMonster(monsterTypeIndex).monster_range;
             spawnSize = 1f;
             spawnedCount++;
         }

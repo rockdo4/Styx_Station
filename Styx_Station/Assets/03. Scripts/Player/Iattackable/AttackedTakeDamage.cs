@@ -14,13 +14,16 @@ public class AttackedTakeDamage : MonoBehaviour, IAttackable
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
-        stats.TakeDamage(attack.Damage);
-        //stats.playerCurrentHp -= attack.Damage;
-        if (stats.playerCurrentHp <= 0 )
+        if(controller.currentStates == States.Idle || controller.currentStates == States.Attack)
         {
-            stats.playerCurrentHp = 0;
-            controller.GetAnimator().SetTrigger("Die");
-            controller.SetState(States.Die);
+            stats.TakeDamage(attack.Damage);
+            //stats.playerCurrentHp -= attack.Damage;
+            if (stats.playerCurrentHp <= 0)
+            {
+                stats.playerCurrentHp = 0;
+                controller.GetAnimator().SetTrigger("Die");
+                controller.SetState(States.Die);
+            }
         }
     }
 }

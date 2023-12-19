@@ -11,10 +11,10 @@ public class AttackDefinition : ScriptableObject
 {
     public float cooldown; //공격한 후 다시 공격할 때까지의 시간
     public float range; //공격 범위
-    public float minDamage;
-    public float maxDamage;
-    public float criticalChance; //치명타 확률 0.0 ~ 1.0
-    public float criticalMultiplier; //치명타 계수
+    //public float minDamage;
+    //public float maxDamage;
+    //public float criticalChance; //치명타 확률 0.0 ~ 1.0
+    //public float criticalMultiplier; //치명타 계수
     public BigInteger currentDamage =new BigInteger(0);
     
     public Attack CreateAttackToPlayer(MonsterStats attacker, ResultPlayerStats defender)

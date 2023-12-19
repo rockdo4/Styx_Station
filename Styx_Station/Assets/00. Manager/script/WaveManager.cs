@@ -208,7 +208,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             return;
         }
         playerController.SetState(States.Move);
-
+        MoveMonPosition();
         ScrollBackground(true);
         SetWavePanel();
         //StartWave();
@@ -315,6 +315,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         timeLimit = currStage.waveTimer;
         timer = 0f;
         SetCurrentStageText();
+        SetWavePanel();
     }
     public int GetIndex(int chapterId, int stageId, int waveId)
     {

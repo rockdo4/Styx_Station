@@ -12,6 +12,7 @@ public class StateSystem : MonoBehaviour
         public float AttackSpeed = 0f;
         public float HealHealth = 0f;
         public float AttackPer = 0f;
+        public float HealthPer = 0f;
         public float Evade = 0f;
         public float DamageReduction = 0f;
         public float BloodSucking = 0f;
@@ -21,27 +22,26 @@ public class StateSystem : MonoBehaviour
         public float BossDamage = 0f;
     }
 
-    public State EquipState { get; private set; }
-    public State AcquireState { get; private set; }
-
-    public State TotalState { get; private set; }
+    public State EquipItemState { get; private set; } = new State();
+    public State AcquireItemState { get; private set; } =new State();
+    public State SkillState { get; private set; } = new State();
+    public State TotalState { get; private set; } = new State();
 
     private Inventory item;
+    private SkillInventory skill;
     private PetInventory pet;
 
+    private bool first = false;
     public void Setting()
     {
-        if(EquipState == null)
-            EquipState = new State();
-
-        if(AcquireState == null)
-            AcquireState = new State();
-
-        if(TotalState == null)
-            TotalState = new State();
+        if (first)
+            return;
 
         item = InventorySystem.Instance.inventory;
         pet = InventorySystem.Instance.petInventory;
+        skill = InventorySystem.Instance.skillInventory;
+
+        first = true;
     }
 
     private void ResetState(State state)
@@ -61,22 +61,24 @@ public class StateSystem : MonoBehaviour
     }
     private void TotalStateSet()
     {
-        TotalState.Attack = EquipState.Attack + AcquireState.Attack;
-        TotalState.Health = EquipState.Health + AcquireState.Health;
-        TotalState.AttackSpeed = EquipState.AttackSpeed + AcquireState.AttackSpeed;
-        TotalState.HealHealth = EquipState.HealHealth + AcquireState.HealHealth;
-        TotalState.AttackPer = EquipState.AttackPer + AcquireState.AttackPer;
-        TotalState.Evade = EquipState.Evade + AcquireState.Evade;
-        TotalState.DamageReduction = EquipState.DamageReduction + AcquireState.DamageReduction;
-        TotalState.BloodSucking = EquipState.BloodSucking + AcquireState.BloodSucking;
-        TotalState.CoinAcquire = EquipState.CoinAcquire + AcquireState.CoinAcquire;
-        TotalState.NormalDamage = EquipState.NormalDamage + AcquireState.NormalDamage;
-        TotalState.SkillDamage = EquipState.SkillDamage + AcquireState.SkillDamage;
-        TotalState.BossDamage = EquipState.BossDamage + AcquireState.BossDamage;
+        TotalState.AttackPer = EquipItemState.AttackPer + AcquireItemState.AttackPer;
+        TotalState.HealthPer = EquipItemState.HealthPer + AcquireItemState.HealthPer;
+
+        TotalState.Attack = EquipItemState.Attack + AcquireItemState.Attack + (((EquipItemState.Attack + AcquireItemState.Attack) * TotalState.AttackPer)/100);
+        TotalState.Health = EquipItemState.Health + AcquireItemState.Health + (((EquipItemState.Health + AcquireItemState.Health) * TotalState.HealthPer)/100);
+        TotalState.AttackSpeed = EquipItemState.AttackSpeed + AcquireItemState.AttackSpeed;
+        TotalState.HealHealth = EquipItemState.HealHealth + AcquireItemState.HealHealth;
+        TotalState.Evade = EquipItemState.Evade + AcquireItemState.Evade;
+        TotalState.DamageReduction = EquipItemState.DamageReduction + AcquireItemState.DamageReduction;
+        TotalState.BloodSucking = EquipItemState.BloodSucking + AcquireItemState.BloodSucking;
+        TotalState.CoinAcquire = EquipItemState.CoinAcquire + AcquireItemState.CoinAcquire;
+        TotalState.NormalDamage = EquipItemState.NormalDamage + AcquireItemState.NormalDamage;
+        TotalState.SkillDamage = EquipItemState.SkillDamage + AcquireItemState.SkillDamage;
+        TotalState.BossDamage = EquipItemState.BossDamage + AcquireItemState.BossDamage;
     }
     public void EquipUpdate()
     {
-        ResetState(EquipState);
+        ResetState(EquipItemState);
 
         for(int i = 0; i<item.GetEquipItemsLength();++i)
         {
@@ -93,10 +95,9 @@ public class StateSystem : MonoBehaviour
 
         TotalStateSet();
     }
-
     public void AcquireUpdate()
     {
-        ResetState(AcquireState);
+        ResetState(AcquireItemState);
 
         foreach(var weapon in item.weapons)
         {
@@ -106,7 +107,48 @@ public class StateSystem : MonoBehaviour
             AcquireOptions(weapon);
         }
 
+        foreach(var armor in item.armors)
+        {
+            if(!armor.acquire)
+                continue; 
+            
+            AcquireOptions(armor);
+        }
         TotalStateSet();
+    }
+
+    public void SkillUpdate()
+    {
+        ResetState(SkillState);
+
+        foreach(var passive in skill.skills)
+        {
+            if (!passive.acquire)
+                continue;
+
+            if (passive.skill.Skill_Type == SkillType.Active)
+                continue;
+
+            SkillOptions(passive);
+        }
+
+        TotalStateSet();
+    }
+    private void SkillOptions(SkillInventory.InventorySKill passive)
+    {
+        foreach(var option in passive.skill.Skill_Res)
+        {
+            switch(option.Skill_RE_Option)
+            {
+                case AddOptionString.AttackPer:
+                    SkillState.AttackPer += option.Skill_RE_EFF + (passive.upgradeLev * option.Skill_RE_LVUP);
+                    break;
+
+                case AddOptionString.HealthPer:
+                    SkillState.HealthPer += option.Skill_RE_EFF + (passive.upgradeLev * option.Skill_RE_LVUP);
+                    break;
+            }
+        }
     }
     private void AcquireOptions(Inventory.InventoryItem acquireItem)
     {
@@ -115,31 +157,35 @@ public class StateSystem : MonoBehaviour
             switch (option.option)
             {
                 case AddOptionString.AttackPer:
-                    EquipState.AttackPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    EquipItemState.AttackPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
+
+                case AddOptionString.HealthPer:
+                        EquipItemState.HealthPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.Evade:
-                    EquipState.Evade += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    EquipItemState.Evade += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.DamageReduction:
-                    EquipState.DamageReduction += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    EquipItemState.DamageReduction += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.Bloodsucking:
-                    EquipState.BloodSucking += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    EquipItemState.BloodSucking += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.CoinAcquire:
-                    EquipState.CoinAcquire += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    EquipItemState.CoinAcquire += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.SkillDamage:
-                    EquipState.SkillDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    EquipItemState.SkillDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.BossDamage:
-                    EquipState.BossDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    EquipItemState.BossDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
             }
         }
@@ -170,11 +216,11 @@ public class StateSystem : MonoBehaviour
             switch (option.option)
             {
                 case ItemOptionString.Attack:
-                    EquipState.Attack += option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight);
+                    EquipItemState.Attack += option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight);
                     break;
 
                 case ItemOptionString.Health:
-                    EquipState.Health += option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight);
+                    EquipItemState.Health += option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight);
                     break;
             }
         }
@@ -210,31 +256,35 @@ public class StateSystem : MonoBehaviour
                     switch (option.option)
                     {
                         case AddOptionString.AttackPer:
-                            EquipState.AttackPer += option.value * weight;
+                            EquipItemState.AttackPer += option.value * weight;
+                            break;
+
+                        case AddOptionString.HealthPer:
+                            EquipItemState.HealthPer += option.value * weight;
                             break;
 
                         case AddOptionString.Evade:
-                            EquipState.Evade += option.value * weight;
+                            EquipItemState.Evade += option.value * weight;
                             break;
 
                         case AddOptionString.DamageReduction:
-                            EquipState.DamageReduction += option.value * weight;
+                            EquipItemState.DamageReduction += option.value * weight;
                             break;
 
                         case AddOptionString.Bloodsucking:
-                            EquipState.BloodSucking += option.value * weight;
+                            EquipItemState.BloodSucking += option.value * weight;
                             break;
 
                         case AddOptionString.CoinAcquire:
-                            EquipState.CoinAcquire += option.value * weight;
+                            EquipItemState.CoinAcquire += option.value * weight;
                             break;
 
                         case AddOptionString.SkillDamage:
-                            EquipState.SkillDamage += option.value * weight;
+                            EquipItemState.SkillDamage += option.value * weight;
                             break;
 
                         case AddOptionString.BossDamage:
-                            EquipState.BossDamage += option.value * weight;
+                            EquipItemState.BossDamage += option.value * weight;
                             break;
                     }
                 }

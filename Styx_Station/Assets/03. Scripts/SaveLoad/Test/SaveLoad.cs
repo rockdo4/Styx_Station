@@ -355,6 +355,7 @@ public class SaveLoad : MonoBehaviour
                     }
                     UIManager.Instance.SkillButtonOn();
                 }
+
                 if (gameSaveDatas["exitTime"] is JToken exitTime)
                 {
                     string exit = exitTime.ToString();

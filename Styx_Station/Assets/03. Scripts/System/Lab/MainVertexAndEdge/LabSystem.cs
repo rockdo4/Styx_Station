@@ -120,6 +120,7 @@ public class LabSystem : Singleton<LabSystem>
     }
     public void IsDoneTime()
     {
+        var find = GameObject.FindWithTag("Player");
         switch (labType)
         {
             case LabType.LabPower1:
@@ -131,6 +132,10 @@ public class LabSystem : Singleton<LabSystem>
             case LabType.LabHp1:
                 Re002_Vertex[level].GetClear(true);
                 GameData.labBuffData.re_Hp1 = labTalbeData.Re_HP * (int)Math.Pow(labTalbeData.Re_HPUP, level);
+                if(find != null)
+                {
+                    find.GetComponent<ResultPlayerStats>().CurrentMaxHpSet();
+                }
                 if (level == 9)
                     IsClearRe002();
                 break;
@@ -151,6 +156,11 @@ public class LabSystem : Singleton<LabSystem>
                 GameData.labBuffData.re_Atk2 = labTalbeData.Re_ATK * (int)Math.Pow(labTalbeData.Re_ATKUP, level);
                 if (level == 9)
                     IsClearRe005();
+                GameData.labBuffData.re_Hp1 = labTalbeData.Re_HP * (int)Math.Pow(labTalbeData.Re_HPUP, level);
+                if (find != null)
+                {
+                    find.GetComponent<ResultPlayerStats>().CurrentMaxHpSet();
+                }
                 break;
             case LabType.LabHp2:
                 Re006_Vertex[level].GetClear(true);

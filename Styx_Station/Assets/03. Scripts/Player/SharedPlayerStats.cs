@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Numerics;
+using UnityEngine;
 
 public static class SharedPlayerStats
 {
@@ -285,6 +286,12 @@ public static class SharedPlayerStats
             CurrencyManager.money1 -= CurrencyManager.maxHpPrice;
 
             maxHp++;
+
+            var find = GameObject.FindWithTag("Player");
+            if(find != null)
+            {
+                find.GetComponent<ResultPlayerStats>().SettingUpgradeHp(maxHp);
+            }
         }
         else
         {
@@ -312,6 +319,11 @@ public static class SharedPlayerStats
             CurrencyManager.money1 -= CurrencyManager.healingPrice;
 
             healing++;
+            var find = GameObject.FindWithTag("Player");
+            if (find != null)
+            {
+                find.GetComponent<ResultPlayerStats>().SetHealingLevel(healing);
+            }
         }
         else
         {

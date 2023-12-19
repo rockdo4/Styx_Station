@@ -107,7 +107,7 @@ public class PlayerStatsUiData : MonoBehaviour
             {
                 {0,SharedPlayerStats.IncreasePlayerPower },
                 {1,SharedPlayerStats.IncreasePlayerPowerBoost },
-                {2,SharedPlayerStats.IncreasePlayerAttackSpeed },
+                {2,SharedPlayerStats.IncreasePlayerAttackSpeed},
                 {3,SharedPlayerStats.IncreaseAttackCritical },
                 {4,SharedPlayerStats.IncreaseAttackCriticalPower },
                 {5,SharedPlayerStats.IncreaseMonsterDamagePower },

@@ -29,6 +29,7 @@ public static class GameData
     public static int tic = 1000;
 
     public static LabBuffData labBuffData;
+    public static int labBuffDataPercent = 10;
 
     public static void GetAccumulateOfflineEarnings()
     {

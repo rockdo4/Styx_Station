@@ -22,7 +22,11 @@ public class BackgroundLoop : MonoBehaviour
             Reposition(); //다음 sky 배견화면 사진 옆으로 이동하게 함
             WaveManager.Instance.ScrollBackground(false);
             WaveManager.Instance.StartWave();
-            WaveManager.Instance.ChangeTileMap();
+            if(WaveManager.Instance.haveToChangeTile)
+            {
+                WaveManager.Instance.ChangeTileMap();
+                WaveManager.Instance.haveToChangeTile = false;
+            }
         }
     }
 

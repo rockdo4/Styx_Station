@@ -10,7 +10,7 @@ using static UnityEngine.GraphicsBuffer;
 public class MonsterSpawner : MonoBehaviour
 {
     public float timer = 0f;
-    public int spawnTimeBat;
+    public float spawnTimeBat;
     public WaitForSeconds WaitSecond;
     
     public MonsterTable monsterTable;
@@ -25,6 +25,9 @@ public class MonsterSpawner : MonoBehaviour
     public int bossSize = 2;
     public float tankSize = 1.5f;
     public float spawnSize = 1f;
+
+    public float idleTimeBet = 0.1f;
+    public float idleTimeMax = 5f;
 
     private int[] monsterIndex = new int[4]
     {
@@ -230,6 +233,7 @@ public class MonsterSpawner : MonoBehaviour
             monsterController.transform.localScale = new UnityEngine.Vector3(spawnSize, spawnSize, 1);
             //monsterController.SetMoney(coinAmount[selectIndex], pomegranateAmount[selectIndex]);
             monsterController.SetMoney(monsterTable.GetMonster(monsterTypeIndex).monster_coin, monsterTable.GetMonster(monsterTypeIndex).monster_pommegrande);
+            monsterController.startDelay = Random.Range(0, idleTimeMax) * idleTimeBet;
             spawnSize = 1f;
             spawnedCount++;
         }

@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using Unity.VisualScripting;
+using System.Threading;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public int maxStageLevel = 10; //최대 스테이지 레벨
 
     private bool IsRepeating = false;
+    public bool haveToChangeTile = false;
 
     public MonsterSpawner spawner;
     public int aliveMonsterCount;
@@ -178,7 +180,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         //StartCoroutine(SetArrowStop());
     }
 
-    public void ChangeWage()
+    public void ChangeWave()
     {
         StopArrows();
         isWaveInProgress = false;
@@ -187,6 +189,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         if (stageNum == 0)
         {
             currTileMapIndex = CurrentChpater;
+            haveToChangeTile = true;
             ChangeTileMap();
         }
 
@@ -209,6 +212,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         ScrollBackground(true);
         SetWavePanel();
         //StartWave();
+    }
+
+    public void MoveMonPosition()
+    {
+        var mons = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var item in mons)
+        {
+            item.gameObject.transform.position = item.GetComponent<MonsterController>().idlePos.position;
+        }
     }
 
     public void ChangeTileMap()
@@ -319,7 +331,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         aliveMonsterCount--;
         if(aliveMonsterCount <= 0)
         {
-            ChangeWage();
+            ChangeWave();
         }
     }
 

@@ -73,6 +73,8 @@ public class Inventory : MonoBehaviour
 
     private InventoryItem[] equipItems  = new InventoryItem[4];
 
+    public StateSystem state;
+
     public void CustomReset()
     {
         //세이브 로드 용
@@ -202,7 +204,6 @@ public class Inventory : MonoBehaviour
         switch (item.type)
         {
             case ItemType.Ring:
-                
                     var dummys = CustomRing(item, dummy);
                     return dummys;
                 
@@ -210,7 +211,6 @@ public class Inventory : MonoBehaviour
                 
                     var dummys_1 = CustomSymbol(item, dummy);
                     return dummys_1;
-
         }
         return null;
     }
@@ -342,17 +342,15 @@ public class Inventory : MonoBehaviour
         else if (equipItems[0] != null)
         {
             equipItems[0].equip = false;
-            equipItems[0].item.OnDequip(this, equipItems[0].upgradeLev);
         }
         else if (equipItems[0].item != null)
         {
             equipItems[0].equip = false;
-            equipItems[0].item.OnDequip(this, equipItems[0].upgradeLev);
         }
 
         equipItems[0] = item;
         item.equip = true;
-        item.item.OnEquip(this, item.upgradeLev);
+        state.EquipUpdate();
     }
 
     private void ArmorEquip(InventoryItem item)
@@ -366,17 +364,16 @@ public class Inventory : MonoBehaviour
         else if (equipItems[1] != null)
         {
             equipItems[1].equip = false;
-            equipItems[1].item.OnDequip(this, equipItems[1].upgradeLev);
         }
         else if (equipItems[1].item != null)
         {
             equipItems[1].equip = false;
-            equipItems[1].item.OnDequip(this, equipItems[1].upgradeLev);
         }
 
         equipItems[1] = item;
         item.equip = true;
-        item.item.OnEquip(this, item.upgradeLev);
+        state.EquipUpdate();
+
     }
 
     private void RingEquip(InventoryItem item)
@@ -390,17 +387,15 @@ public class Inventory : MonoBehaviour
         else if (equipItems[2] != null)
         {
             equipItems[2].equip = false;
-            equipItems[2].item.OnDequip(this, equipItems[2].upgradeLev);
         }
         else if (equipItems[2].item != null)
         {
             equipItems[2].equip = false;
-            equipItems[2].item.OnDequip(this, equipItems[2].upgradeLev);
         }
 
         equipItems[2] = item;
         item.equip = true;
-        item.item.OnEquip(this, item.upgradeLev);
+        state.EquipUpdate();
     }
 
     private void SymbolEquip(InventoryItem item)
@@ -414,17 +409,15 @@ public class Inventory : MonoBehaviour
         else if (equipItems[3] != null)
         {
             equipItems[3].equip = false;
-            equipItems[3].item.OnDequip(this, equipItems[3].upgradeLev);
         }
         else if (equipItems[3].item != null)
         {
             equipItems[3].equip = false;
-            equipItems[3].item.OnDequip(this, equipItems[3].upgradeLev);
         }
 
         equipItems[3] = item;
         item.equip = true;
-        item.item.OnEquip(this, item.upgradeLev);
+        state.EquipUpdate();
     }
 
     private void WeaponDequip(InventoryItem item)
@@ -435,9 +428,9 @@ public class Inventory : MonoBehaviour
         if (equipItems[0].item == null)
             return;
 
-        equipItems[0].item.OnDequip(this, equipItems[0].upgradeLev);
         item.equip = false;
         equipItems[0] = null;
+        state.EquipUpdate();
     }
 
     private void ArmorDequip(InventoryItem item)
@@ -448,9 +441,9 @@ public class Inventory : MonoBehaviour
         if (equipItems[1].item == null)
             return;
 
-        equipItems[1].item.OnDequip(this, equipItems[1].upgradeLev);
         item.equip = false;
         equipItems[1] = null;
+        state.EquipUpdate();
     }
 
     private void RingDequip(InventoryItem item)
@@ -461,9 +454,9 @@ public class Inventory : MonoBehaviour
         if (equipItems[2].item == null)
             return;
 
-        equipItems[2].item.OnDequip(this, equipItems[2].upgradeLev);
         item.equip = false;
         equipItems[2] = null;
+        state.EquipUpdate();
     }
 
     private void SymbolDequip(InventoryItem item)
@@ -474,9 +467,9 @@ public class Inventory : MonoBehaviour
         if (equipItems[3].item == null)
             return;
 
-        equipItems[3].item.OnDequip(this, equipItems[3].upgradeLev);
         item.equip = false;
         equipItems[3] = null;
+        state.EquipUpdate();
     }
 
     public void AcquireState()

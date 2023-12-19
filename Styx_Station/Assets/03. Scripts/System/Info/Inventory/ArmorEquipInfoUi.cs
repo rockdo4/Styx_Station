@@ -36,22 +36,38 @@ public class ArmorEquipInfoUi : MonoBehaviour
 
         if (Global.language == Language.KOR)
         {
+            if (armor.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").KOR}";
+            }
+            else if (!armor.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").KOR}";
+            }
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").KOR}";
             tier.text = $"{stringTable.GetStringTableData(armor.item.tier.ToString()).KOR}";
             itemName.text = $"{stringTable.GetStringTableData(armor.item.name + "_Name").KOR}";
             string text = string.Format(stringTable.GetStringTableData(armor.item.name + "_Info").KOR,
                 armor.item.options[0].value + armor.upgradeLev * armor.item.options[0].upgradeValue,
-                //weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue
-                0);
+                armor.item.addOptions[0].value + armor.upgradeLev * armor.item.addOptions[0].upgradeValue);
             itemText.text = $"{text}";
         }
         else if (Global.language == Language.ENG)
         {
+            if (armor.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").ENG}";
+            }
+            else if (!armor.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").ENG}";
+            }
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").ENG}";
             tier.text = $"{stringTable.GetStringTableData(armor.item.tier.ToString()).ENG}";
             itemName.text = $"{stringTable.GetStringTableData(armor.item.name + "_Name").ENG}";
             string text = string.Format(stringTable.GetStringTableData(armor.item.name + "_Info").ENG,
                 armor.item.options[0].value + armor.upgradeLev * armor.item.options[0].upgradeValue,
-                //weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue
-                0);
+                armor.item.addOptions[0].value + armor.upgradeLev * armor.item.addOptions[0].upgradeValue);
             itemText.text = $"{text}";
         }
 

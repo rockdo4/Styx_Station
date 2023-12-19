@@ -20,6 +20,7 @@ public class InventorySystem : MonoBehaviour
                 instance.inventory = go.AddComponent<Inventory>();
                 instance.skillInventory = go.AddComponent<SkillInventory>();
                 instance.petInventory = go.AddComponent<PetInventory>();
+                instance.state = go.AddComponent<StateSystem>();
                 instance.Setting();
                 instance.shopSystem = ShopSystem.Instance;
                 DontDestroyOnLoad(go);
@@ -31,6 +32,8 @@ public class InventorySystem : MonoBehaviour
     public Inventory inventory;
     public SkillInventory skillInventory;
     public PetInventory petInventory;
+
+    public StateSystem state;
 
     private ShopSystem shopSystem;
 
@@ -113,5 +116,8 @@ public class InventorySystem : MonoBehaviour
         skillInventory.SkillSorting();
 
         petInventory.PetSorting();
+
+        state.Setting();
+        inventory.state = state;
     }
 }

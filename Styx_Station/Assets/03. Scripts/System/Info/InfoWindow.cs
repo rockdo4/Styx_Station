@@ -8,6 +8,8 @@ public class InfoWindow : Window
 {
     private Inventory inventory;
     private StringTable stringTable;
+    private StateSystem stateSystem;
+
     public Button[] equipButtons = new Button[4];
 
     public TextMeshProUGUI state;
@@ -24,6 +26,7 @@ public class InfoWindow : Window
     {
         inventory = InventorySystem.Instance.inventory;
         stringTable = MakeTableData.Instance.stringTable;
+        stateSystem = InventorySystem.Instance.state;
     }
 
     public override void Open()
@@ -43,6 +46,16 @@ public class InfoWindow : Window
             tabs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo002").KOR}";
             tabs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo003").KOR}";
             tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").KOR}";
+            string text = string.Format(stringTable.GetStringTableData("Playerinfo005").KOR,
+                stateSystem.TotalState.AttackPer,
+                stateSystem.TotalState.BloodSucking,
+                stateSystem.TotalState.SkillDamage,
+                stateSystem.TotalState.BossDamage,
+                stateSystem.TotalState.Health,
+                stateSystem.TotalState.CoinAcquire,
+                stateSystem.TotalState.DamageReduction,
+                stateSystem.TotalState.Evade);
+            state.text = $"{text}";
 
         }
         else if (Global.language == Language.ENG)
@@ -51,6 +64,16 @@ public class InfoWindow : Window
             tabs[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo002").ENG}";
             tabs[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo003").ENG}";
             tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").ENG}";
+            string text = string.Format(stringTable.GetStringTableData("Playerinfo005").ENG,
+                stateSystem.TotalState.AttackPer,
+                stateSystem.TotalState.HealHealth,
+                stateSystem.TotalState.SkillDamage,
+                stateSystem.TotalState.BossDamage,
+                stateSystem.TotalState.Health,
+                stateSystem.TotalState.CoinAcquire,
+                stateSystem.TotalState.DamageReduction,
+                stateSystem.TotalState.Evade);
+            state.text = $"{text}";
         }
     }
     public override void Close()

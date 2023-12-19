@@ -108,10 +108,41 @@ public class StateSystem : MonoBehaviour
 
         TotalStateSet();
     }
-
     private void AcquireOptions(Inventory.InventoryItem acquireItem)
     {
+        foreach (var option in acquireItem.item.addOptions)
+        {
+            switch (option.option)
+            {
+                case AddOptionString.AttackPer:
+                    EquipState.AttackPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
 
+                case AddOptionString.Evade:
+                    EquipState.Evade += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
+
+                case AddOptionString.DamageReduction:
+                    EquipState.DamageReduction += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
+
+                case AddOptionString.Bloodsucking:
+                    EquipState.BloodSucking += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
+
+                case AddOptionString.CoinAcquire:
+                    EquipState.CoinAcquire += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
+
+                case AddOptionString.SkillDamage:
+                    EquipState.SkillDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
+
+                case AddOptionString.BossDamage:
+                    EquipState.BossDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    break;
+            }
+        }
     }
     private void EquipOptions(Inventory.InventoryItem equipItem)
     {

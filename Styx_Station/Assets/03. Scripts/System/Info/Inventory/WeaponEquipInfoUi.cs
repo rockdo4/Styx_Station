@@ -52,8 +52,7 @@ public class WeaponEquipInfoUi : MonoBehaviour
             itemName.text = $"{stringTable.GetStringTableData(weapon.item.name + "_Name").KOR}";
             string text = string.Format(stringTable.GetStringTableData(weapon.item.name + "_Info").KOR,
                 weapon.item.options[0].value + weapon.upgradeLev * weapon.item.options[0].upgradeValue,
-                //weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue
-                0);
+                weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue);
             itemText.text = $"{text}";
         }
         else if(Global.language == Language.ENG)
@@ -71,8 +70,7 @@ public class WeaponEquipInfoUi : MonoBehaviour
             itemName.text = $"{stringTable.GetStringTableData(weapon.item.name + "_Name").ENG}";
             string text = string.Format(stringTable.GetStringTableData(weapon.item.name + "_Info").ENG,
                 weapon.item.options[0].value + weapon.upgradeLev * weapon.item.options[0].upgradeValue,
-                //weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue
-                0);
+                weapon.item.addOptions[0].value + weapon.upgradeLev * weapon.item.addOptions[0].upgradeValue);
             itemText.text = $"{text}";
         }
         if (weapon.upgradeLev < weapon.item.itemLevUpNum.Count)

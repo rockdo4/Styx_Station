@@ -25,6 +25,12 @@ public static class GameData
     public static List<LabSaveData> Re_MidAtkSaveDataList = new List<LabSaveData>();
     public static List<LabSaveData> Re_MidHPSaveDataList = new List<LabSaveData>();
     public static CurrentLavSaveData currnetLabSaveData;
+
+    public static int tic = 1000;
+
+    public static LabBuffData labBuffData;
+    public static int labBuffDataPercent = 10;
+
     public static void GetAccumulateOfflineEarnings()
     {
         var prevData = DateTime.ParseExact(keyPrevAccumlateTime.ToString(), datetimeString, null);
@@ -60,8 +66,3 @@ public static class GameData
     }
 
 }
-/*
- https://learn.microsoft.com/en-us/dotnet/api/system.timespan.totaldays?view=net-8.0  -> TimeSpan;
-
-
- */

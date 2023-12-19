@@ -33,7 +33,7 @@ public class LabMainVertex : MonoBehaviour
     public Image coolTime;
     private LabSystem copLabManager;
 
-    private void Start()
+    private void Awake()
     {       
         AwakeSetting();
     }
@@ -79,11 +79,13 @@ public class LabMainVertex : MonoBehaviour
             if (MakeTableData.Instance.stringTable != null)
             {
                 labTypeNameStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(labTableDatas.Re_Name_ID);
+                labTypeBuffStringDatas= MakeTableData.Instance.stringTable.GetStringTableData(labTypeBuffStringTableKey);
             }
             else if (MakeTableData.Instance.stringTable == null)
             {
                 MakeTableData.Instance.stringTable = new StringTable();
                 labTypeNameStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(labTableDatas.Re_Name_ID);
+                labTypeBuffStringDatas = MakeTableData.Instance.stringTable.GetStringTableData(labTypeBuffStringTableKey);
             }
             if (LabSystem.Instance != null)
             {
@@ -149,6 +151,11 @@ public class LabMainVertex : MonoBehaviour
 
     public Button GetButton()
     {
+        if (vertexButton == null)
+        {
+            AwakeSetting();
+        }
+
         return vertexButton;
     }
 }

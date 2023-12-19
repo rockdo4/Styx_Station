@@ -66,7 +66,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         if(isWaveInProgress)
         {
             timer += Time.deltaTime;
-            Debug.Log(timer);
+           // Debug.Log(timer);
             UIManager.Instance.SetTimerSlierValue((timeLimit - timer) / timeLimit);
             var timertext = FormatTime(timeLimit - timer);
             UIManager.Instance.SetTimerText(timertext);

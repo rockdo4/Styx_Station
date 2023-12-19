@@ -169,8 +169,12 @@ public class SaveLoad : MonoBehaviour
         }
         if(labSystem.isResearching)
         {
-            data.gameSaveDatas.currentLavSaveData = new CurrentLavSaveData(labSystem.isResearching, labSystem.timerTic, labSystem.maxTimerTic, labSystem.labType, labSystem.level, labSystem.labStringTableName, labSystem.labBuffStringTable, labSystem.labTalbeData);
+            data.gameSaveDatas.currentLavSaveData = new CurrentLavSaveData(labSystem.isResearching, labSystem.timerTic, labSystem.maxTimerTic, labSystem.labType, 
+                labSystem.level, labSystem.labStringTableName, labSystem.labBuffStringTable, labSystem.labTalbeData);
         }
+
+        data.gameSaveDatas.labBuffData = GameData.labBuffData;
+
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
     }
@@ -524,7 +528,39 @@ public class SaveLoad : MonoBehaviour
                     {
                         GameData.currnetLabSaveData = currentLab;
                         LabSystem.Instance.maxTimerTic = currentLab.maxTimer;
+                        LabSystem.Instance.isResearching = currentLab.isResearching;
+
+                        var exitTimer = DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
+                        var nowTimeStr = DateTime.Now.ToString(GameData.datetimeString);
+                        var nowTimeSpan = DateTime.ParseExact(nowTimeStr, GameData.datetimeString, null);
+
+                        TimeSpan timeDifference = nowTimeSpan.Subtract(exitTimer);
+                        var tic = GameData.tic;
+                        if(timeDifference.TotalSeconds >0)
+                        {
+                            if(timeDifference.TotalSeconds < (currentLab.maxTimer/ tic))
+                                currentLab.timer -= (int)(timeDifference.TotalSeconds * tic);
+                        }
+                        if (currentLab.timer <= 0)
+                        {
+                            currentLab.timer = 0;
+                            LabSystem.Instance.isTimerZero = true;
+                        }
+
+                        LabSystem.Instance.timerTic= currentLab.timer;
+                        LabSystem.Instance.labType = (LabType)currentLab.LabType;
+                        LabSystem.Instance.level = currentLab.level;
+
+                        LabSystem.Instance.SaveDataSet(currentLab.labTypeNameStringDatas, currentLab.labTypeBuffStringDatas, currentLab.labTableData);
                     }
+                }
+
+                if (gameSaveDatas["labBuffData"] is JToken labBuffData)
+                {
+                    string str = labBuffData.ToString();
+                    var datas = JsonConvert.DeserializeObject<LabBuffData>(str);
+
+                    GameData.labBuffData = datas;
                 }
             }
         }

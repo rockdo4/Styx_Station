@@ -36,13 +36,15 @@ public class LabInfoWindow : Window
     public TextMeshProUGUI researchTimer;
     public TextMeshProUGUI researchButtonText;
 
+
     public int buffPercent;
     private int price;
 
     public Button reasearchButton;
     private TimeSpan timerString;
-    public void SetVertex(LabType labType,StringTableData labTypeNameStringDatas,StringTableData labTypeBuffStringDatas, LabTableDatas labTableData ,int level)
+    public void SetVertex(LabType labType,StringTableData labTypeNameStringDatas,StringTableData labTypeBuffStringDatas, LabTableDatas labTableData ,int level,bool open=true)
     {
+       
         if (!isOneLevelStringKeySetting)
         {
             isOneLevelStringKeySetting = true;
@@ -99,10 +101,16 @@ public class LabInfoWindow : Window
         price = labTableData.Re_Pom * (int)Math.Pow(labTableData.Re_PomUp, this.level);
         timer = (int)(labTableData.Re_Time * Math.Pow(labTableData.Re_TimeUP, this.level) * seconds);
         reasearchButton.onClick.AddListener(() => LabSystem.Instance.StartResearching(timer, this.labType,this.level));
-
+        if (LabSystem.Instance.isResearching)
+        {
+            reasearchButton.interactable = false;
+        }
+        else
+            reasearchButton.interactable = true;
         LabSystem.Instance.SaveDataSet(this.labTypeNameStringDatas, this.labTypeBuffStringDatas, this.labTableData);
 
-        Open();
+        if(open)
+            Open();
     }
 
     private void FixedUpdate()
@@ -158,7 +166,7 @@ public class LabInfoWindow : Window
 
     public override void Close()
     {
-
+       
         base.Close();
     }
 

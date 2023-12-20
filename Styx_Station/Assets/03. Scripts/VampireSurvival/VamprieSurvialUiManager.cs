@@ -33,9 +33,8 @@ public class VamprieSurvialUiManager : MonoBehaviour
     public Slider playerExpSlider;
     public Slider gameTimerSlider;
     public TextMeshProUGUI gameTimerTextMeshProUGUI;
-    public bool isGameOver; // ÇÔ¼ö ¸¸µçÈÄ ÆË¾÷ ¶ç¿ì±â
 
-
+    public GameObject loosePopUpWindow;
     private void Awake()
     {
         if (Instance != this)
@@ -58,7 +57,7 @@ public class VamprieSurvialUiManager : MonoBehaviour
     }
     void Update()
     {
-        if(!VampireSurvivalGameManager.Instance.isPause)
+        if (!VampireSurvivalGameManager.Instance.isPause && !VampireSurvivalGameManager.Instance.isGameover)
         {
             DrawAndMoveJoystick();
 
@@ -93,6 +92,16 @@ public class VamprieSurvialUiManager : MonoBehaviour
         vamprieJoystick.OnPointerUp(vampriePointerEventData);
     }    
 
+    public void PopUpGameOverObject()
+    {
+       loosePopUpWindow.SetActive(true);
+    }
+
+    //private IEnumerator PopUPGameOverPanelTime()
+    //{
+    //    yield return new WaitForSeconds(2);
+    //    loosePopUpWindow.SetActive(true);
+    //}
 
     public void TestC()
     {

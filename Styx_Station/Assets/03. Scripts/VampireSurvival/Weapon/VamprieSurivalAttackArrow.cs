@@ -9,7 +9,6 @@ public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackManager
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, aliveTime);
     }
 
     private void FixedUpdate()

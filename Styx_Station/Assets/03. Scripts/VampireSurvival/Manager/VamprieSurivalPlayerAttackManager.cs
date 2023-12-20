@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class VamprieSurivalPlayerAttackManager : MonoBehaviour
+public abstract class VamprieSurivalPlayerAttackManager : PoolAble
 {
     protected Vector2 direction;
     public float range;

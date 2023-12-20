@@ -66,6 +66,7 @@ public class ResultPlayerStats : MonoBehaviour
     {
         SharedPlayerStats.resultPlayerStats = this;
         prevUpgradeHp = SharedPlayerStats.GetHp() - 1;
+        //CurrentMaxHpSet();
         playerCurrentHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
         playerMaxHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp) ;
     }
@@ -256,6 +257,10 @@ public class ResultPlayerStats : MonoBehaviour
 
     public void CurrentMaxHpSet()
     {
+        if(normalHp <=0)
+        {
+            normalHp = playerAttribute.MaxHp;
+        }
         normalHp += (normalHp * GameData.labBuffData.re_Hp1) / GameData.labBuffDataPercent;
         playerMaxHp = normalHp + (prevUpgradeHp * increaseUpgradeHp) +(int)inventory.t_Health;
         playerMaxHp += playerMaxHp * GameData.labBuffData.re_Hp2 / GameData.labBuffDataPercent;

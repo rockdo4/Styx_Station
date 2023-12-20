@@ -462,6 +462,13 @@ public class SaveLoad : MonoBehaviour
                     var skillRankUp = JsonConvert.DeserializeObject<int>(str);
                     shop.currentSkillRankUp = skillRankUp;
                 }
+
+                var loadState = StateSystem.Instance;
+
+                loadState.EquipUpdate();
+                loadState.AcquireUpdate();
+                loadState.SkillUpdate();
+
                 if (gameSaveDatas["playerBuff"] is JToken buffTimer)
                 {
                     string str = buffTimer.ToString();
@@ -567,5 +574,14 @@ public class SaveLoad : MonoBehaviour
                 }
             }
         }
+
+        var state = StateSystem.Instance;
+
+        state.GetPlayerInfoPower();
+        state.GetPlayerInfoHealth();
+        state.GetPlayerInfoSiling();
+        state.GetPlayerInfoEvade();
+        state.GetPlayerInfoAbsorption();
+        state.GetPlayerInfoReduction();
     }
 }

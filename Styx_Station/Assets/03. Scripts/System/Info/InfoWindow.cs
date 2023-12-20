@@ -26,7 +26,7 @@ public class InfoWindow : Window
     {
         inventory = InventorySystem.Instance.inventory;
         stringTable = MakeTableData.Instance.stringTable;
-        stateSystem = InventorySystem.Instance.state;
+        stateSystem = StateSystem.Instance;
     }
 
     public override void Open()
@@ -50,7 +50,7 @@ public class InfoWindow : Window
                 stateSystem.TotalState.Attack,
                 stateSystem.TotalState.BloodSucking,
                 stateSystem.TotalState.SkillDamage,
-                stateSystem.TotalState.BossDamage,
+                stateSystem.TotalState.NormalDamage,
                 stateSystem.TotalState.Health,
                 stateSystem.TotalState.CoinAcquire,
                 stateSystem.TotalState.DamageReduction,
@@ -68,7 +68,7 @@ public class InfoWindow : Window
                 stateSystem.TotalState.Attack,
                 stateSystem.TotalState.HealHealth,
                 stateSystem.TotalState.SkillDamage,
-                stateSystem.TotalState.BossDamage,
+                stateSystem.TotalState.NormalDamage,
                 stateSystem.TotalState.Health,
                 stateSystem.TotalState.CoinAcquire,
                 stateSystem.TotalState.DamageReduction,

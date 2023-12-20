@@ -31074,6 +31074,8 @@ MonoBehaviour:
   bossSize: 2
   tankSize: 1.5
   spawnSize: 1
+  idleTimeBet: 0.1
+  idleTimeMax: 5
   maxMonsterTypeCount: 4
   increaseAttack: 0
   increaseHealth: 0
@@ -48340,11 +48342,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxWaveLevel: 5
   maxStageLevel: 10
+  haveToChangeTile: 0
   spawner: {fileID: 644709681}
   aliveMonsterCount: 0
   stageList: {fileID: 11400000, guid: f55a05bdd76f5a24fa2d84ac015f8410, type: 2}
   currStage: {fileID: 0}
   Background: {fileID: 2055107112}
+  leftTileMaps: []
+  rightTileMaps: []
   timeLimit: 0
   timer: 0
   isWaveInProgress: 0
@@ -90451,6 +90456,8 @@ MonoBehaviour:
   timerSlider: {fileID: 655041821}
   timerText: {fileID: 1044747992}
   stageText: {fileID: 844891263}
+  WavePanels: []
+  gameOverPop: {fileID: 824345609}
 --- !u!114 &1934580154
 MonoBehaviour:
   m_ObjectHideFlags: 0

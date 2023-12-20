@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
+using System.Numerics;
 
-public class StateSystem : MonoBehaviour
+public class StateSystem : Singleton<StateSystem>
 {
+    [System.Serializable]
     public class State
     {
-        public float Attack = 0f;
-        public float Health = 0f;
-        public float AttackSpeed = 0f;
-        public float HealHealth = 0f;
+        public BigInteger Attack = new BigInteger(0);
+        public BigInteger Health = new BigInteger(0);
+        public BigInteger HealHealth = new BigInteger(0);
         public float AttackPer = 0f;
         public float HealthPer = 0f;
         public float Evade = 0f;
@@ -19,17 +17,17 @@ public class StateSystem : MonoBehaviour
         public float CoinAcquire = 0f;
         public float NormalDamage = 0f;
         public float SkillDamage = 0f;
-        public float BossDamage = 0f;
     }
 
     public State EquipItemState { get; private set; } = new State();
-    public State AcquireItemState { get; private set; } =new State();
+    public State AcquireItemState { get; private set; } = new State();
     public State SkillState { get; private set; } = new State();
-    public State TotalState { get; private set; } = new State();
+    public State TotalState { get; set; } = new State();
 
     private Inventory item;
     private SkillInventory skill;
-    private PetInventory pet;
+
+    public ResultPlayerStats state;
 
     private bool first = false;
     public void Setting()
@@ -38,18 +36,99 @@ public class StateSystem : MonoBehaviour
             return;
 
         item = InventorySystem.Instance.inventory;
-        pet = InventorySystem.Instance.petInventory;
         skill = InventorySystem.Instance.skillInventory;
 
         first = true;
     }
 
+    public void GetPlayerInfoPower()
+    {
+        var equipState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) + EquipItemState.Attack) +
+        (((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)EquipItemState.AttackPer) / 100);
+
+        var acquireState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)AcquireItemState.AttackPer) / 100;
+
+        var passiveState = (state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)SkillState.AttackPer / 100;
+
+        var attributePower = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * GameData.labBuffData.re_Atk1) / GameData.labBuffDataPercent;
+
+        var boost = ((SharedPlayerStats.GetPlayerPowerBoost() - 1) * state.increaseUpgradePowerBoost) / state.percentFloat;
+
+        var powerBoostResult = (int)(boost * state.playerPowerBoostPercent) / state.playerPowerBoostPercent;
+
+        var labBuff = GameData.labBuffData.re_Atk2 / GameData.labBuffDataPercent;
+
+        TotalState.Attack = equipState + acquireState + passiveState + attributePower;
+
+        TotalState.Attack = TotalState.Attack + ((TotalState.Attack * PlayerBuff.Instance.buffData.playerPowerBuff) / PlayerBuff.Instance.percent);
+
+        TotalState.Attack += TotalState.Attack * (powerBoostResult + labBuff);
+    }
+
+    public void GetPlayerInfoHealth()
+    {
+        var attributeHp = ((state.playerAttribute.MaxHp * GameData.labBuffData.re_Hp1) / GameData.labBuffDataPercent);
+
+        var playerHp = state.playerAttribute.MaxHp + attributeHp;
+
+        var equipState = ((playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) + EquipItemState.Health) +
+            (((playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) * (int)EquipItemState.HealthPer) / 100);
+
+        var acquireState = (playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) * (int)AcquireItemState.HealthPer / 100;
+
+        var passiveState = (playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) * (int)SkillState.HealthPer / 100;
+
+        var labBuff = GameData.labBuffData.re_Hp2 / GameData.labBuffDataPercent;
+
+        TotalState.Health = equipState + acquireState + passiveState;
+
+        TotalState.Health += TotalState.Health * labBuff;
+    }
+
+    public void GetPlayerInfoSiling()
+    {
+        var equipState = EquipItemState.CoinAcquire / 100f;
+
+        var acquireState = AcquireItemState.CoinAcquire / 100f;
+
+        var labBuff = (float)GameData.labBuffData.re_Sliup / GameData.labBuffDataPercent;
+
+        var food = (float)PlayerBuff.Instance.buffData.silingBuff / PlayerBuff.Instance.percent;
+
+        TotalState.CoinAcquire = (equipState + acquireState + labBuff + food) * 100;
+    }
+
+    public void GetPlayerInfoEvade()
+    {
+        var equipState = EquipItemState.Evade;
+        var acquireState = AcquireItemState.Evade;
+
+        TotalState.Evade = equipState + acquireState;
+    }
+
+    public void GetPlayerInfoReduction()
+    {
+        var equipState = EquipItemState.DamageReduction;
+        var acquireState = AcquireItemState.DamageReduction;
+
+        TotalState.DamageReduction = equipState + acquireState;
+    }
+
+    public void GetPlayerInfoAbsorption()
+    {
+        var equipState = EquipItemState.BloodSucking;
+        var acquireState = AcquireItemState.BloodSucking;
+
+        TotalState.BloodSucking = equipState + acquireState;
+    }
+
+
     private void ResetState(State state)
     {
-        state.Attack = 0f;
-        state.Health = 0f;
-        state.AttackSpeed = 0f;
-        state.HealHealth = 0f;
+        state.Attack = 0;
+        state.Health = 0;
+        state.HealHealth = 0;
+        state.HealthPer = 0f;
         state.AttackPer = 0f;
         state.Evade = 0f;
         state.DamageReduction = 0f;
@@ -57,24 +136,6 @@ public class StateSystem : MonoBehaviour
         state.CoinAcquire = 0f;
         state.NormalDamage = 0f;
         state.SkillDamage = 0f;
-        state.BossDamage = 0f;
-    }
-    private void TotalStateSet()
-    {
-        TotalState.AttackPer = EquipItemState.AttackPer + AcquireItemState.AttackPer;
-        TotalState.HealthPer = EquipItemState.HealthPer + AcquireItemState.HealthPer;
-
-        TotalState.Attack = EquipItemState.Attack + AcquireItemState.Attack + (((EquipItemState.Attack + AcquireItemState.Attack) * TotalState.AttackPer)/100);
-        TotalState.Health = EquipItemState.Health + AcquireItemState.Health + (((EquipItemState.Health + AcquireItemState.Health) * TotalState.HealthPer)/100);
-        TotalState.AttackSpeed = EquipItemState.AttackSpeed + AcquireItemState.AttackSpeed;
-        TotalState.HealHealth = EquipItemState.HealHealth + AcquireItemState.HealHealth;
-        TotalState.Evade = EquipItemState.Evade + AcquireItemState.Evade;
-        TotalState.DamageReduction = EquipItemState.DamageReduction + AcquireItemState.DamageReduction;
-        TotalState.BloodSucking = EquipItemState.BloodSucking + AcquireItemState.BloodSucking;
-        TotalState.CoinAcquire = EquipItemState.CoinAcquire + AcquireItemState.CoinAcquire;
-        TotalState.NormalDamage = EquipItemState.NormalDamage + AcquireItemState.NormalDamage;
-        TotalState.SkillDamage = EquipItemState.SkillDamage + AcquireItemState.SkillDamage;
-        TotalState.BossDamage = EquipItemState.BossDamage + AcquireItemState.BossDamage;
     }
     public void EquipUpdate()
     {
@@ -92,8 +153,6 @@ public class StateSystem : MonoBehaviour
 
             EquipOptions(equips);
         }
-
-        TotalStateSet();
     }
     public void AcquireUpdate()
     {
@@ -114,9 +173,7 @@ public class StateSystem : MonoBehaviour
             
             AcquireOptions(armor);
         }
-        TotalStateSet();
     }
-
     public void SkillUpdate()
     {
         ResetState(SkillState);
@@ -131,8 +188,6 @@ public class StateSystem : MonoBehaviour
 
             SkillOptions(passive);
         }
-
-        TotalStateSet();
     }
     private void SkillOptions(SkillInventory.InventorySKill passive)
     {
@@ -157,35 +212,35 @@ public class StateSystem : MonoBehaviour
             switch (option.option)
             {
                 case AddOptionString.AttackPer:
-                    EquipItemState.AttackPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.AttackPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.HealthPer:
-                        EquipItemState.HealthPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.HealthPer += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.Evade:
-                    EquipItemState.Evade += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.Evade += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.DamageReduction:
-                    EquipItemState.DamageReduction += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.DamageReduction += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.Bloodsucking:
-                    EquipItemState.BloodSucking += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.BloodSucking += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.CoinAcquire:
-                    EquipItemState.CoinAcquire += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.CoinAcquire += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.SkillDamage:
-                    EquipItemState.SkillDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.SkillDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
 
                 case AddOptionString.BossDamage:
-                    EquipItemState.BossDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
+                    AcquireItemState.NormalDamage += option.value + (acquireItem.upgradeLev * option.upgradeValue);
                     break;
             }
         }
@@ -216,11 +271,11 @@ public class StateSystem : MonoBehaviour
             switch (option.option)
             {
                 case ItemOptionString.Attack:
-                    EquipItemState.Attack += option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight);
+                    EquipItemState.Attack += (int)(option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight));
                     break;
 
                 case ItemOptionString.Health:
-                    EquipItemState.Health += option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight);
+                    EquipItemState.Health += (int)(option.value + (option.upgradeValue * equipItem.upgradeLev) + ((option.value + (option.upgradeValue * equipItem.upgradeLev)) * weight));
                     break;
             }
         }
@@ -284,7 +339,7 @@ public class StateSystem : MonoBehaviour
                             break;
 
                         case AddOptionString.BossDamage:
-                            EquipItemState.BossDamage += option.value * weight;
+                            EquipItemState.NormalDamage += option.value * weight;
                             break;
                     }
                 }

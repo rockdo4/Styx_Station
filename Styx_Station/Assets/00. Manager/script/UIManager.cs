@@ -28,7 +28,7 @@ public class UIManager : Singleton<UIManager>
     private Coroutine move;
 
     public SkillWindow skill;
-    //12.14 이승우 퀘스트 오브젝트 가져오기
+
     public QuestSystemUi questSystemUi;
 
     //12.18 윤유림 웨이브 반복 버튼
@@ -40,6 +40,20 @@ public class UIManager : Singleton<UIManager>
     public List<GameObject> WavePanels;
 
     public GameObject gameOverPop;
+
+    //12.20 이승우 인게임 재화 코드 추가 
+    public TextMeshProUGUI sliverMoney;
+    public TextMeshProUGUI pommeMoney;
+    public TextMeshProUGUI soulMoney;
+    public TextMeshProUGUI memoryMoney;
+
+    private void Start() //12.20 Lsw 
+    {
+        PrintSliverMoney();
+        PrintPommeMoney();
+        PrintSoulMoney();
+        PrintMemoryMoney();
+    }
     public void Open(WindowType inventoryType)
     {
         if (!first)
@@ -251,4 +265,23 @@ public class UIManager : Singleton<UIManager>
     {
         gameOverPop.SetActive(isActive);
     }
+
+    //12.20 Lsw
+    public void PrintSliverMoney()
+    {
+        sliverMoney.text = $"{UnitConverter.OutString(CurrencyManager.money1)}";
+    }
+    public void PrintPommeMoney()
+    {
+        pommeMoney.text = $"{UnitConverter.OutString(CurrencyManager.money2)}";
+    }
+    public void PrintSoulMoney()
+    {
+        soulMoney.text = $"{UnitConverter.OutString(CurrencyManager.money3)}";
+    }
+    public void PrintMemoryMoney()
+    {
+        memoryMoney.text = $"{UnitConverter.OutString(CurrencyManager.itemAsh)}";
+    }
+    //12.20 Lsw
 }

@@ -101,12 +101,14 @@ public class LabInfoWindow : Window
         price = labTableData.Re_Pom * (int)Math.Pow(labTableData.Re_PomUp, this.level);
         timer = (int)(labTableData.Re_Time * Math.Pow(labTableData.Re_TimeUP, this.level) * seconds);
         reasearchButton.onClick.AddListener(() => LabSystem.Instance.StartResearching(timer, this.labType,this.level));
-        if (LabSystem.Instance.isResearching)
+        if (LabSystem.Instance.isResearching ||CurrencyManager.money2 < price)
         {
             reasearchButton.interactable = false;
         }
         else
+        {
             reasearchButton.interactable = true;
+        }
         LabSystem.Instance.SaveDataSet(this.labTypeNameStringDatas, this.labTypeBuffStringDatas, this.labTableData);
 
         if(open)
@@ -170,4 +172,9 @@ public class LabInfoWindow : Window
         base.Close();
     }
 
+    public void StartResarching()
+    {
+        CurrencyManager.money2 -= price;
+        UIManager.Instance.PrintPommeMoney();
+    }
 }

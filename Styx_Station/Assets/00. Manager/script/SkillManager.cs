@@ -147,35 +147,6 @@ public class SkillManager : Singleton<SkillManager>
         {
             return;
         }
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    UseSkill1();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    UseSkill2();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    UseSkill3();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    UseSkill4();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    UseSkill5();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    UseSkill6();
-        //}
     }
 
     public void UseSkill1(Slider cool)

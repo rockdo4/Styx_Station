@@ -4,6 +4,7 @@ using UnityEngine;
 using static SkillInventory;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 
 /// <summary>
 /// ¼³Á¤: skillcool |= SkillCool.skill001;
@@ -76,8 +77,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public GameObject castZone;
 
-    public delegate void AutoSkillDelegate(Slider cool);
-    private AutoSkillDelegate[] useSkillArray = new AutoSkillDelegate[6];
+    private delegate void AutoSkillDelegate(Slider cool);
+    //private AutoSkillDelegate[] useSkillArray = new AutoSkillDelegate[6];
+    //private Queue<AutoSkillDelegate> autoSkillQueue = new Queue<AutoSkillDelegate>();
+    private Queue<GameObject> skillbutton = new Queue<GameObject>();
     private bool isAuto = false;
 
     private SkillWindow skillWindow;
@@ -106,14 +109,27 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
         skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab));
 
-        useSkillArray[0] = UseSkill1;
-        useSkillArray[1] = UseSkill2;
-        useSkillArray[2] = UseSkill3;
-        useSkillArray[3] = UseSkill4;
-        useSkillArray[4] = UseSkill5;
-        useSkillArray[5] = UseSkill6;
+        //useSkillArray[0] = UseSkill1;
+        //useSkillArray[1] = UseSkill2;
+        //useSkillArray[2] = UseSkill3;
+        //useSkillArray[3] = UseSkill4;
+        //useSkillArray[4] = UseSkill5;
+        //useSkillArray[5] = UseSkill6;
+
+        //autoSkillQueue.Enqueue(UseSkill1);
+        //autoSkillQueue.Enqueue(UseSkill2);
+        //autoSkillQueue.Enqueue(UseSkill3);
+        //autoSkillQueue.Enqueue(UseSkill4);
+        //autoSkillQueue.Enqueue(UseSkill5);
+        //autoSkillQueue.Enqueue(UseSkill6);
+
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
+
+        for(int i = 0; i < 6; i++)
+        {
+            skillbutton.Enqueue(skillWindow.slotButtons[i]);
+        }
         //SetEquipSkillCool();
     }
     private void Start()
@@ -125,13 +141,26 @@ public class SkillManager : Singleton<SkillManager>
     {
         if(isAuto)
         {
-            for(int i = 0; i < equipSkills.Length; i++)
+            //for(int i = 0; i < equipSkills.Length; i++)
+            //{
+            //    if(CheckSkillCool(i))
+            //    {
+            //        useSkillArray[i](skillWindow.slotButtons[i].GetComponent<Slider>());
+            //    }
+            //}
+
+            //while(autoSkillQueue.Count > 0) 
+            //{ 
+            //var currSkill =  autoSkillQueue.Dequeue(); 
+            //currSkill()
+            //}
+            SortSkillButton();
+            while (skillbutton.Count > 0)
             {
-                if(CheckSkillCool(i))
-                {
-                    useSkillArray[i](skillWindow.slotButtons[i].GetComponent<Slider>());
-                }
+                var button = skillbutton.Dequeue();
+                button.GetComponent<NormalButton>().OnClickActive(skillWindow);
             }
+
         }
     }
 
@@ -350,6 +379,8 @@ public class SkillManager : Singleton<SkillManager>
         yield return new WaitForSeconds(cooldown);
         skillcool &= ~cool;
         coolSl.value = 0;
+
+        skillbutton.Enqueue(skillWindow.slotButtons[0]);
     }
 
     IEnumerator Skill2CoolDown(float cooldown, SkillCool cool, Slider coolSl)
@@ -358,6 +389,7 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
+        skillbutton.Enqueue(skillWindow.slotButtons[1]);
     }
 
     IEnumerator Skill3CoolDown(float cooldown, SkillCool cool, Slider coolSl)
@@ -366,6 +398,7 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
+        skillbutton.Enqueue(skillWindow.slotButtons[2]);
     }
 
     IEnumerator Skill4CoolDown(float cooldown, SkillCool cool, Slider coolSl)
@@ -374,6 +407,7 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
+        skillbutton.Enqueue(skillWindow.slotButtons[3]);
     }
     IEnumerator Skill5CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
@@ -381,6 +415,7 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
+        skillbutton.Enqueue(skillWindow.slotButtons[4]);
     }
     IEnumerator Skill6CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
@@ -388,5 +423,18 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
+        skillbutton.Enqueue(skillWindow.slotButtons[5]);
     }
+
+    private void SortSkillButton()
+    {
+        List<GameObject> sortList = new List<GameObject>();
+
+        sortList = skillbutton.ToList();
+        sortList.Sort(
+            (x, y) => x.GetComponent<NormalButton>().equipIndex.CompareTo(y.GetComponent<NormalButton>().equipIndex));
+
+        skillbutton = new Queue<GameObject>(sortList);
+    }
+
 }

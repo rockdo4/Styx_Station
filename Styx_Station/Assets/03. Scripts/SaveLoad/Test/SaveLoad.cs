@@ -121,6 +121,8 @@ public class SaveLoad : MonoBehaviour
         //data.gameSaveDatas.stageData = GameData.stageData;
 
         data.gameSaveDatas.stageIndex = waveManager.GetCurrentIndex();
+        data.gameSaveDatas.isRepeat = waveManager.GetIsRepeat();
+
 
         if (diningRoomsystem != null)
         {
@@ -479,6 +481,14 @@ public class SaveLoad : MonoBehaviour
                     WaveManager.Instance.SetWavePanel();
                 }
 
+                if (gameSaveDatas["isRepeat"] is JToken isRepeat)
+                {
+                    //string str = isRepeat.ToString();
+                    //var isRepeatData = JsonConvert.DeserializeObject<bool>(str);
+                    var isRepeatData = isRepeat.Value<bool>();
+
+                    WaveManager.Instance.SetRepeat(isRepeatData);
+                }
 
                 if (gameSaveDatas["Re001_Lab_SaveDatas"] is JToken labATK1)
                 {

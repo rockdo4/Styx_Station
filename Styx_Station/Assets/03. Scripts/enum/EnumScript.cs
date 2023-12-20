@@ -55,6 +55,7 @@ public enum AttackType
 {
     Ranged, 
     Melee, 
+    Tank,
     None,
 }
 

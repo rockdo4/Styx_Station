@@ -154,6 +154,7 @@ public class GameSaveData
     public string keyAccumulateTime = string.Empty;
     //public StageData stageData;
     public int stageIndex;
+    public bool isRepeat;
 
     public int foodTimerUpgradeLevelUp;
     public int foodSelectUpgradeLevelUp;

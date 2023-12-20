@@ -442,4 +442,9 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         IsRepeating = isR;
         UIManager.Instance.SetActiveRepeatButton(isR);
     }
+
+    public bool GetIsRepeat()
+    {
+        return IsRepeating;
+    }
 }

@@ -31580,6 +31580,8 @@ MonoBehaviour:
   bossSize: 2
   tankSize: 1.5
   spawnSize: 1
+  idleTimeBet: 0.1
+  idleTimeMax: 5
   maxMonsterTypeCount: 4
   increaseAttack: 0
   increaseHealth: 0
@@ -50300,12 +50302,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxWaveLevel: 5
   maxStageLevel: 10
+  haveToChangeTile: 0
   spawner: {fileID: 644709681}
   aliveMonsterCount: 0
   stageList: {fileID: 11400000, guid: f55a05bdd76f5a24fa2d84ac015f8410, type: 2}
   currStage: {fileID: 0}
   Background: {fileID: 833041617}
-  stageText: {fileID: 1897910718}
+  leftTileMaps: []
+  rightTileMaps: []
+  timeLimit: 0
+  timer: 0
+  isWaveInProgress: 0
 --- !u!4 &1016353212
 Transform:
   m_ObjectHideFlags: 0
@@ -61556,6 +61563,7 @@ MonoBehaviour:
   - {fileID: 1636729795}
   - {fileID: 278354047}
   - {fileID: 998724537}
+  tabs: []
 --- !u!114 &1230077357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86965,6 +86973,8 @@ MonoBehaviour:
   level: -1
   labType: 0
   isTimerZero: 0
+  isLoad: 0
+  isAwakeSet: 0
 --- !u!4 &1792420461
 Transform:
   m_ObjectHideFlags: 0
@@ -91511,7 +91521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 233.54541, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1897910717
@@ -92567,6 +92577,11 @@ MonoBehaviour:
   skill: {fileID: 786700200}
   questSystemUi: {fileID: 1494623940}
   RepeatButton: {fileID: 1234008234}
+  timerSlider: {fileID: 0}
+  timerText: {fileID: 0}
+  stageText: {fileID: 0}
+  WavePanels: []
+  gameOverPop: {fileID: 0}
 --- !u!114 &1934580154
 MonoBehaviour:
   m_ObjectHideFlags: 0

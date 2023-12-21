@@ -14,7 +14,6 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     public Animator animator;
     public TextMeshProUGUI playerExpTextMeshProUGUI;
     public TextMeshProUGUI playerLevelTextMeshProUGUI;
-    public Image hpImage;
 
     public List<VamprieSurivalPlayerAttackManager> playerAttackType;
 
@@ -68,21 +67,7 @@ public class VamprieSurivalPlayerController : MonoBehaviour
         //        // Panel¶ç¿ì±â
         //    }
         //}
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            var arrow = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
-            arrow.transform.position = transform.position;
-            //arrow.transform.LookAt(movePos);
 
-            if (movePos != Vector2.zero)
-            {
-                arrow.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(movePos.normalized);
-            }
-            else
-            {
-                arrow.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(new Vector2(1f, 0));
-            }
-        }
         if (VamprieSurvialUiManager.Instance.vamprieJoystick.IsDragging)
         {
             PlayerMove();

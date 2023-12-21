@@ -22,34 +22,36 @@ public class VampireSurvivalGameManager : MonoBehaviour
     }
 
     public VamprieSurivalPlayerController player;
-    public List<VamprieSurivalPlayerAttackManager> playerAttackType;
 
-    public bool isPause;
-    public bool isPlayerLevelup;
+    [HideInInspector]public bool isPause;
+    [HideInInspector] public bool isPlayerLevelup;
 
     public float gameMaxTimer;
     private float gameTimer;
-    public float timer;
+    public float normalMonsterSpwanTimer;
 
     public float minCircleSpwan;
     public float maxCircleSpwan;
 
     public float spwanTime;
     public float spwanTimeDuration;
-    public float spwanMaxNormalMonster;
+    [HideInInspector] public float spwanMaxNormalMonster=30;
 
     [HideInInspector] public bool isGameover;
 
+    public int sliver = 0;//[HideInInspector]
 
+    public int wave = 1;
+    public int waveByMonsterBorn;
+    public int maxMonsterBorn;
 
+    public VampireSurivalPlayerSkillInventory vampireSkillInventory;
     private void Awake()
     {
         if (Instance != this)
         {
-            // ÀÚ½ÅÀ» ÆÄ±«
             Destroy(gameObject);
         }
-        //player.playerAttackType.Add(playerAttackType[0]);
 
         gameTimer = gameMaxTimer;
     }
@@ -61,25 +63,30 @@ public class VampireSurvivalGameManager : MonoBehaviour
             return;
         }
         spwanTime += Time.deltaTime;
-        timer += Time.deltaTime;
-        if (spwanTime>=spwanTimeDuration && timer<= spwanMaxNormalMonster)
+        normalMonsterSpwanTimer += Time.deltaTime;
+        if (spwanTime>=spwanTimeDuration && normalMonsterSpwanTimer<= spwanMaxNormalMonster)
         {
             spwanTime = 0;
-            var monster = ObjectPoolManager.instance.GetGo("VampireNormalMonster1");
-            var minPos = player.transform.position + new Vector3(player.transform.position.x + minCircleSpwan, player.transform.position.y + minCircleSpwan, 0);
-            var maxPos = minPos + new Vector3(minPos.x + maxCircleSpwan, minPos.y + maxCircleSpwan, 0);
-
-            var randomPosx = UnityEngine.Random.Range(minPos.x, maxPos.x);
-            var randomPosy = UnityEngine.Random.Range(minPos.y, maxPos.y);
-            monster.transform.position = new Vector3(randomPosx,randomPosy,0);
+            var random = UnityEngine.Random.Range(wave * waveByMonsterBorn, maxMonsterBorn);
+            for(int i =0;i< random; ++i)
+            {
+                var monster = ObjectPoolManager.instance.GetGo("VampireNormalMonster1");
+                var minPos = player.transform.position + new Vector3(player.transform.position.x + minCircleSpwan, player.transform.position.y + minCircleSpwan, 0);
+                var maxPos = minPos + new Vector3(minPos.x + maxCircleSpwan, minPos.y + maxCircleSpwan, 0);
+                var randomPosx = UnityEngine.Random.Range(minPos.x, maxPos.x);
+                var randomPosy = UnityEngine.Random.Range(minPos.y, maxPos.y);
+                monster.transform.position = new Vector3(randomPosx, randomPosy, 0);
+                monster.GetComponent<VampireSurivalMonster>().BornMonster();
+            }
         }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             var monster =ObjectPoolManager.instance.GetGo("VampireNormalMonster1");
             monster.transform.position = Vector3.zero;
         }
         gameTimer -= Time.deltaTime;
-        timer += Time.deltaTime;
+        normalMonsterSpwanTimer += Time.deltaTime;
         if (gameTimer <=0f)
         {
             isPause = true;

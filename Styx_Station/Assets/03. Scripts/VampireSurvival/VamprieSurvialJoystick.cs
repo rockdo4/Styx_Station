@@ -33,7 +33,6 @@ public class VamprieSurvialJoystick : MonoBehaviour, IDragHandler, IPointerUpHan
     {
         RectTransformUtility.ScreenPointToWorldPointInRectangle(
             rectTransform, screenPos, null, out Vector3 newPoint);
-
         var delta = Vector3.ClampMagnitude(newPoint - originalPoint, radius);
 
         value = delta / radius;

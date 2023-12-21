@@ -3442,7 +3442,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7677464637611367391}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -3473,10 +3473,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7910039e577680245b62bfd38b83d800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
+  currentHp: 0
   speed: 1.5
   findPlayerTimer: 1
   animator: {fileID: 8076503915477684087}
+  attackDelay: 0.3
 --- !u!61 &4471582129903554522
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3506,7 +3507,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.38}

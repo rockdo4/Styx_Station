@@ -7,6 +7,7 @@ public class SkillInfoUi : MonoBehaviour
     private SkillInventory inventory;
     private SkillWindow window;
     private StringTable stringTable;
+    private InfoWindow info;
 
     public int selectIndex;
 
@@ -26,6 +27,7 @@ public class SkillInfoUi : MonoBehaviour
     {
         inventory = InventorySystem.Instance.skillInventory;
         window = UIManager.Instance.skill;
+        info = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>();
     }
     public void InfoUpdate()
     {
@@ -104,7 +106,6 @@ public class SkillInfoUi : MonoBehaviour
         gameObject.GetComponent<Upgrade>().SkillUpgrade(selectIndex);
 
         InfoUpdate();
+        info.InfoTextUpdate();
     }
-
-
 }

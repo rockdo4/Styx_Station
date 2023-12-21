@@ -40,6 +40,14 @@ public class InfoWindow : Window
 
     public void InfoTextUpdate()
     {
+        if(stringTable == null)
+        {
+            stringTable = MakeTableData.Instance.stringTable;
+        }
+        if(stateSystem == null)
+        {
+            stateSystem = StateSystem.Instance;
+        }
         if (Global.language == Language.KOR)
         {
             tabs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo001").KOR}";

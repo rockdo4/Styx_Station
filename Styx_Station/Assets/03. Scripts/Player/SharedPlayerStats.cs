@@ -84,7 +84,10 @@ public static class SharedPlayerStats
         {
             CurrencyManager.money1 -= CurrencyManager.playerPowerPrice;
             playerPower++;
+            StateSystem.Instance.TotalUpdate();
+            UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
             PlayerPowerBoostCondition();
+
         }
         else
         {
@@ -122,6 +125,9 @@ public static class SharedPlayerStats
             {
                 CurrencyManager.money2 -= CurrencyManager.playerPowerBoostPrice;
                 playerPowerBoost++;
+                StateSystem.Instance.TotalUpdate();
+                UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
+
             }
             else
             {
@@ -152,6 +158,8 @@ public static class SharedPlayerStats
             {
                 CurrencyManager.money1 -= CurrencyManager.playerAttackSpeedPrice;
                 playerAttackSpeed++;
+                StateSystem.Instance.TotalUpdate();
+                UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
             }
             else
             {
@@ -184,6 +192,8 @@ public static class SharedPlayerStats
                 CurrencyManager.money1 -= CurrencyManager.criticalPrice;
 
                 critical++;
+                StateSystem.Instance.TotalUpdate();
+                UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
             }
             else
             {
@@ -220,6 +230,8 @@ public static class SharedPlayerStats
         {
             CurrencyManager.money2 -= CurrencyManager.criticalPowerPrice;
             criticalPower++;
+            StateSystem.Instance.TotalUpdate();
+            UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
         }
         else
         {
@@ -259,6 +271,8 @@ public static class SharedPlayerStats
                 CurrencyManager.money2 -= CurrencyManager.monsterDamagerPrice;
 
                 monsterDamage++;
+                StateSystem.Instance.TotalUpdate();
+                UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
             }
             else
                 CurrencyManager.monsterDamagerPrice = prevPrice;
@@ -286,8 +300,8 @@ public static class SharedPlayerStats
             CurrencyManager.money1 -= CurrencyManager.maxHpPrice;
 
             maxHp++;
-
-
+            StateSystem.Instance.TotalUpdate();
+            UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
         }
         else
         {
@@ -315,6 +329,8 @@ public static class SharedPlayerStats
             CurrencyManager.money1 -= CurrencyManager.healingPrice;
 
             healing++;
+            StateSystem.Instance.TotalUpdate();
+            UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
         }
         else
         {

@@ -587,14 +587,6 @@ public class SaveLoad : MonoBehaviour
 
         var state = StateSystem.Instance;
 
-        state.GetPlayerInfoPower();
-        state.GetPlayerInfoHealth();
-        state.GetPlayerInfoSiling();
-        state.GetPlayerInfoEvade();
-        state.GetPlayerInfoAbsorption();
-        state.GetPlayerInfoReduction();
-        state.GetPlayerInfoHealing();
-        state.GetPlayerInfoNormalDamage();
-        state.GetPlayerInfoSkillDamage();
+        state.TotalUpdate();
     }
 }

@@ -7,6 +7,7 @@ public class ItemGacha : MonoBehaviour
 {
     private ShopSystem shop;
     private GachaInfo window;
+    private StateSystem stateSystem;
 
     public Slider nextLevExp;
 
@@ -40,6 +41,7 @@ public class ItemGacha : MonoBehaviour
         {
             shop = ShopSystem.Instance;
             window = UIManager.Instance.windows[6].GetComponent<GachaWindow>().info;
+            stateSystem = StateSystem.Instance;
 
             gachaButtons[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{minGacha}\nGacha";
             gachaButtons[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{middleGach}\nGacha";
@@ -67,8 +69,13 @@ public class ItemGacha : MonoBehaviour
         CurrencyManager.money3 -= minValue;
         shop.ItemGacha(window, minGacha);
 
+        stateSystem.EquipUpdate();
+        stateSystem.AcquireUpdate();
+        stateSystem.TotalUpdate();
+
         window.InfoUpdate(0,0);
         window.gameObject.SetActive(true);
+
         GachaUpdate();
     }
 
@@ -79,6 +86,10 @@ public class ItemGacha : MonoBehaviour
 
         CurrencyManager.money3 -= middleValue;
         shop.ItemGacha(window, middleGach);
+
+        stateSystem.EquipUpdate();
+        stateSystem.AcquireUpdate();
+        stateSystem.TotalUpdate();
 
         window.InfoUpdate(1, 0);
         window.gameObject.SetActive(true);
@@ -93,6 +104,10 @@ public class ItemGacha : MonoBehaviour
 
         CurrencyManager.money3 -= maxValue;
         shop.ItemGacha(window, maxGacha);
+
+        stateSystem.EquipUpdate();
+        stateSystem.AcquireUpdate();
+        stateSystem.TotalUpdate();
 
         window.InfoUpdate(2, 0);
         window.gameObject.SetActive(true);

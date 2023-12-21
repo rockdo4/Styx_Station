@@ -41,6 +41,18 @@ public class StateSystem : Singleton<StateSystem>
         first = true;
     }
 
+    public void TotalUpdate()
+    {
+        GetPlayerInfoPower();
+        GetPlayerInfoHealth();
+        GetPlayerInfoSiling();
+        GetPlayerInfoEvade();
+        GetPlayerInfoAbsorption();
+        GetPlayerInfoReduction();
+        GetPlayerInfoHealing();
+        GetPlayerInfoNormalDamage();
+        GetPlayerInfoSkillDamage();
+    }
     public void GetPlayerInfoPower()
     {
         var equipState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) + EquipItemState.Attack) +

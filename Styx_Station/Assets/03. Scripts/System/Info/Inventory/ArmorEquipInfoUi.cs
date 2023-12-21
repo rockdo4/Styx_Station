@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class ArmorEquipInfoUi : MonoBehaviour
 {
     private Inventory inventory;
+    private StateSystem state;
+    private InfoWindow info;
 
     public int selectIndex;
 
@@ -21,6 +23,8 @@ public class ArmorEquipInfoUi : MonoBehaviour
     public void Inventory()
     {
         inventory = InventorySystem.Instance.inventory;
+        state = StateSystem.Instance;
+        info = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>();
     }
     public void InfoUpdate()
     {
@@ -83,7 +87,7 @@ public class ArmorEquipInfoUi : MonoBehaviour
         if (!inventory.armors[selectIndex].acquire)
             return;
 
-        var equip = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().equipButtons[1];
+        var equip = info.equipButtons[1];
 
         if (equip == null)
             return;
@@ -95,6 +99,10 @@ public class ArmorEquipInfoUi : MonoBehaviour
             inventory.EquipItem(selectIndex, ItemType.Armor);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.armors[selectIndex].item.itemIcon;
             AlphaChange(equip, true);
+            state.EquipUpdate();
+            state.TotalUpdate();
+            InfoUpdate();
+            info.InfoTextUpdate();
             return;
         }
 
@@ -109,12 +117,20 @@ public class ArmorEquipInfoUi : MonoBehaviour
             inventory.DequipItem(item, ItemType.Armor);
             AlphaChange(equip, false);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = null;
+            state.EquipUpdate();
+            state.TotalUpdate();
+            InfoUpdate();
+            info.InfoTextUpdate();
             return;
         }
 
         inventory.EquipItem(selectIndex, ItemType.Armor);
         equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.armors[selectIndex].item.itemIcon;
         AlphaChange(equip, true);
+        state.EquipUpdate();
+        state.TotalUpdate();
+        InfoUpdate();
+        info.InfoTextUpdate();
     }
     private void AlphaChange(Button button, bool value)
     {
@@ -141,5 +157,6 @@ public class ArmorEquipInfoUi : MonoBehaviour
         gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Armor);
 
         InfoUpdate();
+        info.InfoTextUpdate();
     }
 }

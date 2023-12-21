@@ -60,6 +60,7 @@ public class Upgrade : MonoBehaviour
         UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
         stateSystem.AcquireUpdate();
+        stateSystem.TotalUpdate();
     }
 
     private void ArmorUpgrade(int index)
@@ -86,6 +87,7 @@ public class Upgrade : MonoBehaviour
         UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
         stateSystem.AcquireUpdate();
+        stateSystem.TotalUpdate();
     }
 
     private void RingUpgrade(int index)
@@ -112,6 +114,7 @@ public class Upgrade : MonoBehaviour
         item.upgradeLev += 1;
         UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
+        stateSystem.TotalUpdate();
     }
 
     private void SymbolUpgrade(int index)
@@ -137,6 +140,7 @@ public class Upgrade : MonoBehaviour
         item.upgradeLev += 1;
         UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
+        stateSystem.TotalUpdate();
     }
 
     public void SkillUpgrade(int index)
@@ -161,6 +165,7 @@ public class Upgrade : MonoBehaviour
         skill.upgradeLev += 1;
         UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Skill);
         stateSystem.SkillUpdate();
+        stateSystem.TotalUpdate();
     }
 
     public void PetUpgrade(int index)

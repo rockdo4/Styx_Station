@@ -90,8 +90,8 @@ public class VampireSurivalMonster : PoolAble
         }
         if(collision.CompareTag("VampireArrow"))
         {
-            GetDamage(collision.GetComponent<VamprieSurivalPlayerAttackManager>().damage);
-            collision.GetComponent<VamprieSurivalPlayerAttackManager>().ReleaseObject();
+            GetDamage(collision.GetComponent<VamprieSurivalPlayerAttackType>().damage);
+            collision.GetComponent<VamprieSurivalPlayerAttackType>().ReleaseObject();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

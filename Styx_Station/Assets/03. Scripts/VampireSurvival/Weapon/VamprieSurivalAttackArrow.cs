@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackManager
+public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
 {
     private Rigidbody2D rb;
     public float timer;

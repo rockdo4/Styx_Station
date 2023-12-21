@@ -11,18 +11,31 @@ public class VampireSurivalPlayerAttackManager : MonoBehaviour
             var arrow = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
             arrow.transform.position = transform.position;
 
-            //arrow.transform.LookAt(movePos);
-            //arrow.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(new Vector2(1f, 0));
+            var range = arrow.GetComponent<VamprieSurivalPlayerAttackType>().range;
+           
+
             float randomAngle = Random.Range(0f, 360f);
-
-            // Z 축을 기준으로 회전
             arrow.transform.rotation = Quaternion.Euler(0f, 0f, randomAngle);
-
-            // 랜덤한 각도에 따른 방향 벡터 계산
             Vector2 direction = new Vector2(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad));
-
-            // 이후에 필요한 작업 수행
             arrow.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(direction);
+            for(int i=1;i<3;++i)
+            {
+                var arrowLoop = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
+                arrowLoop.transform.position = transform.position;
+                float subAngle = 0f;
+                if(i==1)
+                {
+                    subAngle = randomAngle + 30f;
+                }
+                else if(i ==2)
+                {
+                    subAngle = randomAngle - 30f;
+                }
+                arrowLoop.transform.rotation = Quaternion.Euler(0f, 0f, subAngle);
+                Vector2 directionLoop = new Vector2(Mathf.Cos(subAngle * Mathf.Deg2Rad), Mathf.Sin(subAngle * Mathf.Deg2Rad));
+                arrowLoop.transform.position += (Vector3)directionLoop;
+               arrowLoop.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(directionLoop);
+            }
         }
     }
 }

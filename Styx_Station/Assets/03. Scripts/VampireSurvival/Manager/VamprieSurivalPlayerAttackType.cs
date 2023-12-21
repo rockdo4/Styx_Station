@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class VamprieSurivalPlayerAttackManager : PoolAble
+public abstract class VamprieSurivalPlayerAttackType : PoolAble
 {
     public int damage;
     protected Vector2 direction;

@@ -15,7 +15,7 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     public TextMeshProUGUI playerExpTextMeshProUGUI;
     public TextMeshProUGUI playerLevelTextMeshProUGUI;
 
-    public List<VamprieSurivalPlayerAttackManager> playerAttackType;
+    public List<VamprieSurivalPlayerAttackType> playerAttackType;
 
     public int exp = 0;
     public int expWeight = 10;
@@ -23,7 +23,7 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     private int level = 0;
 
     public int maxHp;
-    private int currentHp;
+    [HideInInspector]public int currentHp;
 
     private void Awake()
     {

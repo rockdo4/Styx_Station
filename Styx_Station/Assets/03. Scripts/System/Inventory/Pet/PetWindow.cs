@@ -72,7 +72,7 @@ public class PetWindow : SubWindow
             {
                 pet.petName.text = $"{stringTable.GetStringTableData(pet.pet.pet.name + "_Name").KOR}";
                 pet.Lv.text = $"Lv.{pet.pet.upgradeLev}";
-                string atk = string.Format(stringTable.GetStringTableData("Pet_Info_Atk").KOR, pet.pet.pet.Pet_Attack + pet.pet.pet.Pet_UpMatter[0] * pet.pet.upgradeLev);
+                string atk = string.Format(stringTable.GetStringTableData("Pet_Info_Atk").KOR, pet.pet.pet.Pet_Attack + pet.pet.pet.Pet_Attack_Lv * pet.pet.upgradeLev);
                 pet.atk.text = $"{atk}";
                 string atkSpeed = string.Format(stringTable.GetStringTableData("Pet_Info_As").KOR, pet.pet.pet.Pet_AttackSpeed);
                 pet.atkSpeed.text = $"{atkSpeed}";
@@ -90,7 +90,7 @@ public class PetWindow : SubWindow
             {
                 pet.petName.text = $"{stringTable.GetStringTableData(pet.pet.pet.name + "_Name").ENG}";
                 pet.Lv.text = $"Lv.{pet.pet.upgradeLev}";
-                string atk = string.Format(stringTable.GetStringTableData("Pet_Info_Atk").ENG, pet.pet.pet.Pet_Attack + pet.pet.pet.Pet_UpMatter[0] * pet.pet.upgradeLev);
+                string atk = string.Format(stringTable.GetStringTableData("Pet_Info_Atk").ENG, pet.pet.pet.Pet_Attack + pet.pet.pet.Pet_Attack_Lv * pet.pet.upgradeLev);
                 pet.atk.text = $"{atk}";
                 string atkSpeed = string.Format(stringTable.GetStringTableData("Pet_Info_As").ENG, pet.pet.pet.Pet_AttackSpeed);
                 pet.atkSpeed.text = $"{atkSpeed}";

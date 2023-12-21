@@ -16,6 +16,8 @@ public class Pet : ScriptableObject
 
     public float Pet_AttackRange;
 
+    public float Pet_Attack_Lv;
+
     public List<int> Pet_UpMatter;
 
     public RuntimeAnimatorController animation;

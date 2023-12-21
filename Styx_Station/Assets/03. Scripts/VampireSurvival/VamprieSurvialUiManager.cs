@@ -1,20 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
+public class VamprieSurvialUiManager : MonoBehaviour
 {
+    private static VamprieSurvialUiManager instance;
+    public static VamprieSurvialUiManager Instance
+    {
+        get
+        {
+            // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
+            if (instance == null)
+            {
+                // 씬에서 GameManager 오브젝트를 찾아 할당
+                instance = FindObjectOfType<VamprieSurvialUiManager>();
+            }
+
+            // 싱글톤 오브젝트를 반환
+            return instance;
+        }
+    }
     public VamprieSurvialJoystick vamprieJoystick;
     private PointerEventData vampriePointerEventData;
 
-    public bool isPause;
-    public bool isPlayerLevelup;
+
+
+    public Slider playerExpSlider;
+    public Slider gameTimerSlider;
+    public TextMeshProUGUI gameTimerTextMeshProUGUI;
+
+    public GameObject loosePopUpWindow;
     private void Awake()
     {
+        if (Instance != this)
+        {
+            // 자신을 파괴
+            Destroy(gameObject);
+        }
         UIManager.Instance.gameObject.SetActive(false);
+
+
     }
 
     private void Start()
@@ -27,7 +57,7 @@ public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
     }
     void Update()
     {
-        if(!isPause)
+        if (!VampireSurvivalGameManager.Instance.isPause && !VampireSurvivalGameManager.Instance.isGameover)
         {
             DrawAndMoveJoystick();
 
@@ -54,6 +84,25 @@ public class VamprieSurvialUiManager : Singleton<VamprieSurvialUiManager>
             vamprieJoystick.OnPointerUp(vampriePointerEventData);
         }
     }
+
+    public void JoysitckDragUp()
+    {
+        vamprieJoystick.gameObject.SetActive(false);
+        vampriePointerEventData.position = Input.mousePosition;
+        vamprieJoystick.OnPointerUp(vampriePointerEventData);
+    }    
+
+    public void PopUpGameOverObject()
+    {
+       loosePopUpWindow.SetActive(true);
+    }
+
+    //private IEnumerator PopUPGameOverPanelTime()
+    //{
+    //    yield return new WaitForSeconds(2);
+    //    loosePopUpWindow.SetActive(true);
+    //}
+
     public void TestC()
     {
         Debug.Log("TTT");

@@ -7454,6 +7454,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 155626392}
   m_CullTransparentMesh: 1
+--- !u!1 &156306651 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8120313100823373966, guid: e4e2249845be069478978c56117f318d, type: 3}
+  m_PrefabInstance: {fileID: 1013099451}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &156332831
 GameObject:
   m_ObjectHideFlags: 0
@@ -16308,6 +16313,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376043726}
   m_CullTransparentMesh: 1
+--- !u!1 &387861855 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8120313100823373966, guid: e4e2249845be069478978c56117f318d, type: 3}
+  m_PrefabInstance: {fileID: 487854220}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &388041902
 GameObject:
   m_ObjectHideFlags: 0
@@ -30802,6 +30812,8 @@ MonoBehaviour:
   bossSize: 2
   tankSize: 1.5
   spawnSize: 1
+  idleTimeBet: 0.1
+  idleTimeMax: 5
   maxMonsterTypeCount: 4
   increaseAttack: 0
   increaseHealth: 0
@@ -37695,6 +37707,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c65f69e4ccd894f9e9a7de379d5df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &809318865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8120313100823373966, guid: e4e2249845be069478978c56117f318d, type: 3}
+  m_PrefabInstance: {fileID: 568118754}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &811447810
 GameObject:
   m_ObjectHideFlags: 0
@@ -48046,11 +48063,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxWaveLevel: 5
   maxStageLevel: 10
+  haveToChangeTile: 0
   spawner: {fileID: 644709681}
   aliveMonsterCount: 0
   stageList: {fileID: 11400000, guid: f55a05bdd76f5a24fa2d84ac015f8410, type: 2}
   currStage: {fileID: 0}
   Background: {fileID: 2055107112}
+  leftTileMaps: []
+  rightTileMaps: []
   timeLimit: 0
   timer: 0
   isWaveInProgress: 0
@@ -49054,6 +49074,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028066997}
   m_CullTransparentMesh: 1
+--- !u!1 &1031264280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8120313100823373966, guid: e4e2249845be069478978c56117f318d, type: 3}
+  m_PrefabInstance: {fileID: 738839755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1032267759 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6404852112659932174, guid: 356bfe343c50efd42a809ee65f156e6e, type: 3}
@@ -50996,6 +51021,18 @@ MonoBehaviour:
       - m_Target: {fileID: 463368627}
         m_TargetAssemblyTypeName: LabInfoWindow, Assembly-CSharp
         m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 463368627}
+        m_TargetAssemblyTypeName: LabInfoWindow, Assembly-CSharp
+        m_MethodName: StartResarching
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -59985,6 +60022,7 @@ MonoBehaviour:
   - {fileID: 1636729795}
   - {fileID: 278354047}
   - {fileID: 998724537}
+  tabs: []
 --- !u!114 &1230077357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61934,6 +61972,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272788814}
   m_CullTransparentMesh: 1
+--- !u!1 &1276918443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8120313100823373966, guid: e4e2249845be069478978c56117f318d, type: 3}
+  m_PrefabInstance: {fileID: 880958164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1279395000 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2063676678024251056, guid: c2dd0d77faae7ab478410b6a28c3e3ac, type: 3}
@@ -89860,6 +89903,17 @@ MonoBehaviour:
   timerSlider: {fileID: 655041821}
   timerText: {fileID: 1044747992}
   stageText: {fileID: 844891263}
+  WavePanels:
+  - {fileID: 387861855}
+  - {fileID: 1276918443}
+  - {fileID: 809318865}
+  - {fileID: 1031264280}
+  - {fileID: 156306651}
+  gameOverPop: {fileID: 0}
+  sliverMoney: {fileID: 5854510}
+  pommeMoney: {fileID: 1866347906}
+  soulMoney: {fileID: 795683042}
+  memoryMoney: {fileID: 779429294}
 --- !u!114 &1934580154
 MonoBehaviour:
   m_ObjectHideFlags: 0

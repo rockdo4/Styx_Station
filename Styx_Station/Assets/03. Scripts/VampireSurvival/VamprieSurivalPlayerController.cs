@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.UI;
 
 public class VamprieSurivalPlayerController : MonoBehaviour
 {
@@ -10,45 +12,62 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     private Vector2 movePos;
     public float moveSpeed = 3f;
     public Animator animator;
+    public TextMeshProUGUI playerExpTextMeshProUGUI;
+    public TextMeshProUGUI playerLevelTextMeshProUGUI;
 
     public List<VamprieSurivalPlayerAttackManager> playerAttackType;
 
     public int exp = 0;
     public int expWeight = 10;
-    public int maxExp;
+    private int maxExp;
     private int level = 0;
+
+    public int maxHp;
+    private int currentHp;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         PlayerLevelUp();
+
+        currentHp = maxHp;
     }
-    private void FixedUpdate()
+    private void Start()
     {
-        
+       
     }
     private void Update()
     {
-        if (VamprieSurvialUiManager.Instance.isPause)
+        if (VampireSurvivalGameManager.Instance.isPause || VampireSurvivalGameManager.Instance.isGameover)
         {
-            if (VamprieSurvialUiManager.Instance.isPlayerLevelup && Input.GetKeyDown(KeyCode.Return))
-            {
-                VamprieSurvialUiManager.Instance.isPause = false;
-                VamprieSurvialUiManager.Instance.isPlayerLevelup = false;
-                PlayerLevelUp();
-            }
             return;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            exp++;
-            if(exp >= maxExp )
-            {
-                VamprieSurvialUiManager.Instance.isPause = true;
-                VamprieSurvialUiManager.Instance.isPlayerLevelup= true;
-                VamprieSurvialUiManager.Instance.vamprieJoystick.gameObject.SetActive(false);
-                // Panel¶ç¿ì±â
-            }
-        }
+
+        //if (VampireSurvivalGameManager.Instance.isPause)
+        //{
+        //    if (VampireSurvivalGameManager.Instance.isPlayerLevelup && Input.GetKeyDown(KeyCode.Return))
+        //    {
+        //        VampireSurvivalGameManager.Instance.isPause = false;
+        //        VampireSurvivalGameManager.Instance.isPlayerLevelup = false;
+        //        VamprieSurvialUiManager.Instance.playerExpSlider.value = 0f;
+        //        PlayerLevelUp();
+        //    }
+        //    return;
+        //}
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    exp++;
+        //    playerExpTextMeshProUGUI.text = $"{exp} / {maxExp}";
+        //    VamprieSurvialUiManager.Instance.playerExpSlider.value = (float)exp / maxExp;
+        //    if (exp >= maxExp )
+        //    {
+        //        VampireSurvivalGameManager.Instance.isPause = true;
+        //        VampireSurvivalGameManager.Instance.isPlayerLevelup= true;
+        //        VamprieSurvialUiManager.Instance.JoysitckDragUp();
+        //        // Panel¶ç¿ì±â
+        //    }
+        //}
+
         if (VamprieSurvialUiManager.Instance.vamprieJoystick.IsDragging)
         {
             PlayerMove();
@@ -89,5 +108,19 @@ public class VamprieSurivalPlayerController : MonoBehaviour
         exp = 0;
         level++;
         maxExp = expWeight * (int)Math.Pow(2, (level - 1));
+        playerExpTextMeshProUGUI.text = $"{exp} / {maxExp}";
+        playerLevelTextMeshProUGUI.text = $"Lv.{level}";
+    }
+
+    public void OnCollisonMonster(int damage)
+    {
+        currentHp -=damage;
+        Debug.Log(currentHp);
+        if(currentHp <=0)
+        {
+            VampireSurvivalGameManager.Instance.isGameover = true;
+            VamprieSurvialUiManager.Instance.PopUpGameOverObject();
+            animator.SetTrigger("Die");
+        }
     }
 }

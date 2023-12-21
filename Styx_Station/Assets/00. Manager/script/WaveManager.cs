@@ -280,7 +280,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void UpdateCurrentStage()
     {
         CurrentStage++;
-        if(CurrentStage > 10)
+        if(CurrentStage > 5)
         {
             CurrentStage = 1;
             UpdateCurrentChapter();
@@ -288,10 +288,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     }
     public void UpdateCurrentWave()
     {
-        if(CurrentChpater == 2 && CurrentStage == 3 && CurrentWave == 5) //최대 40 스테이지까지 제한
-        {
-            return;
-        }
+        //if(CurrentChpater == 2 && CurrentStage == 3 && CurrentWave == 5) //최대 40 스테이지까지 제한
+        //{
+        //    return;
+        //}
         CurrentWave++;
         if (CurrentWave > 5)
         {

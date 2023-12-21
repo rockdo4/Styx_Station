@@ -21,7 +21,9 @@ public class MonsterMeleeWeapon : AttackDefinition
         }
 
         //거리 검사
-        if(Vector3.Distance(attacker.transform.position, defender.transform.position) > range)
+        //monsterCtrl.transform.position.x - player.transform.position.x
+        //if (Vector3.Distance(attacker.transform.position, defender.transform.position) > range)
+        if(attacker.transform.position.x - defender.transform.position.x > range )
         {
             return;
         }

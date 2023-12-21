@@ -90,16 +90,13 @@ public class SkillManager : Singleton<SkillManager>
 
     private void Awake()
     {
-        inventory = InventorySystem.Instance.skillInventory;
-        //equipSkills = inventory.equipSkills;
+
+        if(inventory ==null)
+            inventory = InventorySystem.Instance.skillInventory;
+        if(equipSkills ==null)
+            equipSkills = inventory.equipSkills;
         SetEquipSkill();
         player = GameObject.FindGameObjectWithTag("Player");
-
-        //inventory.EquipSkill(0, 0); //트리플샷, skill001
-        //inventory.EquipSkill(1, 1); //화살비, skill002
-        //inventory.EquipSkill(2, 2); //독화살, skill003
-        //inventory.EquipSkill(5, 3); //회오리샷, skill006
-        //inventory.EquipSkill(6, 4); //먹구름, skill007
 
         skills.Add(new TripleShot(inventory.skills[0], tripleShotShooterPrefab));
         skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone));
@@ -109,20 +106,6 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
         skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab));
 
-        //useSkillArray[0] = UseSkill1;
-        //useSkillArray[1] = UseSkill2;
-        //useSkillArray[2] = UseSkill3;
-        //useSkillArray[3] = UseSkill4;
-        //useSkillArray[4] = UseSkill5;
-        //useSkillArray[5] = UseSkill6;
-
-        //autoSkillQueue.Enqueue(UseSkill1);
-        //autoSkillQueue.Enqueue(UseSkill2);
-        //autoSkillQueue.Enqueue(UseSkill3);
-        //autoSkillQueue.Enqueue(UseSkill4);
-        //autoSkillQueue.Enqueue(UseSkill5);
-        //autoSkillQueue.Enqueue(UseSkill6);
-
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
 
@@ -130,7 +113,7 @@ public class SkillManager : Singleton<SkillManager>
         {
             skillbutton.Enqueue(skillWindow.slotButtons[i]);
         }
-        //SetEquipSkillCool();
+        SetEquipSkillCool();
     }
     private void Start()
     {
@@ -147,19 +130,6 @@ public class SkillManager : Singleton<SkillManager>
     {
         if(isAuto)
         {
-            //for(int i = 0; i < equipSkills.Length; i++)
-            //{
-            //    if(CheckSkillCool(i))
-            //    {
-            //        useSkillArray[i](skillWindow.slotButtons[i].GetComponent<Slider>());
-            //    }
-            //}
-
-            //while(autoSkillQueue.Count > 0) 
-            //{ 
-            //var currSkill =  autoSkillQueue.Dequeue(); 
-            //currSkill()
-            //}
             if(!WaveManager.Instance.isWaveInProgress)
             {
                 return;
@@ -199,6 +169,10 @@ public class SkillManager : Singleton<SkillManager>
 
     public void SetEquipSkillByIndex(int index)
     {
+        if (inventory == null)
+            inventory = InventorySystem.Instance.skillInventory;
+        if(equipSkills == null)
+            equipSkills = inventory.equipSkills;
         equipSkills[index] = inventory.equipSkills[index];
         equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
     }

@@ -7,8 +7,6 @@ public class TornatoShot : SkillBase
     private float speed;
     private GameObject caster;
     private float damageMultiplier;
-
-
     public TornatoShot(SkillInventory.InventorySKill skill, GameObject prefab)
     {
         tornatoShot = skill;

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 
@@ -32,7 +33,8 @@ public class PlayerController : MonoBehaviour
     public States currentStates;
 
     public LayerMask enemyLayer;
-    
+
+    public Image hpBar;
     public void Awake()
     {
         playerStateBases.Add(new PlayerIdleState(this));

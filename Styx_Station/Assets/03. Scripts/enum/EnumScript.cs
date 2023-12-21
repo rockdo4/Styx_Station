@@ -151,8 +151,7 @@ public enum QuestType
 public enum DungeonType
 {
     None = -1,
-    SweepHomeBase=1,
-    CleaingUpTrainTracks,
+    SweepHomeBaseAndClean=1,
     BreakDownTrain,
 }
 
@@ -160,9 +159,6 @@ public enum GatchaType
 {
     None=-1,
     Weapon = 1,
-    Armor,
-    Ring,
-    Sysmbol,
     Skill,
     Pet,
 }
@@ -198,6 +194,5 @@ public enum LabType
     LabSliverUp,
     LabPower2,
     LabHp2,
-
     None =100,
 }

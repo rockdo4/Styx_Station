@@ -57,7 +57,7 @@ public class Upgrade : MonoBehaviour
         item.stock -= num;
 
         item.upgradeLev += 1;
-
+        UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
         stateSystem.AcquireUpdate();
     }
@@ -83,7 +83,7 @@ public class Upgrade : MonoBehaviour
         item.stock -= num;
 
         item.upgradeLev += 1;
-
+        UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
         stateSystem.AcquireUpdate();
     }
@@ -110,7 +110,7 @@ public class Upgrade : MonoBehaviour
         CurrencyManager.itemAsh -= num;
 
         item.upgradeLev += 1;
-
+        UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
     }
 
@@ -135,7 +135,7 @@ public class Upgrade : MonoBehaviour
         CurrencyManager.itemAsh -= num;
 
         item.upgradeLev += 1;
-
+        UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Weapon);
         stateSystem.EquipUpdate();
     }
 
@@ -159,7 +159,7 @@ public class Upgrade : MonoBehaviour
         skill.stock -= num;
 
         skill.upgradeLev += 1;
-
+        UIManager.Instance.questSystemUi.UpgradeQuestSet((int)UpgradeType.Skill);
         stateSystem.SkillUpdate();
     }
 

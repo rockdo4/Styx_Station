@@ -213,6 +213,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         ScrollBackground(true);
         SetWavePanel();
         //StartWave();
+        UIManager.Instance.questSystemUi.ClearWave();
     }
 
     public void MoveMonPosition()

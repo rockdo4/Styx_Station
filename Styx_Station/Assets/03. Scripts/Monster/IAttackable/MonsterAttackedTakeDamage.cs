@@ -30,6 +30,9 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
             WaveManager.Instance.DecreaseAliveMonsterCount();
             CurrencyManager.GetSilver(controller.coin, 0);
             CurrencyManager.GetSilver(controller.pomegranate, 1);
+            UIManager.Instance.questSystemUi.DeathEnemyCounting();
+            UIManager.Instance.PrintSliverMoney();
+            UIManager.Instance.PrintPommeMoney();
             //WaveManager.Instance.IncreaseMoney1();
             //UIManager.instance.ReSetText();
             //PlayerStatsUpgardeUI.Instance.ResetStringMoney();

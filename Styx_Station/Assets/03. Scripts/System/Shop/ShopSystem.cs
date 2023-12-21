@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ShopSystem : Singleton<ShopSystem>
 {
@@ -55,8 +56,9 @@ public class ShopSystem : Singleton<ShopSystem>
                     ArmorItem(info.slots[i].gameObject, item);
                     break;
             }
+            UIManager.Instance.questSystemUi.GetGatchCount((int)GatchaType.Weapon, 1);
         }
-
+        
         if (currentItemRankUp >= itemTable.drops[currentItemRank].RankUp)
         {
             currentItemRankUp -= itemTable.drops[currentItemRank].RankUp;
@@ -244,6 +246,7 @@ public class ShopSystem : Singleton<ShopSystem>
                     break;
             }
             obj.SetActive(true);
+            UIManager.Instance.questSystemUi.GetGatchCount((int)GatchaType.Skill, 1);
             if (!baseSkill.acquire)
             {
                 baseSkill.acquire = true;

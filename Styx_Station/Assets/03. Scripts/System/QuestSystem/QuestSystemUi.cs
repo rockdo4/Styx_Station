@@ -326,7 +326,7 @@ public class QuestSystemUi : MonoBehaviour
 
     public void ClearWave()
     {
-        if (!questData.isClearWave/* && questData.waveClearId <=WaveManag.Unstance.GetIndex(?) */) //조건검사도 같이 넣을 예정
+        if (!questData.isClearWave&& questData.waveClearId <=WaveManager.Instance.GetCurrentIndex()) //조건검사도 같이 넣을 예정
         {
             questData.isClearWave = true;
             questButton.interactable = true;
@@ -339,11 +339,11 @@ public class QuestSystemUi : MonoBehaviour
         questData.waveClearId = data.clear_wave;
         questData.isClearWave= false;
         questCountText.text ="";
-        //if (questData.waveClearId < WaveManager.instance.GetIndex())
-        //{
-        //    
-        //    ClearWave();
-        //}
+        if (questData.waveClearId < WaveManager.Instance.GetCurrentIndex())
+        {
+
+            ClearWave();
+        }
     }
 
     public void PlayDungeon(int index)

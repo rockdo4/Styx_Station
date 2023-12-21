@@ -1,0 +1,787 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3317319869339073788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2538924411070462048}
+  - component: {fileID: 3811858558497640533}
+  m_Layer: 0
+  m_Name: ObjectPoolManager_ver2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2538924411070462048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317319869339073788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3811858558497640533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3317319869339073788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58802a285e80b043b2d7d2f176d8cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectInfos:
+  - objectName: ProtoMeleeMonster
+    prefab: {fileID: 7677464637611367391, guid: 0f7ecf08f5569174a8990cdd984f32e3, type: 3}
+    count: 20
+    maxCount: 40
+  - objectName: ProtoRangeMonster
+    prefab: {fileID: 7009498866873652598, guid: 7055ab2f0afe73f4f9d73cc5b340ffc2, type: 3}
+    count: 20
+    maxCount: 40
+  - objectName: MonsterArrow
+    prefab: {fileID: 9089488441824970676, guid: 9daf692fe8170de4b8abd4b683194fd5, type: 3}
+    count: 10
+    maxCount: 20
+  - objectName: PlayerArrow
+    prefab: {fileID: 1919645320435576257, guid: ca000906097b63d4fbd612167fe11980, type: 3}
+    count: 10
+    maxCount: 20
+  - objectName: PlayerPiercingArrow
+    prefab: {fileID: 1919645320435576257, guid: 33e7c78d0f96291408586bff9776565d, type: 3}
+    count: 10
+    maxCount: 20
+  - objectName: PlayerPoisonArrow
+    prefab: {fileID: 1919645320435576257, guid: 387285127f1c34443b999104f6ae97ee, type: 3}
+    count: 5
+    maxCount: 10
+  - objectName: tornadoShot
+    prefab: {fileID: 1543510359448230966, guid: cea0604a7a562f44abeb27843c212f32, type: 3}
+    count: 3
+    maxCount: 10
+  - objectName: PetAttackPrefabTest
+    prefab: {fileID: 4667469951198680708, guid: 5675493aff18d5142aec5fcd4256d5c9, type: 3}
+    count: 10
+    maxCount: 20
+  - objectName: BlackCloud
+    prefab: {fileID: 9097421536041349944, guid: da2216b7759af954f8a1017b7273312e, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200010001_ghost_male
+    prefab: {fileID: 8069815897036547488, guid: 0483c2a0618083d46815af66718a8485, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010002_ghost_police
+    prefab: {fileID: 1412407603795753249, guid: f2eb9293faf064f4bb2789380bacb346, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010003_ghost_doctor
+    prefab: {fileID: 963642060203823008, guid: 6b7dddc8208a9c747861f199887b70df, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010004_ghost_bald
+    prefab: {fileID: 8722591808721322075, guid: 7486e99467e767e49a90a064efe863d3, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010005_ghost_repeater
+    prefab: {fileID: 8132768420753856453, guid: f931b50e7083b3b4b94b0dd8059470b2, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010006_skeleton
+    prefab: {fileID: 9214143442623116906, guid: 96e1f9ff6bc42624cb15b6ba58cff493, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010007_skeleton_soldier
+    prefab: {fileID: 9101348072814142525, guid: 2b87e82a116661f4c86a8aea2ed4308f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010008_zombie_soldier
+    prefab: {fileID: 6436370625091901368, guid: 66eaae9bccbd3ab4da1c443843f52617, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010009_zombie_viking
+    prefab: {fileID: 8085309100180606052, guid: 707d5d9a019008749963cd9bdb4f4818, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010010_ghost_soldier
+    prefab: {fileID: 6927218552138141269, guid: b62f08601f73ae546aaab7a1b0dbd120, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010011_goblin
+    prefab: {fileID: 5307017949970712354, guid: d669b5d6930eb6d43b636cc01a1c7f2b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010012_goblin_warrior
+    prefab: {fileID: 3407745150577003077, guid: 010350a55f8ac67429a269d9c13d5535, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020001_ghost_kid
+    prefab: {fileID: 8195264491659635196, guid: 6892f38b6f6e70e4f9e7f35a4d82a186, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020002_ghost_highschool
+    prefab: {fileID: 9020557501909205900, guid: 1f1aeac7055c5cb41965b85ceeb93676, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020003_ghost_firefight
+    prefab: {fileID: 228438991360970013, guid: 0bf2d0ee13a9094479cb006e318f1a23, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020004_ghost_bomber
+    prefab: {fileID: 3919479615629765399, guid: 176c490b45f314a4eb423b74e2d6b441, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020005_ghost_magician
+    prefab: {fileID: 8819735549566306789, guid: 9f324ca9845d88247bec58799e3c1683, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020006_skeleton_archer
+    prefab: {fileID: 7512421423962707529, guid: 3722326d6a857184498d3b7a79b427f6, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020007_skeleton_magician
+    prefab: {fileID: 8173251872994015870, guid: 7eeb08c426890b5448bc9dc27a59bfca, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020008_zombie_putrefaction
+    prefab: {fileID: 4883675520186514558, guid: 46c469f28893cfe4dba38051a248c282, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020009_zombie_revolution
+    prefab: {fileID: 4566364684220451093, guid: f2ddb9794c36b92499933ef33fb33c2c, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020010_ghost_archer
+    prefab: {fileID: 1308489138327733036, guid: 6837d91c649b9204797c87266b587c6f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030001_ghost_big
+    prefab: {fileID: 4326650314567362064, guid: 241cb09916113ca4186ac968811f8ddc, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030002_ghost_middleage
+    prefab: {fileID: 5076144024457453687, guid: f4486c5ac604d6f4aa4164c40c86c81c, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030003_zombie_big
+    prefab: {fileID: 4474891783648097413, guid: 069eec6c42dfb0a46a4602323cbb15a5, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030004_skeleton_big
+    prefab: {fileID: 6593624769030993148, guid: 7c4b873b139ea7b4788fb8d77ea58e10, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030005_goblin_big_red
+    prefab: {fileID: 1440603701379464313, guid: bea27c905561818468ca753b4dcb11ce, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030006_ghost_bigdoor
+    prefab: {fileID: 1980375411402850586, guid: e8aca5650242a7f43b6910bd6afa6114, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030007_goblin_shield_red
+    prefab: {fileID: 7786707971645322524, guid: b4fcc437870bbaa4ebc9a9472e416c2b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030008_skeleton_shield
+    prefab: {fileID: 2746147918756304708, guid: d30b410a86c0c2e409595c5909dff98e, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030009_zombie_shield
+    prefab: {fileID: 6591280623855442574, guid: e865f9b75ba13374cb8456f7a9b5b5a5, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030010_skeleton_guardian_shield
+    prefab: {fileID: 2260405647774448896, guid: 7559a115cfabb414b9eaab91ff57ac33, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200040001_boss01
+    prefab: {fileID: 1910217585884157792, guid: 9bb6a0a542b6ba84692ba5df4631b784, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040002_boss02
+    prefab: {fileID: 7937677538069306204, guid: 469aae83714e4894a9bf339241a3c866, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040003_boss03
+    prefab: {fileID: 7311576930306507609, guid: 3b38205c8f2549b4d80da488baca3c32, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040004_boss04
+    prefab: {fileID: 6542762193387301489, guid: fd806c6db1101e244b6a67445c10a11d, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040005_boss05
+    prefab: {fileID: 4312525366736421263, guid: ff62be422e0166c4aa45fa843c880821, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040006_boss06
+    prefab: {fileID: 7342601438896831540, guid: df99c603bcc5bca45bea7fb4304e6fd6, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040007_boss07
+    prefab: {fileID: 4379698060123777876, guid: cbea72a18a8dfc940803285f271617aa, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040008_boss08
+    prefab: {fileID: 4968922812116304270, guid: 8eca4d0601a5e8c44b23c50245731b8f, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040009_boss09
+    prefab: {fileID: 2338791113184616004, guid: e21e855d92cc0154d9c5e908c060eff0, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040010_boss10
+    prefab: {fileID: 2404087774671309076, guid: 07de33018c8dd94409b8b3974dbdfa64, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040025_boss25
+    prefab: {fileID: 7478397628009764153, guid: 3b8b2bc9aa275d946bdaf87fdcecefd6, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200010013_skeleton_berserk
+    prefab: {fileID: 7251787285547454304, guid: 9e27558addd6e2341bd944ebd787d106, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010014_zombie_berserk
+    prefab: {fileID: 738148416821107428, guid: d186ea1ea78450c488bb8207a7f7d97c, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010015_nightmare
+    prefab: {fileID: 6645915895058810785, guid: 065768908eddcd945a570ad096e0dbf6, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010016_zombie_guardian
+    prefab: {fileID: 8530768280129847422, guid: ee80f1b3803503a42b43a66137107cec, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010017_ghost_killer
+    prefab: {fileID: 4877351968215569245, guid: 5b95a8fc37c8c884190bdbf1ac4bfa1b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010018_deathknight
+    prefab: {fileID: 3698577451226935191, guid: 6748d8dff916e1341ad250df791c2878, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010019_ghost_musa
+    prefab: {fileID: 4519251224063088678, guid: 30551dff03fe45d46996011c83301360, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010020_ghost_male_grudge
+    prefab: {fileID: 7478397628009764153, guid: 3b8b2bc9aa275d946bdaf87fdcecefd6, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010021_ghost_police_grudge
+    prefab: {fileID: 23288162647330056, guid: 3d885b1004756f14fbb707f076d4d891, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010022_ghost_doctor_grudge
+    prefab: {fileID: 937144119503195098, guid: a6576224d7085a04c9199fec14df03dc, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010023_ghost_bald_grudge
+    prefab: {fileID: 6588331331756104039, guid: 903eddf6af43fdc479063eba6dc83ce7, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010024_ghost_repeater_grudge
+    prefab: {fileID: 7528146940736395354, guid: 520670381b8ffaa4bb5d67960e64f570, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010025_skeleton_red
+    prefab: {fileID: 3459505077014095200, guid: fb4a0d53baf1f324f9eecf666169bbd3, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010026_skeleton_soldier_red
+    prefab: {fileID: 6680380327735190443, guid: 26730147ab42c364bb9008c9a6f0da8f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010027_zombie_soldier_reborn
+    prefab: {fileID: 6367591832055356821, guid: 3c798bd357bc7dc49be53693e794268f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010028_zombie_viking_reborn
+    prefab: {fileID: 187064900191497798, guid: 8eb3cd2e9ba601e4cac6613ff7bc45ad, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010029_ghost_soldier_haunted
+    prefab: {fileID: 290567269484408457, guid: 26ca3fd130253c64981cb6c5d76525e6, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010030_goblin_red
+    prefab: {fileID: 4340073534938741851, guid: 69a03f8f62d43cf47b894ff40327b5f4, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010031_goblin_soldier_red
+    prefab: {fileID: 2032974334883418487, guid: 979e066b6d65e9d4aa12dc541794ff79, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010032_skeleton_berserk_red
+    prefab: {fileID: 1519225373570552456, guid: 252b790e5186d874fb604f6440ead98f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010033_nightmare_highborn
+    prefab: {fileID: 3666829250862480971, guid: 399a886197805c84788395fe6d7cbcb7, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010034_zombie_guardian_reborn
+    prefab: {fileID: 472932178732557560, guid: 0908b5b7a94433946a9f86ae40210378, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010035_ghost_killer_crazy
+    prefab: {fileID: 6507676972654541083, guid: 4408fc798cc890b4da4fe20730f56e21, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010036_deathknight_free
+    prefab: {fileID: 6418435981490276559, guid: db9ca9afd8e6ed643b571ba789d4827a, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010037_ghost_musa_legend
+    prefab: {fileID: 1797826119098329690, guid: 8954a7265aa587a4cb3da7d317891c6b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010038_ghost_male_black
+    prefab: {fileID: 1936000885663522843, guid: 1e2d7322a24856845b16a52bec74a667, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010039_ghost_police_black
+    prefab: {fileID: 7608023074592827138, guid: 95495dff5f8abe1478b4328d0c17e901, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010040_ghost_doctor_black
+    prefab: {fileID: 4914875364311077417, guid: 12b1db42448f7be4c87de4a5c8bf4aa6, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010041_ghost_bald_black
+    prefab: {fileID: 7282917552267046476, guid: 042882b53bba7174dbeaa6265ec95135, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010042_ghost_repeater_black
+    prefab: {fileID: 806029206186495952, guid: 95c0283c80d1a954ba56d2a409d2556e, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010043_skeleton_black
+    prefab: {fileID: 1945142882440608294, guid: bbed407ed767e064fa92c522dfff13d9, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010044_skeleton_soldier_black
+    prefab: {fileID: 3234350986934321271, guid: 53fb480c63061a049b0bcbffd55dee75, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010045_zombie_soldier_necro
+    prefab: {fileID: 3239271323209352238, guid: 3a6bb2fc46a404b419563e9ee6477469, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010046_zombie_viking_necro
+    prefab: {fileID: 6640491358823659504, guid: 590ea742dbefdb44db1bc8e225223e08, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010047_ghost_soldier_cursed
+    prefab: {fileID: 7360294962760263814, guid: 132caf3b96b0c04438f08b6d0aedca70, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010048_goblin_snow
+    prefab: {fileID: 2691056282716505817, guid: 3704a5c00a549744181ff687cd0e63d7, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010049_goblin_soldier_snow
+    prefab: {fileID: 3275720950549819239, guid: ada9e88c69cf3fe4d98dbe819c7df53e, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010050_skeleton_berserk_black
+    prefab: {fileID: 473501315922684332, guid: a30c7f62acc39694ea0060bd461be6aa, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010051_zombie_berserk_necro
+    prefab: {fileID: 8614945982115770709, guid: 2206b45ecc6b0db4a8adbe714f011337, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010052_nightmare_corruption
+    prefab: {fileID: 7769532420745809586, guid: 38fd8fa39c9489c409cc5f3badb3678b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010052_nightmare_corruption
+    prefab: {fileID: 3466437995759195371, guid: f776f12b43eef64469aaeac2dd3ab913, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010053_zombie_guardian_necro
+    prefab: {fileID: 3466437995759195371, guid: f776f12b43eef64469aaeac2dd3ab913, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010054_ghost_killer_cursed
+    prefab: {fileID: 9189288700283166636, guid: 969bcbe2320d5154ea08c27c9e4a1e0d, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010055_deathknight_cursed
+    prefab: {fileID: 3309220953281250813, guid: 2d854d0c880fe0d44ae628e81f6270aa, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200010056_ghost_musa_possessed
+    prefab: {fileID: 8110897432395359558, guid: 9aa8dddc65a7a7e42bd917c946ac606f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020011_goblin_archer
+    prefab: {fileID: 535412320509023058, guid: 2cb555328796d434ea9d7688650a1cea, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020012_goblin_magician
+    prefab: {fileID: 4636072771590378097, guid: ad8cedb8d2b8521468be51b72598f2e3, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020013_skeleton_sniper
+    prefab: {fileID: 2520167515982166714, guid: 0f0333564f6234240b5364a65602adf7, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020014_zombie_sniper
+    prefab: {fileID: 6890229110577505188, guid: 1f399433f787cc84a8182d3128f9bf79, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020015_succubus
+    prefab: {fileID: 540392862648122407, guid: 06a6f317ef75b184fb2df167bb23ad8b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020016_necromancer
+    prefab: {fileID: 9209390637482415763, guid: ce0db271379dc7048bb4294a43f60b3b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020017_lich
+    prefab: {fileID: 1907368030418343471, guid: 5a73b4f1a518a084ca1741276cf01a55, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020018_hunter_reborn
+    prefab: {fileID: 3364337137298257886, guid: 14b28ad901866ec47a0dd819e4893e66, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020019_skeleton_guardian_archer
+    prefab: {fileID: 1228940054397584758, guid: c9f183bc40a25474695a3699a2878488, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020020_golblin_red_magician
+    prefab: {fileID: 8757315003993390233, guid: f2d3ea0a9edf6654db8688f876a515e3, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020021_ghost_kid_grudge
+    prefab: {fileID: 4119512486957646299, guid: 474068bad20abbc4281545582489c899, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020022_ghost_highschool_grudge
+    prefab: {fileID: 2532042483665676227, guid: 65b2972e9f1630143b59bc154568f80f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020023_ghost_firefight_grudge
+    prefab: {fileID: 3201468493409633418, guid: e72f3be516ff8e64792617a8a997bb96, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020024_ghost_magician_grudge
+    prefab: {fileID: 4029306633118524985, guid: 7612afe0545c44b46a07f3ca3385ec0f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020025_skeleton_archer_red
+    prefab: {fileID: 2912599825594229767, guid: a747a901e450b30429cc5ed07da239f8, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020026_skeleton_magician_red
+    prefab: {fileID: 3243022652921511015, guid: 694628a1cb53d1b4988a800f748098d6, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020027_zombie_putrefaction_red
+    prefab: {fileID: 822363769200905568, guid: dfc7f3cc76de2f7449ab34fe5d449cb4, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020028_zombie_revolution_red
+    prefab: {fileID: 2994307646054637310, guid: c9725e09f36e2824081ae9cc7bc4a95b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020029_ghost_archer_reborn
+    prefab: {fileID: 4120072158832280953, guid: 72b9541d5fdb0704fa49679b522ccfa2, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020030_goblin_archer_reborn
+    prefab: {fileID: 4010562621620520701, guid: 5e472d4974a1ab849991cb0a95e15dda, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020031_goblin_magician_reborn
+    prefab: {fileID: 5900421334367200605, guid: ccc3503ec46a96740af814f002c793cc, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020032_skeleton_sniper_red
+    prefab: {fileID: 8499777811599836260, guid: cd411ff39e3c852478a2579bdb08ce3e, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020033_zombie_sniper_red
+    prefab: {fileID: 4985285487970832477, guid: 4048537d6de78a142b92927cc395edb2, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020034_succubus_highborn
+    prefab: {fileID: 7109661458843761858, guid: 341b6adc0e29f4141b4f8503efc8f4fc, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020035_necromancer_highborn
+    prefab: {fileID: 868808837020988926, guid: a6920054892f9414d8add75fd194e9d3, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020036_lich_highborn
+    prefab: {fileID: 6432451657133113150, guid: 51c75c3db18dd424ab70a047178e9f88, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020037_hunter_huntdeath
+    prefab: {fileID: 5473312547205279494, guid: 58f925170cb116f42810d20c9f3cf3ca, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020038_skeleton_guardian_archer_red
+    prefab: {fileID: 6917170196814495101, guid: 2429b05ebb6c2ab4197c4a3b28c522f3, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020039_goblin_magician_possessed_red
+    prefab: {fileID: 3208289486642480890, guid: 71baac22a69a8a244a23433c5d438cde, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020040_ghost_kid_black
+    prefab: {fileID: 2866372564896753343, guid: 84eb0033726615d4a8616a58aed1cb0b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020041_ghost_highschool_black
+    prefab: {fileID: 1742072755077825729, guid: 2ce905867dd6f2543b35340ee0a5bb56, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020042_ghost_firefight_black
+    prefab: {fileID: 8597824452104350797, guid: 3d9c0479d0a06be4383b48a6339c9ba2, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020043_ghost_bomber_black
+    prefab: {fileID: 7888838342452347499, guid: 4e4c3ae2357f48f4ba04fd95c78c5c72, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020044_ghost_magician_black
+    prefab: {fileID: 4491080130405670645, guid: ab32c2a1e0985fc448ad6e5ab95ba8dc, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020045_skeleton_archer_black
+    prefab: {fileID: 7366657173457856572, guid: ec7ecfa55e13c2b418801dda524c1738, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020046_skeleton_magician_black
+    prefab: {fileID: 7549297894036333504, guid: 80538315c8fa89b48befb6ea93a13e4d, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020047_zombie_putrefaction_black
+    prefab: {fileID: 5826352854547791164, guid: 0aad3167319c23c46bbf9669053956f4, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020048_zombie_revolution_black
+    prefab: {fileID: 9111237791987124398, guid: bb4830d183095a4429213533d39a4b86, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020049_ghost_archer_necro
+    prefab: {fileID: 2041021522098114178, guid: 266f7056cb0d314448607bf3f616728c, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020050_goblin_archer_necro
+    prefab: {fileID: 6127086910856351554, guid: 0bbcba7d16cfe384c9391d90fd1b8f33, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020051_goblin_magician_necro
+    prefab: {fileID: 8113063658528645970, guid: 98af565b3109ee346a5a28cc2d05b4a6, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020052_skeleton_sniper_black
+    prefab: {fileID: 510328780201832598, guid: 8303879f5f26429458fd626e57613a88, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020053_zombie_sniper_black
+    prefab: {fileID: 7954988898748070178, guid: a9a95a45bf7d1e44c82c4d29d047e689, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020054_succubus_corruption
+    prefab: {fileID: 2456932446839609708, guid: 5a2784e9ab59ba746a4416f6ccf82199, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020055_necromancer_cursed
+    prefab: {fileID: 2510163747946005615, guid: 1fb9957adb4fac546a59e356df92f7c1, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020056_lich_legend
+    prefab: {fileID: 5265864036666744362, guid: ec01446e7c823e040a65ea96b5cde1cc, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020057_hunter_cursed
+    prefab: {fileID: 1181459898984704586, guid: 3e73415c20019824b864f04bec221de2, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020058_skeleton_guardian_archer_black
+    prefab: {fileID: 7698438078196487833, guid: 0fd3bdef7b1461b4aaa91166220b53e0, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200020059_goblin_magician_necro_red
+    prefab: {fileID: 5366691594267095342, guid: 39edd7ac959d573439d216245693ab5f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030011_ghost_grudge_big
+    prefab: {fileID: 105050858678135173, guid: 0d23ecfd9dc9afd42b301672b8b2bc49, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030012_ghost_middleage_grudge
+    prefab: {fileID: 8966613196789582955, guid: 23b7232c5c5d18f47b8a088a1bfc3dc4, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030013_zombie_big_red
+    prefab: {fileID: 5266631020056762632, guid: c539aedc73bbd964f8f81fe1198e2890, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030014_skeleton_big_red
+    prefab: {fileID: 3868535873713965831, guid: fa4a975337b047840807736deef5b2ae, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030015_goblin_reborn_big_red
+    prefab: {fileID: 3969747822785345368, guid: cb54284897a23114194aaba4e71e9edd, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030016_ghos_reborn_bigdoor
+    prefab: {fileID: 4463905061912192246, guid: fe15d8b865cc9fb4187a13c3a46539ed, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030017_zombie_shield_red
+    prefab: {fileID: 6508481734108680111, guid: d30ba452b449888449792acbd4232d5b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030018_skeleton_shield_red
+    prefab: {fileID: 5804949425009217978, guid: 8a89c2b3246ef3842adc6e9a04e03331, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030019_goblin_shield_red
+    prefab: {fileID: 1449704820722297505, guid: 7d8c0347221fe8141b8f59ac5de5ab4a, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030020_skeleton_guardian_shield_red
+    prefab: {fileID: 6611183092825780547, guid: f7eed1270a4896c40a90c895604dc096, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030021_ghost_big_black
+    prefab: {fileID: 7621242485719866327, guid: 4cb1ae6cf7e017a4388c4ac0de92f817, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030022_ghost_middleage_black
+    prefab: {fileID: 8049655820520598342, guid: 6a265c337c5872e48b303e93c56b1e7b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030023_zombie_reborn_big
+    prefab: {fileID: 6040327202189984941, guid: 95f388cd7cc7f7840bcc4f5a0c4c6b3f, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030024_skeleton_reborn_big
+    prefab: {fileID: 5195309885118990451, guid: 697307225b71c9042b219f7fd9e033e7, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030025_goblin_reborn_big
+    prefab: {fileID: 1676543982103444040, guid: 1cdf7758c7630844b9d547d640921d69, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030026_ghost_shield_reborn_big
+    prefab: {fileID: 6168035226743549696, guid: 347a4f062bf8351479ccd52d5c71141d, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030027_zombie_shield_black
+    prefab: {fileID: 1028303222336748661, guid: fda0565027fba72459cf36901e87faec, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030028_skeleton_reborn_big
+    prefab: {fileID: 2521730720723095138, guid: 69c35bcda4178a1408889ecf299cff7b, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030029_goblin_shield_black
+    prefab: {fileID: 3291185770801433319, guid: e43629e9868c56342ab4a945a2cbcc6e, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030031_icegiant
+    prefab: {fileID: 7784258115996268493, guid: 42e4fef257b22ac4d8d533725bfc97f8, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030032_icegiant_shield
+    prefab: {fileID: 7784258115996268493, guid: 42e4fef257b22ac4d8d533725bfc97f8, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030033_icegiant_escort
+    prefab: {fileID: 4793162293830009470, guid: 23fac3945f07fe440a5b66ded1d2c1bb, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030034_icegiant_charge
+    prefab: {fileID: 1992171079955324003, guid: b559ecfebc633884993271403f1b8201, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030035_icegiant_guardian
+    prefab: {fileID: 151381124414757486, guid: 8c1b9af35c4482942b94d35891759766, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200030036_icegiant_hero
+    prefab: {fileID: 244864713040232701, guid: 3e2f5fdb867b3e24e89624c890b26171, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200040011_boss11
+    prefab: {fileID: 7302252926147995313, guid: 517e3b1942d9c1f4c8e398efc0fb8ad8, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040012_boss12
+    prefab: {fileID: 7617138411812631083, guid: cc272b3797ac3a34f8cf5aaef75a58ca, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040013_boss13
+    prefab: {fileID: 9222619697445475625, guid: 2a13fb94f1947e443b378f14e278c99b, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040014_boss14
+    prefab: {fileID: 3499210294465986180, guid: 947aabefe2a35a545a67998f3dcb3918, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200040015_boss15
+    prefab: {fileID: 5637302826962988365, guid: 02bbbc910115dbc46af392a013900c24, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040016_boss16
+    prefab: {fileID: 5540514491855742724, guid: 4de9848ea4464914f8ca7b6065bb9efa, type: 3}
+    count: 20
+    maxCount: 50
+  - objectName: 200040017_boss17
+    prefab: {fileID: 3584179308301295202, guid: 947afd55b1ae9744bb49eb710cc7154e, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040018_boss18
+    prefab: {fileID: 8611484104146450633, guid: dba6dca92aed5694f890fac6c1d0ec18, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040019_boss19
+    prefab: {fileID: 8747718844996553847, guid: edfa1ebf69b229843ba3bcca181d7bd7, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040020_boss20
+    prefab: {fileID: 2897497551304610447, guid: 84e4f102010508446ac78c6d9a81af18, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040021_boss21
+    prefab: {fileID: 3266298039301897739, guid: 10dff414edd50e7468a80c25fcd11a3e, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040022_boss22
+    prefab: {fileID: 3145769470296216932, guid: a8f6afb66d1f5e047b30b2f0e4aac1a8, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040023_boss23
+    prefab: {fileID: 8831425450908079257, guid: f81bf8986befd3f48b0eb4e72afc1959, type: 3}
+    count: 3
+    maxCount: 5
+  - objectName: 200040024_boss24
+    prefab: {fileID: 5037535391028411955, guid: 00d12e8dbc8c399449a0c6e63db3c5ee, type: 3}
+    count: 3
+    maxCount: 5

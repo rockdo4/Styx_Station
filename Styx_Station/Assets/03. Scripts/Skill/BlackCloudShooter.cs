@@ -96,7 +96,7 @@ public class BlackCloudShooter : Shooter
             attackable.OnAttack(caster, attack);
         }
 
-        Debug.Log("Hit monster in blakc cloud");
+        //Debug.Log("Hit monster in blakc cloud");
     }
 
     private void ReleaseCloud()

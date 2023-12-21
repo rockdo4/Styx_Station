@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using Unity.VisualScripting;
 using System.Threading;
+using System.Diagnostics.Contracts;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
@@ -385,6 +386,18 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         }
     }
 
+    public void ReleaseShooter()
+    {
+        GameObject[] shooters = GameObject.FindGameObjectsWithTag("Shooter")
+           .Where(shooter => shooter.activeSelf)
+           .ToArray();
+
+        foreach (var shooter in shooters)
+        {
+            shooter.GetComponent<PoolAble>().ReleaseObject();
+        }
+    }
+
     private void StopArrows()
     {
         GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
@@ -393,7 +406,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         foreach(var arrow in Arrows)
         {
             arrow.GetComponent<PoolAble>().ReleaseObject();
-
+            if(arrow.GetComponent<PiercingArrow>() != null)
+            {
+                arrow.GetComponent<PiercingArrow>().isRelease = true;
+            }
             if(arrow.GetComponent<PlayerArrow>() != null )
             {
                 arrow.GetComponent<PlayerArrow>().isRelease = true;

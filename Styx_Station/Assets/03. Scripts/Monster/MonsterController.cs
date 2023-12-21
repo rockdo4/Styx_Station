@@ -175,7 +175,7 @@ public class MonsterController : PoolAble //MonoBehaviour
                 yield break;
             }
             var attackables = gameObject.GetComponents<IAttackable>();
-            Debug.Log("hit poison");
+            //Debug.Log("hit poison");
             foreach (var attackable in attackables)
             {
                 attackable.OnAttack(attacker, poisionAttack);

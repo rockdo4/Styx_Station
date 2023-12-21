@@ -17,8 +17,9 @@ public class Shooter : PoolAble
         randomFloat = Mathf.Round(randomFloat * 10f) / 10f;
         bool isCritical = randomFloat <= criticalChance;
 
-        var currentDamage = attacker.ResultMonsterNormalDamage(isCritical, 0);
-        currentDamage = GetDamage(currentDamage, multiple);
+        //var currentDamage = attacker.ResultMonsterNormalDamage(isCritical, 0);
+        //currentDamage = GetDamage(currentDamage, multiple);
+        var currentDamage = attacker.ResultMonsterSkillDamage(isCritical, 0, multiple);
         return new Attack(currentDamage, false);
     }
 }

@@ -5,9 +5,11 @@ using UnityEngine;
 public class MonsterMoveState : MonsterStateBase
 {
     public Vector2 moveDir = Vector2.left;
-    public MonsterMoveState(MonsterController manager) : base(manager)
+    private AttackType attackType;
+    private bool isArrived;
+    public MonsterMoveState(MonsterController manager, AttackType attackType) : base(manager)
     {
-
+        this.attackType = attackType;
     }
 
     public override void Enter()
@@ -18,12 +20,16 @@ public class MonsterMoveState : MonsterStateBase
     public override void Exit()
     {
         monsterCtrl.animator.SetFloat("RunState", 0f);
+        isArrived = false;
     }
 
     public override void FixedUpate()
     {
-        Vector2 moveVelocity = moveDir.normalized * monsterCtrl.monsterStats.speed;
-        monsterCtrl.rigid.MovePosition(monsterCtrl.rigid.position + moveVelocity * Time.deltaTime);
+        if(!isArrived)
+        {
+            Vector2 moveVelocity = moveDir.normalized * monsterCtrl.monsterStats.speed;
+            monsterCtrl.rigid.MovePosition(monsterCtrl.rigid.position + moveVelocity * Time.deltaTime);
+        }
     }
 
     public override void Update()
@@ -36,9 +42,16 @@ public class MonsterMoveState : MonsterStateBase
 
         if(DistanceToPlayer <= monsterCtrl.range)
         {
-            monsterCtrl.SetState(States.Attack);
-            return;
+            isArrived = true;
+            if(attackType != AttackType.Tank)
+            {
+                monsterCtrl.SetState(States.Attack);
+                return;
+            }
+            else
+            {
+                monsterCtrl.animator.SetFloat("RunState", 0f);
+            }
         }
-
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using Unity.VisualScripting;
 using System.Threading;
+using System.Diagnostics.Contracts;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
@@ -279,7 +280,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void UpdateCurrentStage()
     {
         CurrentStage++;
-        if(CurrentStage > 10)
+        if(CurrentStage > 5)
         {
             CurrentStage = 1;
             UpdateCurrentChapter();
@@ -287,10 +288,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     }
     public void UpdateCurrentWave()
     {
-        if(CurrentChpater == 2 && CurrentStage == 3 && CurrentWave == 5) //최대 40 스테이지까지 제한
-        {
-            return;
-        }
+        //if(CurrentChpater == 2 && CurrentStage == 3 && CurrentWave == 5) //최대 40 스테이지까지 제한
+        //{
+        //    return;
+        //}
         CurrentWave++;
         if (CurrentWave > 5)
         {
@@ -385,6 +386,18 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         }
     }
 
+    public void ReleaseShooter()
+    {
+        GameObject[] shooters = GameObject.FindGameObjectsWithTag("Shooter")
+           .Where(shooter => shooter.activeSelf)
+           .ToArray();
+
+        foreach (var shooter in shooters)
+        {
+            shooter.GetComponent<PoolAble>().ReleaseObject();
+        }
+    }
+
     private void StopArrows()
     {
         GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
@@ -393,7 +406,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         foreach(var arrow in Arrows)
         {
             arrow.GetComponent<PoolAble>().ReleaseObject();
-
+            if(arrow.GetComponent<PiercingArrow>() != null)
+            {
+                arrow.GetComponent<PiercingArrow>().isRelease = true;
+            }
             if(arrow.GetComponent<PlayerArrow>() != null )
             {
                 arrow.GetComponent<PlayerArrow>().isRelease = true;
@@ -441,5 +457,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     {
         IsRepeating = isR;
         UIManager.Instance.SetActiveRepeatButton(isR);
+    }
+
+    public bool GetIsRepeat()
+    {
+        return IsRepeating;
     }
 }

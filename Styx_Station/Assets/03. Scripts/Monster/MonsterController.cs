@@ -75,7 +75,7 @@ public class MonsterController : PoolAble //MonoBehaviour
     private void Start()
     {
         states.Add(new MonsterIdleState(this));
-        states.Add(new MonsterMoveState(this));
+        states.Add(new MonsterMoveState(this, monsterStats.attackType));
         states.Add(new MonsterAttackState(this));
         states.Add(new MonsterDieState(this));
 
@@ -175,7 +175,7 @@ public class MonsterController : PoolAble //MonoBehaviour
                 yield break;
             }
             var attackables = gameObject.GetComponents<IAttackable>();
-            Debug.Log("hit poison");
+            //Debug.Log("hit poison");
             foreach (var attackable in attackables)
             {
                 attackable.OnAttack(attacker, poisionAttack);

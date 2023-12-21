@@ -29,7 +29,7 @@ public class MonsterTypeBase : ScriptableObject
     public float speed;
 
     [Header("monster_range")]
-    public int monster_range;
+    public float monster_range;
 
     [Header("monster_size")]
     public int monster_size;
@@ -46,5 +46,4 @@ public class MonsterTypeBase : ScriptableObject
     [Header("monster_prefab")]
     public GameObject prefab;
 
-    public MonsterType monsterType;
 }

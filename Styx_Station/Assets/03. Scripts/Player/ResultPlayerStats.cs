@@ -178,7 +178,7 @@ public class ResultPlayerStats : MonoBehaviour
     }
 
 
-    private void GetSkillCriticalDamage(float skillCount, float skillPower)
+    private void GetSkillCriticalDamage(float skillCount)
     {
         var power = GetPlayerPower();
         var powerBoostResult = (int)(GetPowerBoost() * playerPowerBoostPercent) / playerPowerBoostPercent;
@@ -187,20 +187,20 @@ public class ResultPlayerStats : MonoBehaviour
         critclaPowerResult = critclaPowerResult + ((PlayerBuff.Instance.buffData.criticalPowerBuff * critclaPowerResult)/PlayerBuff.Instance.percent);
         var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
         monsterDamageResult = monsterDamageResult + ((monsterDamageResult * PlayerBuff.Instance.buffData.bossAttackBuff) / PlayerBuff.Instance.percent);
-        var sillPowerResult = (int)(skillPower * skillDamage) / skillDamage;
+        //var sillPowerResult = (int)(skillPower * skillDamage) / skillDamage;
         skillCountResult = skillCountResult + ((skillCountResult * PlayerBuff.Instance.buffData.skillBuff) / PlayerBuff.Instance.percent);
         //if (critclaPowerResult == 0) critclaPowerResult = 1;
         //if (powerBoostResult == 0) powerBoostResult = 1;
         //if (monsterDamageResult == 0) monsterDamageResult = 1;
         //if (skillCountResult == 0) skillCountResult = 1;
-        skillMonsterDamage = power + ((power * powerBoostResult) * skillCountResult * critclaPowerResult * (monsterDamageResult + sillPowerResult));
+        //skillMonsterDamage = power + ((power * powerBoostResult) * skillCountResult * critclaPowerResult * (monsterDamageResult + sillPowerResult));
     }
 
-    public BigInteger ResultMonsterSkillDamage(bool isCritical, float monsterDefense, float a, float t)
+    public BigInteger ResultMonsterSkillDamage(bool isCritical, float monsterDefense, float a)
     {
         if (isCritical)
         {
-            GetSkillCriticalDamage(a, t);
+            GetSkillCriticalDamage(a);
         }
         else
         {

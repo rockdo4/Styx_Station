@@ -11,7 +11,7 @@ public class PiercingArrow : PoolAble
     private GameObject caster;
     private float speed;
 
-    private bool isRelease = false;
+    public bool isRelease = false;
 
     private void Awake()
     {

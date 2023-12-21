@@ -66,7 +66,7 @@ public class InfoWindow : Window
             tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").ENG}";
             string text = string.Format(stringTable.GetStringTableData("Playerinfo005").ENG,
                 stateSystem.TotalState.Attack,
-                stateSystem.TotalState.HealHealth,
+                stateSystem.TotalState.BloodSucking,
                 stateSystem.TotalState.SkillDamage,
                 stateSystem.TotalState.NormalDamage,
                 stateSystem.TotalState.Health,

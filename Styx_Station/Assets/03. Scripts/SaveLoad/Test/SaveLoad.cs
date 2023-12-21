@@ -583,5 +583,8 @@ public class SaveLoad : MonoBehaviour
         state.GetPlayerInfoEvade();
         state.GetPlayerInfoAbsorption();
         state.GetPlayerInfoReduction();
+        state.GetPlayerInfoHealing();
+        state.GetPlayerInfoNormalDamage();
+        state.GetPlayerInfoSkillDamage();
     }
 }

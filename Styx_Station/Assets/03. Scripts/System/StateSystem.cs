@@ -65,6 +65,30 @@ public class StateSystem : Singleton<StateSystem>
         TotalState.Attack += TotalState.Attack * (powerBoostResult + labBuff);
     }
 
+    public void GetPlayerInfoNormalDamage()
+    {
+        var attributePower = (SharedPlayerStats.GetMonsterDamagePower() - 1) * state.monsterDamageFloat;
+
+        var equipState = EquipItemState.NormalDamage;
+
+        var acquireState = AcquireItemState.NormalDamage;
+
+        var food = PlayerBuff.Instance.buffData.bossAttackBuff;
+
+        TotalState.NormalDamage = attributePower + equipState + acquireState + food;
+    }
+
+    public void GetPlayerInfoSkillDamage()
+    {
+        var equipState = EquipItemState.SkillDamage;
+
+        var acquireState = AcquireItemState.SkillDamage;
+
+        var food = PlayerBuff.Instance.buffData.skillBuff;
+
+        TotalState.SkillDamage = equipState + acquireState + food;
+    }
+
     public void GetPlayerInfoHealth()
     {
         var attributeHp = ((state.playerAttribute.MaxHp * GameData.labBuffData.re_Hp1) / GameData.labBuffDataPercent);
@@ -120,6 +144,17 @@ public class StateSystem : Singleton<StateSystem>
         var acquireState = AcquireItemState.BloodSucking;
 
         TotalState.BloodSucking = equipState + acquireState;
+    }
+
+    public void GetPlayerInfoHealing()
+    {
+        var attributeHeal = 10 + ((SharedPlayerStats.GetHealing() - 1) * state.increaseUpgradeHealing / 100);
+
+        var equipState = EquipItemState.HealHealth;
+
+        var acquireState = AcquireItemState.HealHealth;
+
+        TotalState.HealHealth = equipState + acquireState + attributeHeal;
     }
 
 

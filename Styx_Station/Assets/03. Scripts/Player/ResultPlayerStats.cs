@@ -55,7 +55,6 @@ public class ResultPlayerStats : MonoBehaviour
     private void Start()
     {
         SharedPlayerStats.resultPlayerStats = this;
-        healing = SharedPlayerStats.GetHealing();
         CurrentMaxHpSet();
         playerCurrentHp = playerMaxHp;
     }
@@ -73,7 +72,7 @@ public class ResultPlayerStats : MonoBehaviour
         if (nowTime + healingTimer < Time.time)
         {
             nowTime = Time.time;
-            playerCurrentHp += healing * increaseUpgradeHealing / 10;// + (int)inventory.t_HealHealth;
+            playerCurrentHp += state.TotalState.HealHealth * increaseUpgradeHealing / 10;// + (int)inventory.t_HealHealth;
             if (playerCurrentHp >= playerMaxHp)
             {
                 playerCurrentHp = playerMaxHp;
@@ -108,18 +107,14 @@ public class ResultPlayerStats : MonoBehaviour
     private void GetNormalDamage()
     {
         var power = GetPlayerPower();
-        var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
-        monsterDamageResult = monsterDamageResult + ((monsterDamageResult * PlayerBuff.Instance.buffData.bossAttackBuff) / PlayerBuff.Instance.percent);
-        normalMonsterDamage = power + (power * monsterDamageResult);
+        normalMonsterDamage = power + (power * (int)state.TotalState.NormalDamage / 100);
     }
     private void GetNoramlCriticalDamage()
     {
         var power = GetPlayerPower();
         var critclaPowerResult = (int)(GetCritclaPower() * criticlDamage) / criticlDamage;
-        var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
-        monsterDamageResult = monsterDamageResult + ((monsterDamageResult * PlayerBuff.Instance.buffData.bossAttackBuff)/PlayerBuff.Instance.percent);
-        normalMonsterDamage = power + (power * critclaPowerResult * monsterDamageResult);
-        normalMonsterDamage = normalMonsterDamage + ((normalMonsterDamage * PlayerBuff.Instance.buffData.criticalPowerBuff) / PlayerBuff.Instance.percent);
+        critclaPowerResult += PlayerBuff.Instance.buffData.criticalPowerBuff / PlayerBuff.Instance.percent;
+        normalMonsterDamage = (power + (power * critclaPowerResult)) + (((power + (power * critclaPowerResult)) * (int)state.TotalState.NormalDamage) / 100);
     }
 
 
@@ -144,32 +139,26 @@ public class ResultPlayerStats : MonoBehaviour
         //skillCount 스킬 계수임
     {
         var power = GetPlayerPower();
-        var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
-        monsterDamageResult = monsterDamageResult + ((monsterDamageResult * PlayerBuff.Instance.buffData.bossAttackBuff) / PlayerBuff.Instance.percent);
-        var skillCountResult = (int)(skillCount * skillDamage) / skillDamage;
-        skillCountResult = skillCountResult +((skillCountResult * PlayerBuff.Instance.buffData.skillBuff)/PlayerBuff.Instance.percent);
-        skillMonsterDamage = power + (power * skillCountResult * monsterDamageResult);
+        skillMonsterDamage = (power * (int)skillCount / 100) * ((int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100;
     }
 
 
-    private void GetSkillCriticalDamage(float skillCount, float skillPower)
+    private void GetSkillCriticalDamage(float skillCount)
     {
         var power = GetPlayerPower();
-        var skillCountResult = (int)(skillCount * skillDamage) / skillDamage;
+
         var critclaPowerResult = (int)(GetCritclaPower() * criticlDamage) / criticlDamage;
-        critclaPowerResult = critclaPowerResult + ((PlayerBuff.Instance.buffData.criticalPowerBuff * critclaPowerResult)/PlayerBuff.Instance.percent);
-        var monsterDamageResult = (int)(GetMonsterDamage() * monsterDamagePercent) / monsterDamagePercent;
-        monsterDamageResult = monsterDamageResult + ((monsterDamageResult * PlayerBuff.Instance.buffData.bossAttackBuff) / PlayerBuff.Instance.percent);
-        var sillPowerResult = (int)(skillPower * skillDamage) / skillDamage;
-        skillCountResult = skillCountResult + ((skillCountResult * PlayerBuff.Instance.buffData.skillBuff) / PlayerBuff.Instance.percent);
-        skillMonsterDamage = power + (power * skillCountResult * critclaPowerResult * (monsterDamageResult + sillPowerResult));
+        critclaPowerResult += PlayerBuff.Instance.buffData.criticalPowerBuff / PlayerBuff.Instance.percent;
+
+        skillMonsterDamage = ((power * (int)skillCount / 100) * (power * (int)skillCount / 100) * critclaPowerResult)
+            + ((((power * (int)skillCount / 100) * (power * (int)skillCount / 100) * critclaPowerResult) * (int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100);
     }
 
-    public BigInteger ResultMonsterSkillDamage(bool isCritical, float monsterDefense, float a, float t)
+    public BigInteger ResultMonsterSkillDamage(bool isCritical, float monsterDefense, float a)
     {
         if (isCritical)
         {
-            GetSkillCriticalDamage(a, t);
+            GetSkillCriticalDamage(a);
         }
         else
         {
@@ -218,13 +207,5 @@ public class ResultPlayerStats : MonoBehaviour
     public void CurrentMaxHpSet()
     {
         playerMaxHp = state.TotalState.Health;
-    }
-
-    public void SetHealingLevel(int number = 0)
-    {
-        if (number <= 0)
-            healing = SharedPlayerStats.GetHealing();
-        else
-            healing = number;
     }
 }

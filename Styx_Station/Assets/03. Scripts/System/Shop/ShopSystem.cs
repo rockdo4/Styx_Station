@@ -267,4 +267,87 @@ public class ShopSystem : Singleton<ShopSystem>
             }
         }
     }
+
+    public void PetGacha(GachaInfo info, int count)
+    {
+        if (count < 1)
+            return;
+
+        for (int i = 0; i < count; ++i)
+        {
+            var pet = petTable.GetPet(currentPetRank);
+
+            if (pet == null)
+                continue;
+
+            currentPetRankUp += 1;
+
+            var basePet = petInventory.pets.Where(x => x.pet.name == pet.name).FirstOrDefault();
+
+            if (basePet == null)
+                continue;
+
+            var obj = info.slots[i].gameObject;
+            var slot = obj.transform.GetChild(0);
+            //slot.GetComponent<Image>().sprite = basePet;
+            Color color = new Color();
+            switch (basePet.pet.Pet_Tier)
+            {
+                case Tier.Common:
+                    {
+                        color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Uncommon:
+                    {
+                        color = new Color(0, 0, 0, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Rare:
+                    {
+                        color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Unique:
+                    {
+                        color = new Color(248f / 255f, 207f / 255f, 41f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+
+                case Tier.Legendry:
+                    {
+                        color = new Color(0, 1, 71f / 255f, 128f / 255f);
+                        obj.GetComponent<Outline>().effectColor = color;
+                    }
+                    break;
+            }
+            obj.SetActive(true);
+            UIManager.Instance.questSystemUi.GetGatchCount((int)GatchaType.Pet, 1);
+            if (!basePet.acquire)
+            {
+                basePet.acquire = true;
+                continue;
+            }
+
+            basePet.stock += 1;
+        }
+
+        if (currentPetRankUp >= petTable.drops[currentPetRank].RankUp)
+        {
+            currentPetRankUp -= petTable.drops[currentPetRank].RankUp;
+            currentPetRank += 1;
+
+            if (currentPetRank > petTable.drops.Count - 1)
+            {
+                currentPetRank = petTable.drops.Count - 1;
+            }
+        }
+    }
 }

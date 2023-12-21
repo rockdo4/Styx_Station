@@ -49,7 +49,7 @@ public class PetInventory : MonoBehaviour
         if (addPet != null)
             return;
 
-        pets.Add(new InventoryPet(pet, 0, true, false, 0, -1, -1));
+        pets.Add(new InventoryPet(pet, 0, false, false, 0, -1, -1));
     }
 
     public void EquipPet(int petIndex, int equipIndex)
@@ -64,7 +64,7 @@ public class PetInventory : MonoBehaviour
             return;
 
         if (pets[petIndex].equip)
-            DequipSkill(petIndex, pets[petIndex].equipIndex);
+            DequipPet(petIndex, pets[petIndex].equipIndex);
 
         if (equipPets[equipIndex] == null || equipPets[equipIndex].pet == null)
             equipPets[equipIndex] = pets[petIndex];
@@ -80,7 +80,7 @@ public class PetInventory : MonoBehaviour
         pets[petIndex].equipIndex = equipIndex;
     }
 
-    public void DequipSkill(int petIndex, int equipIndex)
+    public void DequipPet(int petIndex, int equipIndex)
     {
         if (pets == null)
             return;

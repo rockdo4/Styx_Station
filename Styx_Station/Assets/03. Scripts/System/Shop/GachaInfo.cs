@@ -6,6 +6,7 @@ public class GachaInfo : MonoBehaviour
 {
     private ItemGacha item;
     private SkillGacha skill;
+    private PetGacha pet;
     private ShopSystem shop;
     public enum GachaType
     {
@@ -27,10 +28,11 @@ public class GachaInfo : MonoBehaviour
 
     public TextMeshProUGUI valueText;
 
-    public void First(ItemGacha itemGacha, SkillGacha skillGacha)
+    public void First(ItemGacha itemGacha, SkillGacha skillGacha, PetGacha petGacha)
     {
         item = itemGacha;
         skill = skillGacha;
+        pet = petGacha;
         shop = ShopSystem.Instance;
     }
     public void InfoUpdate(int buttonIndex, int typeIndex)
@@ -52,6 +54,7 @@ public class GachaInfo : MonoBehaviour
                 SkillText();
                 break;
             case GachaType.Crew:
+                PetText();
                 break;
         }
     }
@@ -98,6 +101,27 @@ public class GachaInfo : MonoBehaviour
         }
     }
 
+    private void PetText()
+    {
+        switch (value)
+        {
+            case 0:
+                valueText.text = $"{pet.minValue}";
+                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.minGacha} Gacha";
+                break;
+
+            case 1:
+                valueText.text = $"{pet.middleValue}";
+                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.middleGach} Gacha";
+                break;
+
+            case 2:
+                valueText.text = $"{pet.maxValue}";
+                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.maxGacha} Gacha";
+                break;
+        }
+    }
+
     public void OnClickReGacha()
     {
         foreach(var slot in  slots)
@@ -114,6 +138,9 @@ public class GachaInfo : MonoBehaviour
                 break;
             case GachaType.Skill:
                 SkillGacha();
+                break;
+            case GachaType.Crew:
+                PetGacha();
                 break;
         }
     }
@@ -192,6 +219,43 @@ public class GachaInfo : MonoBehaviour
         }
     }
 
+    public void PetGacha()
+    {
+        switch (value)
+        {
+            case 0:
+                if (CurrencyManager.money3 < pet.minValue)
+                {
+                    OnClickGachaInfoClose();
+                    return;
+                }
+
+                CurrencyManager.money3 -= pet.minValue;
+                shop.PetGacha(this, pet.minGacha);
+                break;
+            case 1:
+                if (CurrencyManager.money3 < pet.middleValue)
+                {
+                    OnClickGachaInfoClose();
+                    return;
+                }
+
+                CurrencyManager.money3 -= pet.middleValue;
+                shop.PetGacha(this, pet.middleGach);
+                break;
+            case 2:
+                if (CurrencyManager.money3 < pet.maxValue)
+                {
+                    OnClickGachaInfoClose();
+                    return;
+                }
+
+                CurrencyManager.money3 -= pet.maxValue;
+                shop.PetGacha(this, pet.maxGacha);
+                break;
+        }
+    }
+
     public void OnClickGachaInfoClose()
     {
         foreach (var slot in slots)
@@ -210,6 +274,13 @@ public class GachaInfo : MonoBehaviour
 
                 case GachaType.Skill:
                 skill.GachaUpdate();
+                value = -1;
+                type = GachaType.None;
+                gameObject.SetActive(false);
+                break;
+
+            case GachaType.Crew:
+                pet.GachaUpdate();
                 value = -1;
                 type = GachaType.None;
                 gameObject.SetActive(false);

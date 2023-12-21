@@ -150,6 +150,10 @@ public class GameSaveData
 
     public List<EquipSkillData> equipSkill = new List<EquipSkillData>();
 
+    public List<PetData> petData = new List<PetData>();
+
+    public List<EquipPetData> equipPet = new List<EquipPetData>();
+
     public string exitTime = string.Empty;
     public string keyAccumulateTime = string.Empty;
     //public StageData stageData;
@@ -165,6 +169,8 @@ public class GameSaveData
     public int itemRankUp;
     public int skillRank;
     public int skillRankUp;
+    public int petRank;
+    public int petRankUp;
 
     public PlayerBuffData playerBuff;
 

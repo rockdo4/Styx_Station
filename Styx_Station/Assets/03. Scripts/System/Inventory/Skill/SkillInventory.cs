@@ -122,12 +122,4 @@ public class SkillInventory : MonoBehaviour
         skills[skillIndex].equipIndex = -1;
         equipSkills[equipIndex] = null;
     }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            skills[0].stock += 5;
-        }
-    }
 }

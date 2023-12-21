@@ -57,7 +57,16 @@ public class SkillInfoUi : MonoBehaviour
                 skill.skill.Skill_Res[0].Skill_RE_EFF + skill.upgradeLev * skill.skill.Skill_Res[0].Skill_RE_LVUP);
                 skillText.text = $"{text}";
             }
-            
+
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").KOR}";
+            if (skill.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").KOR}";
+            }
+            else
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").KOR}";
+            }
         }
         else if (Global.language == Language.ENG)
         {
@@ -76,6 +85,16 @@ public class SkillInfoUi : MonoBehaviour
                 string text = string.Format(stringTable.GetStringTableData(skill.skill.name + "_Info").ENG,
                 skill.skill.Skill_Res[0].Skill_RE_EFF + skill.upgradeLev * skill.skill.Skill_Res[0].Skill_RE_LVUP);
                 skillText.text = $"{text}";
+            }
+
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").ENG}";
+            if (skill.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").ENG}";
+            }
+            else
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").ENG}";
             }
         }
 

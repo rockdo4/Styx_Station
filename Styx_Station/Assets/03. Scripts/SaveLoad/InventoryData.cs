@@ -71,3 +71,31 @@ public class EquipSkillData
         this.equipIndex = equipIndex;
     }
 }
+
+public class PetData
+{
+    public string petName;
+    public int petLevel;
+    public bool acquire;
+    public int stock;
+
+    public PetData(string petName, int petLevel, bool acquire, int stock)
+    {
+        this.petName = petName;
+        this.petLevel = petLevel;
+        this.acquire = acquire;
+        this.stock = stock;
+    }
+}
+
+public class EquipPetData
+{
+    public string petName;
+    public int equipIndex;
+
+    public EquipPetData(string petName, int equipIndex)
+    {
+        this.petName = petName;
+        this.equipIndex = equipIndex;
+    }
+}

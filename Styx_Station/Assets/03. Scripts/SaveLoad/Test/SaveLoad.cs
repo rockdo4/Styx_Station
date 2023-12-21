@@ -26,8 +26,6 @@ public class SaveLoad : MonoBehaviour
     {
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
 
-       
-
         data.gameSaveDatas.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
         data.gameSaveDatas.playerdata.playerPowerboost = SharedPlayerStats.GetPlayerPowerBoost();
         data.gameSaveDatas.playerdata.playerAttackSpeed = SharedPlayerStats.GetPlayerAttackSpeed();
@@ -44,6 +42,8 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.itemRankUp = shop.currentItemRankUp;
         data.gameSaveDatas.skillRank = shop.currentSkillRank;
         data.gameSaveDatas.skillRankUp = shop.currentSkillRankUp;
+        data.gameSaveDatas.petRank = shop.currentPetRank;
+        data.gameSaveDatas.petRankUp = shop.currentPetRankUp;
 
         var inventory = InventorySystem.Instance.inventory;
 
@@ -105,6 +105,25 @@ public class SaveLoad : MonoBehaviour
 
             EquipSkillData equips = new EquipSkillData(equip.skill.name, equip.equipIndex);
             data.gameSaveDatas.equipSkill.Add(equips);
+        }
+        var petInventory = InventorySystem.Instance.petInventory;
+        foreach(var pet in petInventory.pets)
+        {
+            PetData petData = new PetData(pet.pet.name, pet.upgradeLev, pet.acquire, pet.stock);
+            data.gameSaveDatas.petData.Add(petData);
+        }
+        for(int i = 0;i<petInventory.equipPets.Length; ++i)
+        {
+            var equip = petInventory.equipPets[i];
+
+            if(equip == null)
+                continue;
+
+            if(equip.pet ==null)
+                continue;
+
+            EquipPetData equips = new EquipPetData(equip.pet.name, equip.equipIndex);
+            data.gameSaveDatas.equipPet.Add(equips);
         }
         data.gameSaveDatas.exitTime = DateTime.Now.ToString($"{GameData.datetimeString}");
 
@@ -277,6 +296,8 @@ public class SaveLoad : MonoBehaviour
                 uiInvenvtory.Setting();
                 var uiSkill = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[2].GetComponent<SkillWindow>();
                 uiSkill.Setting();
+                var uiPet = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[3].GetComponent<PetWindow>();
+                uiPet.Setting();
 
                 if (gameSaveDatas["equipItem"] is JToken equipToken)
                 {
@@ -356,6 +377,37 @@ public class SaveLoad : MonoBehaviour
                         }
                     }
                     UIManager.Instance.SkillButtonOn();
+                }
+                var petInventory = InventorySystem.Instance.petInventory;
+
+                if (gameSaveDatas["petData"]is JToken petToken)
+                {
+                    string pets = petToken.ToString();
+                    var pData = JsonConvert.DeserializeObject<List<PetData>>(pets);
+                    foreach(var pet in pData)
+                    {
+                        var petData = petInventory.pets.Where(x=>x.pet.name == pet.petName).FirstOrDefault();
+                        if(petData != null)
+                        {
+                            petData.upgradeLev = pet.petLevel;
+                            petData.acquire = pet.acquire;
+                            petData.stock = pet.stock;
+                        }
+                    }
+                }
+
+                if (gameSaveDatas["equipPet"] is JToken equipPetToken)
+                {
+                    string equipPet = equipPetToken.ToString();
+                    var equipPetData = JsonConvert.DeserializeObject<List<EquipPetData>>(equipPet);
+                    foreach(var equip in equipPetData)
+                    {
+                        var pet = petInventory.pets.Where(x=> x.pet.name == equip.petName).FirstOrDefault();
+                        if(pet != null)
+                        {
+                            petInventory.EquipPet(pet.petIndex, equip.equipIndex);
+                        }
+                    }
                 }
 
                 if (gameSaveDatas["exitTime"] is JToken exitTime)
@@ -463,6 +515,18 @@ public class SaveLoad : MonoBehaviour
                     string str = rankUp_s.ToString();
                     var skillRankUp = JsonConvert.DeserializeObject<int>(str);
                     shop.currentSkillRankUp = skillRankUp;
+                }
+                if (gameSaveDatas["petRank"] is JToken rank_p)
+                {
+                    string str = rank_p.ToString();
+                    var petRank = JsonConvert.DeserializeObject<int>(str);
+                    shop.currentPetRank = petRank;
+                }
+                if (gameSaveDatas["petRankUp"]is JToken rankUp_p)
+                {
+                    string str = rankUp_p.ToString();
+                    var petRankUp = JsonConvert.DeserializeObject<int>(str);
+                    shop.currentPetRankUp = petRankUp;
                 }
 
                 var loadState = StateSystem.Instance;

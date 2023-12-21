@@ -7,6 +7,7 @@ public class GachaWindow : Window
     public GachaInfo info;
     public ItemGacha itemGacha;
     public SkillGacha skillGacha;
+    public PetGacha petGacha;
 
     private bool first = false;
     public override void Open()
@@ -14,12 +15,13 @@ public class GachaWindow : Window
         base.Open();
         if(!first)
         {
-            info.First(itemGacha, skillGacha);
+            info.First(itemGacha, skillGacha, petGacha);
             first = true;
         }
 
         itemGacha.GachaUpdate();
         skillGacha.GachaUpdate();
+        petGacha.GachaUpdate();
     }
 
     public override void Close()

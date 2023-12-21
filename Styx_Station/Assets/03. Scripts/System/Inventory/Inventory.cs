@@ -17,19 +17,6 @@ public class Inventory : MonoBehaviour
     public float t_SkillDamage;
     public float t_BossDamage;
 
-    public float a_Attack;
-    public float a_Health;
-    public float a_AttackSpeed;
-    public float a_HealHealth;
-    public float a_AttackPer;
-    public float a_Evade;
-    public float a_DamageReduction;
-    public float a_BloodSucking;
-    public float a_CoinAcquire;
-    public float a_NormalDamage;
-    public float a_SkillDamage;
-    public float a_BossDamage;
-
     [System.Serializable]
     public class InventoryItem
     {
@@ -73,7 +60,7 @@ public class Inventory : MonoBehaviour
 
     private InventoryItem[] equipItems  = new InventoryItem[4];
 
-    public StateSystem state;
+    private StateSystem state;
 
     public void CustomReset()
     {
@@ -271,6 +258,9 @@ public class Inventory : MonoBehaviour
         if (itemIndex < 0)
             return;
 
+        if(state == null)
+            state = StateSystem.Instance;
+
         switch (type)
         {
             case ItemType.Weapon:
@@ -286,14 +276,6 @@ public class Inventory : MonoBehaviour
                 SymbolEquip(customSymbols[itemIndex].item);
                 break;
         }
-
-        var find = GameObject.FindWithTag("Player");
-        if(find !=null)
-        {
-            var stats = find.GetComponent<ResultPlayerStats>();
-            if(stats != null)
-                stats.SettingPlayerMaxHP();
-        }
     }
 
     public void DequipItem(InventoryItem item, ItemType type)
@@ -306,6 +288,9 @@ public class Inventory : MonoBehaviour
 
         if (!item.acquire)
             return;
+
+        if (state == null)
+            state = StateSystem.Instance;
 
         switch (type)
         {
@@ -321,13 +306,6 @@ public class Inventory : MonoBehaviour
             case ItemType.Symbol:
                 SymbolDequip(item);
                 break;
-        }
-        var find = GameObject.FindWithTag("Player");
-        if (find != null)
-        {
-            var stats = find.GetComponent<ResultPlayerStats>();
-            if (stats != null)
-                stats.SettingPlayerMaxHP();
         }
     }
 
@@ -470,18 +448,5 @@ public class Inventory : MonoBehaviour
         item.equip = false;
         equipItems[3] = null;
         state.EquipUpdate();
-    }
-
-    public void AcquireState()
-    {
-        foreach(var item in weapons)
-        {
-            item.item.AcquireValue();
-        }
-
-        foreach(var item in armors)
-        {
-            item.item.AcquireValue();
-        }
     }
 }

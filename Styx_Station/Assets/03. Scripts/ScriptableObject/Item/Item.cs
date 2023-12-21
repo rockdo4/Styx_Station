@@ -38,56 +38,6 @@ public class Item : ScriptableObject
 
     public Sprite itemIcon;
 
-    public void AcquireValue()
-    {
-        if (type == ItemType.Ring || type == ItemType.Symbol)
-            return;
-
-        if (addOptions != null)
-        {
-            if (addOptions.Count > 0)
-            {
-                var inventory = InventorySystem.Instance.inventory;
-                if (inventory == null)
-                    return;
-
-                foreach (var option in addOptions)
-                {
-                    switch (option.option)
-                    {
-                        case AddOptionString.AttackPer:
-                            inventory.a_AttackPer += option.value;
-                            break;
-
-                        case AddOptionString.Evade:
-                            inventory.a_Evade += option.value;
-                            break;
-
-                        case AddOptionString.DamageReduction:
-                            inventory.a_DamageReduction += option.value;
-                            break;
-
-                        case AddOptionString.Bloodsucking:
-                            inventory.a_BloodSucking += option.value;
-                            break;
-
-                        case AddOptionString.CoinAcquire:
-                            inventory.a_CoinAcquire += option.value;
-                            break;
-
-                        case AddOptionString.SkillDamage:
-                            inventory.a_SkillDamage += option.value;
-                            break;
-
-                        case AddOptionString.BossDamage:
-                            inventory.a_BossDamage += option.value;
-                            break;
-                    }
-                }
-            }
-        }
-    }
-
     public void AddOptions(AddOptionString option, float value)
     {
         if (addOptions == null)

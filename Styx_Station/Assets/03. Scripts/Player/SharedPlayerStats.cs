@@ -287,11 +287,7 @@ public static class SharedPlayerStats
 
             maxHp++;
 
-            var find = GameObject.FindWithTag("Player");
-            if(find != null)
-            {
-                find.GetComponent<ResultPlayerStats>().SettingUpgradeHp(maxHp);
-            }
+
         }
         else
         {
@@ -319,11 +315,6 @@ public static class SharedPlayerStats
             CurrencyManager.money1 -= CurrencyManager.healingPrice;
 
             healing++;
-            var find = GameObject.FindWithTag("Player");
-            if (find != null)
-            {
-                find.GetComponent<ResultPlayerStats>().SetHealingLevel(healing);
-            }
         }
         else
         {

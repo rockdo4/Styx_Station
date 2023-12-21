@@ -15,7 +15,7 @@ public class Upgrade : MonoBehaviour
         itemInventory = InventorySystem.Instance.inventory;
         skillInventory = InventorySystem.Instance.skillInventory;
         petInventory = InventorySystem.Instance.petInventory;
-        stateSystem = InventorySystem.Instance.state;
+        stateSystem = StateSystem.Instance;
     }
     public void ItemUpgrade(int index, ItemType type)
     {

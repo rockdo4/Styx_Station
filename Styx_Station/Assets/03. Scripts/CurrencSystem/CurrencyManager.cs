@@ -1,5 +1,4 @@
 using System.Numerics;
-using UnityEngine;
 
 public static class CurrencyManager 
 {
@@ -19,14 +18,12 @@ public static class CurrencyManager
 
     public static int itemAsh = 0;
 
-
     public static void GetSilver(BigInteger money,int a)
     {
         switch(a)
         {
             case 0:
-                money1 += money + ((money * GameData.labBuffData.re_Sliup) / GameData.labBuffDataPercent);
-                money1 += money + ((money *PlayerBuff.Instance.buffData.silingBuff)*PlayerBuff.Instance.percent);
+                money1 += money + (money * (int)StateSystem.Instance.TotalState.CoinAcquire / 100);
                 break;
 
             case 1:

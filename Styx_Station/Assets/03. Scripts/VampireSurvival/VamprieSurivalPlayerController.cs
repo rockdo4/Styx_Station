@@ -24,10 +24,12 @@ public class VamprieSurivalPlayerController : MonoBehaviour
 
     public int maxHp;
     [HideInInspector]public int currentHp;
+    private VampireDamageEffect vampirePlayerEffect;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        vampirePlayerEffect= GetComponent<VampireDamageEffect>();
         PlayerLevelUp();
 
         currentHp = maxHp;
@@ -115,8 +117,9 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     public void OnCollisonMonster(int damage)
     {
         currentHp -=damage;
-        Debug.Log(currentHp);
-        if(currentHp <=0)
+        if (vampirePlayerEffect.effectCoroutine ==null)
+            vampirePlayerEffect.effectCoroutine=StartCoroutine(vampirePlayerEffect.ChangeColor());
+        if (currentHp <=0)
         {
             VampireSurvivalGameManager.Instance.isGameover = true;
             VamprieSurvialUiManager.Instance.PopUpGameOverObject();

@@ -5,7 +5,6 @@ using UnityEngine;
 public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
 {
     private Rigidbody2D rb;
-    public float timer;
     private bool isStartObject;
     private void Awake()
     {
@@ -36,14 +35,4 @@ public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
         isStartObject =true;
         direction = position;
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if(collision.collider.CompareTag("VampireEnemy"))
-    //    {
-    //        collision.collider.GetComponent<VampireSurivalMonster>().GetDamage(damage);
-    //        ReleaseObject();
-    //    }
-    //}
-
 }

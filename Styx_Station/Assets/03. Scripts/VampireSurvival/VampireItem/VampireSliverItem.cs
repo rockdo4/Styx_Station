@@ -8,6 +8,7 @@ public class VampireSliverItem : PoolAble
     private GameObject player;
     private float speed = 1f;
     private Rigidbody2D rb;
+    public float eatDistance=0.2f;
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class VampireSliverItem : PoolAble
             pos += (Vector2)(direction * speed * Time.deltaTime);
             rb.MovePosition(pos);
 
-            if (Vector2.Distance(rb.position, (Vector2)player.transform.position) < 0.1f)
+            if (Vector2.Distance(rb.position, (Vector2)player.transform.position) < eatDistance)
             {
                 VampireSurvivalGameManager.Instance.sliver++;
                 ReleaseObject();
@@ -32,8 +33,8 @@ public class VampireSliverItem : PoolAble
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        player = collision.gameObject;
+        if(collision.CompareTag("VampireEatItem"))
+            player = collision.gameObject;
         
     }
 }

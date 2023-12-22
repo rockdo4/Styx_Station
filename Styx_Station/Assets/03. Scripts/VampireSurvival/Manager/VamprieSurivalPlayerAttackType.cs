@@ -12,6 +12,7 @@ public abstract class VamprieSurivalPlayerAttackType : PoolAble
     [HideInInspector]
     public float nowTime;
     public float coolTime;
+    public float timer;
     public VamprieSurivalAttackType attackType;
     public abstract void LineAttackRange(Vector2 position);
 

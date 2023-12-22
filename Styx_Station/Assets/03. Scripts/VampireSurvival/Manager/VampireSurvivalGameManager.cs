@@ -42,7 +42,7 @@ public class VampireSurvivalGameManager : MonoBehaviour
     public int sliver = 0;//[HideInInspector]
 
     public int wave = 1;
-    public int waveByMonsterBorn;
+    public int minMonsterBorn;
     public int maxMonsterBorn;
 
     public VampireSurivalPlayerSkillInventory vampireSkillInventory;
@@ -67,7 +67,7 @@ public class VampireSurvivalGameManager : MonoBehaviour
         if (spwanTime>=spwanTimeDuration && normalMonsterSpwanTimer<= spwanMaxNormalMonster)
         {
             spwanTime = 0;
-            var random = UnityEngine.Random.Range(wave * waveByMonsterBorn, maxMonsterBorn);
+            var random = UnityEngine.Random.Range(minMonsterBorn, maxMonsterBorn);
             for(int i =0;i< random; ++i)
             {
                 var monster = ObjectPoolManager.instance.GetGo("VampireNormalMonster1");

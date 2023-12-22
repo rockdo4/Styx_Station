@@ -46,6 +46,12 @@ public class VampireSurivalMonster : PoolAble
     {
         if (VampireSurvivalGameManager.Instance.isPause || VampireSurvivalGameManager.Instance.isGameover)
         {
+            if (VampireSurvivalGameManager.Instance.isGameover)
+            {
+                direction = Vector3.zero;
+                animatorRunValue = direction.magnitude;
+                animator.SetFloat("RunState", animatorRunValue);
+            }
             return;
         }
         if (!isAttaking)

@@ -47,7 +47,7 @@ public class ResultPlayerStats : MonoBehaviour
     public int increaseUpgradeHealing = 10;
     private void Awake()
     {
-        playerAttribute = GetComponent<PlayerAttributes>();
+        
         state = StateSystem.Instance;
         state.state = this;
         SettingPlayerMaxHP();

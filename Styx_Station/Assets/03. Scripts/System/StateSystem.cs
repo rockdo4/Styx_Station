@@ -43,6 +43,10 @@ public class StateSystem : Singleton<StateSystem>
 
     public void TotalUpdate()
     {
+        if(state== null)
+        {
+            state = GameObject.FindWithTag("Player").GetComponent<ResultPlayerStats>();
+        }
         GetPlayerInfoPower();
         GetPlayerInfoHealth();
         GetPlayerInfoSiling();

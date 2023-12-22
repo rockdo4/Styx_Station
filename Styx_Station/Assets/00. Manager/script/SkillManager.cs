@@ -102,15 +102,15 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new TripleShot(inventory.skills[0], tripleShotShooterPrefab)); //트리플샷1
         skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone)); //화살비
         skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab)); //독화살
-        skills.Add(new PoisonArrowShot(inventory.skills[2], meteorPrefab)); //임시(생기증가)
+        skills.Add(new PassiveSkillBase()); //임시(생기증가)
         skills.Add(new TripleShot(inventory.skills[4], tripleShotShooterPrefab)); //트리플샷2
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab)); //회오리바람
         skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab)); //먹구름
-        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab)); //임시(공격력증가)
+        skills.Add(new PassiveSkillBase()); //임시(공격력증가)
         skills.Add(new TripleShot(inventory.skills[8], tripleShotShooterPrefab)); //트리플샷3
         skills.Add(new Meteor(inventory.skills[9], meteorPrefab)); //메테오
         skills.Add(new EnergyVolt(inventory.skills[10], energyVoltPerfab)); //에너지볼트
-        skills.Add(new EnergyVolt(inventory.skills[10], energyVoltPerfab)); //임시(공격력 증가2)
+        skills.Add(new PassiveSkillBase()); //임시(공격력 증가2)
         skills.Add(new TripleShot(inventory.skills[11], tripleShotShooterPrefab)); //트리플샷3
 
 

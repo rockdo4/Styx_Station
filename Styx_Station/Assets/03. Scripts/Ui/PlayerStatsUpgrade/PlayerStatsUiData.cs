@@ -240,7 +240,7 @@ public class PlayerStatsUiData : MonoBehaviour
     }
     private void PlayerPowerButtonCheck()
     {
-        if (CurrencyManager.money1 > CurrencyManager.playerPowerPrice)
+        if (CurrencyManager.money1 >= CurrencyManager.playerPowerPrice)
         {
             button.interactable = true;
         }
@@ -257,7 +257,7 @@ public class PlayerStatsUiData : MonoBehaviour
             {
                 button.interactable = false;
             }
-            else if (CurrencyManager.money2 > CurrencyManager.playerPowerBoostPrice )
+            else if (CurrencyManager.money2 >= CurrencyManager.playerPowerBoostPrice )
             {
                 button.interactable = true;
             }
@@ -274,7 +274,7 @@ public class PlayerStatsUiData : MonoBehaviour
     }
     private void PlayerAttackSpeedButton()
     {
-        if (CurrencyManager.money1 > CurrencyManager.playerAttackSpeedPrice && !SharedPlayerStats.IsAttackSpeedMax)
+        if (CurrencyManager.money1 >= CurrencyManager.playerAttackSpeedPrice && !SharedPlayerStats.IsAttackSpeedMax)
         {
             button.interactable = true;
         }
@@ -290,7 +290,7 @@ public class PlayerStatsUiData : MonoBehaviour
     }
     private void PlayerCriticalButton()
     {
-        if(CurrencyManager.money1 > CurrencyManager.criticalPrice && !SharedPlayerStats.IsAttackCriticalMax)
+        if(CurrencyManager.money1 >= CurrencyManager.criticalPrice && !SharedPlayerStats.IsAttackCriticalMax)
         {
             button.interactable = true;
         }
@@ -306,7 +306,7 @@ public class PlayerStatsUiData : MonoBehaviour
     }
     private void PlayerCriticalPowerButton()
     {
-        if (CurrencyManager.money2 > CurrencyManager.criticalPowerPrice)
+        if (CurrencyManager.money2 >= CurrencyManager.criticalPowerPrice)
         {
             button.interactable = true;
         }
@@ -317,7 +317,7 @@ public class PlayerStatsUiData : MonoBehaviour
     }
     private void MonsterDamageButton()
     {
-        if (CurrencyManager.money2 > CurrencyManager.monsterDamagerPrice && !SharedPlayerStats.IsMonsterDamagePowerMax)
+        if (CurrencyManager.money2 >= CurrencyManager.monsterDamagerPrice && !SharedPlayerStats.IsMonsterDamagePowerMax)
         {
             button.interactable = true;
         }
@@ -333,7 +333,7 @@ public class PlayerStatsUiData : MonoBehaviour
     }
     private  void PlayerMaxHpButton()
     {
-        if (CurrencyManager.money1 > CurrencyManager.maxHpPrice)
+        if (CurrencyManager.money1 >= CurrencyManager.maxHpPrice)
         {
             button.interactable = true;
         }
@@ -345,7 +345,7 @@ public class PlayerStatsUiData : MonoBehaviour
 
     private void PlayerHealingButton()
     {
-        if (CurrencyManager.money1 > CurrencyManager.healingPrice)
+        if (CurrencyManager.money1 >= CurrencyManager.healingPrice)
         {
             button.interactable = true;
         }

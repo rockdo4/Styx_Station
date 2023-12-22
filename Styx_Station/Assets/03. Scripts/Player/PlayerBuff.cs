@@ -31,6 +31,7 @@ public class PlayerBuff : Singleton<PlayerBuff>
         buffData.foodBuffMaxTimer = timer;
         buffData.foodType = type;
         buffData.isEatFood = true;
+        StateSystem.Instance.TotalUpdate();
     }
     public void Reset()
     {

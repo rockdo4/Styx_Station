@@ -88,6 +88,7 @@ public class NormalButton : MonoBehaviour
         window.equipMode = false;
         inventory.EquipSkill(skillIndex, equipIndex);
         skillManager.SetEquipSkillByIndex(equipIndex);
+        window.info.GetComponent<SkillInfoUi>().InfoUpdate();
         window.WindowUpdate();
         window.OnClickEquipClose();
     }

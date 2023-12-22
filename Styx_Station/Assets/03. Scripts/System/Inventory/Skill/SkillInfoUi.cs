@@ -117,6 +117,8 @@ public class SkillInfoUi : MonoBehaviour
             button.skillIndex = -1;
             button.skillImage.GetComponent<Image>().sprite = null;
             window.AlphaChange(UIManager.Instance.skill.equipButtons[index], false);
+            window.OnClickEquipClose();
+            InfoUpdate();
         }
     }
 

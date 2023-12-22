@@ -72,7 +72,7 @@ public class SkillButton : MonoBehaviour
             info.equip.interactable = false;
         }
 
-        if (skillIndex > 7)
+        if (skillIndex > 12)
         {
             info.equip.interactable = false;
         }

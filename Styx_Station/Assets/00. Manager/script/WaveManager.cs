@@ -401,7 +401,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             .ToArray();
         foreach(var arrow in Arrows)
         {
-            arrow.GetComponent<PoolAble>().ReleaseObject();
+            if(arrow.activeSelf)
+            {
+                arrow.GetComponent<PoolAble>().ReleaseObject();
+            }
             if(arrow.GetComponent<PiercingArrow>() != null)
             {
                 arrow.GetComponent<PiercingArrow>().isRelease = true;

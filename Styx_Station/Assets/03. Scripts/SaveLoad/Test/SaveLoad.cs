@@ -557,7 +557,7 @@ public class SaveLoad : MonoBehaviour
                     
                     WaveManager.Instance.SetStageByIndexStage(stageData);
                     WaveManager.Instance.SetTileMap();
-                    WaveManager.Instance.SetWavePanel();
+                    //WaveManager.Instance.SetWavePanel();
                 }
 
                 if (gameSaveDatas["isRepeat"] is JToken isRepeat)
@@ -665,5 +665,6 @@ public class SaveLoad : MonoBehaviour
         var state = StateSystem.Instance;
 
         state.TotalUpdate();
+        WaveManager.Instance.SetWavePanel(); //나중에 타이틀 씬으로 옮기기
     }
 }

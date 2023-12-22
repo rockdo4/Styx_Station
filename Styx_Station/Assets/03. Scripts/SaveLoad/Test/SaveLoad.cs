@@ -15,12 +15,14 @@ public class SaveLoad : MonoBehaviour
     private WaveManager waveManager;
     private ShopSystem shop;
     private LabSystem labSystem;
+    private SkillManager skillManager;
     private void Start()
     {
         playerbuff= PlayerBuff.Instance;
         waveManager = WaveManager.Instance;
         shop = ShopSystem.Instance;
         labSystem = LabSystem.Instance;
+        skillManager = SkillManager.Instance;
     }
     public void Save()
     {
@@ -142,6 +144,7 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.stageIndex = waveManager.GetCurrentIndex();
         data.gameSaveDatas.isRepeat = waveManager.GetIsRepeat();
 
+        data.gameSaveDatas.isAuto = skillManager.isAuto;
 
         if (diningRoomsystem != null)
         {
@@ -563,7 +566,17 @@ public class SaveLoad : MonoBehaviour
                     //var isRepeatData = JsonConvert.DeserializeObject<bool>(str);
                     var isRepeatData = isRepeat.Value<bool>();
 
+                    //UIManager.Instance.SetActiveRepeatButton(isRepeatData);
                     WaveManager.Instance.SetRepeat(isRepeatData);
+                }
+
+                if (gameSaveDatas["isAuto"] is JToken isAuto)
+                {
+                    //string str = isRepeat.ToString();
+                    //var isRepeatData = JsonConvert.DeserializeObject<bool>(str);
+                    var isAutoData = isAuto.Value<bool>();
+
+                    UIManager.Instance.SetAutoSkillButton(isAutoData);
                 }
 
                 if (gameSaveDatas["Re001_Lab_SaveDatas"] is JToken labATK1)

@@ -17,6 +17,7 @@ public class AttackedTakeDamage : MonoBehaviour, IAttackable
         if(controller.currentStates == States.Idle || controller.currentStates == States.Attack)
         {
             stats.TakeDamage(attack.Damage);
+            //controller.hpBar.fillAmount = (float)((long)stats.playerCurrentHp / (float)(long)stats.playerMaxHp);
             //stats.playerCurrentHp -= attack.Damage;
             if (stats.playerCurrentHp <= 0)
             {

@@ -159,6 +159,7 @@ public class GameSaveData
     //public StageData stageData;
     public int stageIndex;
     public bool isRepeat;
+    public bool isAuto;
 
     public int foodTimerUpgradeLevelUp;
     public int foodSelectUpgradeLevelUp;

@@ -40,6 +40,8 @@ public class UIManager : Singleton<UIManager>
     public List<GameObject> WavePanels;
 
     public GameObject gameOverPop;
+    public GameObject[] autoSkill = new GameObject[2];
+    private bool isAuto = false;
 
     //12.20 이승우 인게임 재화 코드 추가 
     public TextMeshProUGUI sliverMoney;
@@ -189,6 +191,7 @@ public class UIManager : Singleton<UIManager>
     public void SetActiveRepeatButton(bool isActive)
     {
         RepeatButton.SetActive(isActive);
+        //WaveManager.Instance.SetRepeat(isActive);
     }
 
     public void SetTimerSlierValue(float value)
@@ -284,4 +287,25 @@ public class UIManager : Singleton<UIManager>
         memoryMoney.text = $"{UnitConverter.OutString(CurrencyManager.itemAsh)}";
     }
     //12.20 Lsw
+
+
+    //12.21 YYL start
+    public void OnClickAutoSkillButton()
+    {
+        autoSkill[0].SetActive(!isAuto);
+        autoSkill[1].SetActive(isAuto);
+
+        isAuto = !isAuto;
+
+        SkillManager.Instance.SetIsAuto(isAuto);
+    }
+
+    public void SetAutoSkillButton(bool isA)
+    {
+        autoSkill[0].SetActive(isA);
+        autoSkill[1].SetActive(!isA);
+
+        SkillManager.Instance.SetIsAuto(isA);
+    }
+    //12.21 YYL end
 }

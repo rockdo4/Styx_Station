@@ -72,6 +72,8 @@ public class SkillManager : Singleton<SkillManager>
     public GameObject TornadoShotPrefab;
     public GameObject poisonArrowPrefab;
     public GameObject blackCloudPrefab;
+    public GameObject meteorPrefab;
+    public GameObject energyVoltPerfab;
 
     public LayerMask enemyLayer;
 
@@ -81,7 +83,7 @@ public class SkillManager : Singleton<SkillManager>
     //private AutoSkillDelegate[] useSkillArray = new AutoSkillDelegate[6];
     //private Queue<AutoSkillDelegate> autoSkillQueue = new Queue<AutoSkillDelegate>();
     private Queue<GameObject> skillbutton = new Queue<GameObject>();
-    private bool isAuto = false;
+    public bool isAuto { get; private set; } = false;
 
     private SkillWindow skillWindow;
     /// <summary>
@@ -90,7 +92,6 @@ public class SkillManager : Singleton<SkillManager>
 
     private void Awake()
     {
-
         if(inventory ==null)
             inventory = InventorySystem.Instance.skillInventory;
         if(equipSkills ==null)
@@ -98,13 +99,19 @@ public class SkillManager : Singleton<SkillManager>
         SetEquipSkill();
         player = GameObject.FindGameObjectWithTag("Player");
 
-        skills.Add(new TripleShot(inventory.skills[0], tripleShotShooterPrefab));
-        skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone));
-        skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab));
-        skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab)); //임시
-        skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab)); //임시
-        skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab));
-        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab));
+        skills.Add(new TripleShot(inventory.skills[0], tripleShotShooterPrefab)); //트리플샷1
+        skills.Add(new ArrowRain(inventory.skills[1], ArrowRainShooterPrefab, enemyLayer, castZone)); //화살비
+        skills.Add(new PoisonArrowShot(inventory.skills[2], poisonArrowPrefab)); //독화살
+        skills.Add(new PassiveSkillBase()); //임시(생기증가)
+        skills.Add(new TripleShot(inventory.skills[4], tripleShotShooterPrefab)); //트리플샷2
+        skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab)); //회오리바람
+        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab)); //먹구름
+        skills.Add(new PassiveSkillBase()); //임시(공격력증가)
+        skills.Add(new TripleShot(inventory.skills[8], tripleShotShooterPrefab)); //트리플샷3
+        skills.Add(new Meteor(inventory.skills[9], meteorPrefab)); //메테오
+        skills.Add(new EnergyVolt(inventory.skills[10], energyVoltPerfab)); //에너지볼트
+        skills.Add(new PassiveSkillBase()); //임시(공격력 증가2)
+        skills.Add(new TripleShot(inventory.skills[11], tripleShotShooterPrefab)); //트리플샷3
 
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
@@ -120,14 +127,18 @@ public class SkillManager : Singleton<SkillManager>
         //skills.Add(new TripleShot(inventory.skills[0], shooterPrefab));
     }
 
-    public void SetIsAuto()
+    public void SetIsAuto(bool isA)
     {
-        isAuto = !isAuto;
+        isAuto = isA;
         Debug.Log($"is Auto { isAuto }");
     }
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            UseSkill();
+        }
         if(isAuto)
         {
             if(!WaveManager.Instance.isWaveInProgress)
@@ -138,7 +149,14 @@ public class SkillManager : Singleton<SkillManager>
             while (skillbutton.Count > 0)
             {
                 var button = skillbutton.Dequeue();
-                button.GetComponentInChildren<NormalButton>().OnClickActive(skillWindow);
+                if (button.GetComponentInChildren<NormalButton>().skillIndex < 0)
+                {
+                    return;
+                }
+                else
+                {
+                    button.GetComponentInChildren<NormalButton>().OnClickActive(skillWindow);
+                }
             }
 
         }
@@ -185,6 +203,12 @@ public class SkillManager : Singleton<SkillManager>
     private bool CheckSkillCool(int equipIndex) //true: 쿨x false: 쿨O
     {
         return ((skillcool & equipSkillFlags[equipIndex]) == 0);
+    }
+
+    public void UseSkill()
+    {
+        //skills[9].UseSkill(player);
+        skills[10].UseSkill(player);
     }
     public void UseSkill1(Slider cool)
     {

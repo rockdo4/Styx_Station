@@ -15,7 +15,7 @@ public class PetAttack : PetStateBase
 
         petController.GetAnimator().SetTrigger("Attack");
         petController.GetAnimator().SetBool("Attacking",true);
-        petController.GetAnimator().SetFloat("NormalState", 0f);
+        petController.GetAnimator().SetFloat("NormalState", 0.5f);
         petController.GetAnimator().speed = petController.attackSpeed;
     }
 

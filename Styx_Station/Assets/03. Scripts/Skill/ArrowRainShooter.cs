@@ -45,6 +45,7 @@ public class ArrowRainShooter : Shooter
     {
         startTime = Time.time;
         StartCoroutine(CastSkill());
+        castZone.gameObject.transform.position = pointA;
         castZone.SetActive(true);
     }
 

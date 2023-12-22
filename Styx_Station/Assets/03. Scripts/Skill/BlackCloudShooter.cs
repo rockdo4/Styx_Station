@@ -35,8 +35,8 @@ public class BlackCloudShooter : Shooter
             {
                 HitMonster(monster);
             }
-
-            ReleaseCloud();
+            ReleaseObject();
+            //ReleaseCloud();
         }
     }
 
@@ -50,7 +50,11 @@ public class BlackCloudShooter : Shooter
 
         if(monstersTemp.Length <= hitCount )
         {
-            monsters = monstersTemp;
+            for(int i = 0; i < monstersTemp.Length; i++)
+            {
+                monsters[i] = monstersTemp[i];
+            }
+            //monsters = monstersTemp;
         }
         else
         {
@@ -99,8 +103,9 @@ public class BlackCloudShooter : Shooter
         //Debug.Log("Hit monster in blakc cloud");
     }
 
-    private void ReleaseCloud()
+    public override void ReleaseObject()
     {
-        ReleaseObject();
+        monsters = new GameObject[5];
+        base.ReleaseObject();
     }
 }

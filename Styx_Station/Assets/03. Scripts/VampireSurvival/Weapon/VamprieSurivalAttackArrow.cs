@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
@@ -19,19 +20,16 @@ public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
     }
     private void Update()
     {
-        if (isStartObject)
+        if(isStartObject)
         {
             timer += Time.deltaTime;
-        }
-        if(timer >=aliveTime)
-        {
-            ReleaseObject();
+            if(timer >= aliveTime)
+                ReleaseObject();
         }
     }
 
     public override void LineAttackRange(Vector2 position)
     {
-        timer = 0f;
         isStartObject =true;
         direction = position;
     }

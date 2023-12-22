@@ -10,8 +10,6 @@ public class VampireSurivalPlayerAttackManager : MonoBehaviour
         {
             var arrow = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
             arrow.transform.position = transform.position;
-
-            var range = arrow.GetComponent<VamprieSurivalPlayerAttackType>().range;
            
 
             float randomAngle = Random.Range(0f, 360f);

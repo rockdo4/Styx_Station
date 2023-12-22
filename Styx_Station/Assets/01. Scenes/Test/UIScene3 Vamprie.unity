@@ -6598,6 +6598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d6bcdfb68a04449859d57c352bbf38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vampireSurivalSkillInfos: []
 --- !u!1 &423169042
 GameObject:
   m_ObjectHideFlags: 0
@@ -16876,6 +16877,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e231da46d40164681cb1e58a857092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1186711490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1186711488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d6bcdfb68a04449859d57c352bbf38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vampireSurivalSkillInfos: []
 --- !u!1 &1195740494
 GameObject:
   m_ObjectHideFlags: 0
@@ -18590,6 +18604,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5982679202281003086, guid: 452e4f9b7d28af74c9f3b63dc8c36d87, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1186711489}
+    - targetCorrespondingSourceObject: {fileID: 5982679202281003086, guid: 452e4f9b7d28af74c9f3b63dc8c36d87, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1186711490}
   m_SourcePrefab: {fileID: 100100000, guid: 452e4f9b7d28af74c9f3b63dc8c36d87, type: 3}
 --- !u!1 &1354505836
 GameObject:
@@ -21350,6 +21367,7 @@ GameObject:
   - component: {fileID: 1606181802}
   - component: {fileID: 1606181801}
   - component: {fileID: 1606181805}
+  - component: {fileID: 1606181806}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -21462,6 +21480,30 @@ MonoBehaviour:
   gameTimerSlider: {fileID: 1920582160}
   gameTimerTextMeshProUGUI: {fileID: 423169044}
   loosePopUpWindow: {fileID: 443986171}
+--- !u!114 &1606181806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606181799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25d6bcdfb68a04449859d57c352bbf38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vampireSurivalSkillInfos:
+  - skillName: TripleArrowShot
+    skillImage: {fileID: 21300000, guid: 054bc229643075048b6916381a9f1867, type: 3}
+    skillDataStringKey: 
+    currentSkillType: 0
+    skillTier: 0
+    level: 1
+    damage: 3
+    speed: 3
+    timer: 0
+    aliveTime: 5
+    coolTime: 1
 --- !u!1 &1607753525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7573412597223193775, guid: 6b14264917c96624385c0040c4648c28, type: 3}
@@ -24922,7 +24964,6 @@ GameObject:
   - component: {fileID: 1989585195}
   - component: {fileID: 1989585197}
   - component: {fileID: 1989585196}
-  - component: {fileID: 1989585198}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -24991,27 +25032,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989585194}
   m_CullTransparentMesh: 1
---- !u!95 &1989585198
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1989585194}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1995105047
 GameObject:
   m_ObjectHideFlags: 0

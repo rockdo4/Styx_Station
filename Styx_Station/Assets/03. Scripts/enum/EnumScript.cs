@@ -130,11 +130,6 @@ public enum SkillType
     Passive,
 }
 
- public enum VamprieSurivalAttackType
-{ 
-    LineAttackRange,
-    CircleAttack,
-}
 
 public enum QuestType
 {
@@ -195,4 +190,10 @@ public enum LabType
     LabPower2,
     LabHp2,
     None =100,
+}
+
+public enum VampireSkillType
+{
+    TripleArrowShot,
+
 }

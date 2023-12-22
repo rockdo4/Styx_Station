@@ -171,6 +171,7 @@ public class LabSystem : Singleton<LabSystem>
         }
         level = -1;
         labType = LabType.None;
+        StateSystem.Instance.TotalUpdate();
         AllCheckEdges();
     }
     public void StartResearching(int timer, LabType labType, int index)

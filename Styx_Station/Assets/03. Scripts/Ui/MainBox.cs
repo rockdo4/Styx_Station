@@ -28,4 +28,5 @@ public class MainBox : MonoBehaviour
             cam.rect = new Rect(0.0f, y, 1.0f, h);
         }
     }
+    private void OnPreCull() => GL.Clear(true, true, Color.black);
 }

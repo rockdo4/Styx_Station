@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackManager
+public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
 {
     private Rigidbody2D rb;
-    public float timer;
     private bool isStartObject;
     private void Awake()
     {
@@ -36,14 +35,4 @@ public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackManager
         isStartObject =true;
         direction = position;
     }
-
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if(collision.collider.CompareTag("VampireEnemy"))
-    //    {
-    //        collision.collider.GetComponent<VampireSurivalMonster>().GetDamage(damage);
-    //        ReleaseObject();
-    //    }
-    //}
-
 }

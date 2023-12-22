@@ -341,7 +341,6 @@ public class QuestSystemUi : MonoBehaviour
         questCountText.text ="";
         if (questData.waveClearId < WaveManager.Instance.GetCurrentIndex())
         {
-
             ClearWave();
         }
     }
@@ -369,7 +368,7 @@ public class QuestSystemUi : MonoBehaviour
 
         questCountText.text = $"{questData.currentPlayDungeonType} / {questData.maxPlaydungeonType}";
     }
-
+    
     public void GetGatchCount(int index,int count)
     {
         if (questData.gatchaType != (GatchaType)index || questData.isMaxGathcacount)

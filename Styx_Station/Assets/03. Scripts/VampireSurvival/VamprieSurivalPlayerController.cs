@@ -15,7 +15,7 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     public TextMeshProUGUI playerExpTextMeshProUGUI;
     public TextMeshProUGUI playerLevelTextMeshProUGUI;
 
-    public List<VamprieSurivalPlayerAttackManager> playerAttackType;
+    public List<VamprieSurivalPlayerAttackType> playerAttackType;
 
     public int exp = 0;
     public int expWeight = 10;
@@ -23,11 +23,13 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     private int level = 0;
 
     public int maxHp;
-    private int currentHp;
+    [HideInInspector]public int currentHp;
+    private VampireDamageEffect vampirePlayerEffect;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        vampirePlayerEffect= GetComponent<VampireDamageEffect>();
         PlayerLevelUp();
 
         currentHp = maxHp;
@@ -115,8 +117,9 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     public void OnCollisonMonster(int damage)
     {
         currentHp -=damage;
-        Debug.Log(currentHp);
-        if(currentHp <=0)
+        if (vampirePlayerEffect.effectCoroutine ==null)
+            vampirePlayerEffect.effectCoroutine=StartCoroutine(vampirePlayerEffect.ChangeColor());
+        if (currentHp <=0)
         {
             VampireSurvivalGameManager.Instance.isGameover = true;
             VamprieSurvialUiManager.Instance.PopUpGameOverObject();

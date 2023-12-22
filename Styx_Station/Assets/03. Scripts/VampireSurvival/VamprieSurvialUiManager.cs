@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -14,14 +11,8 @@ public class VamprieSurvialUiManager : MonoBehaviour
     {
         get
         {
-            // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
             if (instance == null)
-            {
-                // 씬에서 GameManager 오브젝트를 찾아 할당
                 instance = FindObjectOfType<VamprieSurvialUiManager>();
-            }
-
-            // 싱글톤 오브젝트를 반환
             return instance;
         }
     }
@@ -38,10 +29,8 @@ public class VamprieSurvialUiManager : MonoBehaviour
     private void Awake()
     {
         if (Instance != this)
-        {
-            // 자신을 파괴
             Destroy(gameObject);
-        }
+
         UIManager.Instance.gameObject.SetActive(false);
 
 
@@ -58,10 +47,7 @@ public class VamprieSurvialUiManager : MonoBehaviour
     void Update()
     {
         if (!VampireSurvivalGameManager.Instance.isPause && !VampireSurvivalGameManager.Instance.isGameover)
-        {
             DrawAndMoveJoystick();
-
-        }
     }
 
     private void DrawAndMoveJoystick()
@@ -94,14 +80,9 @@ public class VamprieSurvialUiManager : MonoBehaviour
 
     public void PopUpGameOverObject()
     {
+        JoysitckDragUp();
        loosePopUpWindow.SetActive(true);
     }
-
-    //private IEnumerator PopUPGameOverPanelTime()
-    //{
-    //    yield return new WaitForSeconds(2);
-    //    loosePopUpWindow.SetActive(true);
-    //}
 
     public void TestC()
     {

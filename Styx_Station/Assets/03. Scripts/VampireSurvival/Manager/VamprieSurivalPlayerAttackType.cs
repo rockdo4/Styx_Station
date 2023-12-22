@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class VamprieSurivalPlayerAttackManager : PoolAble
+public abstract class VamprieSurivalPlayerAttackType : PoolAble
 {
     public int damage;
     protected Vector2 direction;
@@ -12,6 +12,7 @@ public abstract class VamprieSurivalPlayerAttackManager : PoolAble
     [HideInInspector]
     public float nowTime;
     public float coolTime;
+    public float timer;
     public VamprieSurivalAttackType attackType;
     public abstract void LineAttackRange(Vector2 position);
 

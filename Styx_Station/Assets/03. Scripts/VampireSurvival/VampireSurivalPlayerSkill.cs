@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -11,21 +12,23 @@ public class VampireSurivalPlayerSkill : MonoBehaviour
 
     public List<VampireSkillInfoDataType> playerInventorySkillInfos = new List<VampireSkillInfoDataType>();
     public VamprieSurivalPlayerController player;
-    private List<float> skillTimer= new List<float>();  
+    private List<float> skillTimer = new List<float>();
+    private VampireSurivalSkillInfo skillInfoAction;
     private void Awake()
     {
+        skillInfoAction = GetComponent<VampireSurivalSkillInfo>();
         GetPlayerSkill(vampireSurivalSkillInfos[0]);
     }
 
     private void Update()
     {
-       for(int i= 0;i<skillTimer.Count;i++)
+        for (int i = 0; i < skillTimer.Count; i++)
         {
-            skillTimer[i] += Time.time;
-            if (skillTimer[i] >= playerInventorySkillInfos[0].coolTime)
+            skillTimer[i] += Time.deltaTime;
+            if (skillTimer[i] >playerInventorySkillInfos[i].coolTime)
             {
                 skillTimer[i] = 0f;
-                playerInventorySkillInfos[i].skillEvent?.Invoke();
+                playerInventorySkillInfos[i].skillEvent();
             }
         }
     }
@@ -33,40 +36,50 @@ public class VampireSurivalPlayerSkill : MonoBehaviour
     public void GetPlayerSkill(VampireSkillInfoDataType skillData)
     {
         var skill = skillData;
-        if(playerInventorySkillInfos.Count ==0)
+        if (playerInventorySkillInfos.Count == 0)
         {
-            skill.isUnLock = true;
-            playerInventorySkillInfos.Add(skill);
-            skillTimer.Add(0f);
+            SkillACtionAdd(skill);
             VamprieSurvialUiManager.Instance.GetSkillImage(skill.skillImage);
             return;
         }
-        foreach(var inventory in playerInventorySkillInfos)
+        foreach (var inventory in playerInventorySkillInfos)
         {
-            if(inventory.skillName != skill.skillName)
+            if (inventory.skillName != skill.skillName)
             {
-                skill.isUnLock = true;
-                playerInventorySkillInfos.Add(skill);
-                skillTimer.Add(0f);
+                SkillACtionAdd(skill);
                 VamprieSurvialUiManager.Instance.GetSkillImage(skill.skillImage);
                 return;
             }
-            else if(inventory.isUnLock)
+            else if (inventory.isUnLock && inventory.skillName == skill.skillName)
             {
                 var updateSkill = inventory;
-                SkillUpgrade(updateSkill);
+                SkillUpgrade(updateSkill,inventory);
             }
         }
-
     }
 
-    private void SkillUpgrade(VampireSkillInfoDataType skillData)
+    private void SkillUpgrade(VampireSkillInfoDataType skillData, VampireSkillInfoDataType currentSkill)
     {
         var skill = skillData;
         skill.damage += skill.levelUpBuffDebuffDamage;
         skill.speed = skill.levelUpBuffSpeed;
         skill.coolTime -= skill.levelUpBuffTimer;
         skill.range += skill.levelUpBuffRange;
-        skill.debuffDamage +=skill.levelUpBuffDebuffDamage;
+        skill.debuffDamage += skill.levelUpBuffDebuffDamage;
+        currentSkill = skillData;
+    }
+
+    private void SkillACtionAdd(VampireSkillInfoDataType skillData)
+    {
+        skillInfoAction.skillData = skillData;
+        skillData.isUnLock = true;
+        switch (skillData.currentSkillType)
+        {
+            case VampireSkillType.TripleArrowShot:
+                skillData.skillEvent = skillInfoAction.TripleArrowShotAction;
+                break;
+        }
+        playerInventorySkillInfos.Add(skillData);
+        skillTimer.Add(0f);
     }
 }

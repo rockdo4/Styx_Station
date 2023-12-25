@@ -167,7 +167,6 @@ public class VampireSurivalMonster : PoolAble
 
     public void SetDamage(float damage)
     {
-        Debug.Log($"{gameObject.name} : {currentHp}");
         currentHp -= damage;
         if (currentHp <= 0)
         {

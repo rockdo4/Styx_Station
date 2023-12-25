@@ -8,22 +8,21 @@ public class VampireSurivalSkillInfo : MonoBehaviour
 {
 
 
-    private VampireSkillInfoDataType skillData;
+    public VampireSkillInfoDataType skillData;
 
     public VamprieSurivalPlayerController player;
 
-    public delegate void SkillEvent();
-    public static event SkillEvent OnTripleArrowShot;
+   // public delegate void SkillEvent();
+    //public static event SkillEvent OnTripleArrowShot;
 
     private void Awake()
     {
-        OnTripleArrowShot = TripleArrowShotAction;
-        switch (skillData.currentSkillType)
-        {
-            case VampireSkillType.TripleArrowShot:
-                skillData.skillEvent = OnTripleArrowShot;
-                break;
-        }
+        //switch (skillData.currentSkillType)
+        //{
+        //    case VampireSkillType.TripleArrowShot:
+        //        skillData.skillEvent = OnTripleArrowShot;
+        //        break;
+        //}
     }
 
 
@@ -34,26 +33,26 @@ public class VampireSurivalSkillInfo : MonoBehaviour
         var collider = Physics2D.OverlapCircle(arrow.transform.position, skillData.range);
         if (collider != null && collider.CompareTag("VampireEnemy"))
         {
-            arrow.transform.position = transform.position;
+            var set = arrow.GetComponent<VamprieSurivalPlayerAttackType>();
+            set.Setting(skillData.damage, skillData.speed, skillData.aliveTime);
+            Debug.Log("FindMonster");
+            arrow.transform.position = player.transform.position;
             Vector3 direction = collider.transform.position - arrow.transform.position;
             direction.Normalize();
             arrow.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(direction);
 
-            for (int i = 1; i < 3; ++i)
+            float angleStep = 60f;
+
+            for (int i = 0; i < 2; ++i)
             {
+                float currentAngle = -30 / 2 + i * angleStep;
+
+
+                Vector2 directionLoop = new Vector2(Mathf.Cos(currentAngle * Mathf.Deg2Rad), Mathf.Sin(currentAngle * Mathf.Deg2Rad));
                 var arrowLoop = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
-                arrowLoop.transform.position = transform.position;
-                float subAngle = 0f;
-                if (i == 1)
-                {
-                    subAngle += 30f;
-                }
-                else if (i == 2)
-                {
-                    subAngle -= 30f;
-                }
-                arrowLoop.transform.rotation = Quaternion.Euler(0f, 0f, subAngle);
-                Vector2 directionLoop = new Vector2(Mathf.Cos(subAngle * Mathf.Deg2Rad), Mathf.Sin(subAngle * Mathf.Deg2Rad));
+                var setLoop = arrowLoop.GetComponent<VamprieSurivalPlayerAttackType>();
+                arrowLoop.transform.position = player.transform.position;
+                setLoop.Setting(skillData.damage, skillData.speed, skillData.aliveTime);
                 arrowLoop.transform.position += (Vector3)directionLoop;
                 arrowLoop.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(directionLoop);
             }
@@ -62,7 +61,7 @@ public class VampireSurivalSkillInfo : MonoBehaviour
         {
             var set = arrow.GetComponent<VamprieSurivalPlayerAttackType>();
             set.Setting(skillData.damage, skillData.speed, skillData.aliveTime);
-            arrow.transform.position = transform.position;
+            arrow.transform.position = player.transform.position;
             float randomAngle = UnityEngine.Random.Range(0f, 360f);
             arrow.transform.rotation = Quaternion.Euler(0f, 0f, randomAngle);
             Vector2 direction = new Vector2(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad));
@@ -70,7 +69,9 @@ public class VampireSurivalSkillInfo : MonoBehaviour
             for (int i = 1; i < 3; ++i)
             {
                 var arrowLoop = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
-                arrowLoop.transform.position = transform.position;
+                var setLoop= arrowLoop.GetComponent<VamprieSurivalPlayerAttackType>();
+                arrowLoop.transform.position = player.transform.position;
+                setLoop.Setting(skillData.damage, skillData.speed, skillData.aliveTime);
                 float subAngle = 0f;
                 if (i == 1)
                 {
@@ -93,6 +94,9 @@ public class VampireSurivalSkillInfo : MonoBehaviour
         var pos =player.transform.position;
         pos.y += 0.5f;
         copy.transform.position = pos;
+
+        var radius = copy.shape.radius;
+        radius = skillData.range;
         copy.Play();
     }
 }
@@ -124,5 +128,5 @@ public struct VampireSkillInfoDataType
     public float levelUpBuffDebuffDamage;
 
     [HideInInspector]
-    public SkillEvent skillEvent;
+    public Action skillEvent;
 }

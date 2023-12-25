@@ -15,17 +15,17 @@ public class VamprieSurivalPlayerController : MonoBehaviour
     public TextMeshProUGUI playerExpTextMeshProUGUI;
     public TextMeshProUGUI playerLevelTextMeshProUGUI;
 
-    public List<VamprieSurivalPlayerAttackType> playerAttackType;
 
     public int exp = 0;
     public int expWeight = 10;
     private int maxExp;
     private int level = 0;
 
-    public int maxHp;
-    [HideInInspector]public int currentHp;
+    public float maxHp;
+    [HideInInspector]public float currentHp;
     private VampireDamageEffect vampirePlayerEffect;
 
+    public ParticleSystem particle;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,7 +44,10 @@ public class VamprieSurivalPlayerController : MonoBehaviour
         {
             return;
         }
-
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            particle.Play();
+        }
         //if (VampireSurvivalGameManager.Instance.isPause)
         //{
         //    if (VampireSurvivalGameManager.Instance.isPlayerLevelup && Input.GetKeyDown(KeyCode.Return))
@@ -113,8 +116,37 @@ public class VamprieSurivalPlayerController : MonoBehaviour
         playerExpTextMeshProUGUI.text = $"{exp} / {maxExp}";
         playerLevelTextMeshProUGUI.text = $"Lv.{level}";
     }
-
-    public void OnCollisonMonster(int damage)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("VampireEnemy"))
+        {
+            var monster = collision.GetComponent<VampireSurivalMonster>();
+            OnCollisonMonster(monster.GetDamge());
+            monster.isAttaking = true;
+            monster.nowTime = Time.time;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("VampireEnemy"))
+        {
+            var monster = collision.GetComponent<VampireSurivalMonster>();
+            if (monster.attackDelay + monster.nowTime < Time.time)
+            {
+                monster.nowTime = Time.time;
+                OnCollisonMonster(monster.GetDamge());
+            }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("VampireEnemy"))
+        {
+            var monster = collision.GetComponent<VampireSurivalMonster>();
+            monster.isAttaking = false;
+        }
+    }
+    public void OnCollisonMonster(float damage)
     {
         currentHp -=damage;
         if (vampirePlayerEffect.effectCoroutine ==null)

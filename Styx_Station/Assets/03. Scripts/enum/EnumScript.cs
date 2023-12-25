@@ -195,5 +195,17 @@ public enum LabType
 public enum VampireSkillType
 {
     TripleArrowShot,
-
+    ArrowRain,
+    PassiveSkill,
+    AllAttackType,
+}
+public enum VampirePlayerDebuffSkill
+{
+    None,
+    Addicted,
+}
+public enum VampirePassive
+{ 
+    None,
+    Arrow,
 }

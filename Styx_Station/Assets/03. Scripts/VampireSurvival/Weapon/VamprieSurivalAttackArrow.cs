@@ -30,7 +30,28 @@ public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
 
     public override void LineAttackRange(Vector2 position)
     {
+        timer = 0f;
         isStartObject =true;
         direction = position;
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.collider.CompareTag("VampireEnemy"))
+    //    {
+    //        var mon = collision.collider.GetComponent<VampireSurivalMonster>();
+    //        mon.GetDamage(damage);
+    //        ReleaseObject();
+    //    }
+    //}
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("VampireEnemy"))
+    //    {
+    //        var mon = other.GetComponent<VampireSurivalMonster>();
+    //        mon.GetDamage(damage);
+    //        ReleaseObject();
+    //    }
+    //}
 }
+

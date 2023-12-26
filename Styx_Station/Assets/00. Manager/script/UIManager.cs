@@ -71,43 +71,280 @@ public class UIManager : Singleton<UIManager>
         currentWindow = inventoryType;
 
         windows[(int)inventoryType].Open();
-
-        OpenMainMenu();
-        SkillButtonOff();
     }
 
+    // 12.25 Button 수정 _IJ
     public void OnClickInfo()
     {
-        Open(WindowType.Info);
+        if ((ButtonList.mainButton & ButtonType.Info) == 0 && 
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+
+            if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+            if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+                ButtonList.mainButton &= ~ButtonType.Lab;
+
+            if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+
+            if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+                ButtonList.mainButton &= ~ButtonType.Shop;
+
+            if ((ButtonList.mainButton & ButtonType.Menu) != 0)
+                ButtonList.mainButton &= ~ButtonType.Menu;
+
+            SkillButtonOff();
+            Open(WindowType.Info);
+            ButtonList.mainButton |= ButtonType.Info;
+        }
     }
     public void OnClickDiningRoom()
     {
-        Open(WindowType.DiningRoom);
+        if ((ButtonList.mainButton & ButtonType.DiningRoom) == 0 && 
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+
+            if ((ButtonList.mainButton & ButtonType.Info) != 0)
+                ButtonList.mainButton &= ~ButtonType.Info;
+
+            if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+                ButtonList.mainButton &= ~ButtonType.Lab;
+
+            if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+
+            if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+                ButtonList.mainButton &= ~ButtonType.Shop;
+
+            if ((ButtonList.mainButton & ButtonType.Menu) != 0)
+                ButtonList.mainButton &= ~ButtonType.Menu;
+
+            Open(WindowType.DiningRoom);
+            ButtonList.mainButton |= ButtonType.DiningRoom;
+        }
     }
 
     public void OnClickLab()
     {
-        Open(WindowType.Lab);
+        if ((ButtonList.mainButton & ButtonType.Lab) == 0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+
+            if ((ButtonList.mainButton & ButtonType.Info) != 0)
+                ButtonList.mainButton &= ~ButtonType.Info;
+
+            if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+            if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+
+            if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+                ButtonList.mainButton &= ~ButtonType.Shop;
+
+            if ((ButtonList.mainButton & ButtonType.Menu) != 0)
+                ButtonList.mainButton &= ~ButtonType.Menu;
+
+            Open(WindowType.Lab);
+            ButtonList.mainButton |= ButtonType.Lab;
+        }
     }
 
     public void OnClickCleaning()
     {
-        Open(WindowType.Cleaning);
+        if((ButtonList.mainButton & ButtonType.Cleaning) == 0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if((ButtonList.mainButton & ButtonType.Train)!=0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+            if ((ButtonList.mainButton & ButtonType.Info) != 0)
+                ButtonList.mainButton &= ~ButtonType.Info;
+
+            if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+            if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+                ButtonList.mainButton &= ~ButtonType.Lab;
+
+            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+
+            if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+                ButtonList.mainButton &= ~ButtonType.Shop;
+
+            if ((ButtonList.mainButton & ButtonType.Menu) != 0)
+                ButtonList.mainButton &= ~ButtonType.Menu;
+
+            Open(WindowType.Cleaning);
+            ButtonList.mainButton |= ButtonType.Cleaning;
+        }
     }
 
     public void OnClickBossRush()
     {
-        Open(WindowType.BossRush);
+        if ((ButtonList.mainButton & ButtonType.BossRush) == 0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+            if ((ButtonList.mainButton & ButtonType.Info) != 0)
+                ButtonList.mainButton &= ~ButtonType.Info;
+
+            if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+            if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+                ButtonList.mainButton &= ~ButtonType.Lab;
+
+            if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+            if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+                ButtonList.mainButton &= ~ButtonType.Shop;
+
+            if ((ButtonList.mainButton & ButtonType.Menu) != 0)
+                ButtonList.mainButton &= ~ButtonType.Menu;
+
+            Open(WindowType.BossRush);
+            ButtonList.mainButton |= ButtonType.BossRush;
+        }
     }
 
     public void OnClickMenu()
     {
-        Open(WindowType.Menu);
+        if ((ButtonList.mainButton & ButtonType.Menu) == 0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+            if ((ButtonList.mainButton & ButtonType.Info) != 0)
+                ButtonList.mainButton &= ~ButtonType.Info;
+
+            if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+            if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+                ButtonList.mainButton &= ~ButtonType.Lab;
+
+            if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+
+            if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+                ButtonList.mainButton &= ~ButtonType.Shop;
+
+            Open(WindowType.Menu);
+            ButtonList.mainButton |= ButtonType.Menu;
+
+        }
+        else if((ButtonList.mainButton & ButtonType.Menu) != 0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+            if ((ButtonList.mainButton & ButtonType.Info) != 0)
+                ButtonList.mainButton &= ~ButtonType.Info;
+
+            if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+            if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+                ButtonList.mainButton &= ~ButtonType.Lab;
+
+            if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+
+            if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+                ButtonList.mainButton &= ~ButtonType.Shop;
+
+            windows[(int)currentWindow].Close();
+            ButtonList.mainButton &= ~ButtonType.Menu;
+        }
     }
 
     public void OnClickShop()
     {
-        Open(WindowType.Shop);
+        if ((ButtonList.mainButton & ButtonType.Shop) == 0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
+            move == null)
+        {
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
+            {
+                ButtonList.mainButton |= ButtonType.TrainMove;
+                OnClickClose();
+            }
+
+            if ((ButtonList.mainButton & ButtonType.Info) != 0)
+                ButtonList.mainButton &= ~ButtonType.Info;
+
+            if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+            if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+                ButtonList.mainButton &= ~ButtonType.Lab;
+
+            if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+
+            if ((ButtonList.mainButton & ButtonType.Menu) != 0)
+                ButtonList.mainButton &= ~ButtonType.Menu;
+
+            Open(WindowType.Shop);
+            ButtonList.mainButton |= ButtonType.Shop;
+        }
     }
 
     public void OnClickMission()
@@ -126,15 +363,51 @@ public class UIManager : Singleton<UIManager>
 
         windows[(int)currentWindow].Close();
 
+        if ((ButtonList.mainButton & ButtonType.Info) != 0)
+            ButtonList.mainButton &= ~ButtonType.Info;
+
+        if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+            ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
+        if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+            ButtonList.mainButton &= ~ButtonType.Lab;
+
+        if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+            ButtonList.mainButton &= ~ButtonType.Cleaning;
+
+        if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
+            ButtonList.mainButton &= ~ButtonType.BossRush;
+
+        if ((ButtonList.mainButton & ButtonType.Menu) != 0)
+            ButtonList.mainButton &= ~ButtonType.Menu;
+
+        if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+            ButtonList.mainButton &= ~ButtonType.Shop;
+
         CloseMainMenu();
         SkillButtonOn();
     }
 
     public void CloseTrain()
     {
-        OnClickClose();
+        if (!first)
+        {
+            wayPoint = wayPoints[0].transform.position - wayPoints[1].transform.position;
+            buttonPos = buttons.transform.position;
+            first = true;
+        }
 
-        OpenMainMenu();
+        if ((ButtonList.mainButton & ButtonType.Train) != 0 && 
+            (ButtonList.mainButton & ButtonType.TrainMove) == 0)
+        {
+            ButtonList.mainButton |= ButtonType.TrainMove;
+            OnClickClose();
+        }
+        else if ((ButtonList.mainButton & ButtonType.TrainMove) == 0)
+        {
+            ButtonList.mainButton |= ButtonType.TrainMove;
+            OpenMainMenu();
+        }
     }
     public void SkillButtonOn()
     {
@@ -159,31 +432,47 @@ public class UIManager : Singleton<UIManager>
 
     public void OpenMainMenu()
     {
-        if (!menu && move == null)
+        //if (!menu && move == null)
+        //{
+        //    foreach (var button in windowButtons)
+        //    {
+        //        button.GetComponent<Button>().interactable = false;
+        //    }
+
+        //    move = StartCoroutine(RightMove());
+
+        //    menu = true;
+        //}
+        if((ButtonList.mainButton & ButtonType.Train) == 0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) != 0)
         {
             foreach (var button in windowButtons)
             {
                 button.GetComponent<Button>().interactable = false;
             }
-
             move = StartCoroutine(RightMove());
-
-            menu = true;
         }
     }
 
     public void CloseMainMenu()
     {
-        if (menu && move == null)
+        //if (menu && move == null)
+        //{
+        //    foreach (var button in windowButtons)
+        //    {
+        //        button.GetComponent<Button>().interactable = false;
+        //    }
+        //    move = StartCoroutine(LeftMove());
+        //    menu = false;
+        //}
+        if ((ButtonList.mainButton & ButtonType.Train) !=0 &&
+            (ButtonList.mainButton & ButtonType.TrainMove) != 0)
         {
             foreach (var button in windowButtons)
             {
                 button.GetComponent<Button>().interactable = false;
             }
-
-            move = StartCoroutine(LeftMove());
-
-            menu = false;
+            move = StartCoroutine(LeftMove()); // 메뉴 접기
         }
     }
 
@@ -240,7 +529,11 @@ public class UIManager : Singleton<UIManager>
         SkillButtonOn();
 
         buttons.transform.position = buttonPos;
+
         move = null;
+
+        ButtonList.mainButton &= ~ButtonType.Train;
+        ButtonList.mainButton &= ~ButtonType.TrainMove;
     }
     IEnumerator RightMove() 
     {
@@ -261,7 +554,11 @@ public class UIManager : Singleton<UIManager>
         }
 
         buttons.transform.position = buttonPos - wayPoint;
+
         move = null;
+
+        ButtonList.mainButton |= ButtonType.Train;
+        ButtonList.mainButton &= ~ButtonType.TrainMove;
     }
 
     public void SetGameOverPopUpActive(bool isActive)
@@ -308,4 +605,69 @@ public class UIManager : Singleton<UIManager>
         SkillManager.Instance.SetIsAuto(isA);
     }
     //12.21 YYL end
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if((ButtonList.mainButton & ButtonType.Info) != 0)
+            {
+                if (ButtonList.infoButton == InfoButton.State)
+                {
+                    ButtonList.mainButton &= ~ButtonType.Info;
+                    windows[(int)currentWindow].Close();
+                }
+                else if((ButtonList.infoButton & InfoButton.Inventory)!=0 &&
+                    (ButtonList.infoButton & InfoButton.WeaponInfo) == 0 &&
+                    (ButtonList.infoButton & InfoButton.ArmorInfo) == 0 &&
+                    (ButtonList.infoButton & InfoButton.RingInfo) == 0 &&
+                    (ButtonList.infoButton & InfoButton.SymbolInfo) == 0)
+                {
+                    ButtonList.mainButton &= ~ButtonType.Info;
+                    windows[(int)currentWindow].Close();
+                }
+                else if((ButtonList.infoButton & InfoButton.Skill) != 0 &&
+                    (ButtonList.infoButton & InfoButton.SkillInfo) == 0)
+                {
+                    ButtonList.mainButton &= ~ButtonType.Info;
+                    windows[(int)currentWindow].Close();
+                }
+                else if(ButtonList.infoButton == InfoButton.Pet)
+                {
+                    ButtonList.mainButton &= ~ButtonType.Info;
+                    windows[(int)currentWindow].Close();
+                }
+            }
+            else if((ButtonList.mainButton & ButtonType.DiningRoom)!= 0)
+            {
+                ButtonList.mainButton &= ~ButtonType.DiningRoom;
+                windows[(int)currentWindow].Close();
+            }
+            else if((ButtonList.mainButton & ButtonType.Lab)!= 0)
+            {
+                ButtonList.mainButton &= ~ButtonType.Lab;
+                windows[(int)currentWindow].Close();
+            }
+            else if((ButtonList.mainButton & ButtonType.Cleaning)!=0)
+            {
+                ButtonList.mainButton &= ~ButtonType.Cleaning;
+                windows[(int)currentWindow].Close();
+            }
+            else if((ButtonList.mainButton & ButtonType.BossRush)!= 0)
+            {
+                ButtonList.mainButton &= ~ButtonType.BossRush;
+                windows[(int)currentWindow].Close();
+            }
+            else if((ButtonList.mainButton & ButtonType.Shop)!= 0)
+            {
+                ButtonList.mainButton &= ~ButtonType.Shop;
+                windows[(int)currentWindow].Close();
+            }
+            else if((ButtonList.mainButton&ButtonType.Menu)!= 0) 
+            {
+                ButtonList.mainButton &= ~ButtonType.Menu;
+                windows[(int)currentWindow].Close();
+            }
+        }
+    }
 }

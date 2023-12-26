@@ -95,6 +95,22 @@ public class ItemButton : MonoBehaviour
         if (window == null)
             return;
 
+        if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.ArmorInfo;
+
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.RingInfo;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            ButtonList.infoButton &= InfoButton.SymbolInfo;
+
+        ButtonList.infoButton |= InfoButton.WeaponInfo;
+
         window.selectIndex = itemIndex;
         var info = window.info.GetComponent<WeaponEquipInfoUi>();
         Color color = new Color();
@@ -148,6 +164,22 @@ public class ItemButton : MonoBehaviour
     {
         if (window == null)
             return;
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.WeaponInfo;
+
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.RingInfo;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            ButtonList.infoButton &= InfoButton.SymbolInfo;
+
+        ButtonList.infoButton |= InfoButton.ArmorInfo;
 
         window.selectIndex = itemIndex;
         var info = window.info.GetComponent<ArmorEquipInfoUi>();
@@ -203,6 +235,22 @@ public class ItemButton : MonoBehaviour
         if (window == null)
             return;
 
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.WeaponInfo;
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.ArmorInfo;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            ButtonList.infoButton &= InfoButton.SymbolInfo;
+
+        ButtonList.infoButton |= InfoButton.RingInfo;
+
         window.selectIndex = itemIndex;
         var info = window.info.GetComponent<RingEquipInfoUi>();
         Color color = new Color();
@@ -256,6 +304,22 @@ public class ItemButton : MonoBehaviour
     {
         if (window == null)
             return;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.WeaponInfo;
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.ArmorInfo;
+
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            ButtonList.infoButton &= InfoButton.RingInfo;
+
+        ButtonList.infoButton |= InfoButton.SymbolInfo;
 
         window.selectIndex = itemIndex;
         var info = window.info.GetComponent<SymbolEquipInfoUi>();

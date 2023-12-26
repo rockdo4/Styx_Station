@@ -114,4 +114,16 @@ public class SkillGacha : MonoBehaviour
 
         GachaUpdate();
     }
+
+    public void OnClickSkillPer()
+    {
+        skillPerWindow.GetComponent<ShopPer>().Setting();
+
+        skillPerWindow.SetActive(true);
+    }
+
+    public void OnClickCloseSkillPer()
+    {
+        skillPerWindow.SetActive(false);
+    }
 }

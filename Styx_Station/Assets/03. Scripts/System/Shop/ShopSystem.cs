@@ -288,7 +288,7 @@ public class ShopSystem : Singleton<ShopSystem>
 
             var obj = info.slots[i].gameObject;
             var slot = obj.transform.GetChild(0);
-            //slot.GetComponent<Image>().sprite = basePet;
+            slot.GetComponent<Image>().sprite = basePet.pet.petIcon;
             Color color = new Color();
             switch (basePet.pet.Pet_Tier)
             {

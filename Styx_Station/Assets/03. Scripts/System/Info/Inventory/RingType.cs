@@ -52,6 +52,9 @@ public class RingType : InventoryType
 
             button.InfoUpdate();
         }
+
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.RingInfo;
     }
 
     public void Setting(Inventory inventory)

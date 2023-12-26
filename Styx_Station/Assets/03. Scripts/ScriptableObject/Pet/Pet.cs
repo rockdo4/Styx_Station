@@ -23,4 +23,8 @@ public class Pet : ScriptableObject
     public RuntimeAnimatorController animation;
     
     public GameObject Pet_GameObjet;
+
+    public Sprite petIcon;
+
+    public Sprite PetChar;
 }

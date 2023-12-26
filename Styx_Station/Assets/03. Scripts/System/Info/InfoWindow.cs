@@ -33,6 +33,8 @@ public class InfoWindow : Window
     {
         Open(InfoWindowType.State);
 
+        ButtonList.infoButton = InfoButton.State;
+
         base.Open();
 
         InfoTextUpdate();
@@ -40,11 +42,11 @@ public class InfoWindow : Window
 
     public void InfoTextUpdate()
     {
-        if(stringTable == null)
+        if (stringTable == null)
         {
             stringTable = MakeTableData.Instance.stringTable;
         }
-        if(stateSystem == null)
+        if (stateSystem == null)
         {
             stateSystem = StateSystem.Instance;
         }
@@ -86,6 +88,9 @@ public class InfoWindow : Window
     }
     public override void Close()
     {
+        ButtonList.infoButton = InfoButton.None;
+
+        UIManager.Instance.SkillButtonOn();
         base.Close();
     }
 
@@ -101,21 +106,75 @@ public class InfoWindow : Window
 
     public void OnClickState()
     {
-        Open(InfoWindowType.State);
-    }
+        if ((ButtonList.infoButton & InfoButton.State) == 0)
+        {
+            ButtonList.infoButton |= InfoButton.State;
 
+            if ((ButtonList.infoButton & InfoButton.Inventory) != 0)
+                ButtonList.infoButton &= ~InfoButton.Inventory;
+
+            if ((ButtonList.infoButton & InfoButton.Skill) != 0)
+                ButtonList.infoButton &= ~InfoButton.Skill;
+
+            if ((ButtonList.infoButton & InfoButton.Pet) != 0)
+                ButtonList.infoButton &= ~InfoButton.Pet;
+
+            Open(InfoWindowType.State);
+        }
+    }
     public void OnClickInventory()
     {
-        Open(InfoWindowType.Inventory);
+        if ((ButtonList.infoButton & InfoButton.Inventory) == 0)
+        {
+            ButtonList.infoButton |= InfoButton.Inventory;
+
+            if ((ButtonList.infoButton & InfoButton.State) != 0)
+                ButtonList.infoButton &= ~InfoButton.State;
+
+            if ((ButtonList.infoButton & InfoButton.Skill) != 0)
+                ButtonList.infoButton &= ~InfoButton.Skill;
+
+            if ((ButtonList.infoButton & InfoButton.Pet) != 0)
+                ButtonList.infoButton &= ~InfoButton.Pet;
+
+            Open(InfoWindowType.Inventory);
+        }
     }
     public void OnClickSkill()
     {
-        Open(InfoWindowType.Skill);
-    }
+        if ((ButtonList.infoButton & InfoButton.Skill) == 0)
+        {
+            ButtonList.infoButton |= InfoButton.Skill;
 
+            if ((ButtonList.infoButton & InfoButton.State) != 0)
+                ButtonList.infoButton &= ~InfoButton.State;
+
+            if ((ButtonList.infoButton & InfoButton.Inventory) != 0)
+                ButtonList.infoButton &= ~InfoButton.Inventory;
+
+            if ((ButtonList.infoButton & InfoButton.Pet) != 0)
+                ButtonList.infoButton &= ~InfoButton.Pet;
+
+            Open(InfoWindowType.Skill);
+        }
+    }
     public void OnClickPet()
     {
-        Open(InfoWindowType.Pet);
+        if ((ButtonList.infoButton & InfoButton.Pet) == 0)
+        {
+            ButtonList.infoButton |= InfoButton.Pet;
+
+            if ((ButtonList.infoButton & InfoButton.State) != 0)
+                ButtonList.infoButton &= ~InfoButton.State;
+
+            if ((ButtonList.infoButton & InfoButton.Inventory) != 0)
+                ButtonList.infoButton &= ~InfoButton.Inventory;
+
+            if ((ButtonList.infoButton & InfoButton.Skill) != 0)
+                ButtonList.infoButton &= ~InfoButton.Skill;
+
+            Open(InfoWindowType.Pet);
+        }
     }
 
     public void OnClickWeaponType()
@@ -129,6 +188,22 @@ public class InfoWindow : Window
 
         if (item == null)
             return;
+
+        if((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.ArmorInfo;
+
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.RingInfo;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            ButtonList.infoButton &= InfoButton.SymbolInfo;
+
+        ButtonList.infoButton |= InfoButton.WeaponInfo;
 
         var weaponInfo = weapon.inventoryTypes[(int)weapon.currentType].GetComponent<WeaponType>();
 
@@ -146,6 +221,22 @@ public class InfoWindow : Window
 
         if(item == null)
             return;
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.WeaponInfo;
+
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.RingInfo;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            ButtonList.infoButton &= InfoButton.SymbolInfo;
+
+        ButtonList.infoButton |= InfoButton.ArmorInfo;
 
         var armorInfo = armor.inventoryTypes[(int)armor.currentType].GetComponent<ArmorType>();
 
@@ -173,5 +264,42 @@ public class InfoWindow : Window
     public void OnClickSymbolType()
     {
 
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && (ButtonList.infoButton & InfoButton.Inventory) != 0)
+        {
+            if((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            {
+                inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>().
+                    inventoryTypes[(int)ItemType.Weapon].GetComponent<WeaponType>().
+                    OnClickCloseWeaponInfo();
+            }
+            else if((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            {
+                inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>().
+                    inventoryTypes[(int)ItemType.Armor].GetComponent<ArmorType>().
+                    OnClickCloseArmorInfo();
+            }
+            else if((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            {
+                inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>().
+                    inventoryTypes[(int)ItemType.Ring].GetComponent<RingType>().
+                    OnClickCloseRingInfo();
+            }
+            else if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            {
+                inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>().
+                    inventoryTypes[(int)ItemType.Symbol].GetComponent<SymbolType>().
+                    OnClickCloseSymbolInfo();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) &&
+            (ButtonList.infoButton & InfoButton.Skill) != 0 &&
+            (ButtonList.infoButton & InfoButton.SkillInfo) != 0)
+        {
+            inventorys[(int)currentSubWindow].GetComponent<SkillWindow>().OnClickCloseIfno();
+        }
     }
 }

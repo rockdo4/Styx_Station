@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +34,41 @@ public class NormalButton : MonoBehaviour
     }
     public void OnClickActive(SkillWindow window)
     {
+        if (ButtonList.mainButton == ButtonType.Main)
+        {
+
+            if (window.equipMode)
+                return;
+
+            if (skillIndex < 0)
+                return;
+
+            switch (equipIndex)
+            {
+                case 0:
+                    skillManager.UseSkill1(cool);
+                    break;
+                case 1:
+                    skillManager.UseSkill2(cool);
+                    break;
+                case 2:
+                    skillManager.UseSkill3(cool);
+                    break;
+                case 3:
+                    skillManager.UseSkill4(cool);
+                    break;
+                case 4:
+                    skillManager.UseSkill5(cool);
+                    break;
+                case 5:
+                    skillManager.UseSkill6(cool);
+                    break;
+            }
+        }
+    }
+
+    public void AutoSkillActive(SkillWindow window)
+    {
         if (window.equipMode)
             return;
 
@@ -40,7 +76,7 @@ public class NormalButton : MonoBehaviour
             return;
 
         switch (equipIndex)
-        { 
+        {
             case 0:
                 skillManager.UseSkill1(cool);
                 break;
@@ -59,10 +95,7 @@ public class NormalButton : MonoBehaviour
             case 5:
                 skillManager.UseSkill6(cool);
                 break;
-        
         }
-
-
     }
 
     public void OnClickEquip(SkillWindow window)

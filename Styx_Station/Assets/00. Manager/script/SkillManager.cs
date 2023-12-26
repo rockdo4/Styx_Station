@@ -135,10 +135,6 @@ public class SkillManager : Singleton<SkillManager>
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            UseSkill();
-        }
         if(isAuto)
         {
             if(!WaveManager.Instance.isWaveInProgress)
@@ -155,7 +151,7 @@ public class SkillManager : Singleton<SkillManager>
                 }
                 else
                 {
-                    button.GetComponentInChildren<NormalButton>().OnClickActive(skillWindow);
+                    button.GetComponentInChildren<NormalButton>().AutoSkillActive(skillWindow);
                 }
             }
 

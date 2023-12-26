@@ -69,6 +69,9 @@ public class WeaponType : InventoryType
 
             button.InfoUpdate();
         }
+
+        if((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.WeaponInfo;
     }
 
     public void Setting(Inventory inventory)

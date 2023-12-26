@@ -26,7 +26,7 @@ public class SoulDamage : SkillBase
              .ToArray();
         foreach (var monster in monsters)
         {
-            monster.GetComponent<MonsterController>().isStunned = true;
+            monster.GetComponent<MonsterController>().SetStun(); // = true;
             HitMonster(monster);
         }
     }

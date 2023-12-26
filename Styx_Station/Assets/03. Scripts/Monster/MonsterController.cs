@@ -41,6 +41,8 @@ public class MonsterController : PoolAble //MonoBehaviour
     public int pomegranate;
 
     public bool isStunned = false;
+    private float stunTimer = 0f;
+    private float stunTime = 1f;    
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
@@ -134,7 +136,12 @@ public class MonsterController : PoolAble //MonoBehaviour
         }
         if(isStunned)
         {
-            SetState(States.Idle);
+            stunTimer += Time.deltaTime;
+            if(stunTimer > stunTime)
+            {
+                isStunned = false;
+                stunTimer = 0;
+            }
         }
         if(isPoisioned)
         {
@@ -194,6 +201,13 @@ public class MonsterController : PoolAble //MonoBehaviour
         isStunned = false;
         isPoisioned = false;
         base.ReleaseObject();
+    }
+
+    public void SetStun()
+    {
+        isStunned = true;
+        stunTimer = 0f;
+        SetState(States.Idle);
     }
 
     //public void Hit()

@@ -8,6 +8,7 @@ public class MonsterIdleState : MonsterStateBase
     protected float timer = 0f;
     private float stunTimer = 0f;
     private float stunTime = 1f;
+    private float startStunTime = 0f;
 
     public MonsterIdleState(MonsterController manager): base(manager) 
     {
@@ -17,13 +18,17 @@ public class MonsterIdleState : MonsterStateBase
     public override void Enter()
     {
         timer = 0f;
-        stunTimer = 0f;
+
+        if(monsterCtrl.isStunned)
+        {
+            monsterCtrl.animator.SetFloat("RunState", 1f);
+        }
     }
 
     public override void Exit()
     {
         timer = 0f;
-        stunTimer = 0f;
+        monsterCtrl.animator.SetFloat("RunState", 0f);
     }
 
     public override void FixedUpate()
@@ -40,13 +45,6 @@ public class MonsterIdleState : MonsterStateBase
 
         if (monsterCtrl.isStunned)
         {
-            Debug.Log("Monster is Stunned");
-            stunTimer += Time.deltaTime;
-            if (stunTimer > stunTime)
-            {
-                stunTimer = 0f;
-                monsterCtrl.isStunned = false;
-            }
             return;
         }
 

@@ -31,6 +31,7 @@ public class PlayerStatsUiData : MonoBehaviour
 
     private void Start()
     {
+        UnitConverter.InitUnitConverter();
         if (!isSet)
         {
             SettingAction();

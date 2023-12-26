@@ -8,10 +8,10 @@ public static class GameData
 {
     public static StringBuilder exitTime = new StringBuilder() ; // 종료한 시간 시점 -> 식당칸에서 사용 예정
     public static StringBuilder keyPrevAccumlateTime = new StringBuilder();
-    private static StringBuilder nowTime = new StringBuilder();
+    public static StringBuilder nowTime = new StringBuilder();
 
-    public static float result = 0;
-    public static float maxResult = 1440; // 24시간을 분으로 나눈 상태 
+    public static int result = 0;
+    public static int maxResult = 1440; // 24시간을 분으로 나눈 상태 
 
     [HideInInspector]
     public static string datetimeString = "yy년 MM월 dd일 HH시 mm분 ss초";
@@ -30,6 +30,9 @@ public static class GameData
 
     public static LabBuffData labBuffData;
     public static int labBuffDataPercent = 10;
+    private static int compensationTime;
+
+    private static bool isBanchiCompensationTime;
 
     public static void GetAccumulateOfflineEarnings()
     {
@@ -39,18 +42,24 @@ public static class GameData
         var date = DateTime.ParseExact(nowTime.ToString(), datetimeString, null);
 
         TimeSpan timeDifference = date.Subtract(prevData);
+        if (timeDifference.TotalMinutes < 10)
+        {
+            isBanchiCompensationTime = false;
+            return;
+        }
+        isBanchiCompensationTime = true;
         if (timeDifference.TotalDays >= 1)
         {
             result = maxResult;
         }
         else
         {
-            result = (float)(timeDifference.Hours * 60 + timeDifference.Minutes + timeDifference.Seconds * 0.01);
+            result = (timeDifference.Hours * 60 + timeDifference.Minutes);
         }
 
-        CurrencyManager.money1 += (int)result * 100 / 100;
-
-        ChnageTime();
+        //CurrencyManager.money1 += result * 100 / 100;
+        compensationTime = result;
+        //ChnageTime();
     }
 
     public static void ChnageTime()
@@ -61,8 +70,20 @@ public static class GameData
         if(result >0)
         {
             // 보상 흭득 랜덤하게 하는 코드 넣기
-            result = 0f;
+            result = 0;
         }
     }
-
+    public static int GetCompensationTime()
+    {
+        return compensationTime;
+    }
+    public static void ResetCompensationTime()
+    {
+        ChnageTime();
+        compensationTime = 0;
+    }
+    public static bool GetBanchiCompensationTime()
+    {
+        return isBanchiCompensationTime;
+    }
 }

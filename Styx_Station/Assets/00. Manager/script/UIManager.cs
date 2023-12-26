@@ -43,18 +43,30 @@ public class UIManager : Singleton<UIManager>
     public GameObject[] autoSkill = new GameObject[2];
     private bool isAuto = false;
 
-    //12.20 이승우 인게임 재화 코드 추가 
+
     public TextMeshProUGUI sliverMoney;
     public TextMeshProUGUI pommeMoney;
     public TextMeshProUGUI soulMoney;
     public TextMeshProUGUI memoryMoney;
 
+    //12.26 이승우 방치보상 퀘스트 확인
+    private bool isBangchi;
+    public BangchiWindow bangchiWindow;
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
         PrintPommeMoney();
         PrintSoulMoney();
         PrintMemoryMoney();
+        if(!isBangchi)
+        {
+            isBangchi=true;
+            GameData.GetAccumulateOfflineEarnings();
+            if(GameData.GetBanchiCompensationTime())
+            {
+                bangchiWindow.Open();
+            }
+        }
     }
     public void Open(WindowType inventoryType)
     {

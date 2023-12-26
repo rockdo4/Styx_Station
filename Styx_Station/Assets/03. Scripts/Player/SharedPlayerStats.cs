@@ -61,7 +61,7 @@ public static class SharedPlayerStats
     public static int Healing { set { healing = value; } }
 
     private static BigInteger prevPrice = new BigInteger(0);
-
+    private static BigInteger ten = new BigInteger(10);
     public static void CheckLimitAll()
     {
         PlayerPowerBoostCondition();
@@ -83,9 +83,11 @@ public static class SharedPlayerStats
         }
         else
         {
-            var price = prevPrice;
-            price /= 10;
-            CurrencyManager.playerPowerPrice += price;
+            var price = CurrencyManager.playerPowerPrice;
+            var length = price.ToString().Length;
+            length =length- 3;
+            var t = BigInteger.Pow(ten, length);
+            CurrencyManager.playerPowerPrice += t;
         }
         if (CurrencyManager.money1 > CurrencyManager.playerPowerPrice)
         {
@@ -162,9 +164,11 @@ public static class SharedPlayerStats
             }
             else
             {
-                var price = prevPrice;
-                price /= 10;
-                CurrencyManager.playerAttackSpeedPrice += price;
+                var or = CurrencyManager.playerAttackSpeedPrice;
+                var length = or.ToString().Length;
+                length = length - 3;
+                var t = BigInteger.Pow(ten, length);
+                CurrencyManager.playerAttackSpeedPrice += t;
             }
             if (CurrencyManager.money1 > CurrencyManager.playerAttackSpeedPrice)
             {
@@ -201,9 +205,11 @@ public static class SharedPlayerStats
             }
             else
             {
-                var price = prevPrice;
-                price /= 10;
-                CurrencyManager.criticalPrice += price;
+                var or = CurrencyManager.criticalPrice;
+                var length = or.ToString().Length;
+                length = length - 3;
+                var t = BigInteger.Pow(ten, length);
+                CurrencyManager.criticalPrice += t;
             }
             if (CurrencyManager.money1 > CurrencyManager.criticalPrice)
             {
@@ -313,9 +319,11 @@ public static class SharedPlayerStats
         }
         else
         {
-            var price = prevPrice;
-            price /= 10;
-            CurrencyManager.maxHpPrice += price;
+            var or = CurrencyManager.maxHpPrice;
+            var length = or.ToString().Length;
+            length = length - 3;
+            var t = BigInteger.Pow(ten, length);
+            CurrencyManager.maxHpPrice += t;
         }
 
         if (CurrencyManager.money1 > CurrencyManager.maxHpPrice)
@@ -348,9 +356,11 @@ public static class SharedPlayerStats
         }
         else
         {
-            var price = prevPrice;
-            price /= 10;
-            CurrencyManager.healingPrice += price;
+            var or = CurrencyManager.healingPrice;
+            var length = or.ToString().Length;
+            length = length - 3;
+            var t = BigInteger.Pow(ten, length);
+            CurrencyManager.healingPrice += t;
         }
 
         if (CurrencyManager.money1 > CurrencyManager.healingPrice)

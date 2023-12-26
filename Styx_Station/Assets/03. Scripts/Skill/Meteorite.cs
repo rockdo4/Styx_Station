@@ -14,7 +14,7 @@ public class Meteorite : PoolAble
     private GameObject caster;
     private float speed;
 
-    public bool isRelease = false;
+    //public bool isRelease = false;
 
     private bool hasDealtDamage = false;
 
@@ -33,7 +33,7 @@ public class Meteorite : PoolAble
 
     private void OnEnable()
     {
-        isRelease = false;
+        //isRelease = false;
         hasDealtDamage = false;
     }
 
@@ -41,10 +41,11 @@ public class Meteorite : PoolAble
     {
         if (Vector3.Distance(transform.position, DirectionPos) < arrivalThreshold)
         {
-            ReleaseArrow();
+            //ReleaseArrow();
+            ReleaseObject();
             return;
         }
-        //Vector2 moveVector = (targetPosition - (Vector2)transform.position).normalized * speed * Time.fixedDeltaTime;
+        
         var moveVector = (DirectionPos - (Vector2)transform.position).normalized * speed * Time.fixedDeltaTime;
         rg.MovePosition(rg.position + moveVector);
     }
@@ -53,7 +54,8 @@ public class Meteorite : PoolAble
     {
         if (!IsInCameraView())
         {
-            ReleaseArrow();
+            ReleaseObject();
+            //ReleaseArrow();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -94,11 +96,11 @@ public class Meteorite : PoolAble
 
     private void ReleaseArrow()
     {
-        if (!isRelease)
-        {
-            isRelease = true;
-            ReleaseObject();
-        }
+        //if (!isRelease)
+        //{
+        //    isRelease = true;
+        //    ReleaseObject();
+        //}
     }
 
     bool IsInCameraView()

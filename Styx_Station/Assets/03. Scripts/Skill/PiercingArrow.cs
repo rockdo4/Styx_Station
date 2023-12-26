@@ -11,7 +11,7 @@ public class PiercingArrow : PoolAble
     private GameObject caster;
     private float speed;
 
-    public bool isRelease = false;
+    //public bool isRelease = false;
 
     private void Awake()
     {
@@ -23,10 +23,10 @@ public class PiercingArrow : PoolAble
         mainCamera = Camera.main;
     }
 
-    private void OnEnable()
-    {
-        isRelease = false;
-    }
+    //private void OnEnable()
+    //{
+    //    isRelease = false;
+    //}
 
     private void FixedUpdate()
     {
@@ -39,7 +39,8 @@ public class PiercingArrow : PoolAble
     {
         if (!IsInCameraView())
         {
-            ReleaseArrow();
+            ReleaseObject();
+            //ReleaseArrow();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -70,11 +71,11 @@ public class PiercingArrow : PoolAble
 
     private void ReleaseArrow()
     {
-        if (!isRelease)
-        {
-            isRelease = true;
-            ReleaseObject();
-        }
+        //if (!isRelease)
+        //{
+        //    isRelease = true;
+        //    ReleaseObject();
+        //}
     }
 
     bool IsInCameraView()

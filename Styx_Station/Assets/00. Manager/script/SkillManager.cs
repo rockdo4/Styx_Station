@@ -82,7 +82,7 @@ public class SkillManager : Singleton<SkillManager>
     private delegate void AutoSkillDelegate(Slider cool);
     //private AutoSkillDelegate[] useSkillArray = new AutoSkillDelegate[6];
     //private Queue<AutoSkillDelegate> autoSkillQueue = new Queue<AutoSkillDelegate>();
-    private Queue<GameObject> skillbutton = new Queue<GameObject>();
+    public Queue<GameObject> skillbutton = new Queue<GameObject>();
     public bool isAuto { get; private set; } = false;
 
     private SkillWindow skillWindow;
@@ -116,16 +116,21 @@ public class SkillManager : Singleton<SkillManager>
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
 
-        for(int i = 0; i < 6; i++)
-        {
-            skillbutton.Enqueue(skillWindow.slotButtons[i]);
-        }
+        //for(int i = 0; i < 6; i++)
+        //{
+        //    skillbutton.Enqueue(skillWindow.slotButtons[i]);
+        //}
         SetEquipSkillCool();
     }
     private void Start()
     {
         //skills.Add(new TripleShot(inventory.skills[0], shooterPrefab));
     }
+
+    //public Queue GetSkillButton()
+    //{
+    //    return skillbutton;
+    //}
 
     public void SetIsAuto(bool isA)
     {
@@ -189,6 +194,7 @@ public class SkillManager : Singleton<SkillManager>
             equipSkills = inventory.equipSkills;
         equipSkills[index] = inventory.equipSkills[index];
         equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
+        skillbutton.Enqueue(skillWindow.slotButtons[index]);
     }
 
     public void SetDequipSkillByIndex(int index)

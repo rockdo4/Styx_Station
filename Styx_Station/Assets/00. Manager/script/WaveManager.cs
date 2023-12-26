@@ -378,7 +378,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             var initialPos = pet.GetComponentInChildren<PetController>().initialPos;
             pet.gameObject.transform.position = initialPos;
             pet.GetComponentInChildren<PetController>().SetState(States.Idle);
-            //pet.GetComponentInChildren<PetController>().isArrive = false;
         }
     }
 
@@ -405,10 +404,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             {
                 arrow.GetComponent<PoolAble>().ReleaseObject();
             }
-            if(arrow.GetComponent<PiercingArrow>() != null)
-            {
-                arrow.GetComponent<PiercingArrow>().isRelease = true;
-            }
+            //if(arrow.GetComponent<PiercingArrow>() != null)
+            //{
+            //    arrow.GetComponent<PiercingArrow>().isRelease = true;
+            //}
             if(arrow.GetComponent<PlayerArrow>() != null )
             {
                 arrow.GetComponent<PlayerArrow>().isRelease = true;

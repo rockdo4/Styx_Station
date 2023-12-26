@@ -16,6 +16,9 @@ public class SaveLoad : MonoBehaviour
     private ShopSystem shop;
     private LabSystem labSystem;
     private SkillManager skillManager;
+    //12.26 ÀÌ½Â¿ì Ãß°¡
+    private UIManager UIManager;
+    private MakeTableData MakeTableData;
     private void Start()
     {
         playerbuff= PlayerBuff.Instance;
@@ -23,6 +26,8 @@ public class SaveLoad : MonoBehaviour
         shop = ShopSystem.Instance;
         labSystem = LabSystem.Instance;
         skillManager = SkillManager.Instance;
+        UIManager= UIManager.Instance;
+        MakeTableData= MakeTableData.Instance;  
     }
     public void Save()
     {
@@ -198,6 +203,9 @@ public class SaveLoad : MonoBehaviour
         }
 
         data.gameSaveDatas.labBuffData = GameData.labBuffData;
+        data.gameSaveDatas.currentQuestIndex = MakeTableData.currentQuestIndex;
+        data.gameSaveDatas.currentQuestType = (int)UIManager.questSystemUi.currentQuestType;
+        data.gameSaveDatas.currentQuestSystemData = UIManager.questSystemUi.questData;
 
         SaveLoadSystem.JsonSave(data, "Test.json");
         Debug.Log("Save ");
@@ -658,6 +666,27 @@ public class SaveLoad : MonoBehaviour
                     var datas = JsonConvert.DeserializeObject<LabBuffData>(str);
 
                     GameData.labBuffData = datas;
+                }
+                if (gameSaveDatas["currentQuestIndex"] is JToken currentQuestIndex)
+                {
+                    string str = currentQuestIndex.ToString();
+                    var datas = JsonConvert.DeserializeObject<int>(str);
+
+                    MakeTableData.Instance.currentQuestIndex = datas;   
+                }
+                if (gameSaveDatas["currentQuestType"] is JToken currentQuestType)
+                {
+                    string str = currentQuestType.ToString();
+                    var datas = JsonConvert.DeserializeObject<int>(str);
+
+                    UIManager.Instance.questSystemUi.currentQuestType = (QuestType)datas;
+                }
+                if (gameSaveDatas["currentQuestSystemData"] is JToken currentQuestSystemData)
+                {
+                    string str = currentQuestSystemData.ToString();
+                    var datas = JsonConvert.DeserializeObject<QuestSystemData>(str);
+
+                    UIManager.Instance.questSystemUi.QuestLoad(datas);
                 }
             }
         }

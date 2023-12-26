@@ -6,7 +6,7 @@ using UnityEngine;
 public class VampireSliverItem : PoolAble
 {
     private GameObject player;
-    private float speed = 1f;
+    public float speed = 1f;
     private Rigidbody2D rb;
     public float eatDistance=0.2f;
 

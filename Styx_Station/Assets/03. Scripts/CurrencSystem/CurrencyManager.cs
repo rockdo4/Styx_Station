@@ -1,3 +1,4 @@
+using System;
 using System.Numerics;
 
 public static class CurrencyManager 
@@ -72,15 +73,16 @@ public static class CurrencyManager
         }
         for (int i=1;i<loopSize;++i)
         {
-            if (i < 50)
-                price++;
-            else if (i < 500)
+            if (i < 99)
             {
-                price += (i - 1);
+                var price2 = Math.Pow(1.07303, i);
+                var pr = Math.Round(price2);
+                price = (int)pr;
             }
             else
             {
-                price += (i - 1) + (i / 10);
+                var pr = price / 10;
+                price += pr;
             }
         }
     }

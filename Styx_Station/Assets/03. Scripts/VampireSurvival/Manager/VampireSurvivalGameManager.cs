@@ -9,10 +9,8 @@ public class VampireSurvivalGameManager : MonoBehaviour
     {
         get
         {
-            // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
             if (instance == null)
             {
-                // 씬에서 GameManager 오브젝트를 찾아 할당
                 instance = FindObjectOfType<VampireSurvivalGameManager>();
             }
 
@@ -40,12 +38,12 @@ public class VampireSurvivalGameManager : MonoBehaviour
     [HideInInspector] public bool isGameover;
 
     public int sliver = 0;//[HideInInspector]
+    public int deathMonsterCount = 0;
 
     public int wave = 1;
     public int minMonsterBorn;
     public int maxMonsterBorn;
 
-    public VampireSurivalPlayerSkillInventory vampireSkillInventory;
     private void Awake()
     {
         if (Instance != this)
@@ -80,11 +78,6 @@ public class VampireSurvivalGameManager : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            var monster =ObjectPoolManager.instance.GetGo("VampireNormalMonster1");
-            monster.transform.position = Vector3.zero;
-        }
         gameTimer -= Time.deltaTime;
         normalMonsterSpwanTimer += Time.deltaTime;
         if (gameTimer <=0f)

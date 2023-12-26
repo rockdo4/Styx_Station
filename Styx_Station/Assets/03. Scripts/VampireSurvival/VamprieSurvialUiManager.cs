@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,15 +26,16 @@ public class VamprieSurvialUiManager : MonoBehaviour
     public Slider gameTimerSlider;
     public TextMeshProUGUI gameTimerTextMeshProUGUI;
 
-    public GameObject loosePopUpWindow;
+    public Window loosePopUpWindow;
+
+    public List<GameObject>skillSlotList = new List<GameObject>();
+    int currentSkillSlotIndex = 0;
     private void Awake()
     {
         if (Instance != this)
             Destroy(gameObject);
 
         UIManager.Instance.gameObject.SetActive(false);
-
-
     }
 
     private void Start()
@@ -81,9 +83,20 @@ public class VamprieSurvialUiManager : MonoBehaviour
     public void PopUpGameOverObject()
     {
         JoysitckDragUp();
-       loosePopUpWindow.SetActive(true);
+        loosePopUpWindow.Open();
     }
-
+    public void GetSkillImage(Sprite skillSprite)
+    {
+        if(currentSkillSlotIndex >= skillSlotList.Count)
+            return;
+        var image = skillSlotList[currentSkillSlotIndex].GetComponent<Image>();
+        image.sprite = skillSprite;
+        var color = image.color;
+        color.a = 1f;
+        image.color = color;    
+        currentSkillSlotIndex++;
+        
+    }
     public void TestC()
     {
         Debug.Log("TTT");

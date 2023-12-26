@@ -4,18 +4,22 @@ using UnityEngine;
 
 public abstract class VamprieSurivalPlayerAttackType : PoolAble
 {
-    public int damage;
+    public float damage;
     protected Vector2 direction;
-    public float range;
+    protected float timer;
     public float speed;
     public float aliveTime;
+    protected float range;
     [HideInInspector]
-    public float nowTime;
-    public float coolTime;
-    public float timer;
-    public VamprieSurivalAttackType attackType;
     public abstract void LineAttackRange(Vector2 position);
 
+    public virtual void Setting(float damage , float speed,float aliveTime,float range=0)
+    {
+        this.damage = damage;
+        this.speed = speed;  
+        this.aliveTime = aliveTime;
+        this.range = range;
+    }
 
     public override void ReleaseObject()
     {

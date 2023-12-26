@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class VampireSurivalPlayerSkillInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public List<VampireSkillInfoDataType> playerInventory = new List<VampireSkillInfoDataType>();
+
+    public void GetSkill(VampireSkillInfoDataType skillInfo)
     {
         
+        playerInventory.Add(skillInfo);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
     }
 }

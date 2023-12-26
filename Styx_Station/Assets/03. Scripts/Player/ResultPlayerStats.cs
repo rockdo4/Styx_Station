@@ -85,7 +85,7 @@ public class ResultPlayerStats : MonoBehaviour
     }
     public BigInteger GetPlayerPowerByNonInventory()
     {
-        return (int)playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1);
+        return (int)playerAttribute.attackPower + ((SharedPlayerStats.GetPlayerPower() - 1)* increaseUpgradePower);
     }
 
     public BigInteger GetPlayerPower() 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
@@ -19,13 +20,11 @@ public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
     }
     private void Update()
     {
-        if (isStartObject)
+        if(isStartObject)
         {
             timer += Time.deltaTime;
-        }
-        if(timer >=aliveTime)
-        {
-            ReleaseObject();
+            if(timer >= aliveTime)
+                ReleaseObject();
         }
     }
 
@@ -35,4 +34,24 @@ public class VamprieSurivalAttackArrow : VamprieSurivalPlayerAttackType
         isStartObject =true;
         direction = position;
     }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.collider.CompareTag("VampireEnemy"))
+    //    {
+    //        var mon = collision.collider.GetComponent<VampireSurivalMonster>();
+    //        mon.GetDamage(damage);
+    //        ReleaseObject();
+    //    }
+    //}
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("VampireEnemy"))
+    //    {
+    //        var mon = other.GetComponent<VampireSurivalMonster>();
+    //        mon.GetDamage(damage);
+    //        ReleaseObject();
+    //    }
+    //}
 }
+

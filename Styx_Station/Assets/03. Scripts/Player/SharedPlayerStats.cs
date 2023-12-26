@@ -113,19 +113,18 @@ public static class SharedPlayerStats
         if (!isPlayerPowerBoostMax && playerPower > 1000)
         {
             prevPrice = CurrencyManager.playerPowerBoostPrice;
-            if (playerPowerBoost < 50)
-                CurrencyManager.playerPowerBoostPrice += 1;
-            else if (playerPowerBoost < 500)
+            if (playerPowerBoost < 99)
             {
-                var price = CurrencyManager.playerPowerBoostPrice += (playerPowerBoost - 1);
-                price /= 10;
-                CurrencyManager.playerPowerBoostPrice = price;
+                var price2 = Math.Pow(1.07303, playerPowerBoost);
+                price2 /= 2;
+                var pr = Math.Round(price2);
+                CurrencyManager.playerPowerBoostPrice = (int)pr;
             }
             else
             {
-                var price = CurrencyManager.playerPowerBoostPrice += (playerPowerBoost - 1) + (playerPowerBoost / 10);
-                price /= 10;
-                CurrencyManager.playerPowerBoostPrice = price;
+                var pr = prevPrice / 10;
+                pr /= 2;
+                CurrencyManager.playerPowerBoostPrice += pr;
             }
 
             if (CurrencyManager.money2 > CurrencyManager.playerPowerBoostPrice)
@@ -232,15 +231,16 @@ public static class SharedPlayerStats
         prevPrice = CurrencyManager.criticalPowerPrice;
         if (criticalPower < 99)
         {
-            var price = Math.Pow(1.07303, criticalPower);
-            var pr = Math.Round(price);
+            var price2 = Math.Pow(1.07303, criticalPower);
+            price2 /= 2;
+            var pr = Math.Round(price2);
             CurrencyManager.criticalPowerPrice = (int)pr;
         }
         else
         {
-            var price = prevPrice;
-            price /= 10;
-            CurrencyManager.criticalPowerPrice += price;
+            var pr = prevPrice / 10;
+            pr /= 2;
+            CurrencyManager.criticalPowerPrice += pr;
         }
 
         if (CurrencyManager.money2 > CurrencyManager.criticalPowerPrice)
@@ -270,15 +270,16 @@ public static class SharedPlayerStats
             prevPrice = CurrencyManager.monsterDamagerPrice;
             if (monsterDamage < 99)
             {
-                var price = Math.Pow(1.07303, monsterDamage);
-                var pr = Math.Round(price);
+                var price2 = Math.Pow(1.07303, monsterDamage);
+                price2 /= 2;
+                var pr = Math.Round(price2);
                 CurrencyManager.monsterDamagerPrice = (int)pr;
             }
             else
             {
-                var price = prevPrice;
-                price /= 10;
-                CurrencyManager.monsterDamagerPrice += price;
+                var pr = prevPrice / 10;
+                pr /= 2;
+                CurrencyManager.monsterDamagerPrice += pr;
             }
 
 

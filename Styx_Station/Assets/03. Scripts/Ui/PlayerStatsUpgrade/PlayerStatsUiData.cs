@@ -358,6 +358,7 @@ public class PlayerStatsUiData : MonoBehaviour
     private void ButtonTextMax()
     {
         currentLevelText.text = "Max";
+        upgradeLevelUPPriceText.text = "Max";
         var getText = button.GetComponentInChildren<TextMeshProUGUI>();
         if (getText != null)
         {

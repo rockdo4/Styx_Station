@@ -96,17 +96,18 @@ public static class CurrencyManager
         }
         for (int i = 1; i < loopSize; ++i)
         {
-            if (i < 50)
-                price++;
-            else if (i < 500)
+            if (i < 99)
             {
-                price += (i - 1);
-                price /= 2;
+                var price2 = Math.Pow(1.07303, i);
+                price2 /= 2;
+                var pr = Math.Round(price2);
+                price = (int)pr;
             }
             else
             {
-                price += (i - 1) + (i / 10);
-                price /= 2;
+                var pr = price / 10;
+                pr /= 2;
+                price += pr;
             }
         }
     }

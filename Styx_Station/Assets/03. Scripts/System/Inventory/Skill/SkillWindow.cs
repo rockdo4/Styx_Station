@@ -119,6 +119,9 @@ public class SkillWindow : SubWindow
         equipMode = false;
         info.SetActive(false);
         ButtonInteractable();
+
+        if ((ButtonList.infoButton & InfoButton.SkillInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.SkillInfo;
     }
 
     public void OnClickEquip()

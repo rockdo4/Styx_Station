@@ -114,4 +114,16 @@ public class ItemGacha : MonoBehaviour
 
         GachaUpdate();
     }
+
+    public void OnClickItemPer()
+    {
+        itemPerWindow.GetComponent<ItemPer>().Setting();
+
+        itemPerWindow.SetActive(true);
+    }
+
+    public void OnClickCloseItemPer()
+    {
+        itemPerWindow.SetActive(false);
+    }
 }

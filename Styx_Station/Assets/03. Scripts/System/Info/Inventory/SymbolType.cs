@@ -53,6 +53,9 @@ public class SymbolType : InventoryType
 
             button.InfoUpdate();
         }
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.SymbolInfo;
     }
     public void Setting(Inventory inventory)
     {

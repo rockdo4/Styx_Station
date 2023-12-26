@@ -103,4 +103,15 @@ public class PetGacha : MonoBehaviour
 
         GachaUpdate();
     }
+    public void OnClickPetPer()
+    {
+        petPerWindow.GetComponent<PetPer>().Setting();
+
+        petPerWindow.SetActive(true);
+    }
+
+    public void OnClickClosePetPer()
+    {
+        petPerWindow.SetActive(false);
+    }
 }

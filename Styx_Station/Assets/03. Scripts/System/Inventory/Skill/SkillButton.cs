@@ -14,6 +14,13 @@ public class SkillButton : MonoBehaviour
         if (window == null)
             return;
 
+        if ((ButtonList.infoButton & InfoButton.SkillInfo) != 0)
+        {
+            return;
+        }
+
+        ButtonList.infoButton |= InfoButton.SkillInfo;
+
         window.selectIndex = skillIndex;
         var info = window.info.GetComponent<SkillInfoUi>();
         Color color = new Color();

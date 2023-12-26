@@ -65,6 +65,8 @@ public class PetWindow : SubWindow
             {
                 pet.equipMark.gameObject.SetActive(true);
             }
+            
+            pet.image.sprite = pet.pet.pet.PetChar;
 
             if (Global.language == Language.KOR)
             {

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MenuWindow : Window
 {
+    public GameObject settingBox;
+
     public override void Open()
     {
         base.Open();

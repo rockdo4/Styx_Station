@@ -69,6 +69,9 @@ public class ArmorType : InventoryType
 
             button.InfoUpdate();
         }
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.ArmorInfo;
     }
 
     public void Setting(Inventory inventory)

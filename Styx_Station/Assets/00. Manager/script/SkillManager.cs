@@ -74,6 +74,7 @@ public class SkillManager : Singleton<SkillManager>
     public GameObject blackCloudPrefab;
     public GameObject meteorPrefab;
     public GameObject energyVoltPerfab;
+    public GameObject soulDamagePrefab;
 
     public LayerMask enemyLayer;
 
@@ -111,7 +112,8 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new Meteor(inventory.skills[9], meteorPrefab)); //메테오
         skills.Add(new EnergyVolt(inventory.skills[10], energyVoltPerfab)); //에너지볼트
         skills.Add(new PassiveSkillBase()); //임시(공격력 증가2)
-        skills.Add(new TripleShot(inventory.skills[11], tripleShotShooterPrefab)); //트리플샷3
+        skills.Add(new TripleShot(inventory.skills[12], tripleShotShooterPrefab)); //트리플샷4
+        skills.Add(new SoulDamage(inventory.skills[13], soulDamagePrefab, player));
 
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();

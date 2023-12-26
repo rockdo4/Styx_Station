@@ -102,7 +102,7 @@ public enum WindowType
     DiningRoom,
     Lab,
     Cleaning,
-    BossRush,
+    Failure,
     Menu,
     Shop,
     Mission,

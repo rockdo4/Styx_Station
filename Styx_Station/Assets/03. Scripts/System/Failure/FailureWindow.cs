@@ -1,4 +1,4 @@
-public class BossRushWindow : Window
+public class FailureWindow : Window
 {
     public override void Open()
     {

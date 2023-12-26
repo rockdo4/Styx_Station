@@ -11,7 +11,7 @@ public enum ButtonType
     DiningRoom = 1 << 3, // 
     Lab = 1 << 4,
     Cleaning = 1 << 5,
-    BossRush = 1 << 6,
+    Failure = 1 << 6,
     Shop = 1 << 7,
     Menu = 1 << 8,
     TrainMove = 1 << 9,

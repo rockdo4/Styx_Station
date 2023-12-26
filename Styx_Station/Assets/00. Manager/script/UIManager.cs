@@ -95,8 +95,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
 
-            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+            if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+                ButtonList.mainButton &= ~ButtonType.Failure;
 
             if ((ButtonList.mainButton & ButtonType.Shop) != 0)
                 ButtonList.mainButton &= ~ButtonType.Shop;
@@ -130,8 +130,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
 
-            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+            if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+                ButtonList.mainButton &= ~ButtonType.Failure;
 
             if ((ButtonList.mainButton & ButtonType.Shop) != 0)
                 ButtonList.mainButton &= ~ButtonType.Shop;
@@ -165,8 +165,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
 
-            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+            if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+                ButtonList.mainButton &= ~ButtonType.Failure;
 
             if ((ButtonList.mainButton & ButtonType.Shop) != 0)
                 ButtonList.mainButton &= ~ButtonType.Shop;
@@ -199,8 +199,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Lab) != 0)
                 ButtonList.mainButton &= ~ButtonType.Lab;
 
-            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+            if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+                ButtonList.mainButton &= ~ButtonType.Failure;
 
             if ((ButtonList.mainButton & ButtonType.Shop) != 0)
                 ButtonList.mainButton &= ~ButtonType.Shop;
@@ -213,9 +213,9 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public void OnClickBossRush()
+    public void OnClickFailure()
     {
-        if ((ButtonList.mainButton & ButtonType.BossRush) == 0 &&
+        if ((ButtonList.mainButton & ButtonType.Failure) == 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
             move == null)
         {
@@ -242,8 +242,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Menu) != 0)
                 ButtonList.mainButton &= ~ButtonType.Menu;
 
-            Open(WindowType.BossRush);
-            ButtonList.mainButton |= ButtonType.BossRush;
+            Open(WindowType.Failure);
+            ButtonList.mainButton |= ButtonType.Failure;
         }
     }
 
@@ -270,8 +270,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
 
-            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+            if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+                ButtonList.mainButton &= ~ButtonType.Failure;
 
             if ((ButtonList.mainButton & ButtonType.Shop) != 0)
                 ButtonList.mainButton &= ~ButtonType.Shop;
@@ -301,8 +301,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
 
-            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+            if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+                ButtonList.mainButton &= ~ButtonType.Failure;
 
             if ((ButtonList.mainButton & ButtonType.Shop) != 0)
                 ButtonList.mainButton &= ~ButtonType.Shop;
@@ -336,8 +336,8 @@ public class UIManager : Singleton<UIManager>
             if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
 
-            if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+            if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+                ButtonList.mainButton &= ~ButtonType.Failure;
 
             if ((ButtonList.mainButton & ButtonType.Menu) != 0)
                 ButtonList.mainButton &= ~ButtonType.Menu;
@@ -375,8 +375,8 @@ public class UIManager : Singleton<UIManager>
         if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
             ButtonList.mainButton &= ~ButtonType.Cleaning;
 
-        if ((ButtonList.mainButton & ButtonType.BossRush) != 0)
-            ButtonList.mainButton &= ~ButtonType.BossRush;
+        if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+            ButtonList.mainButton &= ~ButtonType.Failure;
 
         if ((ButtonList.mainButton & ButtonType.Menu) != 0)
             ButtonList.mainButton &= ~ButtonType.Menu;
@@ -653,9 +653,9 @@ public class UIManager : Singleton<UIManager>
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
                 windows[(int)currentWindow].Close();
             }
-            else if((ButtonList.mainButton & ButtonType.BossRush)!= 0)
+            else if((ButtonList.mainButton & ButtonType.Failure)!= 0)
             {
-                ButtonList.mainButton &= ~ButtonType.BossRush;
+                ButtonList.mainButton &= ~ButtonType.Failure;
                 windows[(int)currentWindow].Close();
             }
             else if((ButtonList.mainButton & ButtonType.Shop)!= 0)

@@ -36,8 +36,6 @@ public class VamprieSurvialUiManager : MonoBehaviour
             Destroy(gameObject);
 
         UIManager.Instance.gameObject.SetActive(false);
-
-
     }
 
     private void Start()
@@ -91,8 +89,11 @@ public class VamprieSurvialUiManager : MonoBehaviour
     {
         if(currentSkillSlotIndex >= skillSlotList.Count)
             return;
-        var image = skillSlotList[currentSkillSlotIndex].GetComponentInChildren<Image>();
+        var image = skillSlotList[currentSkillSlotIndex].GetComponent<Image>();
         image.sprite = skillSprite;
+        var color = image.color;
+        color.a = 1f;
+        image.color = color;    
         currentSkillSlotIndex++;
         
     }

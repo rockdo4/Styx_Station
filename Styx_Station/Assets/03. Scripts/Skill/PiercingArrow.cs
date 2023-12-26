@@ -11,8 +11,6 @@ public class PiercingArrow : PoolAble
     private GameObject caster;
     private float speed;
 
-    //public bool isRelease = false;
-
     private void Awake()
     {
         rg = GetComponent<Rigidbody2D>();
@@ -22,11 +20,6 @@ public class PiercingArrow : PoolAble
     {
         mainCamera = Camera.main;
     }
-
-    //private void OnEnable()
-    //{
-    //    isRelease = false;
-    //}
 
     private void FixedUpdate()
     {
@@ -40,7 +33,6 @@ public class PiercingArrow : PoolAble
         if (!IsInCameraView())
         {
             ReleaseObject();
-            //ReleaseArrow();
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -68,16 +60,6 @@ public class PiercingArrow : PoolAble
         speed = s;
         caster = c;
     }
-
-    private void ReleaseArrow()
-    {
-        //if (!isRelease)
-        //{
-        //    isRelease = true;
-        //    ReleaseObject();
-        //}
-    }
-
     bool IsInCameraView()
     {
         Vector3 screenPoint = mainCamera.WorldToViewportPoint(transform.position);

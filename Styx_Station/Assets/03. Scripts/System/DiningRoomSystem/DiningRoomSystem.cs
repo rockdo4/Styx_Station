@@ -95,8 +95,10 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     public void ReMoveFoodData(int index)
     {
         foodDatas[index] = null;
+        if(isFullFood)
+            timer = max;
         isFullFood = false;
-        timer = max;
+        
         counting--;
         if (counting <= 0)
             counting = 0;
@@ -176,7 +178,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
 
         while (tmepTime <0f)
         {
-            if (timer < 0f)
+            if (tmepTime < 0f)
             {
                 counting++;
                 tmepTime += max;
@@ -188,10 +190,9 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             }
             else
             {
+                timer = tmepTime;
                 break;
             }
-            //timer += tmepTime;
-
         }
     }
 

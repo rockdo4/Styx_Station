@@ -76,6 +76,8 @@ public class SkillManager : Singleton<SkillManager>
     public GameObject energyVoltPerfab;
     public GameObject soulDamagePrefab;
     public GameObject arrowOfLightPrefab;
+    public GameObject impaleShooterPrefab;
+    public GameObject impalePrefab; 
 
     public LayerMask enemyLayer;
 
@@ -116,24 +118,13 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new TripleShot(inventory.skills[12], tripleShotShooterPrefab)); //트리플샷4
         skills.Add(new SoulDamage(inventory.skills[13], soulDamagePrefab, player)); //정신공격
         skills.Add(new ArrowOfLight(inventory.skills[14], arrowOfLightPrefab, player)); //빛의 화살
+        skills.Add(new TripleShot(inventory.skills[15], tripleShotShooterPrefab)); //트리플샷5
+        skills.Add(new Impale(inventory.skills[16], impalePrefab, impaleShooterPrefab)); //임페일
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
 
-        //for(int i = 0; i < 6; i++)
-        //{
-        //    skillbutton.Enqueue(skillWindow.slotButtons[i]);
-        //}
         SetEquipSkillCool();
     }
-    private void Start()
-    {
-        //skills.Add(new TripleShot(inventory.skills[0], shooterPrefab));
-    }
-
-    //public Queue GetSkillButton()
-    //{
-    //    return skillbutton;
-    //}
 
     public void SetIsAuto(bool isA)
     {

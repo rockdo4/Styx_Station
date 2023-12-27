@@ -15,8 +15,20 @@ public class MenuWindow : Window
 
     public override void Close()
     {
+        if((ButtonList.settingButton & SettingButton.CouPon) != 0)
+        {
+            ButtonList.settingButton &= ~SettingButton.CouPon;
+            settingBox.GetComponent<SettingBox>().couponWindow.SetActive(false);
+        }
+
+        if((ButtonList.settingButton & SettingButton.Cheat)!=0)
+        {
+            ButtonList.settingButton &= ~SettingButton.Cheat;
+            settingBox.GetComponent<SettingBox>().cheat.SetActive(false);
+        }
         ButtonList.settingButton = SettingButton.None;
         settingBox.SetActive(false);
+
         base.Close();
     }
 

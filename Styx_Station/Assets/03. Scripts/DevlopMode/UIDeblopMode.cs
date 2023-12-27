@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UIDeblopMode : MonoBehaviour
 {
-
+    private bool skill = false;
    public void DiningRoomDecearseTime()
     {
         DiningRoomSystem.Instance.timer -= 10;
@@ -27,6 +27,21 @@ public class UIDeblopMode : MonoBehaviour
             {
                 LabSystem.Instance.timerTic = 1;
             }
+        }
+    }
+
+    public void SkillAcquire()
+    {
+        if (!skill)
+        {
+            var skills = InventorySystem.Instance.skillInventory;
+
+            for(int i = 0; i< skills.skills.Count; ++i)
+            {
+                skills.skills[i].acquire = true;
+            }
+
+            skill = true;
         }
     }
 }

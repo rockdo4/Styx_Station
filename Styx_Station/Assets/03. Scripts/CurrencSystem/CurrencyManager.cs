@@ -17,7 +17,7 @@ public static class CurrencyManager
     public static BigInteger maxHpPrice = new BigInteger(1);
     public static BigInteger healingPrice =new BigInteger(1);
 
-    public static int itemAsh = 0;
+    public static BigInteger itemAsh = new BigInteger();
 
     public static void GetSilver(BigInteger money,int a)
     {
@@ -32,6 +32,9 @@ public static class CurrencyManager
 
             case 2:
                 money3 += money;
+                break;
+            case 3:
+                itemAsh += money;
                 break;
         }
     }
@@ -49,6 +52,11 @@ public static class CurrencyManager
     {
         imoney = 10;
         money3 += imoney * imoney;
+    }
+    public static void IncreaseMoney4(BigInteger imoney)
+    {
+        imoney = 10;
+        itemAsh += imoney * imoney;
     }
 
 

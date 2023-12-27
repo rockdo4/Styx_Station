@@ -589,12 +589,15 @@ public class UIManager : Singleton<UIManager>
     //12.21 YYL start
     public void OnClickAutoSkillButton()
     {
-        autoSkill[0].SetActive(!isAuto);
-        autoSkill[1].SetActive(isAuto);
+        if (ButtonList.mainButton == ButtonType.Main)
+        {
+            autoSkill[0].SetActive(!isAuto);
+            autoSkill[1].SetActive(isAuto);
 
-        isAuto = !isAuto;
+            isAuto = !isAuto;
 
-        SkillManager.Instance.SetIsAuto(isAuto);
+            SkillManager.Instance.SetIsAuto(isAuto);
+        }
     }
 
     public void SetAutoSkillButton(bool isA)
@@ -663,7 +666,8 @@ public class UIManager : Singleton<UIManager>
                 ButtonList.mainButton &= ~ButtonType.Shop;
                 windows[(int)currentWindow].Close();
             }
-            else if((ButtonList.mainButton&ButtonType.Menu)!= 0) 
+            else if((ButtonList.mainButton&ButtonType.Menu)!= 0 &&
+                ButtonList.settingButton == SettingButton.None) 
             {
                 ButtonList.mainButton &= ~ButtonType.Menu;
                 windows[(int)currentWindow].Close();

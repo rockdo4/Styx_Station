@@ -31,8 +31,19 @@ public enum InfoButton
     SkillInfo = 1 << 8,
 }
 
+public enum SettingButton
+{
+    None = 0,
+    Setting = 1 << 0,
+    SaveMode = 1 << 1,
+    CouPon = 1 << 2,
+    Cheat = 1 << 3,
+}
+
+
 public static class ButtonList
 {
     public static ButtonType mainButton = ButtonType.Main;
     public static InfoButton infoButton = InfoButton.None;
+    public static SettingButton settingButton = SettingButton.None;
 }

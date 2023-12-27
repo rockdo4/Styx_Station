@@ -39,6 +39,7 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.playerdata.money1 = CurrencyManager.money1.ToString();
         data.gameSaveDatas.playerdata.money2 = CurrencyManager.money2.ToString();
         data.gameSaveDatas.playerdata.money3 = CurrencyManager.money3.ToString();
+        data.gameSaveDatas.playerdata.money4 = CurrencyManager.itemAsh.ToString();
 
         data.gameSaveDatas.itemRank = shop.currentItemRank;
         data.gameSaveDatas.itemRankUp = shop.currentItemRankUp;
@@ -127,6 +128,13 @@ public class SaveLoad : MonoBehaviour
             EquipPetData equips = new EquipPetData(equip.pet.name, equip.equipIndex);
             data.gameSaveDatas.equipPet.Add(equips);
         }
+
+        var UiSetting = UIManager.Instance.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
+
+        data.gameSaveDatas.sound = UiSetting.sound;
+
+        data.gameSaveDatas.language = Global.language;
+
         data.gameSaveDatas.exitTime = DateTime.Now.ToString($"{GameData.datetimeString}");
 
         data.gameSaveDatas.keyAccumulateTime = GameData.keyPrevAccumlateTime.ToString();
@@ -235,6 +243,7 @@ public class SaveLoad : MonoBehaviour
                     CurrencyManager.money1 = BigInteger.Parse(playerD.money1);
                     CurrencyManager.money2 = BigInteger.Parse(playerD.money2);
                     CurrencyManager.money3 = BigInteger.Parse(playerD.money3);
+                    CurrencyManager.itemAsh = BigInteger.Parse(playerD.money4);
                 }
 
                 var inventory = InventorySystem.Instance.inventory;
@@ -411,6 +420,22 @@ public class SaveLoad : MonoBehaviour
                             petInventory.EquipPet(pet.petIndex, equip.equipIndex);
                         }
                     }
+                }
+
+                var UiSetting = UIManager.Instance.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
+
+                if (gameSaveDatas["sound"] is JToken soundToken)
+                {
+                    var sound = soundToken.ToString();
+                    var value = JsonConvert.DeserializeObject<bool>(sound);
+                    UiSetting.soundValue = value;
+                }
+
+                if (gameSaveDatas["language"] is JToken languageToken)
+                {
+                    var language = languageToken.ToString();
+                    var languageValue = JsonConvert.DeserializeObject<Language>(language);
+                    Global.language = languageValue;
                 }
 
                 if (gameSaveDatas["exitTime"] is JToken exitTime)

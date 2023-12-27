@@ -175,6 +175,8 @@ public class GameSaveData
 
     public PlayerBuffData playerBuff;
 
+    public bool sound;
+    public Language language;
 
     public List<LabSaveData> Re001_Lab_SaveDatas = new List<LabSaveData>();
     public List<LabSaveData> Re002_Lab_SaveDatas = new List<LabSaveData>();

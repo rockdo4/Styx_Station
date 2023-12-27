@@ -14,6 +14,10 @@ public class ExecuteHit : MonoBehaviour
         {
             return;
         }
+        if(!WaveManager.Instance.isWaveInProgress)
+        {
+            return;
+        }
         weapon.ExecuteAttack(attacker, target);
     }
 }

@@ -497,9 +497,9 @@ public class UIManager : Singleton<UIManager>
         timerText.text = text;
     }
 
-    public void SetCurrentStageText(int stage, int wave)
+    public void SetCurrentStageText(int chapter, int stage, int wave)
     {
-        string newTxt = $"{stage} - {wave}";
+        string newTxt = $"{chapter} - {stage} - {wave}";
         stageText.SetText(newTxt);
     }
 

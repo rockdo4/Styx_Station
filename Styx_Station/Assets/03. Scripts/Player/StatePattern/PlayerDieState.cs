@@ -6,16 +6,17 @@ public class PlayerDieState : PlayerStateBase
 {
     public float timer = 0f;
     private float duration = 1.5f;
+    private PlayerController controller;
     public PlayerDieState(PlayerController playertController) : base(playertController)
     {
-
+        controller = playertController;
     }
 
     public override void Enter()
     {
         WaveManager.Instance.EndWave();
         WaveManager.Instance.DecreaseCurrentWave();
-        WaveManager.Instance.SetRepeat(true);
+        controller.GetAnimator().SetTrigger("Die");
         timer = 0f;
     }
 
@@ -38,6 +39,7 @@ public class PlayerDieState : PlayerStateBase
             if(!WaveManager.Instance.GetIsRepeat())
             {
                 UIManager.Instance.SetGameOverPopUpActive(true);
+                WaveManager.Instance.SetRepeat(true);
             }
             playertController.transform.position = playertController.initialPos;
             playertController.GetAnimator().SetBool("EditChk", true);

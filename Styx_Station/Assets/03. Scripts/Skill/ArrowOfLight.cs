@@ -17,7 +17,7 @@ public class ArrowOfLight : SkillBase
         arrowOfLightShotPrefab = prefab;
         caster = c;
 
-        multiple = arrowOfLight.skill.Skill_ATK + (arrowOfLight.upgradeLev - 1) * arrowOfLight.skill.Skill_ATK_LVUP;
+        multiple = arrowOfLight.skill.Skill_ATK + (arrowOfLight.upgradeLev  * arrowOfLight.skill.Skill_ATK_LVUP);
         speed = 1 / arrowOfLight.skill.Skill_Speed;
     }
     public override void UseSkill(GameObject attacker)

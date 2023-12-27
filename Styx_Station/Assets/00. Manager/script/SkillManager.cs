@@ -77,7 +77,8 @@ public class SkillManager : Singleton<SkillManager>
     public GameObject soulDamagePrefab;
     public GameObject arrowOfLightPrefab;
     public GameObject impaleShooterPrefab;
-    public GameObject impalePrefab; 
+    public GameObject impalePrefab;
+    public GameObject judgeShooterPrefab;
 
     public LayerMask enemyLayer;
 
@@ -120,6 +121,7 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new ArrowOfLight(inventory.skills[14], arrowOfLightPrefab, player)); //빛의 화살
         skills.Add(new TripleShot(inventory.skills[15], tripleShotShooterPrefab)); //트리플샷5
         skills.Add(new Impale(inventory.skills[16], impalePrefab, impaleShooterPrefab)); //임페일
+        skills.Add(new Judge(inventory.skills[17], judgeShooterPrefab)); //심판
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
 

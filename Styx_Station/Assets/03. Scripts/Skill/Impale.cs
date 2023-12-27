@@ -12,7 +12,7 @@ public class Impale : SkillBase
         impale = skill;
         impalePrefab = prefab;
 
-        damageMultiplier = impale.skill.Skill_ATK + impale.skill.Skill_ATK_LVUP * (impale.upgradeLev - 1);
+        damageMultiplier = impale.skill.Skill_ATK + (impale.skill.Skill_ATK_LVUP * impale.upgradeLev);
         this.impaleShooterPrefab = impaleShooterPrefab;
     }
     public override void UseSkill(GameObject attacker)

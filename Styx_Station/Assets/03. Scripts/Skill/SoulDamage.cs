@@ -16,7 +16,7 @@ public class SoulDamage : SkillBase
         this.particle = particle;
         caster = c;
 
-        multiple = soulDamage.skill.Skill_ATK + (soulDamage.upgradeLev - 1) * soulDamage.skill.Skill_ATK_LVUP;
+        multiple = soulDamage.skill.Skill_ATK + (soulDamage.upgradeLev * soulDamage.skill.Skill_ATK_LVUP);
     }
     public override void UseSkill(GameObject attacker)
     {

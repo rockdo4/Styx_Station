@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class impaleShooter : Shooter
@@ -12,7 +10,6 @@ public class impaleShooter : Shooter
     private GameObject impalePrefab;
     private GameObject prevImpale;
     private WaitForSeconds waitSecond = new WaitForSeconds(0.4f);
-    private bool isInitialSet = false;
     
     public void SetImpaleShooter(int h, float m, GameObject attacer, GameObject prefab)
     {
@@ -21,18 +18,9 @@ public class impaleShooter : Shooter
         caster = attacer;
         impalePrefab = prefab;
 
-        //isInitialSet = true;
-
         StartCoroutine(FireImpale());
     }
 
-    //private void OnEnable()
-    //{
-    //    if(isInitialSet)
-    //    {
-    //        StartCoroutine(FireImpale());
-    //    }
-    //}
     IEnumerator FireImpale()
     {
         for (int i = 0; i < hitCount; i++)

@@ -1,18 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PetController : MonoBehaviour
 {
-    public enum PetLevel
-    {
-        A, B, C,D,E,
-    }
-    public GameObject petObjectScript;
+
+    public Pet petObjectScript;
     private Animator animator;
-    public GameObject masterPlayer;
+    [HideInInspector]public GameObject masterPlayer;
     public string petName;
-    public PetLevel petlevel;
+    public Tier petTier; // 식 변경예정
     public System.Numerics.BigInteger power;
     [Range(0f, 2f)]
     public float attackSpeed;
@@ -25,10 +21,12 @@ public class PetController : MonoBehaviour
     private ExcuteAttackPet executeHit ; 
     public AttackDefinition weapon ;
     public LayerMask layerMask;
-
     public States currentStates;
 
+
     public Vector2 initialPos = Vector2.zero;
+
+    [HideInInspector] public Transform lerpPos;
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
@@ -41,20 +39,24 @@ public class PetController : MonoBehaviour
 
         initialPos = transform.position;
 
-        SetState(States.Move);
+        
     }
 
     private void Start()
     {
         if(petObjectScript != null)
         {
-            //petName = petObjectScript.name;
-            //petlevel = petObjectScript.level;
-            //power = petObjectScript.power;
-            //attackSpeed =petObjectScript.attackSpeed;
-            //range = petObjectScript.range
+            petName = petObjectScript.Pet_GameObjet.name;
+            petTier = petObjectScript.Pet_Tier;
+            attackSpeed =petObjectScript.Pet_AttackSpeed;
+            range = petObjectScript.Pet_AttackRange;
+            var ani = GetComponentInChildren<Animator>();
+            if(ani != null )
+            {
+                ani.runtimeAnimatorController = petObjectScript.animation;
+            }
         }
-        
+        SetState(States.Move);
     }
     private void FixedUpdate()
     {
@@ -71,7 +73,7 @@ public class PetController : MonoBehaviour
         else
         {
             delay += Time.deltaTime;
-            if (delay > 1.8f && !isArrive)
+            if (delay > 1.8f && !isArrive && petObjectScript == null)
             {
                 var pos = masterPlayer.transform.position;
                 pos.y = transform.position.y;
@@ -80,6 +82,18 @@ public class PetController : MonoBehaviour
                 {
                     isArrive = true;
                     //delay = 0;
+                    SetState(States.Idle);
+                }
+            }
+            else if(delay > 1.8f && !isArrive && petObjectScript != null)
+            {
+                var pos = lerpPos.transform.position;
+                pos.y = lerpPos.position.y;
+                transform.position = Vector2.Lerp(transform.position, pos, masterPlayer.GetComponent<PlayerController>().playerMoveSpeed * Time.deltaTime);
+                if (Vector2.Distance(transform.position, pos) <= 0.5f)
+                {
+                    isArrive = true;
+                    transform.position = lerpPos.transform.position;
                     SetState(States.Idle);
                 }
             }
@@ -114,16 +128,16 @@ public class PetController : MonoBehaviour
         {
             executeHit.weapon = weapon;
             executeHit.attacker = gameObject;
-            power = (masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (int)petlevel * 10) / 100;
+            power = (masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPower() * (int)petTier * 10) / 100;
             executeHit.target = target.gameObject;
         }
     }
 
     public System.Numerics.BigInteger GetPower()
     {
-        if (masterPlayer != null)
+        if (masterPlayer == null)
             return -1;
-        return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPowerByNonInventory() * (int)petlevel * 10/ 100;
+        return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPowerByNonInventory() * (int)petTier * 10/ 100;
     }
     public StateManager GetPetStateManager()
     {

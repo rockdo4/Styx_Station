@@ -7,8 +7,8 @@ public class PetInventory : MonoBehaviour
     [System.Serializable]
     public class InventoryPet
     {
-        public Pet pet;
-        public int upgradeLev;
+        public Pet pet; //Lsw 신경써야한다
+        public int upgradeLev; //Lsw 신경써야한다 . upgradeLev * pet.attackLev
         public bool acquire;
         public bool equip;
         public int stock;

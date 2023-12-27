@@ -42,6 +42,10 @@ public class PetInfo : MonoBehaviour
             }
             else
             {
+                if (window.selectIndex == -1)
+                {
+                    window.selectIndex = 1;
+                }
                 inventory.DequipPet(inventory.equipPets[window.selectIndex].petIndex, window.selectIndex);
                 inventory.EquipPet(pet.petIndex, window.selectIndex);
                 

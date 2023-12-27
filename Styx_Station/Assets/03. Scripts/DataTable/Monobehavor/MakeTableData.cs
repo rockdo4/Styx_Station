@@ -37,4 +37,11 @@ public class MakeTableData : Singleton<MakeTableData>
       
     }
     private void OnApplicationQuit() => gameSaveLoad.Save();
+    private void OnApplicationFocus(bool pauseStatus)
+    {
+        if (!pauseStatus)
+        {
+            gameSaveLoad.Save();
+        }
+    }
 }

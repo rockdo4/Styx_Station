@@ -45,6 +45,10 @@ public class MonsterAttackState : MonsterStateBase
         {
             monsterCtrl.SetState(States.Idle);
         }
+        if (DistanceToPlayer > monsterCtrl.range)
+        {
+            monsterCtrl.SetState(States.Move);
+        }
         if (Time.time - lastAttackTime > attackBet)
         {
             monsterCtrl.animator.SetTrigger("Attack");

@@ -47,7 +47,6 @@ public class ResultPlayerStats : MonoBehaviour
     public int increaseUpgradeHealing = 10;
     private void Awake()
     {
-        
         state = StateSystem.Instance;
         state.state = this;
         SettingPlayerMaxHP();
@@ -82,6 +81,11 @@ public class ResultPlayerStats : MonoBehaviour
         //{
         //    SettingPlayerMaxHP();
         //}
+    }
+
+    private void Update()
+    {
+        Debug.Log(playerMaxHp);
     }
     public BigInteger GetPlayerPowerByNonInventory()
     {

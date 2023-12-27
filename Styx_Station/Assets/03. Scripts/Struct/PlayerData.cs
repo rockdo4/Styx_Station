@@ -17,6 +17,7 @@ public struct PlayerData
     public string money1; // 은화
     public string money2; // 유료재화
     public string money3; // 영혼 혈류석 ?
+    public string money4;
     
     public int clearIndex; // clearNumber;
 }

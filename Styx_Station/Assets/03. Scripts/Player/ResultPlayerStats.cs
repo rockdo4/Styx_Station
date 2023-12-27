@@ -82,11 +82,6 @@ public class ResultPlayerStats : MonoBehaviour
         //    SettingPlayerMaxHP();
         //}
     }
-
-    private void Update()
-    {
-        Debug.Log(playerMaxHp);
-    }
     public BigInteger GetPlayerPowerByNonInventory()
     {
         return (int)playerAttribute.attackPower + ((SharedPlayerStats.GetPlayerPower() - 1)* increaseUpgradePower);

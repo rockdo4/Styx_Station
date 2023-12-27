@@ -37,7 +37,7 @@ public class AttackDefinition : ScriptableObject
 
         currentDamage = attacker.ResultMonsterNormalDamage(isCritical, 0);
 
-        return new Attack(currentDamage, false);
+        return new Attack(currentDamage, isCritical);
     }
     public Attack CreateAttackToMonster(PetController attacker, MonsterStats defender)
     {

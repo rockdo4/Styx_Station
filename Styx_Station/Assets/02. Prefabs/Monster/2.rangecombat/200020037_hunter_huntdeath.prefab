@@ -2295,6 +2295,7 @@ GameObject:
   - component: {fileID: 4129463062964020288}
   - component: {fileID: 8088539213315303982}
   - component: {fileID: 1922366624590020012}
+  - component: {fileID: -5093954426759827282}
   m_Layer: 16
   m_Name: 200020037_hunter_huntdeath
   m_TagString: Enemy
@@ -2383,6 +2384,7 @@ MonoBehaviour:
   lightningImage: {fileID: 6022326302186731687}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &1416839191259053426
 Rigidbody2D:
   serializedVersion: 4
@@ -2470,6 +2472,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-5093954426759827282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473312547205279494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &5561289621193629580
 GameObject:
   m_ObjectHideFlags: 0

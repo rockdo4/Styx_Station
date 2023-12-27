@@ -1656,6 +1656,7 @@ GameObject:
   - component: {fileID: -2386417272694603559}
   - component: {fileID: 1314048471573652957}
   - component: {fileID: 8211213056846054483}
+  - component: {fileID: -2907261234749140822}
   m_Layer: 16
   m_Name: 200020026_skeleton_magician_red
   m_TagString: Enemy
@@ -1744,6 +1745,7 @@ MonoBehaviour:
   lightningImage: {fileID: 1477134120128630098}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &6642908267748418587
 Rigidbody2D:
   serializedVersion: 4
@@ -1831,6 +1833,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-2907261234749140822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3243022652921511015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &3332761168110119640
 GameObject:
   m_ObjectHideFlags: 0

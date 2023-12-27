@@ -2594,6 +2594,7 @@ GameObject:
   - component: {fileID: -8732430966348302782}
   - component: {fileID: -7746863860246723400}
   - component: {fileID: -1503334020627696912}
+  - component: {fileID: 2990226807899539130}
   m_Layer: 16
   m_Name: 200020047_zombie_putrefaction_black
   m_TagString: Enemy
@@ -2682,6 +2683,7 @@ MonoBehaviour:
   lightningImage: {fileID: 2677598431744122770}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &7222440379258750620
 Rigidbody2D:
   serializedVersion: 4
@@ -2769,6 +2771,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &2990226807899539130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5826352854547791164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &5883316008691968318
 GameObject:
   m_ObjectHideFlags: 0

@@ -1885,6 +1885,7 @@ GameObject:
   - component: {fileID: 4052964884864599652}
   - component: {fileID: 988950206281258498}
   - component: {fileID: 1569976115720348285}
+  - component: {fileID: -2114093265604506234}
   m_Layer: 16
   m_Name: 200030003_zombie_big
   m_TagString: Enemy
@@ -1983,6 +1984,9 @@ MonoBehaviour:
   isTargetDie: 0
   skullImage: {fileID: 7131413467349192791}
   lightningImage: {fileID: 6624260569693894568}
+  coin: 0
+  pomegranate: 0
+  isStunned: 0
 --- !u!50 &4052964884864599652
 Rigidbody2D:
   serializedVersion: 4
@@ -2058,6 +2062,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-2114093265604506234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474891783648097413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &4842810991696817577
 GameObject:
   m_ObjectHideFlags: 0

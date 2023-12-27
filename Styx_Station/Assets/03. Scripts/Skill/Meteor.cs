@@ -20,7 +20,7 @@ public class Meteor : SkillBase
         meteor = skill;
         meteorPrefab = prefab;
 
-        damageMultiplier = meteor.skill.Skill_ATK;
+        damageMultiplier = meteor.skill.Skill_ATK + (meteor.upgradeLev * meteor.skill.Skill_ATK_LVUP);
         speed = 1 / meteor.skill.Skill_Speed;
         skillStartPos = meteor.skill.Skill_Start_Pos;
     }

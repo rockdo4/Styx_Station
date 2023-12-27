@@ -3351,6 +3351,7 @@ GameObject:
   - component: {fileID: 2250025745956271041}
   - component: {fileID: 7473949370460373124}
   - component: {fileID: -4273526099126013019}
+  - component: {fileID: 2676339345396516050}
   m_Layer: 16
   m_Name: 200010052_nightmare_corruption
   m_TagString: Enemy
@@ -3439,6 +3440,7 @@ MonoBehaviour:
   lightningImage: {fileID: 2055777921351746651}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-2271950433587491816
 Rigidbody2D:
   serializedVersion: 4
@@ -3526,6 +3528,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &2676339345396516050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769532420745809586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &7829561120240922326
 GameObject:
   m_ObjectHideFlags: 0

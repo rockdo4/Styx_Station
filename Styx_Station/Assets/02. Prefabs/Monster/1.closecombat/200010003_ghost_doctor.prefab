@@ -582,6 +582,7 @@ GameObject:
   - component: {fileID: 5212049118362123957}
   - component: {fileID: -4636500482589746301}
   - component: {fileID: -2344810021797950099}
+  - component: {fileID: 915037797580539784}
   m_Layer: 16
   m_Name: 200010003_ghost_doctor
   m_TagString: Enemy
@@ -668,6 +669,9 @@ MonoBehaviour:
   isTargetDie: 0
   skullImage: {fileID: 4657257995684083449}
   lightningImage: {fileID: 8770795867300614406}
+  coin: 0
+  pomegranate: 0
+  isStunned: 0
 --- !u!50 &-7052156792198683794
 Rigidbody2D:
   serializedVersion: 4
@@ -755,6 +759,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4035bf2171fcea9419c206da91789b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &915037797580539784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963642060203823008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &1093423773840485816
 GameObject:
   m_ObjectHideFlags: 0

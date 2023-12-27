@@ -474,6 +474,7 @@ GameObject:
   - component: {fileID: 8763220519466851022}
   - component: {fileID: 9206755010020479260}
   - component: {fileID: -2322776537371372629}
+  - component: {fileID: -4361918436326045620}
   m_Layer: 16
   m_Name: 200030005_goblin_big_red
   m_TagString: Enemy
@@ -572,6 +573,9 @@ MonoBehaviour:
   isTargetDie: 0
   skullImage: {fileID: 7756964850633451878}
   lightningImage: {fileID: 5962626582576139929}
+  coin: 0
+  pomegranate: 0
+  isStunned: 0
 --- !u!50 &8763220519466851022
 Rigidbody2D:
   serializedVersion: 4
@@ -647,6 +651,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-4361918436326045620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440603701379464313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &1592132339739906435
 GameObject:
   m_ObjectHideFlags: 0

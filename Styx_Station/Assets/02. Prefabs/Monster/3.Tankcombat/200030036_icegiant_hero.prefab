@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: -2748082848590512523}
   - component: {fileID: 8798400235910502593}
   - component: {fileID: -3590599451595835655}
+  - component: {fileID: -7853774241929483254}
   m_Layer: 16
   m_Name: 200030036_icegiant_hero
   m_TagString: Enemy
@@ -221,6 +222,7 @@ MonoBehaviour:
   lightningImage: {fileID: 2133628314697684396}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-3044472917014930858
 Rigidbody2D:
   serializedVersion: 4
@@ -308,6 +310,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-7853774241929483254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244864713040232701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &415801999273610095
 GameObject:
   m_ObjectHideFlags: 0

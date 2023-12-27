@@ -2450,6 +2450,7 @@ GameObject:
   - component: {fileID: -9005381500357694931}
   - component: {fileID: 7311230326949401916}
   - component: {fileID: -5246027156074973065}
+  - component: {fileID: -7700702783010250437}
   m_Layer: 16
   m_Name: 200010026_skeleton_soldier_red
   m_TagString: Enemy
@@ -2538,6 +2539,7 @@ MonoBehaviour:
   lightningImage: {fileID: 4395050569902112395}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-5817590264049167947
 Rigidbody2D:
   serializedVersion: 4
@@ -2625,6 +2627,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-7700702783010250437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6680380327735190443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &6816448586570911078
 GameObject:
   m_ObjectHideFlags: 0

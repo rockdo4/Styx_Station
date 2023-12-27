@@ -1253,6 +1253,7 @@ GameObject:
   - component: {fileID: -3742193964051958585}
   - component: {fileID: 4155913684832270189}
   - component: {fileID: 514202787991647088}
+  - component: {fileID: -7894003941873047963}
   m_Layer: 16
   m_Name: 200030016_ghos_reborn_bigdoor
   m_TagString: Enemy
@@ -1341,6 +1342,7 @@ MonoBehaviour:
   lightningImage: {fileID: 5610151074181247138}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-6170487791516699134
 Rigidbody2D:
   serializedVersion: 4
@@ -1428,6 +1430,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-7894003941873047963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4463905061912192246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &4545416358826188089
 GameObject:
   m_ObjectHideFlags: 0

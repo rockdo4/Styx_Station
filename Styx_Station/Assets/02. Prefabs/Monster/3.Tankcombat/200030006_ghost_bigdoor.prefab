@@ -866,6 +866,7 @@ GameObject:
   - component: {fileID: 8684533318467716419}
   - component: {fileID: -761639554661003417}
   - component: {fileID: 4759121361732686090}
+  - component: {fileID: -306600787062255670}
   m_Layer: 16
   m_Name: 200030006_ghost_bigdoor
   m_TagString: Enemy
@@ -964,6 +965,9 @@ MonoBehaviour:
   isTargetDie: 0
   skullImage: {fileID: 1635161834207319194}
   lightningImage: {fileID: 3434139996255564645}
+  coin: 0
+  pomegranate: 0
+  isStunned: 0
 --- !u!50 &8684533318467716419
 Rigidbody2D:
   serializedVersion: 4
@@ -1039,6 +1043,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-306600787062255670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980375411402850586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &2010342413768961505
 GameObject:
   m_ObjectHideFlags: 0

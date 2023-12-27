@@ -1044,6 +1044,7 @@ GameObject:
   - component: {fileID: 2827644026324452407}
   - component: {fileID: -2913732365432710927}
   - component: {fileID: -6206596494479492748}
+  - component: {fileID: -4404589949074771128}
   m_Layer: 16
   m_Name: 200040010_boss10
   m_TagString: Enemy
@@ -1130,6 +1131,9 @@ MonoBehaviour:
   isTargetDie: 0
   skullImage: {fileID: 4923155091835936808}
   lightningImage: {fileID: 9028389451809376215}
+  coin: 0
+  pomegranate: 0
+  isStunned: 0
 --- !u!50 &-1378672388483382388
 Rigidbody2D:
   serializedVersion: 4
@@ -1217,6 +1221,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-4404589949074771128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404087774671309076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &2668783246581587366
 GameObject:
   m_ObjectHideFlags: 0

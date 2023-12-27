@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 2288471077182023245}
   - component: {fileID: 317931904403734384}
   - component: {fileID: -2959621307902123781}
+  - component: {fileID: -898213133183292350}
   m_Layer: 16
   m_Name: 200030011_ghost_grudge_big
   m_TagString: Enemy
@@ -222,6 +223,7 @@ MonoBehaviour:
   lightningImage: {fileID: 3061924559683952963}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-5648581068719190128
 Rigidbody2D:
   serializedVersion: 4
@@ -309,6 +311,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-898213133183292350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105050858678135173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &174382004211066382
 GameObject:
   m_ObjectHideFlags: 0

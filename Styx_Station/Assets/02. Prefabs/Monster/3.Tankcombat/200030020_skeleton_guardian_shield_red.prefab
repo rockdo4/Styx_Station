@@ -2676,6 +2676,7 @@ GameObject:
   - component: {fileID: -2630825706075052447}
   - component: {fileID: 3861269827075945234}
   - component: {fileID: 5643275352612650230}
+  - component: {fileID: -157502666438314678}
   m_Layer: 16
   m_Name: 200030020_skeleton_guardian_shield_red
   m_TagString: Enemy
@@ -2764,6 +2765,7 @@ MonoBehaviour:
   lightningImage: {fileID: 1271769751005408475}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-6658739345225775273
 Rigidbody2D:
   serializedVersion: 4
@@ -2851,6 +2853,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-157502666438314678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6611183092825780547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &6675079387146943429
 GameObject:
   m_ObjectHideFlags: 0

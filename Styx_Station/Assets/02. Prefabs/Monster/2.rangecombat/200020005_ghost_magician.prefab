@@ -3903,6 +3903,7 @@ GameObject:
   - component: {fileID: -4255233360517056365}
   - component: {fileID: -433934650594008296}
   - component: {fileID: 2014617726429011677}
+  - component: {fileID: -2598806793291988412}
   m_Layer: 16
   m_Name: 200020005_ghost_magician
   m_TagString: Enemy
@@ -3989,6 +3990,9 @@ MonoBehaviour:
   isTargetDie: 0
   skullImage: {fileID: 8517840045528499087}
   lightningImage: {fileID: 5705134130436564080}
+  coin: 0
+  pomegranate: 0
+  isStunned: 0
 --- !u!50 &-6327571450196057682
 Rigidbody2D:
   serializedVersion: 4
@@ -4076,6 +4080,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4035bf2171fcea9419c206da91789b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2598806793291988412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8819735549566306789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &8881180197533775722
 GameObject:
   m_ObjectHideFlags: 0

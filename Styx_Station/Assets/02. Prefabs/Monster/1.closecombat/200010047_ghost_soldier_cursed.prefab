@@ -3156,6 +3156,7 @@ GameObject:
   - component: {fileID: 4974509446890961220}
   - component: {fileID: 5766249261769305372}
   - component: {fileID: 327222927385106138}
+  - component: {fileID: -2204345474456207350}
   m_Layer: 16
   m_Name: 200010047_ghost_soldier_cursed
   m_TagString: Enemy
@@ -3244,6 +3245,7 @@ MonoBehaviour:
   lightningImage: {fileID: 5722937870719595010}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-7382090083779298725
 Rigidbody2D:
   serializedVersion: 4
@@ -3331,6 +3333,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-2204345474456207350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7360294962760263814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &7368468593120430387
 GameObject:
   m_ObjectHideFlags: 0

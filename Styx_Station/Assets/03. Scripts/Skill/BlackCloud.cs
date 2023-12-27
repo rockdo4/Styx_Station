@@ -11,7 +11,7 @@ public class BlackCloud : SkillBase
         blackCloud = skill;
         this.blackCloudPrefab = blackCloudPrefab;
 
-        damageMultiplier = blackCloud.skill.Skill_ATK;
+        damageMultiplier = blackCloud.skill.Skill_ATK + (blackCloud.upgradeLev * blackCloud.skill.Skill_ATK_LVUP);
     }
     public override void UseSkill(GameObject attacker)
     {

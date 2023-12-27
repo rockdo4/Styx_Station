@@ -1047,6 +1047,7 @@ GameObject:
   - component: {fileID: 4260607204564331983}
   - component: {fileID: -2489673895168619591}
   - component: {fileID: -4994674277774991035}
+  - component: {fileID: -1333579884953902269}
   m_Layer: 16
   m_Name: 200030008_skeleton_shield
   m_TagString: Enemy
@@ -1145,6 +1146,9 @@ MonoBehaviour:
   isTargetDie: 0
   skullImage: {fileID: 4780594670495801649}
   lightningImage: {fileID: 8881611532336957134}
+  coin: 0
+  pomegranate: 0
+  isStunned: 0
 --- !u!50 &4260607204564331983
 Rigidbody2D:
   serializedVersion: 4
@@ -1220,6 +1224,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-1333579884953902269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2746147918756304708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &2994089886113954242
 GameObject:
   m_ObjectHideFlags: 0

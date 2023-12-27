@@ -1265,6 +1265,7 @@ GameObject:
   - component: {fileID: 7288618468603192561}
   - component: {fileID: -7736407845034316405}
   - component: {fileID: 5058363109801575949}
+  - component: {fileID: -3636775873944340850}
   m_Layer: 16
   m_Name: 200020055_necromancer_cursed
   m_TagString: Enemy
@@ -1353,6 +1354,7 @@ MonoBehaviour:
   lightningImage: {fileID: 6015212621809843388}
   coin: 0
   pomegranate: 0
+  isStunned: 0
 --- !u!50 &-5976042339225709074
 Rigidbody2D:
   serializedVersion: 4
@@ -1440,6 +1442,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   redIntensity: 0.8
+--- !u!114 &-3636775873944340850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510163747946005615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af41690c04e91544ba29efe45c915be3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 1}
+  prefab: {fileID: -2995902762853167167, guid: ad4c799f3049259408adb1cd0329e8cf, type: 3}
+  addY: 0.05
 --- !u!1 &2529405579631657940
 GameObject:
   m_ObjectHideFlags: 0

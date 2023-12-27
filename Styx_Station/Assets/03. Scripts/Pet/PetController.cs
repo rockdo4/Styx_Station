@@ -121,7 +121,7 @@ public class PetController : MonoBehaviour
 
     public System.Numerics.BigInteger GetPower()
     {
-        if (masterPlayer != null)
+        if (masterPlayer == null)
             return -1;
         return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPowerByNonInventory() * (int)petlevel * 10/ 100;
     }

@@ -6,7 +6,6 @@ public class ArrowRain : SkillBase
     private GameObject shooterPrefab;
     private GameObject castZone;
     private LayerMask enemyLayer;
-    
 
     public ArrowRain(SkillInventory.InventorySKill skill, GameObject shooterPrefab, LayerMask enemyLayer, GameObject cz)
     {
@@ -27,7 +26,7 @@ public class ArrowRain : SkillBase
 
         var shooter = Object.Instantiate(shooterPrefab);
         shooter.GetComponent<ArrowRainShooter>().SetShooter(enemyLayer,
-            arrowRain.skill.Skill_ATK,
+            arrowRain.skill.Skill_ATK + (arrowRain.upgradeLev * arrowRain.skill.Skill_ATK_LVUP),
             arrowRain.skill.Skill_Du,
             arrowRain.skill.Skill_Start_Pos,
             castZone);

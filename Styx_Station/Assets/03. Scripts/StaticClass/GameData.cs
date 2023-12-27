@@ -36,6 +36,10 @@ public static class GameData
 
     public static void GetAccumulateOfflineEarnings()
     {
+        if(keyPrevAccumlateTime.ToString() == string.Empty)
+        {
+            keyPrevAccumlateTime.Append(DateTime.Now.ToString(datetimeString));
+        }
         var prevData = DateTime.ParseExact(keyPrevAccumlateTime.ToString(), datetimeString, null);
         nowTime.Clear();
         nowTime.Append(DateTime.Now.ToString(datetimeString));

@@ -58,15 +58,7 @@ public class UIManager : Singleton<UIManager>
         PrintPommeMoney();
         PrintSoulMoney();
         PrintMemoryMoney();
-        if(!isBangchi)
-        {
-            isBangchi=true;
-            GameData.GetAccumulateOfflineEarnings();
-            if(GameData.GetBanchiCompensationTime())
-            {
-                bangchiWindow.Open();
-            }
-        }
+        
     }
     public void Open(WindowType inventoryType)
     {
@@ -683,6 +675,19 @@ public class UIManager : Singleton<UIManager>
             {
                 ButtonList.mainButton &= ~ButtonType.Menu;
                 windows[(int)currentWindow].Close();
+            }
+        }
+    }
+
+    public void BangchiOpen()
+    {
+        if (!isBangchi)
+        {
+            isBangchi = true;
+            GameData.GetAccumulateOfflineEarnings();
+            if (GameData.GetBanchiCompensationTime())
+            {
+                bangchiWindow.Open();
             }
         }
     }

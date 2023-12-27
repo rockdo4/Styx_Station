@@ -134,9 +134,9 @@ public class SaveLoad : MonoBehaviour
             data.gameSaveDatas.equipPet.Add(equips);
         }
 
-        var UiSetting = UIManager.Instance.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
+        var UiSetting = UIManager.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
 
-        data.gameSaveDatas.sound = UiSetting.sound;
+        data.gameSaveDatas.sound = UiSetting.soundValue;
 
         data.gameSaveDatas.language = Global.language;
 
@@ -431,21 +431,7 @@ public class SaveLoad : MonoBehaviour
                     }
                 }
 
-                var UiSetting = UIManager.Instance.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
 
-                if (gameSaveDatas["sound"] is JToken soundToken)
-                {
-                    var sound = soundToken.ToString();
-                    var value = JsonConvert.DeserializeObject<bool>(sound);
-                    UiSetting.soundValue = value;
-                }
-
-                if (gameSaveDatas["language"] is JToken languageToken)
-                {
-                    var language = languageToken.ToString();
-                    var languageValue = JsonConvert.DeserializeObject<Language>(language);
-                    Global.language = languageValue;
-                }
 
                 if (gameSaveDatas["exitTime"] is JToken exitTime)
                 {
@@ -457,7 +443,7 @@ public class SaveLoad : MonoBehaviour
                 if (gameSaveDatas["keyAccumulateTime"] is JToken accumlateTime)
                 {
                     string accumlatesString = accumlateTime.ToString();
-                    if (accumlatesString != "")
+                    if (accumlatesString != string.Empty)
                     {
                         GameData.keyPrevAccumlateTime.Clear();
                         GameData.keyPrevAccumlateTime.Append(accumlatesString);
@@ -722,6 +708,21 @@ public class SaveLoad : MonoBehaviour
 
                     UIManager.Instance.questSystemUi.QuestLoad(datas);
                 }
+
+                var UiSetting = UIManager.Instance.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
+
+                if (gameSaveDatas["sound"] is JToken soundToken)
+                {
+                    var sound = soundToken.Value<bool>();
+                    UiSetting.soundValue = sound;
+                }
+
+                if (gameSaveDatas["language"] is JToken languageToken)
+                {
+                    var language = languageToken.ToString();
+                    var languageValue = JsonConvert.DeserializeObject<Language>(language);
+                    Global.language = languageValue;
+                }
             }
         }
 
@@ -729,5 +730,6 @@ public class SaveLoad : MonoBehaviour
 
         state.TotalUpdate();
         WaveManager.Instance.SetWavePanel(); //나중에 타이틀 씬으로 옮기기
+        UIManager.Instance.BangchiOpen();
     }
 }

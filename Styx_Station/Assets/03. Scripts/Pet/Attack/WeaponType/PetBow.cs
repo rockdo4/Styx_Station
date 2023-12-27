@@ -11,9 +11,13 @@ public class PetBow : PoolAble
     private ContactFilter2D filter2D = new ContactFilter2D();
     public bool isRelease;
     private Rigidbody2D rb;
+
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        int layerMask = 1 << LayerMask.NameToLayer("Enemy");
+        filter2D.SetLayerMask(layerMask);
     }
     private void FixedUpdate()
     {
@@ -65,7 +69,8 @@ public class PetBow : PoolAble
         {
             for (int i = 0; i < count; i++)
             {
-
+                if (colliders[i].GetComponent<MonsterStats>() == null)
+                    continue;
                 if (colliders[i].gameObject.GetComponentInChildren<SortingGroup>().sortingOrder >
                     attackedMon.GetComponentInChildren<SortingGroup>().sortingOrder &&
                     colliders[i].gameObject.GetComponent<MonsterStats>().currHealth > 0)

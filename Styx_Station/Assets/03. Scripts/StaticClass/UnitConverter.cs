@@ -17,14 +17,17 @@ public static class UnitConverter
     }
 
     private static BigInteger a1 = new BigInteger(1000);
-    private static BigInteger[] units = new BigInteger[52];
-    private static string[] unitNames = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
-        "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z","AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", 
-        "AL", "AM", "AN","AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"};
+    private static BigInteger[] units = new BigInteger[702];
+    //private static BigInteger[] units = new BigInteger[52];
+    //private static string[] unitNames = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
+    //    "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z","AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", 
+    //    "AL", "AM", "AN","AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"};
+    private static string[] unitNames;
     public static void InitUnitConverter()
     {
         if (!IsInit)
         {
+            InitUnitNames();
             units[0] = a1;
             for (int i = 1; i < units.Length; i++)
             {
@@ -32,6 +35,19 @@ public static class UnitConverter
             }
             IsInit = true;
         }
+    }
+    private static void InitUnitNames()
+    {
+        List<string> namesList = new List<string>();
+        for (char c1 = 'A'; c1 <= 'Z'; c1++)
+        {
+            namesList.Add(c1.ToString());
+            for (char c2 = 'A'; c2 <= 'Z'; c2++)
+            {
+                namesList.Add($"{c1}{c2}");
+            }
+        }
+        unitNames = namesList.ToArray();
     }
 
     public static BigInteger A1

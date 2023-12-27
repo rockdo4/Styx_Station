@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class QuestSystemUi : MonoBehaviour
 {
     private Button questButton;
     private List<QuestTableDatas> questTableDatas;
+    private List<QuestTableDatas> loopQuestTableDatas;
 
 
     public QuestType currentQuestType;
@@ -40,27 +42,66 @@ public class QuestSystemUi : MonoBehaviour
     public GameObject rewardImage;
     public Sprite[] rewardSprite = new Sprite[3];
 
-    private void Awake()
-    {
-       
-    }
-
+    private QuestTableDatas data;
+   
     private void Start()
     {
-        language = Global.language;
-        if (questButton == null)
+        
+        ButtonCheck();
+        if (!isAwkeQuestDataSetting)
         {
-            questButton = GetComponent<Button>();
-            questButton.onClick.AddListener(GetReward);
+            language = Global.language;
+            SettingTable();
+
+            ResetType();
+            CheckQuesetType();
+            isAwkeQuestDataSetting = true;
         }
+    }
+
+    private void Update()
+    {
+
+        if(Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            for(int i=0;i<30;++i)
+            {
+                UpgradeQuestSet(8);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            for (int i = 0; i < 30; ++i)
+            {
+                UpgradeQuestSet(9);
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            DeathEnemyCounting();
+        }
+    }
+    private void LateUpdate()
+    {
+        if (language != Global.language)
+        {
+            language = Global.language;
+            SetNameLanguage();
+        }
+    }
+
+    private void SettingTable()
+    {
         if (MakeTableData.Instance.questTable != null)
         {
             questTableDatas = MakeTableData.Instance.questTable.questList;
+            loopQuestTableDatas = MakeTableData.Instance.questTable.loopList;
         }
         else
         {
             MakeTableData.Instance.questTable = new QuestListTable();
             questTableDatas = MakeTableData.Instance.questTable.questList;
+            loopQuestTableDatas = MakeTableData.Instance.questTable.loopList;
         }
         if (MakeTableData.Instance.stringTable != null)
         {
@@ -71,7 +112,12 @@ public class QuestSystemUi : MonoBehaviour
                     var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
                     questNameDic.Add(data.quest_name, strdata);
                 }
-               
+                foreach(var data in loopQuestTableDatas)
+                {
+                    var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
+                    questNameDic.Add(data.quest_name, strdata);
+                }
+
             }
             isAwkeSettingQuestStringTableData = true;
         }
@@ -83,142 +129,14 @@ public class QuestSystemUi : MonoBehaviour
                 var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
                 questNameDic.Add(strdata.ID, strdata);
             }
-            if (!isAwkeSettingQuestStringTableData)
+            foreach (var data in loopQuestTableDatas)
             {
-                
+                var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
+                questNameDic.Add(data.quest_name, strdata);
             }
-                isAwkeSettingQuestStringTableData = true;
-        }
-        if(!isAwkeQuestDataSetting)
-        {
-            ResetType();
-            CheckQuesetType();
-            isAwkeQuestDataSetting = true;
+            isAwkeSettingQuestStringTableData = true;
         }
     }
-
-    private void Update()
-    {
-        if(language != Global.language)
-        {
-            language= Global.language;
-            SetNameLanguage();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            DeathEnemyCounting();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ClearWave();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            PlayDungeon(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            PlayDungeon(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            PlayDungeon(3);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            GetGatchCount(1, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            GetGatchCount(1, 35);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GetGatchCount(1, 55);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            GetGatchCount(2, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GetGatchCount(2, 35);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            GetGatchCount(2, 55);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            GetGatchCount(5, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            GetGatchCount(5, 35);
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GetGatchCount(5, 55);
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            GetGatchCount(6, 10);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            GetGatchCount(6, 35);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            GetGatchCount(6, 55);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            UpgradeQuestSet(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            UpgradeQuestSet(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            UpgradeQuestSet(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad3))
-        {
-            UpgradeQuestSet(3);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-            UpgradeQuestSet(4);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad5))
-        {
-            UpgradeQuestSet(5);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad6))
-        {
-            UpgradeQuestSet(6);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad7))
-        {
-            UpgradeQuestSet(7);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad8))
-        {
-            UpgradeQuestSet(8);
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad9))
-        {
-            UpgradeQuestSet(9);
-        }
-    }
-
     private void ResetType()
     {
         questData.dungeonType = DungeonType.None;
@@ -228,23 +146,44 @@ public class QuestSystemUi : MonoBehaviour
 
     private void GetReward()
     {
-        CurrencyManager.GetSilver(questTableDatas[MakeTableData.Instance.currentIndex].currency_special01,questTableDatas[MakeTableData.Instance.currentIndex].reward_special01);
+       
+        
+
+        var index = MakeTableData.Instance.currentQuestIndex;
+        if (index < MakeTableData.Instance.questTable.questList.Count)
+        {
+            CurrencyManager.GetSilver(questTableDatas[MakeTableData.Instance.currentQuestIndex].currency_special01, questTableDatas[MakeTableData.Instance.currentQuestIndex].reward_special01);
+            MakeTableData.Instance.currentQuestIndex++;
+        }
+        else
+        {
+            CurrencyManager.GetSilver(loopQuestTableDatas[MakeTableData.Instance.loppCurrentQuestIndex % loopQuestTableDatas.Count].currency_special01, loopQuestTableDatas[MakeTableData.Instance.loppCurrentQuestIndex % loopQuestTableDatas.Count].reward_special01); ;
+            MakeTableData.Instance.loppCurrentQuestIndex++;
+        }
         var t = UIManager.Instance.GetComponent<MoneyTest>();
         t.PrintText();
-
-        MakeTableData.Instance.currentIndex++;
-
         ResetType();
         CheckQuesetType();
     }
     private void CheckQuesetType()
     {
-        var index = MakeTableData.Instance.currentIndex;
-        currentQuestType = (QuestType)questTableDatas[index].quest_type;
-        var data = questTableDatas[index];
+        var index = MakeTableData.Instance.currentQuestIndex;
+        
+
+        if(index <MakeTableData.Instance.questTable.questList.Count)
+        {
+            currentQuestType = (QuestType)questTableDatas[index].quest_type;
+            data = questTableDatas[index];
+        }
+        else
+        {
+            var temp = loopQuestTableDatas[MakeTableData.Instance.loppCurrentQuestIndex % loopQuestTableDatas.Count];
+            currentQuestType = (QuestType)temp.quest_type;
+            data = temp;
+        }
         questButton.interactable = false;
         SetQuestTextMeshProUGUI(data);
-        questLevel.text = $"Quest {index+1:D2}";
+        questLevel.text = $"Quest {MakeTableData.Instance.currentQuestIndex + 1 + MakeTableData.Instance.loppCurrentQuestIndex:D2}";
         switch (currentQuestType)
         {
             case QuestType.EneyDeathCount:
@@ -262,8 +201,11 @@ public class QuestSystemUi : MonoBehaviour
             case QuestType.PlayerStatsUpgrade:
                 SetUpgradeQeustType(data);
                 break;
+            case QuestType.CheckPlayerStats:
+                CheckPlayerStats(data);
+                break;
         }
-        if(data.reward_special01 == (int)RewardType.Sliver)
+        if (data.reward_special01 == (int)RewardType.Sliver)
         {
             var sprite = rewardImage.GetComponent<Image>();
             sprite.sprite = rewardSprite[(int)RewardType.Sliver];
@@ -305,13 +247,13 @@ public class QuestSystemUi : MonoBehaviour
             return;
 
         questData.currentMonsterDeathCount++;
-      
+
         if (questData.currentMonsterDeathCount >= questData.enemyMaxDeathCount)
         {
             questData.isMaxEneyDeathCount = true;
             questButton.interactable = true;
         }
-          questCountText.text = $"{questData.currentMonsterDeathCount} / {questData.enemyMaxDeathCount}";
+        questCountText.text = $"{questData.currentMonsterDeathCount} / {questData.enemyMaxDeathCount}";
     }
 
     private void SetDeathEnemyCount(QuestTableDatas data)
@@ -326,12 +268,12 @@ public class QuestSystemUi : MonoBehaviour
 
     public void ClearWave()
     {
-        if (!questData.isClearWave&& questData.waveClearId <=WaveManager.Instance.GetCurrentIndex()) //조건검사도 같이 넣을 예정
+        if (!questData.isClearWave && questData.waveClearId <= WaveManager.Instance.GetCurrentIndex()) 
         {
             questData.isClearWave = true;
             questButton.interactable = true;
         }
-
+  
     }
 
     private void SetWaveClearId(QuestTableDatas data)
@@ -421,6 +363,211 @@ public class QuestSystemUi : MonoBehaviour
         questData.isMaxUpgrade = false;
 
         questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+    }
+
+    public void CheckPlayerStatsUpgradeClear()
+    {
+        switch ((int)questData.upgradeType)
+        {
+            case 0:
+                questData.currentUpgradeCount = SharedPlayerStats.GetPlayerPower() - 1;
+                break;
+            case 4:
+                questData.currentUpgradeCount = SharedPlayerStats.GetAttackCriticlaPower() - 1;
+                break;
+            case 6:
+                questData.currentUpgradeCount = SharedPlayerStats.GetHp() - 1;
+                break;
+        }
+        questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        if (questData.currentUpgradeCount >= questData.upgradeMaxCount)
+        {
+            questButton.interactable = true;
+            questData.isMaxUpgrade = true;
+        }
+        else
+        {
+            questButton.interactable = false;
+            questData.isMaxUpgrade = false;
+        }
+    }
+
+    private void CheckPlayerStats(QuestTableDatas data)
+    {
+        questData.upgradeType = (UpgradeType)data.type_upgrade;
+        questData.upgradeMaxCount = data.clear_upgrade + (MakeTableData.Instance.loppCurrentQuestIndex/loopQuestTableDatas.Count * 5) ;
+        questData.currentUpgradeCount = 0;
+        questData.isMaxUpgrade = false;
+        switch (data.type_upgrade)
+        {
+            case 0:
+                questData.currentUpgradeCount = SharedPlayerStats.GetPlayerPower()-1;
+                break;
+            case 4:
+                questData.currentUpgradeCount = SharedPlayerStats.GetAttackCriticlaPower() - 1;
+                break;
+            case 6:
+                questData.currentUpgradeCount = SharedPlayerStats.GetHp() - 1;
+                break;
+        }
+        questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        if(questData.currentUpgradeCount>= questData.upgradeMaxCount)
+        {
+            questButton.interactable = true;
+            questData.isMaxUpgrade= true;
+        }
+        else
+        {
+            questButton.interactable = false;
+            questData.isMaxUpgrade = false;
+        }
+    }
+    public void QuestLoad(QuestSystemData questdata)
+    {
+        language = Global.language;
+        SettingTable();
+        ButtonCheck();
+        isAwkeQuestDataSetting = true;
+
+        questData = questdata;
+
+        var index = MakeTableData.Instance.currentQuestIndex;
+        questLevel.text = $"Quest {MakeTableData.Instance.currentQuestIndex + 1 + MakeTableData.Instance.loppCurrentQuestIndex:D2}";
+        if (index < MakeTableData.Instance.questTable.questList.Count)
+        {
+            data = questTableDatas[index]; 
+        }
+        else
+        {
+            var newIndex= MakeTableData.Instance.loppCurrentQuestIndex%loopQuestTableDatas.Count;
+            data = loopQuestTableDatas[newIndex];
+        }
+        switch (currentQuestType)
+        {
+            case QuestType.EneyDeathCount:
+                QuestDeathCountClear();
+                break;
+            case QuestType.WaveClear:
+                WaveClearLoad();
+                break;
+            case QuestType.DungeonClear:
+                QuestLoadtPlayDungeon();
+                break;
+            case QuestType.Gatcha:
+                QuestLoadGatcha();
+                break;
+            case QuestType.PlayerStatsUpgrade:
+                QuestPlayerUpgradeLoad();
+                break;
+            case QuestType.CheckPlayerStats:
+                CheckPlayerStatsLoad();
+                break;
+        }
+        SetQuestTextMeshProUGUI(data);
+        if (data.reward_special01 == (int)RewardType.Sliver)
+        {
+            var sprite = rewardImage.GetComponent<Image>();
+            sprite.sprite = rewardSprite[(int)RewardType.Sliver];
+        }
+        else if (data.reward_special01 == (int)RewardType.StyxPomegranate)
+        {
+            var sprite = rewardImage.GetComponent<Image>();
+            sprite.sprite = rewardSprite[(int)RewardType.StyxPomegranate];
+        }
+        else if (data.reward_special01 == (int)RewardType.SoulStone)
+        {
+            var sprite = rewardImage.GetComponent<Image>();
+            sprite.sprite = rewardSprite[(int)RewardType.SoulStone];
+        }
+        questRewardText.text = $"{data.currency_special01}";
+
+    }
+
+    private void QuestDeathCountClear()
+    {
+        if (questData.isMaxEneyDeathCount)
+        {
+
+            questButton.interactable = true;
+            questCountText.text = $"{questData.currentMonsterDeathCount} / {questData.enemyMaxDeathCount}";
+            return;
+        }
+        else
+        {
+            questButton.interactable = false;
+            questCountText.text = $"{questData.currentMonsterDeathCount} / {questData.enemyMaxDeathCount}";
+        }
+    }
+    private void WaveClearLoad()
+    {
+        questCountText.text = ""; 
+        if (questData.isClearWave)
+        {
+            questButton.interactable = true;
+        }
+        else
+        {
+            questButton.interactable = false;
+        }
+    }
+    private void QuestLoadtPlayDungeon()
+    {
+        questCountText.text = $"{questData.currentPlayDungeonType} / {questData.maxPlaydungeonType}";
+        if (questData.isDungeonClear)
+        {
+            questButton.interactable = true;
+        }
+        else
+        {
+            questButton.interactable = false;
+        }
+    }
+    private void QuestLoadGatcha()
+    {
+        questCountText.text = $"{questData.currentGatchaCount} / {questData.maxGatchaCount}";
+        if(questData.isMaxGathcacount)
+        {
+            questButton.interactable = true;
+        }
+        else
+        {
+            questButton.interactable = false;
+        }
+    }
+    private void QuestPlayerUpgradeLoad()
+    {
+        if(questData.isMaxUpgrade)
+        {
+            questButton.interactable = true;
+            questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        }
+        else
+        {
+            questButton.interactable = false;
+            questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        }
+    }
+    private void CheckPlayerStatsLoad()
+    {
+        questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        if (questData.isMaxUpgrade)
+        {
+            questButton.interactable = true;
+            return;
+        }
+        else
+        {
+            questButton.interactable = false;
+        }
+    }
+
+    private void ButtonCheck()
+    {
+        if (questButton == null)
+        {
+            questButton = GetComponent<Button>();
+            questButton.onClick.AddListener(GetReward);
+        }
     }
 }
 

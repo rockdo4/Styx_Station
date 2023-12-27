@@ -19,6 +19,7 @@ public static class CurrencyManager
 
     public static int itemAsh = 0;
 
+    private static BigInteger ten=new BigInteger(10);
     public static void GetSilver(BigInteger money,int a)
     {
         switch(a)
@@ -81,8 +82,13 @@ public static class CurrencyManager
             }
             else
             {
-                var pr = price / 10;
-                price += pr;
+                //var pr = price / 10;
+                //price += pr;
+
+                var or = price.ToString().Length;
+                or = or - 3;
+                var t = BigInteger.Pow(ten, or);
+                price += t;
             }
         }
     }

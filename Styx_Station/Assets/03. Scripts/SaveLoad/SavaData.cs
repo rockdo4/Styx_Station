@@ -184,5 +184,9 @@ public class GameSaveData
     public List<LabSaveData> Re006_Lab_SaveDatas = new List<LabSaveData>();
     public CurrentLavSaveData currentLavSaveData;
     public LabBuffData labBuffData;
-
+    //12.26 ÀÌ½Â¿ì Ãß°¡
+    public int currentQuestIndex;
+    public int currentQuestType;
+    public int currentLoopQuestIndex;
+    public QuestSystemData currentQuestSystemData;
 }

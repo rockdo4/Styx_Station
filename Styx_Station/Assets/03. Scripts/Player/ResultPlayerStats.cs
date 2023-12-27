@@ -21,29 +21,29 @@ public class ResultPlayerStats : MonoBehaviour
     public int percentInt = 100;
     public float percentFloat = 100f;
     private float nowTime;
-    [Header("¸îÃÊ´ç ÈúÀ»ÇÒ°ÍÀÎ°¡?")]
+    [Header("ï¿½ï¿½ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½Î°ï¿½?")]
     public float healingTimer =1f;
-    [Header("°ø°Ý·Â 1°­´ç")]
+    [Header("ï¿½ï¿½ï¿½Ý·ï¿½ 1ï¿½ï¿½ï¿½ï¿½")]
     public int increaseUpgradePower = 10;
-    [Header("°ø°Ý·Â ÁõÆø 1°­´ç")]
+    [Header("ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½")]
     public float increaseUpgradePowerBoost = 0.1f;
-    [Header("ÇÃ·¹ÀÌ¾î °ø°Ý·Â ÁõÆø ºÎ½ºÆ® N*0.1 /100 °è»ê ")]
+    [Header("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½Æ® N*0.1 /100 ï¿½ï¿½ï¿½ ")]
     public int playerPowerBoostPercent = 1000;
-    [Header("Å©¸®Æ¼ÄÃ 1°­´ç")]
+    [Header("Å©ï¿½ï¿½Æ¼ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½")]
     public float increaseUpgradeCritical = 0.01f;
-    [Header("Å©¸®Æ¼ÄÃ °íÁ¤°ª")]
+    [Header("Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public float increaseUpgradeCriticalDefault = 150f;
-    [Header("¸ó½ºÅÍ N ¼öÄ¡ ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ N ï¿½ï¿½Ä¡ ")]
     public float monsterDamageFloat = 0.1f;
-    [Header("¸ó½ºÅÍ N*0.1 /100 °è»ê ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ N*0.1 /100 ï¿½ï¿½ï¿½ ")]
     public int monsterDamagePercent = 1000;
-    [Header("Ä¡¸íÅ¸ÇÇÇØ  N*0.01  + 150% °è»ê ")]
+    [Header("Ä¡ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½  N*0.01  + 150% ï¿½ï¿½ï¿½ ")]
     public int criticlDamage = 100;
-    [Header("½ºÅ³ °è¼ö 100À²·Î  °è»ê ")]
+    [Header("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ ")]
     public int skillDamage = 100;
-    [Header("Ã¼·Â 1°­´ç")]
+    [Header("Ã¼ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½")]
     public int increaseUpgradeHp= 5;
-    [Header("Ã¼·Â È¸º¹ 1°­´ç")]
+    [Header("Ã¼ï¿½ï¿½ È¸ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½")]
     public int increaseUpgradeHealing = 10;
     private void Awake()
     {
@@ -122,9 +122,9 @@ public class ResultPlayerStats : MonoBehaviour
     }
 
 
-    public BigInteger ResultMonsterNormalDamage(bool isCritical, float monsterDefense) // ¸ó½ºÅÍ ³ë¸Ö ÃÖÁ¾ µ¥¹ÌÁö °è»ê
+    public BigInteger ResultMonsterNormalDamage(bool isCritical, float monsterDefense) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     {
-        // Å©¸®Æ¼ÄÃ À¯¹« : isCritical, ¸ó½ºÅÍ°¡ ¹Þ´Â ÇÇÇØ °¨¼Ò : monsterDefense
+        // Å©ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : isCritical, ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : monsterDefense
         if (isCritical)
         {
             GetNoramlCriticalDamage();
@@ -138,9 +138,9 @@ public class ResultPlayerStats : MonoBehaviour
 
     }
 
-    // ¸ó½ºÅÍ ÀÏ¹Ý °ø°ÝÀÓ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private void GetSkillDamage(float skillCount)
-        //skillCount ½ºÅ³ °è¼öÀÓ
+        //skillCount ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         var power = GetPlayerPower();
         skillMonsterDamage = (power * (int)skillCount / 100) * ((int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100;
@@ -172,7 +172,7 @@ public class ResultPlayerStats : MonoBehaviour
         return skillMonsterDamage - (skillMonsterDamage * monsterDefenseResult);
     }
 
-    // º¸½ºÇÇÇØ·®Àº ÇöÀç ÀÏ¹Ý ¸ó½ºÅÍ ÇÇÇØ·®°ú °°°Ô ÇØµÐ »óÅÂ °ø½ÄÀÌ º¸ÀÌÁö°¡ ¾ÊÀ½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Øµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public float GetCritical()
     {

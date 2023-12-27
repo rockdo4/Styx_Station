@@ -141,7 +141,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     }
     public void LoadMaxTimer()
     {
-        for (int i = 0; i <=timerUpgradeLevel; ++i)
+        for (int i = 0; i <timerUpgradeLevel; ++i)
         {
             max -= decreaseMaxTimer;
         }
@@ -190,7 +190,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             {
                 break;
             }
-            timer += tmepTime;
+            //timer += tmepTime;
 
         }
     }

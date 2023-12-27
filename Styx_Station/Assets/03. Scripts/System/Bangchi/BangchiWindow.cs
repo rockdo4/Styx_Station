@@ -55,9 +55,17 @@ public class BangchiWindow : Window
                 bangchiName.text = bangchiPanelNameStringTableData.ENG;
                 break;
         }
-
-        sliver =WaveManager.Instance.currStage.monster1.monster_coin * GameData.GetCompensationTime();
-        pogme = WaveManager.Instance.currStage.monster1.monster_pommegrande * GameData.GetCompensationTime();
+        if (WaveManager.Instance.currStage.isBossWave)
+        {
+            sliver = WaveManager.Instance.currStage.bossMonster.monster_coin * GameData.GetCompensationTime();
+            pogme = WaveManager.Instance.currStage.bossMonster.monster_coin * GameData.GetCompensationTime();
+        }
+        else
+        {
+            sliver = WaveManager.Instance.currStage.monster1.monster_coin * GameData.GetCompensationTime();
+            pogme = WaveManager.Instance.currStage.monster1.monster_pommegrande * GameData.GetCompensationTime();
+        }
+       
         if(pogme ==0)
         {
             pogme = sliver / 10;

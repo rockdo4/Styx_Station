@@ -139,6 +139,7 @@ public enum QuestType
     DungeonClear,
     Gatcha,
     PlayerStatsUpgrade,
+    CheckPlayerStats,
 
     QuestTypeClearAndWait =1000,
 }

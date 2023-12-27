@@ -11,6 +11,7 @@ public class QuestSystemUi : MonoBehaviour
 {
     private Button questButton;
     private List<QuestTableDatas> questTableDatas;
+    private List<QuestTableDatas> loopQuestTableDatas;
 
 
     public QuestType currentQuestType;
@@ -75,6 +76,10 @@ public class QuestSystemUi : MonoBehaviour
                 UpgradeQuestSet(9);
             }
         }
+        if(Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            DeathEnemyCounting();
+        }
     }
     private void LateUpdate()
     {
@@ -90,17 +95,24 @@ public class QuestSystemUi : MonoBehaviour
         if (MakeTableData.Instance.questTable != null)
         {
             questTableDatas = MakeTableData.Instance.questTable.questList;
+            loopQuestTableDatas = MakeTableData.Instance.questTable.loopList;
         }
         else
         {
             MakeTableData.Instance.questTable = new QuestListTable();
             questTableDatas = MakeTableData.Instance.questTable.questList;
+            loopQuestTableDatas = MakeTableData.Instance.questTable.loopList;
         }
         if (MakeTableData.Instance.stringTable != null)
         {
             if (!isAwkeSettingQuestStringTableData)
             {
                 foreach (var data in questTableDatas)
+                {
+                    var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
+                    questNameDic.Add(data.quest_name, strdata);
+                }
+                foreach(var data in loopQuestTableDatas)
                 {
                     var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
                     questNameDic.Add(data.quest_name, strdata);
@@ -117,6 +129,11 @@ public class QuestSystemUi : MonoBehaviour
                 var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
                 questNameDic.Add(strdata.ID, strdata);
             }
+            foreach (var data in loopQuestTableDatas)
+            {
+                var strdata = MakeTableData.Instance.stringTable.GetStringTableData(data.quest_name);
+                questNameDic.Add(data.quest_name, strdata);
+            }
             isAwkeSettingQuestStringTableData = true;
         }
     }
@@ -129,12 +146,22 @@ public class QuestSystemUi : MonoBehaviour
 
     private void GetReward()
     {
-        CurrencyManager.GetSilver(questTableDatas[MakeTableData.Instance.currentQuestIndex].currency_special01,questTableDatas[MakeTableData.Instance.currentQuestIndex].reward_special01);
+       
+        
+
+        var index = MakeTableData.Instance.currentQuestIndex;
+        if (index < MakeTableData.Instance.questTable.questList.Count)
+        {
+            CurrencyManager.GetSilver(questTableDatas[MakeTableData.Instance.currentQuestIndex].currency_special01, questTableDatas[MakeTableData.Instance.currentQuestIndex].reward_special01);
+            MakeTableData.Instance.currentQuestIndex++;
+        }
+        else
+        {
+            CurrencyManager.GetSilver(loopQuestTableDatas[MakeTableData.Instance.loppCurrentQuestIndex % loopQuestTableDatas.Count].currency_special01, loopQuestTableDatas[MakeTableData.Instance.loppCurrentQuestIndex % loopQuestTableDatas.Count].reward_special01); ;
+            MakeTableData.Instance.loppCurrentQuestIndex++;
+        }
         var t = UIManager.Instance.GetComponent<MoneyTest>();
         t.PrintText();
-
-        MakeTableData.Instance.currentQuestIndex++;
-
         ResetType();
         CheckQuesetType();
     }
@@ -150,11 +177,13 @@ public class QuestSystemUi : MonoBehaviour
         }
         else
         {
-
+            var temp = loopQuestTableDatas[MakeTableData.Instance.loppCurrentQuestIndex % loopQuestTableDatas.Count];
+            currentQuestType = (QuestType)temp.quest_type;
+            data = temp;
         }
         questButton.interactable = false;
         SetQuestTextMeshProUGUI(data);
-        questLevel.text = $"Quest {index+1:D2}";
+        questLevel.text = $"Quest {MakeTableData.Instance.currentQuestIndex + 1 + MakeTableData.Instance.loppCurrentQuestIndex:D2}";
         switch (currentQuestType)
         {
             case QuestType.EneyDeathCount:
@@ -171,6 +200,9 @@ public class QuestSystemUi : MonoBehaviour
                 break;
             case QuestType.PlayerStatsUpgrade:
                 SetUpgradeQeustType(data);
+                break;
+            case QuestType.CheckPlayerStats:
+                CheckPlayerStats(data);
                 break;
         }
         if (data.reward_special01 == (int)RewardType.Sliver)
@@ -236,7 +268,7 @@ public class QuestSystemUi : MonoBehaviour
 
     public void ClearWave()
     {
-        if (!questData.isClearWave && questData.waveClearId <=WaveManager.Instance.GetCurrentIndex()) 
+        if (!questData.isClearWave && questData.waveClearId <= WaveManager.Instance.GetCurrentIndex()) 
         {
             questData.isClearWave = true;
             questButton.interactable = true;
@@ -332,6 +364,64 @@ public class QuestSystemUi : MonoBehaviour
 
         questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
     }
+
+    public void CheckPlayerStatsUpgradeClear()
+    {
+        switch ((int)questData.upgradeType)
+        {
+            case 0:
+                questData.currentUpgradeCount = SharedPlayerStats.GetPlayerPower() - 1;
+                break;
+            case 4:
+                questData.currentUpgradeCount = SharedPlayerStats.GetAttackCriticlaPower() - 1;
+                break;
+            case 6:
+                questData.currentUpgradeCount = SharedPlayerStats.GetHp() - 1;
+                break;
+        }
+        questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        if (questData.currentUpgradeCount >= questData.upgradeMaxCount)
+        {
+            questButton.interactable = true;
+            questData.isMaxUpgrade = true;
+        }
+        else
+        {
+            questButton.interactable = false;
+            questData.isMaxUpgrade = false;
+        }
+    }
+
+    private void CheckPlayerStats(QuestTableDatas data)
+    {
+        questData.upgradeType = (UpgradeType)data.type_upgrade;
+        questData.upgradeMaxCount = data.clear_upgrade + (MakeTableData.Instance.loppCurrentQuestIndex/loopQuestTableDatas.Count * 5) ;
+        questData.currentUpgradeCount = 0;
+        questData.isMaxUpgrade = false;
+        switch (data.type_upgrade)
+        {
+            case 0:
+                questData.currentUpgradeCount = SharedPlayerStats.GetPlayerPower()-1;
+                break;
+            case 4:
+                questData.currentUpgradeCount = SharedPlayerStats.GetAttackCriticlaPower() - 1;
+                break;
+            case 6:
+                questData.currentUpgradeCount = SharedPlayerStats.GetHp() - 1;
+                break;
+        }
+        questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        if(questData.currentUpgradeCount>= questData.upgradeMaxCount)
+        {
+            questButton.interactable = true;
+            questData.isMaxUpgrade= true;
+        }
+        else
+        {
+            questButton.interactable = false;
+            questData.isMaxUpgrade = false;
+        }
+    }
     public void QuestLoad(QuestSystemData questdata)
     {
         language = Global.language;
@@ -342,29 +432,16 @@ public class QuestSystemUi : MonoBehaviour
         questData = questdata;
 
         var index = MakeTableData.Instance.currentQuestIndex;
+        questLevel.text = $"Quest {MakeTableData.Instance.currentQuestIndex + 1 + MakeTableData.Instance.loppCurrentQuestIndex:D2}";
         if (index < MakeTableData.Instance.questTable.questList.Count)
         {
-            questLevel.text = $"Quest {MakeTableData.Instance.currentQuestIndex + 1:D2}";
-            data = questTableDatas[index];
-            SetQuestTextMeshProUGUI(data);
-            if (data.reward_special01 == (int)RewardType.Sliver)
-            {
-                var sprite = rewardImage.GetComponent<Image>();
-                sprite.sprite = rewardSprite[(int)RewardType.Sliver];
-            }
-            else if (data.reward_special01 == (int)RewardType.StyxPomegranate)
-            {
-                var sprite = rewardImage.GetComponent<Image>();
-                sprite.sprite = rewardSprite[(int)RewardType.StyxPomegranate];
-            }
-            else if (data.reward_special01 == (int)RewardType.SoulStone)
-            {
-                var sprite = rewardImage.GetComponent<Image>();
-                sprite.sprite = rewardSprite[(int)RewardType.SoulStone];
-            }
-            questRewardText.text = $"{data.currency_special01}";
+            data = questTableDatas[index]; 
         }
-
+        else
+        {
+            var newIndex= MakeTableData.Instance.loppCurrentQuestIndex%loopQuestTableDatas.Count;
+            data = loopQuestTableDatas[newIndex];
+        }
         switch (currentQuestType)
         {
             case QuestType.EneyDeathCount:
@@ -382,8 +459,27 @@ public class QuestSystemUi : MonoBehaviour
             case QuestType.PlayerStatsUpgrade:
                 QuestPlayerUpgradeLoad();
                 break;
+            case QuestType.CheckPlayerStats:
+                CheckPlayerStatsLoad();
+                break;
         }
-       
+        SetQuestTextMeshProUGUI(data);
+        if (data.reward_special01 == (int)RewardType.Sliver)
+        {
+            var sprite = rewardImage.GetComponent<Image>();
+            sprite.sprite = rewardSprite[(int)RewardType.Sliver];
+        }
+        else if (data.reward_special01 == (int)RewardType.StyxPomegranate)
+        {
+            var sprite = rewardImage.GetComponent<Image>();
+            sprite.sprite = rewardSprite[(int)RewardType.StyxPomegranate];
+        }
+        else if (data.reward_special01 == (int)RewardType.SoulStone)
+        {
+            var sprite = rewardImage.GetComponent<Image>();
+            sprite.sprite = rewardSprite[(int)RewardType.SoulStone];
+        }
+        questRewardText.text = $"{data.currency_special01}";
 
     }
 
@@ -451,7 +547,19 @@ public class QuestSystemUi : MonoBehaviour
             questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
         }
     }
-
+    private void CheckPlayerStatsLoad()
+    {
+        questCountText.text = $"{questData.currentUpgradeCount} / {questData.upgradeMaxCount}";
+        if (questData.isMaxUpgrade)
+        {
+            questButton.interactable = true;
+            return;
+        }
+        else
+        {
+            questButton.interactable = false;
+        }
+    }
 
     private void ButtonCheck()
     {

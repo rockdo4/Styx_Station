@@ -21,13 +21,13 @@ public class SaveLoad : MonoBehaviour
     private MakeTableData MakeTableData;
     private void Start()
     {
-        playerbuff= PlayerBuff.Instance;
+        playerbuff = PlayerBuff.Instance;
         waveManager = WaveManager.Instance;
         shop = ShopSystem.Instance;
         labSystem = LabSystem.Instance;
         skillManager = SkillManager.Instance;
-        UIManager= UIManager.Instance;
-        MakeTableData= MakeTableData.Instance;  
+        UIManager = UIManager.Instance;
+        MakeTableData = MakeTableData.Instance;
     }
     public void Save()
     {
@@ -114,19 +114,19 @@ public class SaveLoad : MonoBehaviour
             data.gameSaveDatas.equipSkill.Add(equips);
         }
         var petInventory = InventorySystem.Instance.petInventory;
-        foreach(var pet in petInventory.pets)
+        foreach (var pet in petInventory.pets)
         {
             PetData petData = new PetData(pet.pet.name, pet.upgradeLev, pet.acquire, pet.stock);
             data.gameSaveDatas.petData.Add(petData);
         }
-        for(int i = 0;i<petInventory.equipPets.Length; ++i)
+        for (int i = 0; i < petInventory.equipPets.Length; ++i)
         {
             var equip = petInventory.equipPets[i];
 
-            if(equip == null)
+            if (equip == null)
                 continue;
 
-            if(equip.pet ==null)
+            if (equip.pet == null)
                 continue;
 
             EquipPetData equips = new EquipPetData(equip.pet.name, equip.equipIndex);
@@ -196,15 +196,16 @@ public class SaveLoad : MonoBehaviour
         {
             data.gameSaveDatas.Re006_Lab_SaveDatas.Add(new LabSaveData(datas.vertexID, datas.isClear));
         }
-        if(labSystem.isResearching)
+        if (labSystem.isResearching)
         {
-            data.gameSaveDatas.currentLavSaveData = new CurrentLavSaveData(labSystem.isResearching, labSystem.timerTic, labSystem.maxTimerTic, labSystem.labType, 
+            data.gameSaveDatas.currentLavSaveData = new CurrentLavSaveData(labSystem.isResearching, labSystem.timerTic, labSystem.maxTimerTic, labSystem.labType,
                 labSystem.level, labSystem.labStringTableName, labSystem.labBuffStringTable, labSystem.labTalbeData);
         }
 
         data.gameSaveDatas.labBuffData = GameData.labBuffData;
         data.gameSaveDatas.currentQuestIndex = MakeTableData.currentQuestIndex;
         data.gameSaveDatas.currentQuestType = (int)UIManager.questSystemUi.currentQuestType;
+        data.gameSaveDatas.currentLoopQuestIndex = MakeTableData.loppCurrentQuestIndex;
         data.gameSaveDatas.currentQuestSystemData = UIManager.questSystemUi.questData;
 
         SaveLoadSystem.JsonSave(data, "Test.json");
@@ -329,7 +330,7 @@ public class SaveLoad : MonoBehaviour
                                     weaponInfo.selectIndex = weapon.index;
                                     weaponInfo.OnClickWeaponEquip();
                                 }
-                                    break;
+                                break;
 
                             case ItemType.Armor:
                                 var armor = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
@@ -338,7 +339,7 @@ public class SaveLoad : MonoBehaviour
                                     armorInfo.selectIndex = armor.index;
                                     armorInfo.OnClickArmorEquip();
                                 }
-                                    break;
+                                break;
 
                             case ItemType.Ring:
                                 var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
@@ -391,14 +392,14 @@ public class SaveLoad : MonoBehaviour
                 }
                 var petInventory = InventorySystem.Instance.petInventory;
 
-                if (gameSaveDatas["petData"]is JToken petToken)
+                if (gameSaveDatas["petData"] is JToken petToken)
                 {
                     string pets = petToken.ToString();
                     var pData = JsonConvert.DeserializeObject<List<PetData>>(pets);
-                    foreach(var pet in pData)
+                    foreach (var pet in pData)
                     {
-                        var petData = petInventory.pets.Where(x=>x.pet.name == pet.petName).FirstOrDefault();
-                        if(petData != null)
+                        var petData = petInventory.pets.Where(x => x.pet.name == pet.petName).FirstOrDefault();
+                        if (petData != null)
                         {
                             petData.upgradeLev = pet.petLevel;
                             petData.acquire = pet.acquire;
@@ -411,10 +412,10 @@ public class SaveLoad : MonoBehaviour
                 {
                     string equipPet = equipPetToken.ToString();
                     var equipPetData = JsonConvert.DeserializeObject<List<EquipPetData>>(equipPet);
-                    foreach(var equip in equipPetData)
+                    foreach (var equip in equipPetData)
                     {
-                        var pet = petInventory.pets.Where(x=> x.pet.name == equip.petName).FirstOrDefault();
-                        if(pet != null)
+                        var pet = petInventory.pets.Where(x => x.pet.name == equip.petName).FirstOrDefault();
+                        if (pet != null)
                         {
                             petInventory.EquipPet(pet.petIndex, equip.equipIndex);
                         }
@@ -445,7 +446,7 @@ public class SaveLoad : MonoBehaviour
                 {
                     GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
                 }
-                if(gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
+                if (gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
                 {
                     diningRoomsystem.timerUpgradeLevel = int.Parse(foodtimerUpgradeLevel.ToString());
                 }
@@ -474,7 +475,7 @@ public class SaveLoad : MonoBehaviour
                 {
                     string str = timer.ToString();
                     var timerData = JsonConvert.DeserializeObject<float>(str);
-                    if(timerData <=0f)
+                    if (timerData <= 0f)
                     {
                         diningRoomsystem.isLoad = false;
                     }
@@ -484,14 +485,14 @@ public class SaveLoad : MonoBehaviour
                         diningRoomsystem.isLoad = true;
                     }
                     int count = 0;
-                    for(int i =0;i < DiningRoomSystem.Instance.saveFood.Length; ++i)
+                    for (int i = 0; i < DiningRoomSystem.Instance.saveFood.Length; ++i)
                     {
-                        if ( DiningRoomSystem.Instance.saveFood[i] != null)
+                        if (DiningRoomSystem.Instance.saveFood[i] != null)
                         {
                             count++;
                         }
                     }
-                    if(count >= DiningRoomSystem.Instance.selectFoodCount)
+                    if (count >= DiningRoomSystem.Instance.selectFoodCount)
                     {
                         diningRoomsystem.timer = 0f;
                         diningRoomsystem.isFullFood = true;
@@ -509,7 +510,7 @@ public class SaveLoad : MonoBehaviour
                     var itemRank = JsonConvert.DeserializeObject<int>(str);
                     shop.currentItemRank = itemRank;
                 }
-                if (gameSaveDatas["itemRankUp"]is JToken rankUp)
+                if (gameSaveDatas["itemRankUp"] is JToken rankUp)
                 {
                     string str = rankUp.ToString();
                     var itemRankUp = JsonConvert.DeserializeObject<int>(str);
@@ -521,7 +522,7 @@ public class SaveLoad : MonoBehaviour
                     var skillRank = JsonConvert.DeserializeObject<int>(str);
                     shop.currentSkillRank = skillRank;
                 }
-                if (gameSaveDatas["skillRankUp"]is JToken rankUp_s)
+                if (gameSaveDatas["skillRankUp"] is JToken rankUp_s)
                 {
                     string str = rankUp_s.ToString();
                     var skillRankUp = JsonConvert.DeserializeObject<int>(str);
@@ -533,7 +534,7 @@ public class SaveLoad : MonoBehaviour
                     var petRank = JsonConvert.DeserializeObject<int>(str);
                     shop.currentPetRank = petRank;
                 }
-                if (gameSaveDatas["petRankUp"]is JToken rankUp_p)
+                if (gameSaveDatas["petRankUp"] is JToken rankUp_p)
                 {
                     string str = rankUp_p.ToString();
                     var petRankUp = JsonConvert.DeserializeObject<int>(str);
@@ -550,7 +551,7 @@ public class SaveLoad : MonoBehaviour
                 {
                     string str = buffTimer.ToString();
                     var buffData = JsonConvert.DeserializeObject<PlayerBuffData>(str);
-                    if(buffData.isEatFood) 
+                    if (buffData.isEatFood)
                         PlayerBuff.Instance.buffData = buffData;
                     else
                     {
@@ -562,7 +563,7 @@ public class SaveLoad : MonoBehaviour
                 {
                     string str = stageIndex.ToString();
                     var stageData = JsonConvert.DeserializeObject<int>(str);
-                    
+
                     WaveManager.Instance.SetStageByIndexStage(stageData);
                     WaveManager.Instance.SetTileMap();
                     //WaveManager.Instance.SetWavePanel();
@@ -592,44 +593,44 @@ public class SaveLoad : MonoBehaviour
                     string str = labATK1.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
 
-                    GameData.Re_AtkSaveDataList=labData;
+                    GameData.Re_AtkSaveDataList = labData;
                 }
                 if (gameSaveDatas["Re002_Lab_SaveDatas"] is JToken labHp1)
                 {
                     string str = labHp1.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_HPSaveDataList=labData;
+                    GameData.Re_HPSaveDataList = labData;
                 }
                 if (gameSaveDatas["Re003_Lab_SaveDatas"] is JToken labCri)
                 {
                     string str = labCri.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_CriSaveDataList=labData;
+                    GameData.Re_CriSaveDataList = labData;
                 }
                 if (gameSaveDatas["Re004_Lab_SaveDatas"] is JToken labSil)
                 {
                     string str = labSil.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_SilupSaveDataList=labData;
+                    GameData.Re_SilupSaveDataList = labData;
                 }
                 if (gameSaveDatas["Re005_Lab_SaveDatas"] is JToken labATK2)
                 {
                     string str = labATK2.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_MidAtkSaveDataList=labData;
+                    GameData.Re_MidAtkSaveDataList = labData;
                 }
                 if (gameSaveDatas["Re006_Lab_SaveDatas"] is JToken labHp2)
                 {
                     string str = labHp2.ToString();
                     var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_MidHPSaveDataList=labData;
+                    GameData.Re_MidHPSaveDataList = labData;
                 }
                 if (gameSaveDatas["currentLavSaveData"] is JToken currentLabSaveData)
                 {
                     string str = currentLabSaveData.ToString();
                     var currentLab = JsonConvert.DeserializeObject<CurrentLavSaveData>(str);
 
-                    if(currentLab.isResearching)
+                    if (currentLab.isResearching)
                     {
                         GameData.currnetLabSaveData = currentLab;
                         LabSystem.Instance.maxTimerTic = currentLab.maxTimer;
@@ -641,9 +642,9 @@ public class SaveLoad : MonoBehaviour
 
                         TimeSpan timeDifference = nowTimeSpan.Subtract(exitTimer);
                         var tic = GameData.tic;
-                        if(timeDifference.TotalSeconds >0)
+                        if (timeDifference.TotalSeconds > 0)
                         {
-                            if(timeDifference.TotalSeconds < (currentLab.maxTimer/ tic))
+                            if (timeDifference.TotalSeconds < (currentLab.maxTimer / tic))
                                 currentLab.timer -= (int)(timeDifference.TotalSeconds * tic);
                         }
                         if (currentLab.timer <= 0)
@@ -652,7 +653,7 @@ public class SaveLoad : MonoBehaviour
                             LabSystem.Instance.isTimerZero = true;
                         }
 
-                        LabSystem.Instance.timerTic= currentLab.timer;
+                        LabSystem.Instance.timerTic = currentLab.timer;
                         LabSystem.Instance.labType = (LabType)currentLab.LabType;
                         LabSystem.Instance.level = currentLab.level;
 
@@ -672,7 +673,7 @@ public class SaveLoad : MonoBehaviour
                     string str = currentQuestIndex.ToString();
                     var datas = JsonConvert.DeserializeObject<int>(str);
 
-                    MakeTableData.Instance.currentQuestIndex = datas;   
+                    MakeTableData.Instance.currentQuestIndex = datas;
                 }
                 if (gameSaveDatas["currentQuestType"] is JToken currentQuestType)
                 {
@@ -680,6 +681,14 @@ public class SaveLoad : MonoBehaviour
                     var datas = JsonConvert.DeserializeObject<int>(str);
 
                     UIManager.Instance.questSystemUi.currentQuestType = (QuestType)datas;
+                }
+
+                if (gameSaveDatas["currentLoopQuestIndex"] is JToken currentLoopQuestIndex)
+                {
+                    string str = currentLoopQuestIndex.ToString();
+                    var datas = JsonConvert.DeserializeObject<int>(str);
+
+                    MakeTableData.Instance.loppCurrentQuestIndex = datas;
                 }
                 if (gameSaveDatas["currentQuestSystemData"] is JToken currentQuestSystemData)
                 {

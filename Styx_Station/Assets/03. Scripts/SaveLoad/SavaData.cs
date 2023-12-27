@@ -187,5 +187,6 @@ public class GameSaveData
     //12.26 이승우 추가
     public int currentQuestIndex;
     public int currentQuestType;
+    public int currentLoopQuestIndex;
     public QuestSystemData currentQuestSystemData;
 }

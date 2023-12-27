@@ -16,7 +16,7 @@ public class QuestListTable : DataTable<QuestListTable>
     }
 
     public List<QuestTableDatas> questList = new List<QuestTableDatas>();
-
+    public List<QuestTableDatas> loopList = new List<QuestTableDatas>();
     
 
     public override void Load()
@@ -31,6 +31,19 @@ public class QuestListTable : DataTable<QuestListTable>
             questList.Add(record);
         }
         questList.Sort((quest1, quest2) => quest1.quest_number.CompareTo(quest2.quest_number));
+        LoopQuestTabelDatasRead();
+    }
+    private void LoopQuestTabelDatasRead()
+    {
+        var csvFileText = Resources.Load<TextAsset>("CSV/LoopQuestTable");
+        TextReader reader = new StringReader(csvFileText.text);
+        var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture));
+        var records = csv.GetRecords<QuestTableDatas>();
+
+        foreach (var record in records)
+        {
+            loopList.Add(record);
+        }
     }
 }
 

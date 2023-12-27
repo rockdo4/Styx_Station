@@ -97,6 +97,9 @@ public static class SharedPlayerStats
             UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
             PlayerPowerBoostCondition();
 
+            if(UIManager.Instance.questSystemUi.currentQuestType ==QuestType.CheckPlayerStats)
+                UIManager.Instance.questSystemUi.CheckPlayerStatsUpgradeClear();
+
         }
         else
         {
@@ -255,6 +258,9 @@ public static class SharedPlayerStats
             criticalPower++;
             StateSystem.Instance.TotalUpdate();
             UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
+
+            if (UIManager.Instance.questSystemUi.currentQuestType == QuestType.CheckPlayerStats)
+                UIManager.Instance.questSystemUi.CheckPlayerStatsUpgradeClear();
         }
         else
         {
@@ -333,6 +339,8 @@ public static class SharedPlayerStats
             maxHp++;
             StateSystem.Instance.TotalUpdate();
             UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().InfoTextUpdate();
+            if (UIManager.Instance.questSystemUi.currentQuestType == QuestType.CheckPlayerStats)
+                UIManager.Instance.questSystemUi.CheckPlayerStatsUpgradeClear();
         }
         else
         {

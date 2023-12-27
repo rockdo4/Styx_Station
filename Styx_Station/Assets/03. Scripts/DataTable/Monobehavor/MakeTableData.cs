@@ -11,7 +11,7 @@ public class MakeTableData : Singleton<MakeTableData>
     [HideInInspector] public LabTable labTable;
     [HideInInspector] public QuestListTable questTable;
     public int currentQuestIndex = 0;
-
+    public int loppCurrentQuestIndex = 0;
     private void Awake()
     {
         gameSaveLoad = gameObject.AddComponent<SaveLoad>();

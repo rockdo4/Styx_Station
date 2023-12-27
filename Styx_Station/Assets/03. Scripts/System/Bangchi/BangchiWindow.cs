@@ -41,14 +41,17 @@ public class BangchiWindow : Window
         var date = DateTime.ParseExact(GameData.nowTime.ToString(), GameData.datetimeString, null);
 
         TimeSpan timeDifference = date.Subtract(prevData);
-        switch(Global.language)
+        var minutes = (int)timeDifference.TotalMinutes;
+        if(minutes >=GameData.maxResult)
+            minutes = GameData.maxResult;
+        switch (Global.language)
         {
             case Language.KOR:
-                bangchiOverTimeTextMeshProUGUI.text =$"{(int)timeDifference.TotalMinutes} {bangchiOverTimeStringTagleData.KOR}";
+                bangchiOverTimeTextMeshProUGUI.text =$"{minutes} {bangchiOverTimeStringTagleData.KOR}";
                 bangchiName.text = bangchiPanelNameStringTableData.KOR;
                 break;
             case Language.ENG:
-                bangchiOverTimeTextMeshProUGUI.text = $"{(int)timeDifference.TotalMinutes} {bangchiOverTimeStringTagleData.ENG}";
+                bangchiOverTimeTextMeshProUGUI.text = $"{minutes} {bangchiOverTimeStringTagleData.ENG}";
                 bangchiName.text = bangchiPanelNameStringTableData.ENG;
                 break;
         }

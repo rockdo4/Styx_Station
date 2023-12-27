@@ -374,6 +374,7 @@ public class QuestSystemUi : MonoBehaviour
                 WaveClearLoad();
                 break;
             case QuestType.DungeonClear:
+                QuestLoadtPlayDungeon();
                 break;
             case QuestType.Gatcha:
                 QuestLoadGatcha();
@@ -405,6 +406,18 @@ public class QuestSystemUi : MonoBehaviour
     {
         questCountText.text = ""; 
         if (questData.isClearWave)
+        {
+            questButton.interactable = true;
+        }
+        else
+        {
+            questButton.interactable = false;
+        }
+    }
+    private void QuestLoadtPlayDungeon()
+    {
+        questCountText.text = $"{questData.currentPlayDungeonType} / {questData.maxPlaydungeonType}";
+        if (questData.isDungeonClear)
         {
             questButton.interactable = true;
         }

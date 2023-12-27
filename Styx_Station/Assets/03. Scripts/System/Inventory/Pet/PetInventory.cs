@@ -74,6 +74,7 @@ public class PetInventory : MonoBehaviour
             equipPets[equipIndex].equip = false;
             equipPets[equipIndex].equipIndex = -1;
         }
+        //pet 바꿔주는 코드 추가해야함 ...
 
         equipPets[equipIndex] = pets[petIndex];
         pets[petIndex].equip = true;
@@ -106,6 +107,8 @@ public class PetInventory : MonoBehaviour
 
         if (equipPets[equipIndex].pet == null)
             return;
+
+        //빠질떄
 
         pets[petIndex].equip = false;
         pets[petIndex].equipIndex = -1;

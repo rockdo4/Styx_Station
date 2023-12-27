@@ -79,10 +79,10 @@ public class SkillButton : MonoBehaviour
             info.equip.interactable = false;
         }
 
-        if (skillIndex > 12)
-        {
-            info.equip.interactable = false;
-        }
+        //if (skillIndex > 12)
+        //{
+        //    info.equip.interactable = false;
+        //}
 
         window.info.SetActive(true);
     }

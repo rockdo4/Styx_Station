@@ -7,12 +7,6 @@ public class PoolAble : MonoBehaviour
 {
     public IObjectPool<GameObject> ObjPool { get; set; }
 
-    //public virtual void ReleaseObject()
-    //{
-    //    //Debug.Log($"Release{this.name}");
-    //    ObjPool.Release(gameObject);
-    //}
-
     public virtual void ReleaseObject()
     {
         if(gameObject.activeSelf)

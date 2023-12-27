@@ -74,6 +74,11 @@ public class SkillManager : Singleton<SkillManager>
     public GameObject blackCloudPrefab;
     public GameObject meteorPrefab;
     public GameObject energyVoltPerfab;
+    public GameObject soulDamagePrefab;
+    public GameObject arrowOfLightPrefab;
+    public GameObject impaleShooterPrefab;
+    public GameObject impalePrefab;
+    public GameObject judgeShooterPrefab;
 
     public LayerMask enemyLayer;
 
@@ -111,26 +116,17 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new Meteor(inventory.skills[9], meteorPrefab)); //메테오
         skills.Add(new EnergyVolt(inventory.skills[10], energyVoltPerfab)); //에너지볼트
         skills.Add(new PassiveSkillBase()); //임시(공격력 증가2)
-        skills.Add(new TripleShot(inventory.skills[11], tripleShotShooterPrefab)); //트리플샷3
-
+        skills.Add(new TripleShot(inventory.skills[12], tripleShotShooterPrefab)); //트리플샷4
+        skills.Add(new SoulDamage(inventory.skills[13], soulDamagePrefab, player)); //정신공격
+        skills.Add(new ArrowOfLight(inventory.skills[14], arrowOfLightPrefab, player)); //빛의 화살
+        skills.Add(new TripleShot(inventory.skills[15], tripleShotShooterPrefab)); //트리플샷5
+        skills.Add(new Impale(inventory.skills[16], impalePrefab, impaleShooterPrefab)); //임페일
+        skills.Add(new Judge(inventory.skills[17], judgeShooterPrefab)); //심판
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
 
-        //for(int i = 0; i < 6; i++)
-        //{
-        //    skillbutton.Enqueue(skillWindow.slotButtons[i]);
-        //}
         SetEquipSkillCool();
     }
-    private void Start()
-    {
-        //skills.Add(new TripleShot(inventory.skills[0], shooterPrefab));
-    }
-
-    //public Queue GetSkillButton()
-    //{
-    //    return skillbutton;
-    //}
 
     public void SetIsAuto(bool isA)
     {

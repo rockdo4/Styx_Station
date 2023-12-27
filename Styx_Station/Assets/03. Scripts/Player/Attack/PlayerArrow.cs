@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -22,6 +23,9 @@ public class PlayerArrow : PoolAble
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        int layerMask = 1 << LayerMask.NameToLayer("Enemy");
+        arrowRangeLayer = 1 << LayerMask.NameToLayer("ArrowRange");
+        filter2D.SetLayerMask(layerMask);
     }
 
     private void Start()
@@ -76,6 +80,8 @@ public class PlayerArrow : PoolAble
         {
             for(int i = 0; i < count; i++)
             {
+                if (colliders[i].gameObject.GetComponent<MonsterStats>() == null)
+                    continue;
                 if (colliders[i].gameObject.GetComponentInChildren<SortingGroup>().sortingOrder >
                     attackedMon.GetComponentInChildren<SortingGroup>().sortingOrder &&
                     colliders[i].gameObject.GetComponent<MonsterStats>().currHealth > 0)

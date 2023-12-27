@@ -536,7 +536,9 @@ public class LabSystem : Singleton<LabSystem>
         //        Re006_Vertex[level].coolTime.transform.position = Re006_Vertex[level].transform.position;
         //        break;
         //}
-        isLoad=true;
+
+
+        isLoad =true;
         isAwakeSet = true;
     }
 }

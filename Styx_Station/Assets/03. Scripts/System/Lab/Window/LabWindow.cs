@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,15 @@ public class LabWindow : Window
             {
                 labInfoWindow.SetVertex(LabSystem.Instance.labType, LabSystem.Instance.labStringTableName, LabSystem.Instance.labBuffStringTable, LabSystem.Instance.labTalbeData, LabSystem.Instance.level,false);
                 LabSystem.Instance.Load();
+                var prevData = DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
+                var now = DateTime.Now.ToString(GameData.datetimeString);
+                var date = DateTime.ParseExact(now, GameData.datetimeString, null);
+                TimeSpan timeDifference = date.Subtract(prevData);
+                LabSystem.Instance.timerTic -= (int)timeDifference.TotalSeconds * LabSystem.Instance.milSeconds;
+                if (LabSystem.Instance.timerTic < 0)
+                {
+                    LabSystem.Instance.timerTic = 1;
+                }
             }
             isLoad = true;
         }

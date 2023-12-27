@@ -89,7 +89,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
         {
             isMaxSelectUpgradeLevel = true; 
         }
-
+        timer = max;
     }
 
     public void ReMoveFoodData(int index)
@@ -141,7 +141,7 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     }
     public void LoadMaxTimer()
     {
-        for (int i = 1; i <=timerUpgradeLevel; ++i)
+        for (int i = 0; i <=timerUpgradeLevel; ++i)
         {
             max -= decreaseMaxTimer;
         }
@@ -193,7 +193,6 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
             timer += tmepTime;
 
         }
-        
     }
 
     public void ResetSaveFoodData()

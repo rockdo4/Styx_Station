@@ -355,7 +355,7 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickMission()
     {
-        Open(WindowType.Mission);
+        //Open(WindowType.Mission);
     }
 
     public void OnClickClose()
@@ -619,10 +619,15 @@ public class UIManager : Singleton<UIManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if ((ButtonList.mainButton & ButtonType.Exit) != 0)
+            if ((ButtonList.mainButton == ButtonType.Main))
             {
                 ButtonList.mainButton|=ButtonType.Exit;
-                //Ui¶ç¿ì±â
+                Open(WindowType.Exit);
+            }
+            else if ((ButtonList.mainButton & ButtonType.Exit) != 0)
+            {
+                ButtonList.mainButton &= ~ButtonType.Exit;
+                windows[(int)currentWindow].Close();
             }
             else if ((ButtonList.mainButton & ButtonType.Info) != 0)
             {

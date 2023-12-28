@@ -71,16 +71,33 @@ public class ResultPlayerStats : MonoBehaviour
         if (nowTime + healingTimer < Time.time)
         {
             nowTime = Time.time;
-            playerCurrentHp += state.TotalState.HealHealth * increaseUpgradeHealing / 10;// + (int)inventory.t_HealHealth;
-            if (playerCurrentHp >= playerMaxHp)
-            {
-                playerCurrentHp = playerMaxHp;
-            }
+            Healing();
+            //playerCurrentHp += state.TotalState.HealHealth * increaseUpgradeHealing / 10;// + (int)inventory.t_HealHealth;
+            //if (playerCurrentHp >= playerMaxHp)
+            //{
+            //    playerCurrentHp = playerMaxHp;
+            //}
         }
         //if(inventory != null && inventory.t_Health <=0f)
         //{
         //    SettingPlayerMaxHP();
         //}
+    }
+
+    public double GetNormalizedHealth()
+    {
+        return (double)playerCurrentHp / (double)playerMaxHp;
+    }
+    private void Healing()
+    {
+        playerCurrentHp += state.TotalState.HealHealth * increaseUpgradeHealing / 10;// + (int)inventory.t_HealHealth;
+        if (playerCurrentHp >= playerMaxHp)
+        {
+            playerCurrentHp = playerMaxHp;
+        }
+
+        var normalHp = GetNormalizedHealth();
+        UIManager.Instance.SetHpGauge(normalHp);
     }
     public BigInteger GetPlayerPowerByNonInventory()
     {
@@ -117,9 +134,8 @@ public class ResultPlayerStats : MonoBehaviour
     }
 
 
-    public BigInteger ResultMonsterNormalDamage(bool isCritical, float monsterDefense) // ���� ��� ���� ������ ���
+    public BigInteger ResultMonsterNormalDamage(bool isCritical, float monsterDefense)
     {
-        // ũ��Ƽ�� ���� : isCritical, ���Ͱ� �޴� ���� ���� : monsterDefense
         if (isCritical)
         {
             GetNoramlCriticalDamage();
@@ -133,9 +149,7 @@ public class ResultPlayerStats : MonoBehaviour
 
     }
 
-    // ���� �Ϲ� ������
     private void GetSkillDamage(float skillCount)
-        //skillCount ��ų �����
     {
         var power = GetPlayerPower();
         skillMonsterDamage = (power * (int)skillCount / 100) * ((int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100;
@@ -167,8 +181,6 @@ public class ResultPlayerStats : MonoBehaviour
         return skillMonsterDamage - (skillMonsterDamage * monsterDefenseResult);
     }
 
-    // �������ط��� ���� �Ϲ� ���� ���ط��� ���� �ص� ���� ������ �������� ����
-
     public float GetCritical()
     {
         return (SharedPlayerStats.GetAttackCritical() - 1) * 0.1f;
@@ -196,11 +208,17 @@ public class ResultPlayerStats : MonoBehaviour
             CurrentMaxHpSet();
             Debug.Log("PlayerDie");
         }
+
+        var normal = GetNormalizedHealth();
+        UIManager.Instance.SetHpGauge(normal);
     }
 
     public void ResetHp()
     {
         playerCurrentHp = playerMaxHp;
+
+        var normal = GetNormalizedHealth();
+        UIManager.Instance.SetHpGauge(normal);
     }
 
     public void CurrentMaxHpSet()

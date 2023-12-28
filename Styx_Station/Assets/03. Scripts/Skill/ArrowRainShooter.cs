@@ -28,8 +28,6 @@ public class ArrowRainShooter : Shooter
 
     public void SetShooter(/*Vector2 pA, Vector2 pB, */LayerMask mL, float mul, float du, float stP, GameObject castZone)
     {
-        //pointA = pA;
-        //pointB = pB;
         monsterLayer = mL;
         damageMultiplier = mul;
         duration = du;
@@ -39,22 +37,28 @@ public class ArrowRainShooter : Shooter
         pointA = player.transform.position;
         pointA.x = pointA.x + startPosX;
         pointB = new Vector2(pointA.x + 2, pointA.y + 10);
-    }
 
-    private void Start()
-    {
         startTime = Time.time;
         StartCoroutine(CastSkill());
         castZone.gameObject.transform.position = pointA;
         castZone.SetActive(true);
     }
 
+    //private void Start()
+    //{
+    //    startTime = Time.time;
+    //    StartCoroutine(CastSkill());
+    //    castZone.gameObject.transform.position = pointA;
+    //    castZone.SetActive(true);
+    //}
+
     private void Update()
     {
         if(startTime + duration < Time.time)
         {
-            castZone.SetActive(false);  
-            Destroy(gameObject);
+            ReleaseObject();
+            //castZone.SetActive(false);  
+            //Destroy(gameObject);
         }
     }
 
@@ -99,5 +103,11 @@ public class ArrowRainShooter : Shooter
         {
             attackable.OnAttack(player, attack);
         }
+    }
+
+    public override void ReleaseObject()
+    {
+        castZone.SetActive(false);
+        base.ReleaseObject();
     }
 }

@@ -27,7 +27,8 @@ public class TripleShot : SkillBase
         }
         var startPos = rects[1].transform.position;
 
-        var shooter = Object.Instantiate(shooterPrefab);
+        //var shooter = Object.Instantiate(shooterPrefab);
+        var shooter = ObjectPoolManager.instance.GetGo(shooterPrefab.name);
         shooter.GetComponent<TripleShotShooter>().SetShooter(attacker, startPos, piercingBowName, speed, multiple);
     }
 }

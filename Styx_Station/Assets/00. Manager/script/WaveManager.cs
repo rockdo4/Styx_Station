@@ -77,6 +77,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ReleaseShooter();
+        }
         if(isWaveInProgress)
         {
             timer += Time.deltaTime;
@@ -410,6 +414,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     private void StopArrows()
     {
+        ReleaseShooter();
         GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
             .Where(arrow => arrow.activeSelf)
             .ToArray();

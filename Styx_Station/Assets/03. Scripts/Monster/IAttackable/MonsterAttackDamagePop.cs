@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
@@ -7,6 +8,13 @@ public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
     public Color color = Color.white;
     public GameObject prefab;
     public float addY = 0.05f;
+
+    private MonsterStats monsterStats;
+
+    private void Awake()
+    {
+        monsterStats = gameObject.GetComponent<MonsterStats>();
+    }
 
     public void OnAttack(GameObject attacker, Attack attack)
     {
@@ -19,8 +27,13 @@ public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
         }
         textObj.transform.position = position;
         var text = textObj.GetComponent<DamageText>();
-        //var text = Instantiate(prefab, position, Quaternion.identity);
-        var damageString = UnitConverter.OutString(attack.Damage);
+
+        BigInteger damage = attack.Damage;
+        if(damage > monsterStats.maxHp)
+        {
+            damage = monsterStats.maxHp;
+        }
+        var damageString = UnitConverter.OutString(damage);
         if(attack.IsCritical)
         {
             color = Color.red;

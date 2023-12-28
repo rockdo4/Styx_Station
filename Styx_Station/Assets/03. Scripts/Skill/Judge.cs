@@ -5,11 +5,13 @@ public class Judge : SkillBase
     private SkillInventory.InventorySKill judge;
     private GameObject judgePrefab;
     private float damageMultiplier;
+    private GameObject particlePrefab;
 
-    public Judge(SkillInventory.InventorySKill skill, GameObject Prefab)
+    public Judge(SkillInventory.InventorySKill skill, GameObject Prefab, GameObject particle)
     {
         judge = skill;
         judgePrefab = Prefab;
+        particlePrefab = particle;
 
         damageMultiplier = judge.skill.Skill_ATK + (judge.upgradeLev * judge.skill.Skill_ATK_LVUP);
     }
@@ -26,6 +28,7 @@ public class Judge : SkillBase
             SetJudgeShooter(
             judge.skill.Skill_ATK_NUM,
             damageMultiplier,
-            attacker);
+            attacker,
+            particlePrefab);
     }
 }

@@ -6,10 +6,12 @@ public class SoulDamageParticle : PoolAble
 {
     private float duration;
     private float timer;
+    private WaveManager waveManager;
 
     private void Awake()
     {
         duration = gameObject.GetComponent<ParticleSystem>().main.duration;
+        waveManager = WaveManager.Instance;
     }
 
     private void OnEnable()
@@ -19,6 +21,10 @@ public class SoulDamageParticle : PoolAble
 
     private void Update()
     {
+        if(!waveManager.isWaveInProgress)
+        {
+            ReleaseObject();
+        }
         if(gameObject.activeSelf)
         {
             timer += Time.deltaTime;
@@ -27,6 +33,7 @@ public class SoulDamageParticle : PoolAble
                 ReleaseObject();
             }
         }
+
     }
 
     public override void ReleaseObject()

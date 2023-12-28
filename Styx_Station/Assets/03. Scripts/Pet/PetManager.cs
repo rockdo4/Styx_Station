@@ -83,6 +83,8 @@ public class PetManager : Singleton<PetManager>
                         make.GetComponent<PetController>().lerpPos = playerByPetPos[0];
                         if (petObjectList.Count > 0)
                             make.GetComponent<PetController>().isArrive = true;
+                        else if(make.GetComponent<PetController>().masterPlayer.GetComponent<PlayerController>().IsStartTarget)
+                            make.GetComponent<PetController>().isArrive = true;
                         make.GetComponent<PetController>().index = 0;
                         petGameObject[0] = make;
                     }
@@ -111,6 +113,8 @@ public class PetManager : Singleton<PetManager>
                         make.GetComponent<PetController>().lerpPos = playerByPetPos[0];
                         if (petObjectList.Count > 0)
                             make.GetComponent<PetController>().isArrive = true;
+                        else if (make.GetComponent<PetController>().masterPlayer.GetComponent<PlayerController>().IsStartTarget)
+                            make.GetComponent<PetController>().isArrive = true;
                         make.GetComponent<PetController>().index = 0;
                         petGameObject[0] = make;
                     }
@@ -136,6 +140,8 @@ public class PetManager : Singleton<PetManager>
                         make.transform.position = playerByPetPos[1].transform.position;
                         make.GetComponent<PetController>().lerpPos = playerByPetPos[1];
                         if (petObjectList.Count > 0)
+                            make.GetComponent<PetController>().isArrive = true;
+                        else if (make.GetComponent<PetController>().masterPlayer.GetComponent<PlayerController>().IsStartTarget)
                             make.GetComponent<PetController>().isArrive = true;
                         make.GetComponent<PetController>().index = 1;
                         petGameObject[1] = make;
@@ -164,6 +170,8 @@ public class PetManager : Singleton<PetManager>
                         make.transform.position = playerByPetPos[1].transform.position;
                         make.GetComponent<PetController>().lerpPos = playerByPetPos[1];
                         if (petObjectList.Count > 0)
+                            make.GetComponent<PetController>().isArrive = true;
+                        else if (make.GetComponent<PetController>().masterPlayer.GetComponent<PlayerController>().IsStartTarget)
                             make.GetComponent<PetController>().isArrive = true;
                         make.GetComponent<PetController>().index = 1;
                         petGameObject[1] = make;

@@ -8,7 +8,6 @@ public class VampireSurivalPlayerSkillInventory : MonoBehaviour
 
     public void GetSkill(VampireSkillInfoDataType skillInfo)
     {
-        
         playerInventory.Add(skillInfo);
     }
 

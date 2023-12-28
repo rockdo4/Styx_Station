@@ -7,8 +7,8 @@ using static VampireSurivalSkillInfo;
 public class VampireSurivalSkillInfo : MonoBehaviour
 {
 
-
-    public VampireSkillInfoDataType skillData;
+    public List<GameObject> vampireSurivalProjectTile =new List<GameObject>();
+    [HideInInspector]public VampireSkillInfoDataType skillData;
 
     public VamprieSurivalPlayerController player;
 
@@ -29,8 +29,8 @@ public class VampireSurivalSkillInfo : MonoBehaviour
 
     public void TripleArrowShotAction()
     {
-        var arrow = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
-        var collider = Physics2D.OverlapCircle(arrow.transform.position, skillData.range);
+        var arrow = ObjectPoolManager.instance.GetGo(vampireSurivalProjectTile[(int)VampireSkillType.TripleArrowShot].name);
+        var collider = Physics2D.OverlapCircle(player.transform.position, skillData.range);
         if (collider != null && collider.CompareTag("VampireEnemy"))
         {
             var set = arrow.GetComponent<VamprieSurivalPlayerAttackType>();
@@ -49,7 +49,7 @@ public class VampireSurivalSkillInfo : MonoBehaviour
 
 
                 Vector2 directionLoop = new Vector2(Mathf.Cos(currentAngle * Mathf.Deg2Rad), Mathf.Sin(currentAngle * Mathf.Deg2Rad));
-                var arrowLoop = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
+                var arrowLoop = ObjectPoolManager.instance.GetGo(vampireSurivalProjectTile[(int)VampireSkillType.TripleArrowShot].name);
                 var setLoop = arrowLoop.GetComponent<VamprieSurivalPlayerAttackType>();
                 arrowLoop.transform.position = player.transform.position;
                 setLoop.Setting(skillData.damage, skillData.speed, skillData.aliveTime);
@@ -68,7 +68,7 @@ public class VampireSurivalSkillInfo : MonoBehaviour
             arrow.GetComponent<VamprieSurivalAttackArrow>().LineAttackRange(direction);
             for (int i = 1; i < 3; ++i)
             {
-                var arrowLoop = ObjectPoolManager.instance.GetGo("VampireSurivalArrow");
+                var arrowLoop = ObjectPoolManager.instance.GetGo(vampireSurivalProjectTile[(int)VampireSkillType.TripleArrowShot].name);
                 var setLoop= arrowLoop.GetComponent<VamprieSurivalPlayerAttackType>();
                 arrowLoop.transform.position = player.transform.position;
                 setLoop.Setting(skillData.damage, skillData.speed, skillData.aliveTime);

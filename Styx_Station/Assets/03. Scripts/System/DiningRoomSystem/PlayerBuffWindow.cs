@@ -7,18 +7,21 @@ using UnityEngine.UI;
 
 public class PlayerBuffWindow : Window
 {
-    public List<GameObject> playerBuffInfoOBject=new List<GameObject>();
+    public GameObject playerBuffInfoOBject;
     public Image foodImage;
     public TextMeshProUGUI buffInfoText;
     private StringTableData buffInfoStringTableData;
     private int[] buffInt = new int[6];
     private Language language;
+
+    private bool isDraw;
+    public GameObject playerBuffInfoObjectArrow;
+    public GameObject playerBuffInfoObjectTextType;
+    
     public override void Open()
     {
-        foreach(var obj in playerBuffInfoOBject)
-        {
-           obj.SetActive(true);
-        }
+
+        playerBuffInfoOBject.SetActive(true);
         Sprite newFoodImage = null;
         if (MakeTableData.Instance.diningRoomTable ==null)
             MakeTableData.Instance.diningRoomTable =new DiningTable();
@@ -37,24 +40,48 @@ public class PlayerBuffWindow : Window
         }
         if(newFoodImage != null) 
             foodImage.sprite = newFoodImage;
-        SetStringTableData();
+        
         base.Open();
     }
 
     public override void Close()
     {
-        foreach (var obj in playerBuffInfoOBject)
-        {
-            obj.SetActive(false);
-        }
+        playerBuffInfoOBject.SetActive(false);
+        isDraw=false;
+        ActiveFalseObj();
         base.Close();
     }
     private void LateUpdate()
     {
-        if(language!=Global.language &&PlayerBuff.Instance.buffData.isEatFood)
+        if(language!=Global.language &&PlayerBuff.Instance.buffData.isEatFood && isDraw)
         {
             SetStringTableData();
         }
+    }
+    public void DrawBuffText()
+    {
+        if (!PlayerBuff.Instance.buffData.isEatFood)
+            return;
+        isDraw = !isDraw;
+        if(isDraw)
+        {
+            ActiveTrueObj();
+            SetStringTableData();
+        }
+        else
+        {
+            ActiveFalseObj();
+        }
+    }
+    private void ActiveTrueObj()
+    {
+        playerBuffInfoObjectArrow.SetActive(true);
+        playerBuffInfoObjectTextType.SetActive(true);
+    }
+    private void ActiveFalseObj()
+    {
+        playerBuffInfoObjectArrow.SetActive(false);
+        playerBuffInfoObjectTextType.SetActive(false);
     }
     private void SetStringTableData()
     {

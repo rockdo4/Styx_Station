@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class PetIdle : PetStateBase
 {
+    private bool playerDie;
     public PetIdle(PetController petController) : base(petController)
     {
     }
@@ -25,6 +23,7 @@ public class PetIdle : PetStateBase
     {
         if (petController.masterPlayer.GetComponent<PlayerController>().currentStates == States.Die)
         {
+            petController.transform.position = PetManager.Instance.petStartTransform[petController.index].position;
             return;
         }
         var master = petController.masterPlayer.GetComponent<PlayerController>();
@@ -43,8 +42,9 @@ public class PetIdle : PetStateBase
         }
         else
         {
-            if (petController.masterPlayer.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
-                return;
+            //if (petController.masterPlayer.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
+                if(!WaveManager.Instance.isWaveInProgress)
+                    return;
             foreach (var enemy in findEnemy)
             {
                 if(enemy.GetComponent<MonsterStats>().currHealth >0)

@@ -12,6 +12,7 @@ public class PlayerBuffWindow : Window
     public TextMeshProUGUI buffInfoText;
     private StringTableData buffInfoStringTableData;
     private int[] buffInt = new int[6];
+    private Language language;
     public override void Open()
     {
         foreach(var obj in playerBuffInfoOBject)
@@ -48,8 +49,16 @@ public class PlayerBuffWindow : Window
         }
         base.Close();
     }
+    private void LateUpdate()
+    {
+        if(language!=Global.language)
+        {
+            SetStringTableData();
+        }
+    }
     private void SetStringTableData()
     {
+        language = Global.language;
         string foodBuffStr;
         int currentBuffInt = 0;
         if (PlayerBuff.Instance.buffData.playerPowerBuff > 0)
@@ -77,7 +86,7 @@ public class PlayerBuffWindow : Window
             buffInt[currentBuffInt] = PlayerBuff.Instance.buffData.silingBuff;
             currentBuffInt++;
         }
-        switch (Global.language)
+        switch (language)
         {
             case Language.KOR:
                 foodBuffStr = string.Format(buffInfoStringTableData.KOR, buffInt[0], buffInt[1], buffInt[2], buffInt[3], buffInt[4]);

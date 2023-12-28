@@ -373,12 +373,19 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             }
         }
 
-        var pets = GameObject.FindGameObjectsWithTag("Pet");
-        foreach (var pet in pets)
+        //var pets = GameObject.FindGameObjectsWithTag("Pet");
+        //foreach (var pet in pets)
+        //{
+        //    var initialPos = pet.GetComponentInChildren<PetController>().initialPos;
+        //    pet.gameObject.transform.position = initialPos;
+        //    pet.GetComponentInChildren<PetController>().SetState(States.Idle);
+        //}
+        var pets = PetManager.Instance.GetPetGameobjectArray();
+        for(int i=0;i<pets.Length;i++)
         {
-            var initialPos = pet.GetComponentInChildren<PetController>().initialPos;
-            pet.gameObject.transform.position = initialPos;
-            pet.GetComponentInChildren<PetController>().SetState(States.Idle);
+            pets[i].transform.position = PetManager.Instance.petStartTransform[i].position;
+            pets[i].GetComponent<PetController>().SetState(States.Idle);
+            //pets[i].GetComponent<PetController>().isArrive = false;
         }
     }
 

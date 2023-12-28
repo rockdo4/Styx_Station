@@ -274,6 +274,7 @@ public class DiningRoomUIManager : MonoBehaviour
                 {
                     DiningRoomSystem.Instance.ReMoveFoodData(i);
                     diningRoomUIFoodDataInfo.DataZero();
+                    PlayerBuff.Instance.SetFoodId(diningRoomButtdonDatas[i].foodData.Food_ID);
                     PlayerBuff.Instance.GetBuffAll(diningRoomButtdonDatas[i].foodData.Food_ATK, diningRoomButtdonDatas[i].foodData.Food_Cri, diningRoomButtdonDatas[i].foodData.Food_Skill,
                         diningRoomButtdonDatas[i].foodData.Food_Boss, diningRoomButtdonDatas[i].foodData.Food_Silup, diningRoomButtdonDatas[i].foodData.Food_Du, diningRoomButtdonDatas[i].foodData.Food_Type);
                     break;

@@ -11,8 +11,9 @@ public class PetBow : PoolAble
     private ContactFilter2D filter2D = new ContactFilter2D();
     public bool isRelease;
     private Rigidbody2D rb;
+    private Vector2 dir;
 
-    
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,7 +23,6 @@ public class PetBow : PoolAble
     private void FixedUpdate()
     {
         var vel = rb.velocity;
-        Vector2 dir = (targetObject.transform.position-gameObject.transform.position ).normalized;
         var movePos = dir * speed * Time.deltaTime;
         vel += movePos;
         rb.velocity = vel;
@@ -52,6 +52,7 @@ public class PetBow : PoolAble
         attacker = obj;
         this.speed = speed;
         this.targetObject = targetObject;
+        dir = (targetObject.transform.position - gameObject.transform.position).normalized;
     }
 
     public bool CheckOnCollided() 

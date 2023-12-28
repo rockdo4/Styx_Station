@@ -27,7 +27,7 @@ public class ResultPlayerStats : MonoBehaviour
     public int increaseUpgradePower = 10;
     [Header("���ݷ� ���� 1����")]
     public float increaseUpgradePowerBoost = 0.1f;
-    [Header("�÷��̾� ���ݷ� ���� �ν�Ʈ N*0.1 /100 ��� ")]
+    [Header("�÷��̾� ���ݷ� ���� �ν�Ʈ N*0.1 /100 ���?")]
     public int playerPowerBoostPercent = 1000;
     [Header("ũ��Ƽ�� 1����")]
     public float increaseUpgradeCritical = 0.01f;
@@ -35,11 +35,11 @@ public class ResultPlayerStats : MonoBehaviour
     public float increaseUpgradeCriticalDefault = 150f;
     [Header("���� N ��ġ ")]
     public float monsterDamageFloat = 0.1f;
-    [Header("���� N*0.1 /100 ��� ")]
+    [Header("���� N*0.1 /100 ���?")]
     public int monsterDamagePercent = 1000;
-    [Header("ġ��Ÿ����  N*0.01  + 150% ��� ")]
+    [Header("ġ��Ÿ����  N*0.01  + 150% ���?")]
     public int criticlDamage = 100;
-    [Header("��ų ��� 100����  ��� ")]
+    [Header("��ų ���?100����  ���?")]
     public int skillDamage = 100;
     [Header("ü�� 1����")]
     public int increaseUpgradeHp= 5;
@@ -117,9 +117,9 @@ public class ResultPlayerStats : MonoBehaviour
     }
 
 
-    public BigInteger ResultMonsterNormalDamage(bool isCritical, float monsterDefense) // ���� ��� ���� ������ ���
+    public BigInteger ResultMonsterNormalDamage(bool isCritical, float monsterDefense) 
     {
-        // ũ��Ƽ�� ���� : isCritical, ���Ͱ� �޴� ���� ���� : monsterDefense
+        
         if (isCritical)
         {
             GetNoramlCriticalDamage();
@@ -133,9 +133,7 @@ public class ResultPlayerStats : MonoBehaviour
 
     }
 
-    // ���� �Ϲ� ������
     private void GetSkillDamage(float skillCount)
-        //skillCount ��ų �����
     {
         var power = GetPlayerPower();
         skillMonsterDamage = (power * (int)skillCount / 100) * ((int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100;
@@ -167,8 +165,7 @@ public class ResultPlayerStats : MonoBehaviour
         return skillMonsterDamage - (skillMonsterDamage * monsterDefenseResult);
     }
 
-    // �������ط��� ���� �Ϲ� ���� ���ط��� ���� �ص� ���� ������ �������� ����
-
+   
     public float GetCritical()
     {
         return (SharedPlayerStats.GetAttackCritical() - 1) * 0.1f;

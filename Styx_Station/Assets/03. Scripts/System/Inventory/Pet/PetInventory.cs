@@ -7,8 +7,8 @@ public class PetInventory : MonoBehaviour
     [System.Serializable]
     public class InventoryPet
     {
-        public Pet pet;
-        public int upgradeLev;
+        public Pet pet; //Lsw 신경써야한다
+        public int upgradeLev; //Lsw 신경써야한다 . upgradeLev * pet.attackLev
         public bool acquire;
         public bool equip;
         public int stock;
@@ -74,11 +74,14 @@ public class PetInventory : MonoBehaviour
             equipPets[equipIndex].equip = false;
             equipPets[equipIndex].equipIndex = -1;
         }
-        //pet 바꿔주는 코드 추가해야함 ...
+
+        PetManager.Instance.ChagngePet(equipIndex, pets[petIndex]);
 
         equipPets[equipIndex] = pets[petIndex];
         pets[petIndex].equip = true;
         pets[petIndex].equipIndex = equipIndex;
+
+        //pet 바꿔주는 코드 추가해야함 ...
     }
 
     public void DequipPet(int petIndex, int equipIndex)
@@ -108,10 +111,11 @@ public class PetInventory : MonoBehaviour
         if (equipPets[equipIndex].pet == null)
             return;
 
-        //빠질떄
+        PetManager.Instance.DequipPets(equipIndex);
 
         pets[petIndex].equip = false;
         pets[petIndex].equipIndex = -1;
         equipPets[equipIndex] = null;
+        //빠질떄
     }
 }

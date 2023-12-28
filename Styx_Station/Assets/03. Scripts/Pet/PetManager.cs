@@ -2,44 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PetManager : Singleton<PetManager>
+public class PetManager : MonoBehaviour
 {
+    private static PetManager instance;
+    public static PetManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = FindObjectOfType<PetManager>();
+            return instance;
+        }
+    }
+
     public Transform[] petStartTransform = new Transform[2];
     public Transform[] playerByPetPos = new Transform[2];
     private PetInventory petInventory;
     private GameObject[] petGameObject = new GameObject[2];
     private List<GameObject> petObjectList = new List<GameObject>();
+
+    private void Awake()
+    {
+        if (Instance != this)
+            Destroy(gameObject);
+    }
     private void Start()
     {
         if (petInventory == null)
         {
             petInventory = InventorySystem.Instance.petInventory;
-            //var pets = petInventory.equipPets;
-            //for (int i = 0; i < pets.Length; i++)
-            //{
-            //    if (pets[i] !=null)
-            //    {
-            //        var make = Instantiate(petInventory.equipPets[i].pet.Pet_GameObjet);
-            //        make.transform.position = petStartTransform[i].position;
-            //        make.GetComponent<PetController>().lerpPos = playerByPetPos[i];
-            //        petGameObject[i] =make;
-            //    }
-            //}
         }
     }
 
     private void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Return)) 
-        //{
-        //    petGameObject[0].GetComponent<PetController>().SetState(States.Idle);
-        //    petGameObject[0].SetActive(false);
-        //    petObjectList.Add(petGameObject[0]);
-        //    var make = Instantiate(petInventory.pets[1].pet.Pet_GameObjet);
-        //    make.transform.position = playerByPetPos[0].transform.position;
-        //    make.GetComponent<PetController>().lerpPos = playerByPetPos[0];
-        //    petGameObject[0] = make;
-        //}
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {

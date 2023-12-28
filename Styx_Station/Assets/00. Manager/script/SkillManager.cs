@@ -136,8 +136,9 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new Impale(inventory.skills[16], impalePrefab, impaleShooterPrefab)); //임페일
         skills.Add(new Judge(inventory.skills[17], judgeShooterPrefab, judgeParticlePrefab)); //심판
 
-        skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
-
+        //skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
+        if(skillWindow ==null)
+            skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
         SetEquipSkillCool();
 
         cooldownCoroutines = new SkillCooldown[]
@@ -217,7 +218,9 @@ public class SkillManager : Singleton<SkillManager>
 
         //StopCoroutine(coroutines[index]);
         //if (skillbutton.Contains(skillWindow.slotButtons[index]))
-       
+        if (skillWindow == null)
+            skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
+
         skillbutton.Enqueue(skillWindow.slotButtons[index]);
         isDequip[index] = false;
     }

@@ -152,7 +152,7 @@ public class ResultPlayerStats : MonoBehaviour
     private void GetSkillDamage(float skillCount)
     {
         var power = GetPlayerPower();
-        skillMonsterDamage = (power * (int)skillCount / 100) * ((int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100;
+        skillMonsterDamage = (power * (int)skillCount / 100) + ((power * (int)skillCount / 100) * ((int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100);
     }
 
 
@@ -163,8 +163,11 @@ public class ResultPlayerStats : MonoBehaviour
         var critclaPowerResult = (int)(GetCritclaPower() * criticlDamage) / criticlDamage;
         critclaPowerResult += PlayerBuff.Instance.buffData.criticalPowerBuff / PlayerBuff.Instance.percent;
 
-        skillMonsterDamage = ((power * (int)skillCount / 100) * (power * (int)skillCount / 100) * critclaPowerResult)
-            + ((((power * (int)skillCount / 100) * (power * (int)skillCount / 100) * critclaPowerResult) * (int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100);
+        skillMonsterDamage = (power * (int)skillCount / 100)
+            + ((power * (int)skillCount / 100) * ((power * (int)skillCount / 100)
+            + power * (int)skillCount / 100) * critclaPowerResult)
+            + ((power * (int)skillCount / 100)
+            + (power * (int)skillCount / 100) * (power * (int)skillCount / 100) * critclaPowerResult) * (((int)state.TotalState.NormalDamage + (int)state.TotalState.SkillDamage) / 100);
     }
 
     public BigInteger ResultMonsterSkillDamage(bool isCritical, float monsterDefense, float a)

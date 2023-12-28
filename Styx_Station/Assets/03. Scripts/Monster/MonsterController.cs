@@ -46,7 +46,6 @@ public class MonsterController : PoolAble //MonoBehaviour
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
-        Debug.Log(stateManager.GetCurrentState());
     }
 
     public void SetIdlePoint(Transform idlePos)

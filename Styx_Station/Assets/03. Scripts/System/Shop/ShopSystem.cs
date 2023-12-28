@@ -84,21 +84,21 @@ public class ShopSystem : Singleton<ShopSystem>
         {
             case Tier.Common:
                 {
-                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    color = new Color(0, 0, 0, 128f / 255f);
                     obj.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Uncommon:
                 {
-                    color = new Color(0, 0, 0, 128f / 255f);
+                    color = new Color(40f / 255f, 1f, 237f / 255f, 128f / 255f);
                     obj.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Rare:
                 {
-                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    color = new Color(1f, 0, 221 / 255f, 128f / 255f);
                     obj.GetComponent<Outline>().effectColor = color;
                 }
                 break;
@@ -141,24 +141,25 @@ public class ShopSystem : Singleton<ShopSystem>
         {
             case Tier.Common:
                 {
-                    color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                    color = new Color(0, 0, 0, 128f / 255f);
                     obj.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Uncommon:
                 {
-                    color = new Color(0, 0, 0, 128f / 255f);
+                    color = new Color(40f / 255f, 1f, 237f / 255f, 128f / 255f);
                     obj.GetComponent<Outline>().effectColor = color;
                 }
                 break;
 
             case Tier.Rare:
                 {
-                    color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                    color = new Color(1f, 0, 221 / 255f, 128f / 255f);
                     obj.GetComponent<Outline>().effectColor = color;
                 }
                 break;
+
 
             case Tier.Unique:
                 {
@@ -211,24 +212,25 @@ public class ShopSystem : Singleton<ShopSystem>
             {
                 case Tier.Common:
                     {
-                        color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                        color = new Color(0, 0, 0, 128f / 255f);
                         obj.GetComponent<Outline>().effectColor = color;
                     }
                     break;
 
                 case Tier.Uncommon:
                     {
-                        color = new Color(0, 0, 0, 128f / 255f);
+                        color = new Color(40f / 255f, 1f, 237f / 255f, 128f / 255f);
                         obj.GetComponent<Outline>().effectColor = color;
                     }
                     break;
 
                 case Tier.Rare:
                     {
-                        color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                        color = new Color(1f, 0, 221 / 255f, 128f / 255f);
                         obj.GetComponent<Outline>().effectColor = color;
                     }
                     break;
+
 
                 case Tier.Unique:
                     {
@@ -294,24 +296,25 @@ public class ShopSystem : Singleton<ShopSystem>
             {
                 case Tier.Common:
                     {
-                        color = new Color(137f / 255f, 126f / 255f, 126f / 255f, 128f / 255f);
+                        color = new Color(0, 0, 0, 128f / 255f);
                         obj.GetComponent<Outline>().effectColor = color;
                     }
                     break;
 
                 case Tier.Uncommon:
                     {
-                        color = new Color(0, 0, 0, 128f / 255f);
+                        color = new Color(40f / 255f, 1f, 237f / 255f, 128f / 255f);
                         obj.GetComponent<Outline>().effectColor = color;
                     }
                     break;
 
                 case Tier.Rare:
                     {
-                        color = new Color(45f / 255f, 148f / 255f, 244f / 255f, 128f / 255f);
+                        color = new Color(1f, 0, 221 / 255f, 128f / 255f);
                         obj.GetComponent<Outline>().effectColor = color;
                     }
                     break;
+
 
                 case Tier.Unique:
                     {

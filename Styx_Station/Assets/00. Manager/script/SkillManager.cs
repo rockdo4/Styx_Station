@@ -131,7 +131,6 @@ public class SkillManager : Singleton<SkillManager>
     public void SetIsAuto(bool isA)
     {
         isAuto = isA;
-        Debug.Log($"is Auto { isAuto }");
     }
 
     private void Update()
@@ -229,7 +228,6 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            Debug.Log($"{equipSkills[0].skillIndex} 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[0].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[0];
@@ -258,7 +256,6 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            Debug.Log($"{equipSkills[1].skillIndex} 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[1].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[1];
@@ -287,7 +284,6 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            Debug.Log($"{equipSkills[2].skillIndex} 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[2].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[2];
@@ -316,7 +312,6 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            Debug.Log($"{equipSkills[3].skillIndex} 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[3].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[3];
@@ -345,7 +340,6 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            Debug.Log($"{equipSkills[4].skillIndex} 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[4].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[4];
@@ -374,7 +368,6 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            Debug.Log($"{equipSkills[5].skillIndex} 스킬 사용");       
             cool.value = 1;
             FindeSkillBase(equipSkills[5].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[5];

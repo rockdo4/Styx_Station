@@ -99,8 +99,6 @@ public class BlackCloudShooter : Shooter
         {
             attackable.OnAttack(caster, attack);
         }
-
-        //Debug.Log("Hit monster in blakc cloud");
     }
 
     public override void ReleaseObject()

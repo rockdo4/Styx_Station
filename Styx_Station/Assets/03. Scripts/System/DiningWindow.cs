@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class DiningWindow : Window
 {
     public DingingRoomUpgradeWindow diningRoomUpgradeWindows;
@@ -14,6 +10,9 @@ public class DiningWindow : Window
 
     public override void Close()
     {
+        if((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+            ButtonList.mainButton &= ~ButtonType.DiningRoom;
+
         diningRoomUpgradeWindows.Close();
         infoWindow.Close();
         base.Close();

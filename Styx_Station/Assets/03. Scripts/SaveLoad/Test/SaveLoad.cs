@@ -217,7 +217,7 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.currentQuestSystemData = UIManager.questSystemUi.questData;
 
         SaveLoadSystem.JsonSave(data, "Test.json");
-        Debug.Log("Save ");
+        Debug.Log("Save");
     }
     public void Load()
     {

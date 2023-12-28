@@ -30,8 +30,14 @@ public class NormalButton : MonoBehaviour
     {
         skillManager = SkillManager.Instance;
     }
+
+    static int counter = 0;
+
     public void OnClickActive(SkillWindow window)
     {
+
+        Debug.Log(counter++, gameObject);
+
         if (ButtonList.mainButton == ButtonType.Main)
         {
 
@@ -67,9 +73,6 @@ public class NormalButton : MonoBehaviour
 
     public void AutoSkillActive(SkillWindow window)
     {
-        if (window.equipMode)
-            return;
-
         if (skillIndex < 0)
             return;
 

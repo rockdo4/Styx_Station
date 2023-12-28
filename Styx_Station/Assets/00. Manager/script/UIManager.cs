@@ -615,7 +615,7 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if((ButtonList.mainButton & ButtonType.Info) != 0)
             {

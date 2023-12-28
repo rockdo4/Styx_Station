@@ -15,6 +15,7 @@ public class PetInfo : MonoBehaviour
     public TextMeshProUGUI atk;
     public TextMeshProUGUI atkSpeed;
     public TextMeshProUGUI petName;
+    public TextMeshProUGUI upgradeValue;
 
     public Button Equip;
     public Button Upgrade;
@@ -42,6 +43,11 @@ public class PetInfo : MonoBehaviour
             }
             else
             {
+                if(window.selectIndex == -1)
+                {
+                    window.selectIndex = 1;
+                }
+
                 inventory.DequipPet(inventory.equipPets[window.selectIndex].petIndex, window.selectIndex);
                 inventory.EquipPet(pet.petIndex, window.selectIndex);
                 

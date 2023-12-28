@@ -268,21 +268,21 @@ public class InfoWindow : Window
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && (ButtonList.infoButton & InfoButton.Inventory) != 0)
+        if (Input.GetKeyDown(KeyCode.Escape) && (ButtonList.infoButton & InfoButton.Inventory) != 0)
         {
-            if((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
             {
                 inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>().
                     inventoryTypes[(int)ItemType.Weapon].GetComponent<WeaponType>().
                     OnClickCloseWeaponInfo();
             }
-            else if((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            else if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
             {
                 inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>().
                     inventoryTypes[(int)ItemType.Armor].GetComponent<ArmorType>().
                     OnClickCloseArmorInfo();
             }
-            else if((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            else if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
             {
                 inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>().
                     inventoryTypes[(int)ItemType.Ring].GetComponent<RingType>().
@@ -296,10 +296,17 @@ public class InfoWindow : Window
             }
         }
         else if (Input.GetKeyDown(KeyCode.Escape) &&
-            (ButtonList.infoButton & InfoButton.Skill) != 0 &&
-            (ButtonList.infoButton & InfoButton.SkillInfo) != 0)
+            (ButtonList.infoButton & InfoButton.Skill) != 0)
         {
-            inventorys[(int)currentSubWindow].GetComponent<SkillWindow>().OnClickCloseIfno();
+            var skillinfo = inventorys[(int)currentSubWindow].GetComponent<SkillWindow>();
+            if ((ButtonList.infoButton & InfoButton.SkillInfo) != 0 && !skillinfo.equipMode)
+            {
+                skillinfo.OnClickCloseIfno();
+            }
+            else if((ButtonList.infoButton & InfoButton.SkillInfo) != 0 && skillinfo.equipMode)
+            {
+                skillinfo.OnClickEquipClose();
+            }
         }
     }
 }

@@ -178,6 +178,7 @@ public class SaveLoad : MonoBehaviour
         }
 
         data.gameSaveDatas.playerBuff = playerbuff.buffData;
+        data.gameSaveDatas.buffFoddID = playerbuff.foodId.ToString();
 
 
         foreach (var datas in labSystem.Re001_Vertex)
@@ -570,6 +571,15 @@ public class SaveLoad : MonoBehaviour
                     }
 
                 }
+                if (gameSaveDatas["buffFoddID"] is JToken buffFoddID)
+                {
+                    string str = buffFoddID.ToString();
+                    if (str != string.Empty)
+                    {
+                        PlayerBuff.Instance.SetFoodId(str);
+                    }
+                }
+                
                 if (gameSaveDatas["stageIndex"] is JToken stageIndex)
                 {
                     string str = stageIndex.ToString();
@@ -731,5 +741,6 @@ public class SaveLoad : MonoBehaviour
         state.TotalUpdate();
         WaveManager.Instance.SetWavePanel(); //나중에 타이틀 씬으로 옮기기
         UIManager.Instance.BangchiOpen();
+        UIManager.Instance.OpenPlayerBuffInfo();
     }
 }

@@ -51,6 +51,9 @@ public class UIManager : Singleton<UIManager>
 
     private bool isBangchi;
     public BangchiWindow bangchiWindow;
+
+    public PlayerBuffWindow playerBuffWindow;
+    public DiningRoomUIManager roomUIManager;
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
@@ -694,5 +697,17 @@ public class UIManager : Singleton<UIManager>
                 bangchiWindow.Open();
             }
         }
+    }
+
+    public void OpenPlayerBuffInfo()
+    {
+        if (PlayerBuff.Instance.buffData.isEatFood)
+        {
+            playerBuffWindow.Open();
+        }
+    }
+    public void ClosePlayerBuffInfo()
+    {
+        playerBuffWindow.Close();
     }
 }

@@ -57,7 +57,7 @@ public class UIManager : Singleton<UIManager>
         PrintPommeMoney();
         PrintSoulMoney();
         PrintMemoryMoney();
-        
+
     }
     public void Open(WindowType inventoryType)
     {
@@ -79,7 +79,7 @@ public class UIManager : Singleton<UIManager>
     // 12.25 Button ¼öÁ¤ _IJ
     public void OnClickInfo()
     {
-        if ((ButtonList.mainButton & ButtonType.Info) == 0 && 
+        if ((ButtonList.mainButton & ButtonType.Info) == 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
             move == null)
         {
@@ -114,7 +114,7 @@ public class UIManager : Singleton<UIManager>
     }
     public void OnClickDiningRoom()
     {
-        if ((ButtonList.mainButton & ButtonType.DiningRoom) == 0 && 
+        if ((ButtonList.mainButton & ButtonType.DiningRoom) == 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
             move == null)
         {
@@ -184,11 +184,11 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickCleaning()
     {
-        if((ButtonList.mainButton & ButtonType.Cleaning) == 0 &&
+        if ((ButtonList.mainButton & ButtonType.Cleaning) == 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
             move == null)
         {
-            if((ButtonList.mainButton & ButtonType.Train)!=0)
+            if ((ButtonList.mainButton & ButtonType.Train) != 0)
             {
                 ButtonList.mainButton |= ButtonType.TrainMove;
                 OnClickClose();
@@ -283,7 +283,7 @@ public class UIManager : Singleton<UIManager>
             ButtonList.mainButton |= ButtonType.Menu;
 
         }
-        else if((ButtonList.mainButton & ButtonType.Menu) != 0 &&
+        else if ((ButtonList.mainButton & ButtonType.Menu) != 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
             move == null)
         {
@@ -400,7 +400,7 @@ public class UIManager : Singleton<UIManager>
             first = true;
         }
 
-        if ((ButtonList.mainButton & ButtonType.Train) != 0 && 
+        if ((ButtonList.mainButton & ButtonType.Train) != 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0)
         {
             ButtonList.mainButton |= ButtonType.TrainMove;
@@ -446,7 +446,7 @@ public class UIManager : Singleton<UIManager>
 
         //    menu = true;
         //}
-        if((ButtonList.mainButton & ButtonType.Train) == 0 &&
+        if ((ButtonList.mainButton & ButtonType.Train) == 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) != 0)
         {
             foreach (var button in windowButtons)
@@ -468,7 +468,7 @@ public class UIManager : Singleton<UIManager>
         //    move = StartCoroutine(LeftMove());
         //    menu = false;
         //}
-        if ((ButtonList.mainButton & ButtonType.Train) !=0 &&
+        if ((ButtonList.mainButton & ButtonType.Train) != 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) != 0)
         {
             foreach (var button in windowButtons)
@@ -518,10 +518,10 @@ public class UIManager : Singleton<UIManager>
     {
         float timer = 0f;
 
-        while (timer<1f)
+        while (timer < 1f)
         {
             buttons.transform.position = Vector3.Lerp(buttonPos - wayPoint, buttonPos, timer);
-            timer += Time.deltaTime*2f;
+            timer += Time.deltaTime * 2f;
             yield return null;
         }
 
@@ -538,7 +538,7 @@ public class UIManager : Singleton<UIManager>
         ButtonList.mainButton &= ~ButtonType.Train;
         ButtonList.mainButton &= ~ButtonType.TrainMove;
     }
-    IEnumerator RightMove() 
+    IEnumerator RightMove()
     {
         float timer = 0f;
 
@@ -547,7 +547,7 @@ public class UIManager : Singleton<UIManager>
         while (timer < 1f)
         {
             buttons.transform.position = Vector3.Lerp(buttonPos, buttonPos - wayPoint, timer);
-            timer += Time.deltaTime*2f;
+            timer += Time.deltaTime * 2f;
             yield return null;
         }
 
@@ -614,16 +614,21 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if((ButtonList.mainButton & ButtonType.Info) != 0)
+            if ((ButtonList.mainButton & ButtonType.Exit) != 0)
+            {
+                ButtonList.mainButton|=ButtonType.Exit;
+                //Ui¶ç¿ì±â
+            }
+            else if ((ButtonList.mainButton & ButtonType.Info) != 0)
             {
                 if (ButtonList.infoButton == InfoButton.State)
                 {
                     ButtonList.mainButton &= ~ButtonType.Info;
                     windows[(int)currentWindow].Close();
                 }
-                else if((ButtonList.infoButton & InfoButton.Inventory)!=0 &&
+                else if ((ButtonList.infoButton & InfoButton.Inventory) != 0 &&
                     (ButtonList.infoButton & InfoButton.WeaponInfo) == 0 &&
                     (ButtonList.infoButton & InfoButton.ArmorInfo) == 0 &&
                     (ButtonList.infoButton & InfoButton.RingInfo) == 0 &&
@@ -632,45 +637,45 @@ public class UIManager : Singleton<UIManager>
                     ButtonList.mainButton &= ~ButtonType.Info;
                     windows[(int)currentWindow].Close();
                 }
-                else if((ButtonList.infoButton & InfoButton.Skill) != 0 &&
+                else if ((ButtonList.infoButton & InfoButton.Skill) != 0 &&
                     (ButtonList.infoButton & InfoButton.SkillInfo) == 0)
                 {
                     ButtonList.mainButton &= ~ButtonType.Info;
                     windows[(int)currentWindow].Close();
                 }
-                else if(ButtonList.infoButton == InfoButton.Pet)
+                else if (ButtonList.infoButton == InfoButton.Pet)
                 {
                     ButtonList.mainButton &= ~ButtonType.Info;
                     windows[(int)currentWindow].Close();
                 }
             }
-            else if((ButtonList.mainButton & ButtonType.DiningRoom)!= 0)
+            else if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.DiningRoom;
                 windows[(int)currentWindow].Close();
             }
-            else if((ButtonList.mainButton & ButtonType.Lab)!= 0)
+            else if ((ButtonList.mainButton & ButtonType.Lab) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Lab;
                 windows[(int)currentWindow].Close();
             }
-            else if((ButtonList.mainButton & ButtonType.Cleaning)!=0)
+            else if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
                 windows[(int)currentWindow].Close();
             }
-            else if((ButtonList.mainButton & ButtonType.Failure)!= 0)
+            else if ((ButtonList.mainButton & ButtonType.Failure) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Failure;
                 windows[(int)currentWindow].Close();
             }
-            else if((ButtonList.mainButton & ButtonType.Shop)!= 0)
+            else if ((ButtonList.mainButton & ButtonType.Shop) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Shop;
                 windows[(int)currentWindow].Close();
             }
-            else if((ButtonList.mainButton&ButtonType.Menu)!= 0 &&
-                ButtonList.settingButton == SettingButton.None) 
+            else if ((ButtonList.mainButton & ButtonType.Menu) != 0 &&
+                ButtonList.settingButton == SettingButton.None)
             {
                 ButtonList.mainButton &= ~ButtonType.Menu;
                 windows[(int)currentWindow].Close();

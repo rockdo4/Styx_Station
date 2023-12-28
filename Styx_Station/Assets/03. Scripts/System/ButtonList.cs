@@ -15,6 +15,7 @@ public enum ButtonType
     Shop = 1 << 7,
     Menu = 1 << 8,
     TrainMove = 1 << 9,
+    Exit=1 << 10,
 }
 
 public enum InfoButton

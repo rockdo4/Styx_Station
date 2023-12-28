@@ -16,6 +16,12 @@ public class SettingBox : MonoBehaviour
     public TextMeshProUGUI lenguageSetting;
     public TextMeshProUGUI lenguage_ENKR;
 
+    public TextMeshProUGUI coupon;
+    public TextMeshProUGUI couponEnter;
+    public TextMeshProUGUI couponNumber;
+    public TextMeshProUGUI couponSelect;
+
+
     public GameObject couponWindow;
 
     public GameObject cheat;
@@ -31,7 +37,8 @@ public class SettingBox : MonoBehaviour
             Global.language = Language.ENG;
         else if(Global.language == Language.ENG)
             Global.language = Language.KOR;
-
+        
+        UIManager.Instance.AutoTextUpdate();
         SettingBoxTextUpdate();
     }
 
@@ -105,6 +112,11 @@ public class SettingBox : MonoBehaviour
             lenguage.text = $"{stringTable.GetStringTableData("Setting006").KOR}";
             lenguageSetting.text = $"{stringTable.GetStringTableData("Setting007").KOR}";
             lenguage_ENKR.text = $"{stringTable.GetStringTableData("Setting008").KOR}";
+
+            coupon.text = $"{stringTable.GetStringTableData("Setting010").KOR}";
+            couponEnter.text = $"{stringTable.GetStringTableData("Setting011").KOR}";
+            couponNumber.text = $"{stringTable.GetStringTableData("Setting012").KOR}";
+            couponSelect.text = $"{stringTable.GetStringTableData("Setting013").KOR}";
         }
         else if(Global.language == Language.ENG)
         {
@@ -117,6 +129,11 @@ public class SettingBox : MonoBehaviour
             lenguage.text = $"{stringTable.GetStringTableData("Setting006").ENG}";
             lenguageSetting.text = $"{stringTable.GetStringTableData("Setting007").ENG}";
             lenguage_ENKR.text = $"{stringTable.GetStringTableData("Setting009").ENG}";
+
+            coupon.text = $"{stringTable.GetStringTableData("Setting010").ENG}";
+            couponEnter.text = $"{stringTable.GetStringTableData("Setting011").ENG}";
+            couponNumber.text = $"{stringTable.GetStringTableData("Setting012").ENG}";
+            couponSelect.text = $"{stringTable.GetStringTableData("Setting013").ENG}";
         }
     }
 

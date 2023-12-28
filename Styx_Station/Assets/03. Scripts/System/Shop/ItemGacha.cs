@@ -8,6 +8,7 @@ public class ItemGacha : MonoBehaviour
     private ShopSystem shop;
     private GachaInfo window;
     private StateSystem stateSystem;
+    private StringTable stringTable;
 
     public Slider nextLevExp;
 
@@ -42,10 +43,7 @@ public class ItemGacha : MonoBehaviour
             shop = ShopSystem.Instance;
             window = UIManager.Instance.windows[6].GetComponent<GachaWindow>().info;
             stateSystem = StateSystem.Instance;
-
-            gachaButtons[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{minGacha}\nGacha";
-            gachaButtons[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{middleGach}\nGacha";
-            gachaButtons[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{maxGacha}\nGacha";
+            stringTable = MakeTableData.Instance.stringTable;
 
             minValueText.text = $"{minValue}";
             middleValueText.text = $"{middleValue}";
@@ -54,6 +52,21 @@ public class ItemGacha : MonoBehaviour
             first = true;
         }
 
+        if(Global.language == Language.KOR)
+        {
+            gachaName.text = $"{stringTable.GetStringTableData("Gatcha001").KOR}";
+            gachaButtons[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{minGacha}\n{stringTable.GetStringTableData("Gatcha004").KOR}";
+            gachaButtons[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{middleGach}\n{stringTable.GetStringTableData("Gatcha004").KOR}";
+            gachaButtons[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{maxGacha}\n{stringTable.GetStringTableData("Gatcha004").KOR}";
+
+        }
+        else if(Global.language == Language.ENG)
+        {
+            gachaName.text = $"{stringTable.GetStringTableData("Gatcha001").ENG}";
+            gachaButtons[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{minGacha}\n{stringTable.GetStringTableData("Gatcha004").ENG}";
+            gachaButtons[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{middleGach}\n{stringTable.GetStringTableData("Gatcha004").ENG}";
+            gachaButtons[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{maxGacha}\n{stringTable.GetStringTableData("Gatcha004").ENG}";
+        }
 
         currentLev.text = $"Lv.{shop.currentItemRank}";
         currentExp.text = $"{shop.currentItemRankUp} / {shop.itemTable.drops[shop.currentItemRank].RankUp}";
@@ -76,6 +89,9 @@ public class ItemGacha : MonoBehaviour
         window.InfoUpdate(0,0);
         window.gameObject.SetActive(true);
 
+        if ((ButtonList.gachaButton & gachaButton.Info) == 0)
+            ButtonList.gachaButton |= gachaButton.Info;
+
         GachaUpdate();
     }
 
@@ -93,6 +109,9 @@ public class ItemGacha : MonoBehaviour
 
         window.InfoUpdate(1, 0);
         window.gameObject.SetActive(true);
+
+        if ((ButtonList.gachaButton & gachaButton.Info) == 0)
+            ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
     }
@@ -112,18 +131,42 @@ public class ItemGacha : MonoBehaviour
         window.InfoUpdate(2, 0);
         window.gameObject.SetActive(true);
 
+        if ((ButtonList.gachaButton & gachaButton.Info) == 0)
+            ButtonList.gachaButton |= gachaButton.Info;
+
         GachaUpdate();
     }
 
     public void OnClickItemPer()
     {
-        itemPerWindow.GetComponent<ItemPer>().Setting();
+        if ((ButtonList.gachaButton & gachaButton.Equip) == 0)
+        {
+            ButtonList.gachaButton |= gachaButton.Equip;
 
-        itemPerWindow.SetActive(true);
+            itemPerWindow.GetComponent<ItemPer>().Setting();
+
+            itemPerWindow.SetActive(true);
+        }
     }
 
     public void OnClickCloseItemPer()
     {
-        itemPerWindow.SetActive(false);
+        if ((ButtonList.gachaButton & gachaButton.Equip) != 0)
+        {
+            ButtonList.gachaButton &= ~gachaButton.Equip;
+
+            itemPerWindow.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+            (ButtonList.mainButton & ButtonType.Shop) != 0 &&
+            (ButtonList.gachaButton & gachaButton.Equip) != 0)
+        {
+            ButtonList.gachaButton &= ~gachaButton.Equip;
+            itemPerWindow.SetActive(false);
+        }
     }
 }

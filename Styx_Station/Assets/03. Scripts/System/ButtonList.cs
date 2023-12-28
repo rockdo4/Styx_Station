@@ -32,6 +32,14 @@ public enum InfoButton
     SkillInfo = 1 << 8,
 }
 
+public enum gachaButton
+{
+    None = 0,
+    Info = 1 << 0,
+    Equip = 1 << 1,
+    Skill = 1 << 2,
+    Pet = 1 << 3,
+}
 public enum SettingButton
 {
     None = 0,
@@ -47,4 +55,5 @@ public static class ButtonList
     public static ButtonType mainButton = ButtonType.Main;
     public static InfoButton infoButton = InfoButton.None;
     public static SettingButton settingButton = SettingButton.None;
+    public static gachaButton gachaButton = gachaButton.None;
 }

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    private StringTable stringTable;
+
     public Window[] windows;
 
     public GameObject panel;
@@ -574,6 +576,7 @@ public class UIManager : Singleton<UIManager>
 
     public void SetGameOverPopUpActive(bool isActive)
     {
+        gameOverPop.GetComponent<GameOverPopupText>().TextUpdate();
         gameOverPop.SetActive(isActive);
     }
 
@@ -608,15 +611,35 @@ public class UIManager : Singleton<UIManager>
             isAuto = !isAuto;
 
             SkillManager.Instance.SetIsAuto(isAuto);
+
+            AutoTextUpdate();
         }
     }
-
+    public void AutoTextUpdate()
+    {
+        if (stringTable == null)
+        {
+            stringTable = MakeTableData.Instance.stringTable;
+        }
+        if (Global.language == Language.KOR)
+        {
+            autoSkill[0].GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Auto01").KOR}";
+            autoSkill[1].GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Auto02").KOR}";
+        }
+        else if (Global.language == Language.ENG)
+        {
+            autoSkill[0].GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Auto01").ENG}";
+            autoSkill[1].GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Auto02").ENG}";
+        }
+    }
     public void SetAutoSkillButton(bool isA)
     {
         autoSkill[0].SetActive(isA);
         autoSkill[1].SetActive(!isA);
 
         SkillManager.Instance.SetIsAuto(isA);
+
+        AutoTextUpdate();
     }
     //12.21 YYL end
 
@@ -682,7 +705,8 @@ public class UIManager : Singleton<UIManager>
                 ButtonList.mainButton &= ~ButtonType.Failure;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Shop) != 0)
+            else if ((ButtonList.mainButton & ButtonType.Shop) != 0 &&
+                ButtonList.gachaButton == gachaButton.None)
             {
                 ButtonList.mainButton &= ~ButtonType.Shop;
                 windows[(int)currentWindow].Close();

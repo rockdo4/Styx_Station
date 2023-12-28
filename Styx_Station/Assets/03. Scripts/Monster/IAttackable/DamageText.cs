@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DamageText : MonoBehaviour
+public class DamageText : PoolAble
 {
     private float duration = 1.0f;
     private float speed = 1.0f;
@@ -11,6 +11,7 @@ public class DamageText : MonoBehaviour
 
     private TextMeshPro textMesh;
     private float timer = 0f;
+    private bool isSet = false;
 
     private void Awake()
     {
@@ -21,18 +22,29 @@ public class DamageText : MonoBehaviour
     {
         textMesh.text = text;
         textMesh.color = color;
+
+        isSet = true;
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
-        textMesh.alpha = 1f - (timer / duration);
-
-        transform.position += Vector3.up * speed * Time.deltaTime;
-
-        if (timer > duration)
+        if (isSet)
         {
-            Destroy(gameObject);
+            timer += Time.deltaTime;
+            textMesh.alpha = 1f - (timer / duration);
+
+            transform.position += Vector3.up * speed * Time.deltaTime;
+
+            if (timer > duration)
+            {
+                ReleaseObject();
+            }
         }
+    }
+
+    public override void ReleaseObject()
+    {
+        isSet = false;
+        base.ReleaseObject();
     }
 }

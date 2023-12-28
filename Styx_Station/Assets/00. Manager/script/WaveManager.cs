@@ -327,6 +327,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void DecreaseAliveMonsterCount()
     {
+        if(!isWaveInProgress)
+        {
+            return;
+        }
         aliveMonsterCount--;
         if(aliveMonsterCount <= 0)
         {

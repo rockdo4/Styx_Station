@@ -60,7 +60,7 @@ public class ResultPlayerStats : MonoBehaviour
         if (nowTime + healingTimer < Time.time)
         {
             nowTime = Time.time;
-            if(isPlay)
+            if(WaveManager.Instance.isWaveInProgress)
                 Healing();
             //playerCurrentHp += state.TotalState.HealHealth * increaseUpgradeHealing / 10;// + (int)inventory.t_HealHealth;
             //if (playerCurrentHp >= playerMaxHp)

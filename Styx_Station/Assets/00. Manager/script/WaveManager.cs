@@ -383,8 +383,11 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         var pets = PetManager.Instance.GetPetGameobjectArray();
         for(int i=0;i<pets.Length;i++)
         {
-            pets[i].transform.position = PetManager.Instance.petStartTransform[i].position;
-            pets[i].GetComponent<PetController>().SetState(States.Idle);
+            if (pets[i] != null)
+            {
+                pets[i].transform.position = PetManager.Instance.petStartTransform[i].position;
+                pets[i].GetComponent<PetController>().SetState(States.Idle);
+            }
             //pets[i].GetComponent<PetController>().isArrive = false;
         }
     }

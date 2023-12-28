@@ -51,7 +51,7 @@ public class PlayerBuffWindow : Window
     }
     private void LateUpdate()
     {
-        if(language!=Global.language)
+        if(language!=Global.language &&PlayerBuff.Instance.buffData.isEatFood)
         {
             SetStringTableData();
         }

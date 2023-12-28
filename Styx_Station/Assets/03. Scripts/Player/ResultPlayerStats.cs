@@ -33,6 +33,7 @@ public class ResultPlayerStats : MonoBehaviour
     public int skillDamage = 100;
     public int increaseUpgradeHp= 5;
     public int increaseUpgradeHealing = 10;
+    public bool isPlay = true;
     private void Awake()
     {
         state = StateSystem.Instance;
@@ -59,7 +60,8 @@ public class ResultPlayerStats : MonoBehaviour
         if (nowTime + healingTimer < Time.time)
         {
             nowTime = Time.time;
-            Healing();
+            if(isPlay)
+                Healing();
             //playerCurrentHp += state.TotalState.HealHealth * increaseUpgradeHealing / 10;// + (int)inventory.t_HealHealth;
             //if (playerCurrentHp >= playerMaxHp)
             //{

@@ -80,6 +80,8 @@ public class SkillManager : Singleton<SkillManager>
     public GameObject impalePrefab;
     public GameObject judgeShooterPrefab;
 
+    public GameObject blackCloudParticlePrefab;
+
     public LayerMask enemyLayer;
 
     public GameObject castZone;
@@ -119,7 +121,7 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new PassiveSkillBase()); //임시(생기증가)
         skills.Add(new TripleShot(inventory.skills[4], tripleShotShooterPrefab)); //트리플샷2
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab)); //회오리바람
-        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab)); //먹구름
+        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab, blackCloudParticlePrefab)); //먹구름
         skills.Add(new PassiveSkillBase()); //임시(공격력증가)
         skills.Add(new TripleShot(inventory.skills[8], tripleShotShooterPrefab)); //트리플샷3
         skills.Add(new Meteor(inventory.skills[9], meteorPrefab)); //메테오

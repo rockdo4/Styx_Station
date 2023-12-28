@@ -20,6 +20,8 @@ public class SoulDamage : SkillBase
     }
     public override void UseSkill(GameObject attacker)
     {
+        ObjectPoolManager.instance.GetGo(particle.name);
+
         GameObject[] monsters = GameObject.FindGameObjectsWithTag("Enemy")
              .Where(obj => obj.activeSelf)
              .Where(obj => obj.GetComponent<MonsterStats>().currHealth > 0)

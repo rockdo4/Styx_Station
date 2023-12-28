@@ -10,12 +10,14 @@ public class BlackCloudShooter : Shooter
     private GameObject[] monsters = new GameObject[5];
     private GameObject caster;
     private float multiple;
+    private GameObject particle;
 
-    public void SetBlackCloudShot(int h, float m, GameObject attacer)
+    public void SetBlackCloudShot(int h, float m, GameObject attacer, GameObject p)
     {
         hitCount = h;
         caster = attacer;
         multiple = m;
+        particle = p;
     }
 
     private void OnEnable()
@@ -100,6 +102,9 @@ public class BlackCloudShooter : Shooter
             attackable.OnAttack(caster, attack);
         }
 
+        //var particleObj = ObjectPoolManager.instance.GetGo(particle.name);
+        //particleObj.transform.SetParent(defender.transform);
+        //particleObj.GetComponent<ParticleSystem>().Play();
         //Debug.Log("Hit monster in blakc cloud");
     }
 

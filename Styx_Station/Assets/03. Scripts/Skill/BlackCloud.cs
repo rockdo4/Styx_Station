@@ -5,13 +5,15 @@ public class BlackCloud : SkillBase
     private SkillInventory.InventorySKill blackCloud;
     private GameObject blackCloudPrefab;
     private float damageMultiplier;
+    private GameObject particlePrefab;
 
-    public BlackCloud(SkillInventory.InventorySKill skill, GameObject blackCloudPrefab)
+    public BlackCloud(SkillInventory.InventorySKill skill, GameObject blackCloudPrefab, GameObject particle)
     {
         blackCloud = skill;
         this.blackCloudPrefab = blackCloudPrefab;
+        particlePrefab = particle;
 
-        damageMultiplier = blackCloud.skill.Skill_ATK;
+        damageMultiplier = blackCloud.skill.Skill_ATK + (blackCloud.upgradeLev * blackCloud.skill.Skill_ATK_LVUP);
     }
     public override void UseSkill(GameObject attacker)
     {
@@ -26,6 +28,7 @@ public class BlackCloud : SkillBase
             SetBlackCloudShot(
             blackCloud.skill.Skill_ATK_NUM,
             damageMultiplier,
-            attacker);
+            attacker,
+            particlePrefab);
     }
 }

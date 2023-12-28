@@ -344,7 +344,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetCurrentStageText()
     {
-        UIManager.Instance.SetCurrentStageText(CurrentStage, CurrentWave);
+        UIManager.Instance.SetCurrentStageText(CurrentChpater, CurrentStage, CurrentWave);
     }
 
     IEnumerator SetMonstersStop()

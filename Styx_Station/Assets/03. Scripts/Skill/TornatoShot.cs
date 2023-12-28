@@ -12,7 +12,7 @@ public class TornatoShot : SkillBase
         tornatoShot = skill;
         tornadoShotPrefab = prefab;
 
-        damageMultiplier = tornatoShot.skill.Skill_ATK;
+        damageMultiplier = tornatoShot.skill.Skill_ATK + (tornatoShot.upgradeLev * tornatoShot.skill.Skill_ATK_LVUP);
         speed = 1 / this.tornatoShot.skill.Skill_Speed;
     }
     public override void UseSkill(GameObject attacker)

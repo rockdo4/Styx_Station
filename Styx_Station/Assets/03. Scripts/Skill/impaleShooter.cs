@@ -25,6 +25,10 @@ public class impaleShooter : Shooter
     {
         for (int i = 0; i < hitCount; i++)
         {
+            if(!WaveManager.Instance.isWaveInProgress)
+            {
+                yield break;
+            }
             var impale = ObjectPoolManager.instance.GetGo(impalePrefab.name);
             if (impale == null)
             {

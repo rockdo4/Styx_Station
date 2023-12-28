@@ -18,7 +18,7 @@ public class EnergyVolt : SkillBase
         energeyVolt = skill;
         energeyVoltPrefab = prefab;
 
-        damageMultiplier = energeyVolt.skill.Skill_ATK;
+        damageMultiplier = energeyVolt.skill.Skill_ATK + (energeyVolt.upgradeLev * energeyVolt.skill.Skill_ATK_LVUP);
         speed = 1 / energeyVolt.skill.Skill_Speed;
         skillStartPos = energeyVolt.skill.Skill_Start_Pos;
     }

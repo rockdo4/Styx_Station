@@ -42,7 +42,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject gameOverPop;
     public GameObject[] autoSkill = new GameObject[2];
     private bool isAuto = false;
-
+    public Image HpGauge;
 
     public TextMeshProUGUI sliverMoney;
     public TextMeshProUGUI pommeMoney;
@@ -499,9 +499,9 @@ public class UIManager : Singleton<UIManager>
         timerText.text = text;
     }
 
-    public void SetCurrentStageText(int stage, int wave)
+    public void SetCurrentStageText(int chapter, int stage, int wave)
     {
-        string newTxt = $"{stage} - {wave}";
+        string newTxt = $"{chapter} - {stage} - {wave}";
         stageText.SetText(newTxt);
     }
 
@@ -515,6 +515,11 @@ public class UIManager : Singleton<UIManager>
     public void SetWavePanelPlayer(int index)
     {
         WavePanels[index].transform.GetChild(2).gameObject.SetActive(true);
+    }
+
+    public void SetHpGauge(double hp)
+    {
+        HpGauge.fillAmount = (float)hp;
     }
 
     IEnumerator LeftMove()

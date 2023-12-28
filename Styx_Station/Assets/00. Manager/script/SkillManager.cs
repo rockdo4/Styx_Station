@@ -80,6 +80,10 @@ public class SkillManager : Singleton<SkillManager>
     public GameObject impalePrefab;
     public GameObject judgeShooterPrefab;
 
+    public GameObject stunParticlePrefab;
+    public GameObject blackCloudParticlePrefab;
+    public GameObject judgeParticlePrefab;
+
     public LayerMask enemyLayer;
 
     public GameObject castZone;
@@ -91,6 +95,15 @@ public class SkillManager : Singleton<SkillManager>
     public bool isAuto { get; private set; } = false;
 
     private SkillWindow skillWindow;
+
+    private delegate IEnumerator SkillCooldown(float cooldown, SkillCool cool, Slider coolSl);
+    private SkillCooldown[] cooldownCoroutines = new SkillCooldown[6];
+
+    private Coroutine[] coroutines = new Coroutine[6];
+    private bool[] isDequip = new bool[]
+    {
+        false, false, false, false, false, false
+    };
     /// <summary>
     /// 세이브로드
     /// </summary>
@@ -110,22 +123,33 @@ public class SkillManager : Singleton<SkillManager>
         skills.Add(new PassiveSkillBase()); //임시(생기증가)
         skills.Add(new TripleShot(inventory.skills[4], tripleShotShooterPrefab)); //트리플샷2
         skills.Add(new TornatoShot(inventory.skills[5], TornadoShotPrefab)); //회오리바람
-        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab)); //먹구름
+        skills.Add(new BlackCloud(inventory.skills[6], blackCloudPrefab, blackCloudParticlePrefab)); //먹구름
         skills.Add(new PassiveSkillBase()); //임시(공격력증가)
         skills.Add(new TripleShot(inventory.skills[8], tripleShotShooterPrefab)); //트리플샷3
         skills.Add(new Meteor(inventory.skills[9], meteorPrefab)); //메테오
         skills.Add(new EnergyVolt(inventory.skills[10], energyVoltPerfab)); //에너지볼트
         skills.Add(new PassiveSkillBase()); //임시(공격력 증가2)
         skills.Add(new TripleShot(inventory.skills[12], tripleShotShooterPrefab)); //트리플샷4
-        skills.Add(new SoulDamage(inventory.skills[13], soulDamagePrefab, player)); //정신공격
+        skills.Add(new SoulDamage(inventory.skills[13], soulDamagePrefab, stunParticlePrefab, player)); //정신공격
         skills.Add(new ArrowOfLight(inventory.skills[14], arrowOfLightPrefab, player)); //빛의 화살
         skills.Add(new TripleShot(inventory.skills[15], tripleShotShooterPrefab)); //트리플샷5
         skills.Add(new Impale(inventory.skills[16], impalePrefab, impaleShooterPrefab)); //임페일
-        skills.Add(new Judge(inventory.skills[17], judgeShooterPrefab)); //심판
+        skills.Add(new Judge(inventory.skills[17], judgeShooterPrefab, judgeParticlePrefab)); //심판
 
         skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
 
         SetEquipSkillCool();
+
+        cooldownCoroutines = new SkillCooldown[]
+        {
+            Skill1CoolDown,
+            Skill2CoolDown,
+            Skill3CoolDown,
+            Skill4CoolDown,
+            Skill5CoolDown,
+            Skill6CoolDown
+        };
+
     }
 
     public void SetIsAuto(bool isA)
@@ -188,14 +212,22 @@ public class SkillManager : Singleton<SkillManager>
             inventory = InventorySystem.Instance.skillInventory;
         if(equipSkills == null)
             equipSkills = inventory.equipSkills;
+
         equipSkills[index] = inventory.equipSkills[index];
         equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
+
+        //StopCoroutine(coroutines[index]);
+        //if (skillbutton.Contains(skillWindow.slotButtons[index]))
+       
         skillbutton.Enqueue(skillWindow.slotButtons[index]);
+        isDequip[index] = false;
     }
 
     public void SetDequipSkillByIndex(int index)
     {
         equipSkills[index] = null;
+        isDequip[index] = true;
+        //StopCoroutine(coroutines[index]);
     }
 
     private bool CheckSkillCool(int equipIndex) //true: 쿨x false: 쿨O
@@ -233,7 +265,7 @@ public class SkillManager : Singleton<SkillManager>
             cool.value = 1;
             FindeSkillBase(equipSkills[0].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[0];
-            StartCoroutine(Skill1CoolDown(equipSkills[0].skill.Skill_Cool, equipSkillFlags[0], cool));
+            coroutines[0] = StartCoroutine(Skill1CoolDown(equipSkills[0].skill.Skill_Cool, equipSkillFlags[0], cool));
         }
     }
 
@@ -392,7 +424,10 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
-        skillbutton.Enqueue(skillWindow.slotButtons[0]);
+        if (!isDequip[0])
+        {
+            skillbutton.Enqueue(skillWindow.slotButtons[0]);
+        }
     }
 
     IEnumerator Skill2CoolDown(float cooldown, SkillCool cool, Slider coolSl)
@@ -401,7 +436,10 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
-        skillbutton.Enqueue(skillWindow.slotButtons[1]);
+        if (!isDequip[1])
+        {
+            skillbutton.Enqueue(skillWindow.slotButtons[1]);
+        }
     }
 
     IEnumerator Skill3CoolDown(float cooldown, SkillCool cool, Slider coolSl)
@@ -410,7 +448,10 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
-        skillbutton.Enqueue(skillWindow.slotButtons[2]);
+        if (!isDequip[2])
+        {
+            skillbutton.Enqueue(skillWindow.slotButtons[2]);
+        }
     }
 
     IEnumerator Skill4CoolDown(float cooldown, SkillCool cool, Slider coolSl)
@@ -418,8 +459,10 @@ public class SkillManager : Singleton<SkillManager>
         yield return new WaitForSeconds(cooldown);
         skillcool &= ~cool;
         coolSl.value = 0;
-
-        skillbutton.Enqueue(skillWindow.slotButtons[3]);
+        if (!isDequip[3])
+        {
+            skillbutton.Enqueue(skillWindow.slotButtons[3]);
+        }
     }
     IEnumerator Skill5CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
@@ -427,7 +470,11 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
-        skillbutton.Enqueue(skillWindow.slotButtons[4]);
+        if (!isDequip[4])
+        {
+            skillbutton.Enqueue(skillWindow.slotButtons[4]);
+
+        }
     }
     IEnumerator Skill6CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
@@ -435,11 +482,17 @@ public class SkillManager : Singleton<SkillManager>
         skillcool &= ~cool;
         coolSl.value = 0;
 
-        skillbutton.Enqueue(skillWindow.slotButtons[5]);
+        if (!isDequip[5])
+        {
+            skillbutton.Enqueue(skillWindow.slotButtons[5]);
+        }
     }
 
     private void SortSkillButton()
     {
+        if (skillbutton.Count <= 0)
+            return;
+
         List<GameObject> sortList = new List<GameObject>();
 
         sortList = skillbutton.ToList();

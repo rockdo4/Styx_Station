@@ -15,7 +15,7 @@ public class PoisonArrowShot : SkillBase
         poisonArrowShot = skill;
         poisonArrowPrefab = prefab;
 
-        damageMultiplier = poisonArrowShot.skill.Skill_ATK;
+        damageMultiplier = poisonArrowShot.skill.Skill_ATK + (poisonArrowShot.upgradeLev * poisonArrowShot.skill.Skill_ATK_LVUP);
         speed = 1 / this.poisonArrowShot.skill.Skill_Speed;
     }
     public override void UseSkill(GameObject attacker)

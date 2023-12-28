@@ -10,16 +10,21 @@ public class JudgeShooter : Shooter
     private List<GameObject> monsters = new List<GameObject>();
     private GameObject caster;
     private float multiple;
+    private GameObject particle;
+
+    private GameObject particleObj;
 
     private WaitForSeconds wait;
-    public void SetJudgeShooter(int h, float m, GameObject attacer)
+    public void SetJudgeShooter(int h, float m, GameObject attacer, GameObject p)
     {
         hitCount = h;
         caster = attacer;
         multiple = m;
+        particle = p;
 
         wait = new WaitForSeconds(timeLimit);
 
+        particleObj = ObjectPoolManager.instance.GetGo(particle.name);
         StartCoroutine(HitAll());
     }
 
@@ -70,6 +75,7 @@ public class JudgeShooter : Shooter
     public override void ReleaseObject()
     {
         monsters = new List<GameObject>();
+        particleObj.GetComponent<JudgeParticle>().ReleaseObject();
         base.ReleaseObject(); 
     }
 }

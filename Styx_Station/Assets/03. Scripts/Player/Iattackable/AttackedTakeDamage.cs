@@ -16,13 +16,15 @@ public class AttackedTakeDamage : MonoBehaviour, IAttackable
     {
         if(controller.currentStates == States.Idle || controller.currentStates == States.Attack)
         {
+            if(!WaveManager.Instance.isWaveInProgress)
+            {
+                return;
+            }
             stats.TakeDamage(attack.Damage);
-            //controller.hpBar.fillAmount = (float)((long)stats.playerCurrentHp / (float)(long)stats.playerMaxHp);
-            //stats.playerCurrentHp -= attack.Damage;
             if (stats.playerCurrentHp <= 0)
             {
+                //stats.TakeDamage(attack.Damage);
                 stats.playerCurrentHp = 0;
-                controller.GetAnimator().SetTrigger("Die");
                 controller.SetState(States.Die);
             }
         }

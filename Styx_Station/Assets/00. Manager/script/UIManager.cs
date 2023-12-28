@@ -49,7 +49,6 @@ public class UIManager : Singleton<UIManager>
     public TextMeshProUGUI soulMoney;
     public TextMeshProUGUI memoryMoney;
 
-    //12.26 이승우 방치보상 퀘스트 확인
     private bool isBangchi;
     public BangchiWindow bangchiWindow;
     private void Start() //12.20 Lsw 

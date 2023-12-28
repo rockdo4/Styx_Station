@@ -6,7 +6,7 @@ public class PetController : MonoBehaviour
 
     public Pet petObjectScript;
     private Animator animator;
-    [HideInInspector]public GameObject masterPlayer;
+    [HideInInspector] public GameObject masterPlayer;
     public string petName;
     public Tier petTier; // 식 변경예정
     public System.Numerics.BigInteger power;
@@ -18,11 +18,11 @@ public class PetController : MonoBehaviour
     private float delay = 0;
     private StateManager petStateManager = new StateManager();
     private List<StateBase> petStateBases = new List<StateBase>();
-    private ExcuteAttackPet executeHit ; 
-    public AttackDefinition weapon ;
+    private ExcuteAttackPet executeHit;
+    public AttackDefinition weapon;
     public LayerMask layerMask;
     public States currentStates;
-
+    [HideInInspector] public int index;
 
     public Vector2 initialPos = Vector2.zero;
 
@@ -39,24 +39,27 @@ public class PetController : MonoBehaviour
 
         initialPos = transform.position;
 
-        
+
     }
 
     private void Start()
     {
-        if(petObjectScript != null)
+        if (petObjectScript != null)
         {
             petName = petObjectScript.Pet_GameObjet.name;
             petTier = petObjectScript.Pet_Tier;
-            attackSpeed =petObjectScript.Pet_AttackSpeed;
+            attackSpeed = petObjectScript.Pet_AttackSpeed;
             range = petObjectScript.Pet_AttackRange;
             var ani = GetComponentInChildren<Animator>();
-            if(ani != null )
+            if (ani != null)
             {
                 ani.runtimeAnimatorController = petObjectScript.animation;
             }
         }
-        SetState(States.Move);
+        if(!isArrive)
+            SetState(States.Move);
+        else
+            SetState(States.Idle);
     }
     private void FixedUpdate()
     {
@@ -85,7 +88,7 @@ public class PetController : MonoBehaviour
                     SetState(States.Idle);
                 }
             }
-            else if(delay > 1.8f && !isArrive && petObjectScript != null)
+            else if (delay > 1.8f && !isArrive && petObjectScript != null)
             {
                 var pos = lerpPos.transform.position;
                 pos.y = lerpPos.position.y;
@@ -99,7 +102,7 @@ public class PetController : MonoBehaviour
             }
         }
     }
-    public void  SetState(States state)
+    public void SetState(States state)
     {
         petStateManager.ChangeState(petStateBases[(int)state]);
         currentStates = state;
@@ -108,7 +111,7 @@ public class PetController : MonoBehaviour
 
     public Animator GetAnimator()
     {
-        return animator;    
+        return animator;
     }
     public void OnDrawGizmos()
     {
@@ -118,7 +121,7 @@ public class PetController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, range);
         Gizmos.color = prevColor;
     }
-    
+
     public void SetExcuteHit()
     {
         var currPos = gameObject.transform.position;
@@ -137,10 +140,35 @@ public class PetController : MonoBehaviour
     {
         if (masterPlayer == null)
             return -1;
-        return masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPowerByNonInventory() * (int)petTier * 10/ 100;
+
+        float weight=0f;
+        switch (InventorySystem.Instance.petInventory.equipPets[index].pet.Pet_Enchant)
+        {
+            case Enchant.Old:
+                weight = 0.01f;
+                break;
+            case Enchant.EntryLevel:
+                weight = 0.02f;
+                break;
+            case Enchant.Creation:
+                weight = 0.22f;
+                break;
+            case Enchant.Masters:
+                weight = 2.22f;
+                break;
+            case Enchant.MasterPiece:
+                weight = 2222f;
+                break;
+        }
+        return (int)(petObjectScript.Pet_Attack+(InventorySystem.Instance.petInventory.equipPets[index].upgradeLev*petObjectScript.Pet_Attack_Lv) +(petObjectScript.Pet_Attack + (InventorySystem.Instance.petInventory.equipPets[index].upgradeLev * petObjectScript.Pet_Attack_Lv)* weight) );//masterPlayer.GetComponent<ResultPlayerStats>().GetPlayerPowerByNonInventory() * (int)petTier * 10 / 100;
     }
     public StateManager GetPetStateManager()
     {
         return petStateManager;
+    }
+
+    public Animator GetPetAnimator()
+    {
+        return animator;
     }
 }

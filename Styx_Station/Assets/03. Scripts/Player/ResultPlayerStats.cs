@@ -192,12 +192,10 @@ public class ResultPlayerStats : MonoBehaviour
 
             CurrentMaxHpSet();
         }
-        //Debug.Log(playerCurrentHp);
         playerCurrentHp -= damage;
         if(playerCurrentHp <= 0) 
         {
             CurrentMaxHpSet();
-            Debug.Log("PlayerDie");
         }
 
         var normal = GetNormalizedHealth();

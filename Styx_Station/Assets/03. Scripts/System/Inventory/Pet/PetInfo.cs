@@ -15,6 +15,7 @@ public class PetInfo : MonoBehaviour
     public TextMeshProUGUI atk;
     public TextMeshProUGUI atkSpeed;
     public TextMeshProUGUI petName;
+    public TextMeshProUGUI upgradeValue;
 
     public Button Equip;
     public Button Upgrade;

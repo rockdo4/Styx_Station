@@ -109,11 +109,6 @@ public class BlackCloudShooter : Shooter
                 defender.transform.GetChild(i).gameObject.SetActive(true);
             }
         }
-
-        //var particleObj = ObjectPoolManager.instance.GetGo(particle.name);
-        //particleObj.transform.SetParent(defender.transform);
-        //particleObj.GetComponent<ParticleSystem>().Play();
-        //Debug.Log("Hit monster in blakc cloud");
     }
 
     public override void ReleaseObject()

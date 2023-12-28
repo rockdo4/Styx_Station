@@ -1,7 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SkillWindow : SubWindow
@@ -81,13 +81,28 @@ public class SkillWindow : SubWindow
                 button.equipIndex = i;
                 button.inventory = inventory;
                 button.Setting();
-                equipButtons[i].onClick.AddListener(() => button.OnClickActive(this));
-                equipButtons[i].onClick.AddListener(() => button.OnClickEquip(this));
+                var trigger = equipButtons[i].GetComponent<EventTrigger>();
+                var pointerDown = new EventTrigger.Entry();
+                pointerDown.eventID = EventTriggerType.PointerDown;
+                Action<SkillWindow> test = (SkillWindow x) => button.OnClickEquip(this);
+                var newindex = i;
+                pointerDown.callback.AddListener((data) => { OnClickActive((PointerEventData)data, newindex); });
+                pointerDown.callback.AddListener((data) => { OnClickEquip((PointerEventData)data, newindex); });
+                trigger.triggers.Add(pointerDown);
             }
             first = true;
         }
     }
-
+    private void OnClickActive(PointerEventData data, int index)
+    {
+        var button = equipButtons[index].GetComponent<NormalButton>();
+        button.OnClickActive(this);
+    }
+    private void OnClickEquip(PointerEventData data, int index)
+    {
+        var button = equipButtons[index].GetComponent<NormalButton>();
+        button.OnClickEquip(this);
+    }
     public void WindowUpdate()
     {
         ButtonInteractable();

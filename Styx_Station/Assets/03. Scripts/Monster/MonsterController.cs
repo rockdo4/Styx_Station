@@ -9,7 +9,7 @@ public class MonsterController : PoolAble //MonoBehaviour
     private StateManager stateManager = new StateManager();
     private List<StateBase> states = new List<StateBase>();
 
-    public float startDelay = 1f; //¿òÁ÷ÀÌ±â ½ÃÀÛÇÒ ½Ã°£, ½ºÆ÷³Ê¿¡¼­ »ý¼º ½Ã¿¡ ¼¼ÆÃÇØÁÙ °ª.
+    public float startDelay = 1f; //ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½.
     public Animator animator { get; private set; }
     public Rigidbody2D rigid { get; private set; }
     public MonsterStats monsterStats { get; private set; }
@@ -48,7 +48,6 @@ public class MonsterController : PoolAble //MonoBehaviour
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
-        //Debug.Log(stateManager.GetCurrentState());
     }
 
     public void SetIdlePoint(Transform idlePos)

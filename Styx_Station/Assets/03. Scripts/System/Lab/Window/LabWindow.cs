@@ -10,9 +10,6 @@ public class LabWindow : Window
     private bool isLoad;
     public override void Open()
     {
-
-
-
         labInfoWindow.Close();
         if (LabSystem.Instance.isTimerZero)
             labCompleteWindwo.Open();
@@ -46,6 +43,9 @@ public class LabWindow : Window
 
     public override void Close()
     {
+        if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+            ButtonList.mainButton &= ~ButtonType.Lab;
+
         labInfoWindow.Close();
         labCompleteWindwo.Close();
         base.Close();

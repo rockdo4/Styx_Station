@@ -68,10 +68,16 @@ public class PetWindow : SubWindow
             
             pet.image.sprite = pet.pet.pet.PetChar;
 
+            if (pet.pet.upgradeLev < pet.pet.pet.Pet_UpMatter.Count)
+                pet.upgradeValue.text = $"{pet.pet.stock} / {pet.pet.pet.Pet_UpMatter[pet.pet.upgradeLev]}";
+            else
+                pet.upgradeValue.text = $"{pet.pet.stock} / {pet.pet.pet.Pet_UpMatter[pet.pet.pet.Pet_UpMatter.Count - 1]}";
+
+            pet.Lv.text = $"Lv.{pet.pet.upgradeLev}";
+
             if (Global.language == Language.KOR)
             {
                 pet.petName.text = $"{stringTable.GetStringTableData(pet.pet.pet.name + "_Name").KOR}";
-                pet.Lv.text = $"Lv.{pet.pet.upgradeLev}";
                 string atk = string.Format(stringTable.GetStringTableData("Pet_Info_Atk").KOR, pet.pet.pet.Pet_Attack + pet.pet.pet.Pet_Attack_Lv * pet.pet.upgradeLev);
                 pet.atk.text = $"{atk}";
                 string atkSpeed = string.Format(stringTable.GetStringTableData("Pet_Info_As").KOR, pet.pet.pet.Pet_AttackSpeed);
@@ -89,7 +95,6 @@ public class PetWindow : SubWindow
             else if (Global.language == Language.ENG)
             {
                 pet.petName.text = $"{stringTable.GetStringTableData(pet.pet.pet.name + "_Name").ENG}";
-                pet.Lv.text = $"Lv.{pet.pet.upgradeLev}";
                 string atk = string.Format(stringTable.GetStringTableData("Pet_Info_Atk").ENG, pet.pet.pet.Pet_Attack + pet.pet.pet.Pet_Attack_Lv * pet.pet.upgradeLev);
                 pet.atk.text = $"{atk}";
                 string atkSpeed = string.Format(stringTable.GetStringTableData("Pet_Info_As").ENG, pet.pet.pet.Pet_AttackSpeed);

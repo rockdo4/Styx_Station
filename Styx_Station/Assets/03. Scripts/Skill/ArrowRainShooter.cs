@@ -68,7 +68,6 @@ public class ArrowRainShooter : Shooter
         while(true)
         {
             var monsters = GetMonsterInZone();
-            //Debug.Log($"CastSkill, Hit Monster {monsters.Length}");
             foreach (var monster in monsters)
             {
                 HitMonster(monster.gameObject);

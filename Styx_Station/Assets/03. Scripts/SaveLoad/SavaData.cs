@@ -174,6 +174,7 @@ public class GameSaveData
     public int petRankUp;
 
     public PlayerBuffData playerBuff;
+    public string buffFoddID;
 
     public bool sound;
     public Language language;

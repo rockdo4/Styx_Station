@@ -42,7 +42,9 @@ public class MonsterController : PoolAble //MonoBehaviour
 
     public bool isStunned = false;
     private float stunTimer = 0f;
-    private float stunTime = 1f;    
+    private float stunTime = 1f;
+
+    public GameObject stunParticle;
     public void SetState(States newState)
     {
         stateManager.ChangeState(states[(int)newState]);
@@ -140,6 +142,7 @@ public class MonsterController : PoolAble //MonoBehaviour
             if(stunTimer > stunTime)
             {
                 isStunned = false;
+                stunParticle.SetActive(false);
                 stunTimer = 0;
             }
         }
@@ -207,6 +210,7 @@ public class MonsterController : PoolAble //MonoBehaviour
     {
         isStunned = true;
         stunTimer = 0f;
+        stunParticle.SetActive(true);
         SetState(States.Idle);
     }
 

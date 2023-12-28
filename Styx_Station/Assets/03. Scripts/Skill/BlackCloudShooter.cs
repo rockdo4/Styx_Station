@@ -102,6 +102,14 @@ public class BlackCloudShooter : Shooter
             attackable.OnAttack(caster, attack);
         }
 
+        for(int i = 0; i < defender.transform.childCount; i++)
+        {
+            if(defender.transform.GetChild(i).name == particle.name)
+            {
+                defender.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
         //var particleObj = ObjectPoolManager.instance.GetGo(particle.name);
         //particleObj.transform.SetParent(defender.transform);
         //particleObj.GetComponent<ParticleSystem>().Play();

@@ -8,13 +8,15 @@ public class SoulDamage : SkillBase
 {
     private SkillInventory.InventorySKill soulDamage;
     private GameObject particle;
+    private GameObject stunParticle;
     private GameObject caster;
     private float multiple;
-    public SoulDamage(SkillInventory.InventorySKill skill, GameObject particle, GameObject c)
+    public SoulDamage(SkillInventory.InventorySKill skill, GameObject particle, GameObject sParticle, GameObject c)
     {
         soulDamage = skill;
         this.particle = particle;
         caster = c;
+        stunParticle = sParticle;
 
         multiple = soulDamage.skill.Skill_ATK + (soulDamage.upgradeLev * soulDamage.skill.Skill_ATK_LVUP);
     }

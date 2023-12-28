@@ -42,8 +42,9 @@ public class PetIdle : PetStateBase
         }
         else
         {
-            if (petController.masterPlayer.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
-                return;
+            //if (petController.masterPlayer.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
+                if(!WaveManager.Instance.isWaveInProgress)
+                    return;
             foreach (var enemy in findEnemy)
             {
                 if(enemy.GetComponent<MonsterStats>().currHealth >0)

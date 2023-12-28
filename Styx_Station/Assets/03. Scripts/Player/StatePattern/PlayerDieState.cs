@@ -22,6 +22,9 @@ public class PlayerDieState : PlayerStateBase
 
     public override void Exit()
     {
+        playertController.transform.position = playertController.initialPos;
+        playertController.GetAnimator().SetBool("EditChk", true);
+        playertController.IsStartTarget = false;
         playertController.GetComponent<ResultPlayerStats>().ResetHp();
     }
 
@@ -41,9 +44,9 @@ public class PlayerDieState : PlayerStateBase
                 UIManager.Instance.SetGameOverPopUpActive(true);
                 WaveManager.Instance.SetRepeat(true);
             }
-            playertController.transform.position = playertController.initialPos;
-            playertController.GetAnimator().SetBool("EditChk", true);
-            playertController.IsStartTarget = false;
+            //playertController.transform.position = playertController.initialPos;
+            //playertController.GetAnimator().SetBool("EditChk", true);
+            //playertController.IsStartTarget = false;
             playertController.SetState(States.Idle);
         }
     }

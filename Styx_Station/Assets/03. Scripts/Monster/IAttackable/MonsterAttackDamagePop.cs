@@ -5,13 +5,21 @@ using UnityEngine;
 public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
 {
     public Color color = Color.white;
-    public DamageText prefab;
+    public GameObject prefab;
     public float addY = 0.05f;
 
     public void OnAttack(GameObject attacker, Attack attack)
     {
         var position = transform.GetChild(2).position;
-        var text = Instantiate(prefab, position, Quaternion.identity);
+        var textObj = ObjectPoolManager.instance.GetGo(prefab.name);
+        if(textObj == null)
+        {
+            Debug.Log("ERR: text is null");
+            return;
+        }
+        textObj.transform.position = position;
+        var text = textObj.GetComponent<DamageText>();
+        //var text = Instantiate(prefab, position, Quaternion.identity);
         var damageString = UnitConverter.OutString(attack.Damage);
         if(attack.IsCritical)
         {

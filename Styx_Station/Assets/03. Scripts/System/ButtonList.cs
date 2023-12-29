@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public enum ButtonType
@@ -49,11 +50,19 @@ public enum SettingButton
     Cheat = 1 << 3,
 }
 
-
+public enum TutorialBit
+{
+    None = 0,
+    DiningRoom = 1 << 0,
+    Lab = 1 << 1,
+    Clean = 1 << 2,
+    Failure = 1 << 3,
+}
 public static class ButtonList
 {
     public static ButtonType mainButton = ButtonType.Main;
     public static InfoButton infoButton = InfoButton.None;
     public static SettingButton settingButton = SettingButton.None;
     public static gachaButton gachaButton = gachaButton.None;
+    public static TutorialBit tutorialBit = TutorialBit.None;
 }

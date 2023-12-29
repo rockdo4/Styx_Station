@@ -534,11 +534,28 @@ public class UIManager : Singleton<UIManager>
             timer += Time.deltaTime * 2f;
             yield return null;
         }
+        windowButtons[0].GetComponent<Button>().interactable = true;
 
-        foreach (var button in windowButtons)
-        {
-            button.GetComponent<Button>().interactable = true;
-        }
+        if ((ButtonList.tutorialBit & TutorialBit.DiningRoom) != 0)
+            windowButtons[1].GetComponent<Button>().interactable = true;
+        else if ((ButtonList.tutorialBit & TutorialBit.DiningRoom) == 0)
+            windowButtons[1].GetComponent<Button>().interactable = false;
+
+        if ((ButtonList.tutorialBit & TutorialBit.Lab) != 0)
+            windowButtons[2].GetComponent<Button>().interactable = true;
+        else if ((ButtonList.tutorialBit & TutorialBit.Lab) == 0)
+            windowButtons[2].GetComponent<Button>().interactable = false;
+
+        if ((ButtonList.tutorialBit & TutorialBit.Clean) != 0)
+            windowButtons[3].GetComponent<Button>().interactable = true;
+        else if ((ButtonList.tutorialBit & TutorialBit.Clean) == 0)
+            windowButtons[3].GetComponent<Button>().interactable = false;
+
+        if ((ButtonList.tutorialBit & TutorialBit.Failure) != 0)
+            windowButtons[4].GetComponent<Button>().interactable = true;
+        else if ((ButtonList.tutorialBit & TutorialBit.Failure) == 0)
+            windowButtons[4].GetComponent<Button>().interactable = false;
+
         SkillButtonOn();
 
         buttons.transform.position = buttonPos;
@@ -561,10 +578,29 @@ public class UIManager : Singleton<UIManager>
             yield return null;
         }
 
-        foreach (var button in windowButtons)
-        {
-            button.GetComponent<Button>().interactable = true;
-        }
+        windowButtons[0].GetComponent<Button>().interactable = true;
+        windowButtons[1].GetComponent<Button>().interactable = true;
+        windowButtons[2].GetComponent<Button>().interactable = true;
+
+        //if ((ButtonList.tutorialBit & TutorialBit.DiningRoom) != 0)
+        //    windowButtons[1].GetComponent<Button>().interactable = true;
+        //else if ((ButtonList.tutorialBit & TutorialBit.DiningRoom) == 0)
+        //    windowButtons[1].GetComponent<Button>().interactable = false;
+
+        //if ((ButtonList.tutorialBit & TutorialBit.Lab) != 0)
+        //    windowButtons[2].GetComponent<Button>().interactable = true;
+        //else if ((ButtonList.tutorialBit & TutorialBit.Lab) == 0)
+        //    windowButtons[2].GetComponent<Button>().interactable = false;
+
+        if ((ButtonList.tutorialBit & TutorialBit.Clean) != 0)
+            windowButtons[3].GetComponent<Button>().interactable = true;
+        else if ((ButtonList.tutorialBit & TutorialBit.Clean) == 0)
+            windowButtons[3].GetComponent<Button>().interactable = false;
+
+        if ((ButtonList.tutorialBit & TutorialBit.Failure) != 0)
+            windowButtons[4].GetComponent<Button>().interactable = true;
+        else if ((ButtonList.tutorialBit & TutorialBit.Failure) == 0)
+            windowButtons[4].GetComponent<Button>().interactable = false;
 
         buttons.transform.position = buttonPos - wayPoint;
 

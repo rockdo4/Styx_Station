@@ -25,6 +25,8 @@ public class SettingBox : MonoBehaviour
     private bool first = false;
     public bool soundValue = true;
 
+    //12.29yyl
+    public GameObject backgroundMusic;
     public void OnClickChangeLenguage()
     {
         if(Global.language == Language.KOR)
@@ -39,6 +41,7 @@ public class SettingBox : MonoBehaviour
     {
         soundValue = !soundValue;
         SoundValueText();
+        backgroundMusic.SetActive(soundValue);
     }
 
     public void OnClickCouPon()

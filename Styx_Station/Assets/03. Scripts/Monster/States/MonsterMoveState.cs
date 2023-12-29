@@ -20,12 +20,26 @@ public class MonsterMoveState : MonsterStateBase
     public override void Exit()
     {
         monsterCtrl.animator.SetFloat("RunState", 0f);
+        monsterCtrl.rigid.velocity = Vector2.zero;
         isArrived = false;
     }
 
     public override void FixedUpate()
     {
-        if(!isArrived)
+        if (DistanceToPlayer <= monsterCtrl.range)
+        {
+            isArrived = true;
+            if (attackType != AttackType.Tank)
+            {
+                monsterCtrl.SetState(States.Attack);
+                return;
+            }
+            else
+            {
+                monsterCtrl.animator.SetFloat("RunState", 0f);
+            }
+        }
+        if (!isArrived)
         {
             Vector2 moveVelocity = moveDir.normalized * monsterCtrl.monsterStats.speed;
             monsterCtrl.rigid.MovePosition(monsterCtrl.rigid.position + moveVelocity * Time.deltaTime);
@@ -40,18 +54,18 @@ public class MonsterMoveState : MonsterStateBase
             return;
         }
 
-        if(DistanceToPlayer <= monsterCtrl.range)
-        {
-            isArrived = true;
-            if(attackType != AttackType.Tank)
-            {
-                monsterCtrl.SetState(States.Attack);
-                return;
-            }
-            else
-            {
-                monsterCtrl.animator.SetFloat("RunState", 0f);
-            }
-        }
+        //if(DistanceToPlayer <= monsterCtrl.range)
+        //{
+        //    isArrived = true;
+        //    if(attackType != AttackType.Tank)
+        //    {
+        //        monsterCtrl.SetState(States.Attack);
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        monsterCtrl.animator.SetFloat("RunState", 0f);
+        //    }
+        //}
     }
 }

@@ -5,6 +5,7 @@ public class MonsterAttackState : MonsterStateBase
     private float attackBet;
     private float lastAttackTime = 0f;
     private float attackOffset = 0; //공격 애니메이션 재생 관리. 0.5: 원거리 공격
+    private float arriveDis = 0.1f;
     public MonsterAttackState(MonsterController manager) : base(manager)
     {
 
@@ -45,7 +46,7 @@ public class MonsterAttackState : MonsterStateBase
         {
             monsterCtrl.SetState(States.Idle);
         }
-        if (DistanceToPlayer > monsterCtrl.range)
+        if (DistanceToPlayer > monsterCtrl.range + arriveDis)
         {
             monsterCtrl.SetState(States.Move);
         }

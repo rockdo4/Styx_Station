@@ -52,9 +52,13 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     private int clearWaveCount = 0;
     public GameObject Background;
     private GameObject[] tileObjects = new GameObject[2];
-    public List<GameObject> leftTileMaps = new List<GameObject>();
-    public List<GameObject> rightTileMaps = new List<GameObject>();
+    private List<GameObject> leftTileMaps = new List<GameObject>();
+    private List<GameObject> rightTileMaps = new List<GameObject>();
     private List<ScrollingObject> backgroundList = new List<ScrollingObject>();
+
+    public GameObject village;
+    public List<GameObject> leftVillage = new List<GameObject>();
+    public List<GameObject> rightVillage = new List<GameObject>();
 
     private PlayerController playerController;
 
@@ -77,10 +81,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            ReleaseShooter();
-        }
         if(isWaveInProgress)
         {
             timer += Time.deltaTime;
@@ -186,11 +186,13 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         isWaveInProgress = false;
 
         int stageNum = CurrentStage % 5;
-        if (stageNum == 0)
+        int waveNum = CurrentWave % 5;
+        if (stageNum == 0 && waveNum == 0)
         {
             currTileMapIndex = CurrentChpater;
             haveToChangeTile = true;
             ChangeTileMap();
+            ChangeVillage();
         }
 
         if (!IsRepeating)
@@ -242,6 +244,25 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             changeTileList[currTileMapIndex - 1].SetActive(false);
         }
     }
+
+    public void ChangeVillage()
+    {
+        List<GameObject> changeVillageList = new List<GameObject>();
+        if (clearWaveCount % 2 == 0) //짝수개 클리어, right 바꾸기
+        {
+            changeVillageList = rightVillage;
+        }
+        else //홀수개 클리어, left 바꾸기
+        {
+            changeVillageList = leftVillage;
+        }
+
+        changeVillageList[currTileMapIndex].SetActive(true);
+        if (currTileMapIndex > 0)
+        {
+            changeVillageList[currTileMapIndex - 1].SetActive(false);
+        }
+    }
     public void SetStageByIndexStage(int stageIndex)
     {
         currStage = stageList.GetStageByStageIndex(stageIndex);
@@ -271,6 +292,17 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
         leftTileMaps[currTileMapIndex -1].SetActive(true);
         rightTileMaps[currTileMapIndex -1].SetActive(true);
+
+        SetVillage();
+    }
+
+    public void SetVillage()
+    {
+        leftVillage[0].SetActive(false);
+        rightVillage[0].SetActive(false);
+
+        leftVillage[currTileMapIndex - 1].SetActive(true);
+        rightVillage[currTileMapIndex - 1].SetActive(true);
     }
 
     public void UpdateCurrentChapter()

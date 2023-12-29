@@ -25,6 +25,7 @@ public class BackgroundLoop : MonoBehaviour
             if(WaveManager.Instance.haveToChangeTile)
             {
                 WaveManager.Instance.ChangeTileMap();
+                WaveManager.Instance.ChangeVillage();
                 WaveManager.Instance.haveToChangeTile = false;
             }
         }

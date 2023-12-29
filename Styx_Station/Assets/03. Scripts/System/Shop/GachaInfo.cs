@@ -8,6 +8,7 @@ public class GachaInfo : MonoBehaviour
     private SkillGacha skill;
     private PetGacha pet;
     private ShopSystem shop;
+    private StringTable stringTable;
     public enum GachaType
     {
         None = -1,
@@ -34,6 +35,7 @@ public class GachaInfo : MonoBehaviour
         skill = skillGacha;
         pet = petGacha;
         shop = ShopSystem.Instance;
+        stringTable = MakeTableData.Instance.stringTable;
     }
     public void InfoUpdate(int buttonIndex, int typeIndex)
     {
@@ -65,17 +67,44 @@ public class GachaInfo : MonoBehaviour
         {
             case 0:
                 valueText.text = $"{item.minValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.minGacha} Gacha";
-                break;
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.minGacha} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.minGacha} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}";
+                }
+                    break;
 
                 case 1:
                 valueText.text = $"{item.middleValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.middleGach} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.middleGach} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.middleGach} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}";
+                }
                 break;
 
                 case 2:
                 valueText.text = $"{item.maxValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.maxGacha} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.maxGacha} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{item.maxGacha} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}";
+                }  
                 break;
         }
     }
@@ -86,17 +115,44 @@ public class GachaInfo : MonoBehaviour
         {
             case 0:
                 valueText.text = $"{skill.minValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.minGacha} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.minGacha} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.minGacha} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}";
+                }   
                 break;
 
             case 1:
                 valueText.text = $"{skill.middleValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.middleGach} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.middleGach} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.middleGach} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}"; 
+                }   
                 break;
 
             case 2:
                 valueText.text = $"{skill.maxValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.maxGacha} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.maxGacha} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{skill.maxGacha} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}";
+                } 
                 break;
         }
     }
@@ -107,17 +163,44 @@ public class GachaInfo : MonoBehaviour
         {
             case 0:
                 valueText.text = $"{pet.minValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.minGacha} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.minGacha} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.minGacha} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}"; 
+                } 
                 break;
 
             case 1:
                 valueText.text = $"{pet.middleValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.middleGach} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.middleGach} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.middleGach} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}";
+                }  
                 break;
 
             case 2:
                 valueText.text = $"{pet.maxValue}";
-                reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.maxGacha} Gacha";
+                if (Global.language == Language.KOR)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.maxGacha} {stringTable.GetStringTableData("Gatcha004").KOR}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").KOR}";
+                }
+                else if (Global.language == Language.ENG)
+                {
+                    reGacha.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{pet.maxGacha} {stringTable.GetStringTableData("Gatcha004").ENG}";
+                    Exit.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Gatcha005").ENG}";
+                }
                 break;
         }
     }

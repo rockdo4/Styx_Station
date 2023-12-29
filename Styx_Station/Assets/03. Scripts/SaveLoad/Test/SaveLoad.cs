@@ -590,6 +590,13 @@ public class SaveLoad : MonoBehaviour
                     //WaveManager.Instance.SetWavePanel();
                 }
 
+                if (gameSaveDatas["language"] is JToken languageToken)
+                {
+                    var language = languageToken.ToString();
+                    var languageValue = JsonConvert.DeserializeObject<Language>(language);
+                    Global.language = languageValue;
+                }
+
                 if (gameSaveDatas["isRepeat"] is JToken isRepeat)
                 {
                     //string str = isRepeat.ToString();
@@ -725,13 +732,6 @@ public class SaveLoad : MonoBehaviour
                 {
                     var sound = soundToken.Value<bool>();
                     UiSetting.soundValue = sound;
-                }
-
-                if (gameSaveDatas["language"] is JToken languageToken)
-                {
-                    var language = languageToken.ToString();
-                    var languageValue = JsonConvert.DeserializeObject<Language>(language);
-                    Global.language = languageValue;
                 }
             }
         }

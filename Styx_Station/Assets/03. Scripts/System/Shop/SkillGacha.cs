@@ -8,7 +8,8 @@ public class SkillGacha : MonoBehaviour
     private ShopSystem shop;
     private GachaInfo window;
     private StateSystem stateSystem;
-    
+    private StringTable stringTable;
+
     public Slider nextLevExp;
 
     public TextMeshProUGUI gachaName;
@@ -42,10 +43,7 @@ public class SkillGacha : MonoBehaviour
             shop = ShopSystem.Instance;
             window = UIManager.Instance.windows[6].GetComponent<GachaWindow>().info;
             stateSystem = StateSystem.Instance;
-
-            gachaButtons[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{minGacha}\nGacha";
-            gachaButtons[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{middleGach}\nGacha";
-            gachaButtons[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{maxGacha}\nGacha";
+            stringTable = MakeTableData.Instance.stringTable;
 
             minValueText.text = $"{minValue}";
             middleValueText.text = $"{middleValue}";
@@ -53,7 +51,21 @@ public class SkillGacha : MonoBehaviour
 
             first = true;
         }
+        if (Global.language == Language.KOR)
+        {
+            gachaName.text = $"{stringTable.GetStringTableData("Gatcha002").KOR}";
+            gachaButtons[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{minGacha}\n{stringTable.GetStringTableData("Gatcha004").KOR}";
+            gachaButtons[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{middleGach}\n{stringTable.GetStringTableData("Gatcha004").KOR}";
+            gachaButtons[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{maxGacha}\n{stringTable.GetStringTableData("Gatcha004").KOR}";
 
+        }
+        else if (Global.language == Language.ENG)
+        {
+            gachaName.text = $"{stringTable.GetStringTableData("Gatcha002").ENG}";
+            gachaButtons[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{minGacha}\n{stringTable.GetStringTableData("Gatcha004").ENG}";
+            gachaButtons[1].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{middleGach}\n{stringTable.GetStringTableData("Gatcha004").ENG}";
+            gachaButtons[2].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{maxGacha}\n{stringTable.GetStringTableData("Gatcha004").ENG}";
+        }
 
         currentLev.text = $"Lv.{shop.currentSkillRank}";
         currentExp.text = $"{shop.currentSkillRankUp} / {shop.skillTable.drops[shop.currentSkillRank].RankUp}";
@@ -76,6 +88,9 @@ public class SkillGacha : MonoBehaviour
         window.InfoUpdate(0, 1);
         window.gameObject.SetActive(true);
 
+        if ((ButtonList.gachaButton & gachaButton.Info) == 0)
+            ButtonList.gachaButton |= gachaButton.Info;
+
         GachaUpdate();
     }
 
@@ -93,6 +108,9 @@ public class SkillGacha : MonoBehaviour
 
         window.InfoUpdate(1, 1);
         window.gameObject.SetActive(true);
+
+        if ((ButtonList.gachaButton & gachaButton.Info) == 0)
+            ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
     }
@@ -112,18 +130,40 @@ public class SkillGacha : MonoBehaviour
         window.InfoUpdate(2, 1);
         window.gameObject.SetActive(true);
 
+        if ((ButtonList.gachaButton & gachaButton.Info) == 0)
+            ButtonList.gachaButton |= gachaButton.Info;
+
         GachaUpdate();
     }
 
     public void OnClickSkillPer()
     {
-        skillPerWindow.GetComponent<ShopPer>().Setting();
+        if ((ButtonList.gachaButton & gachaButton.Skill) == 0)
+        {
+            ButtonList.gachaButton |= gachaButton.Skill;
+            skillPerWindow.GetComponent<ShopPer>().Setting();
 
-        skillPerWindow.SetActive(true);
+            skillPerWindow.SetActive(true);
+        }
     }
 
     public void OnClickCloseSkillPer()
     {
-        skillPerWindow.SetActive(false);
+        if ((ButtonList.gachaButton & gachaButton.Skill) != 0)
+        {
+            ButtonList.gachaButton &= ~gachaButton.Skill;
+            skillPerWindow.SetActive(false);
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) &&
+            (ButtonList.mainButton & ButtonType.Shop) != 0 &&
+            (ButtonList.gachaButton & gachaButton.Skill) != 0)
+        {
+            ButtonList.gachaButton &= ~gachaButton.Skill;
+            skillPerWindow.SetActive(false);
+        }
     }
 }

@@ -40,7 +40,7 @@ public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
         }
         if (attacker.CompareTag("Pet"))
         {
-            color = new Color(40, 255, 237);
+            color = new Color(40f/255f, 1f, 237/255f);
         }
         text.Set(damageString, color);
     }

@@ -18,6 +18,7 @@ public class DamageText : PoolAble
         textMesh = GetComponent<TextMeshPro>();
     }
 
+
     public void Set(string text, Color color)
     {
         textMesh.text = text;
@@ -32,7 +33,6 @@ public class DamageText : PoolAble
         {
             timer += Time.deltaTime;
             //textMesh.alpha = 1f - (timer / duration);
-
             transform.position += Vector3.up * speed * Time.deltaTime;
 
             if (timer > duration)

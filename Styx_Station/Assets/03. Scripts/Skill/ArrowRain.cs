@@ -24,7 +24,8 @@ public class ArrowRain : SkillBase
         }
         var startPos = rects[1].transform.position;
 
-        var shooter = Object.Instantiate(shooterPrefab);
+        var shooter = ObjectPoolManager.instance.GetGo(shooterPrefab.name);
+        //var shooter = Object.Instantiate(shooterPrefab);
         shooter.GetComponent<ArrowRainShooter>().SetShooter(enemyLayer,
             arrowRain.skill.Skill_ATK + (arrowRain.upgradeLev * arrowRain.skill.Skill_ATK_LVUP),
             arrowRain.skill.Skill_Du,

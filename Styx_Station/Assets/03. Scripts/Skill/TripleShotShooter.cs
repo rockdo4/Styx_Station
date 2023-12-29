@@ -18,13 +18,6 @@ public class TripleShotShooter : Shooter
     private void Start()
     {
         wait = new WaitForSeconds(fireBet);
-        StartCoroutine(Fire());
-    }
-
-    private void Update()
-    {
-        if (fireCount < 0)
-            Destroy(this);
     }
 
     public void SetShooter(GameObject a, UnityEngine.Vector2 b, string s, float sp, float mul)
@@ -34,6 +27,8 @@ public class TripleShotShooter : Shooter
         piercingBowName = s;
         speed = sp;
         damageMultiplier = mul;
+
+        StartCoroutine(Fire());
     }
 
     private IEnumerator Fire()
@@ -60,8 +55,7 @@ public class TripleShotShooter : Shooter
 
             yield return wait;
         }
-        Destroy(gameObject);
-
+        ReleaseObject();
     }
 
     public void OnBowCollided(GameObject attacker, GameObject defender)
@@ -79,5 +73,11 @@ public class TripleShotShooter : Shooter
         {
             attackable.OnAttack(attacker, attack);
         }
+    }
+
+    public override void ReleaseObject()
+    {
+        fireCount = 3;
+        base.ReleaseObject();
     }
 }

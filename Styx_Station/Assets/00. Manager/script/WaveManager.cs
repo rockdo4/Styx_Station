@@ -12,7 +12,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
         CurrentStage = currStage.stageId;
         CurrentWave = currStage.waveId;
-        CurrentChpater = currStage.chapterId;
+        CurrentChapter = currStage.chapterId;
 
         for (int i = 0; i < Background.transform.childCount; i++)
         {
@@ -35,7 +35,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     }
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
-    public int CurrentChpater { get; private set; } //현재 챕터
+    public int CurrentChapter { get; private set; } //현재 챕터
     public int maxWaveLevel = 5; //최대 웨이브 레벨
     public int maxStageLevel = 10; //최대 스테이지 레벨
 
@@ -52,9 +52,13 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     private int clearWaveCount = 0;
     public GameObject Background;
     private GameObject[] tileObjects = new GameObject[2];
-    public List<GameObject> leftTileMaps = new List<GameObject>();
-    public List<GameObject> rightTileMaps = new List<GameObject>();
+    private List<GameObject> leftTileMaps = new List<GameObject>();
+    private List<GameObject> rightTileMaps = new List<GameObject>();
     private List<ScrollingObject> backgroundList = new List<ScrollingObject>();
+
+    public GameObject village;
+    public List<GameObject> leftVillage = new List<GameObject>();
+    public List<GameObject> rightVillage = new List<GameObject>();
 
     private PlayerController playerController;
 
@@ -64,6 +68,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public float timeLimit = 0f;
     public float timer = 0f;
     public bool isWaveInProgress = false;
+
+    public BackgroundMusic BackgroundMusic;
 
     //public StageTable.StageTableData StageData { get; private set; }
 
@@ -101,7 +107,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     {
         CurrentStage = currStage.stageId;
         CurrentWave = currStage.waveId;
-        CurrentChpater = currStage.chapterId;
+        CurrentChapter = currStage.chapterId;
 
         SetCurrentStageText();
     }
@@ -182,11 +188,13 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         isWaveInProgress = false;
 
         int stageNum = CurrentStage % 5;
-        if (stageNum == 0)
+        int waveNum = CurrentWave % 5;
+        if (stageNum == 0 && waveNum == 0)
         {
-            currTileMapIndex = CurrentChpater;
+            currTileMapIndex = CurrentChapter;
             haveToChangeTile = true;
             ChangeTileMap();
+            ChangeVillage();
         }
 
         if (!IsRepeating)
@@ -194,7 +202,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             UpdateCurrentWave();
         }
 
-        currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
+        currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChapter, CurrentStage, CurrentWave));
         clearWaveCount++;
         timeLimit = currStage.waveTimer;
         timer = 0f;
@@ -238,6 +246,31 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             changeTileList[currTileMapIndex - 1].SetActive(false);
         }
     }
+
+    public void ChangeVillage()
+    {
+        List<GameObject> changeVillageList = new List<GameObject>();
+        if (clearWaveCount % 2 == 0) //짝수개 클리어, right 바꾸기
+        {
+            changeVillageList = rightVillage;
+        }
+        else //홀수개 클리어, left 바꾸기
+        {
+            changeVillageList = leftVillage;
+        }
+
+        changeVillageList[currTileMapIndex].SetActive(true);
+        if (currTileMapIndex > 0)
+        {
+            changeVillageList[currTileMapIndex - 1].SetActive(false);
+        }
+    }
+
+    public void ChangeAudio()
+    {
+        BackgroundMusic.StopAudio();
+        BackgroundMusic.SetAudioClip(CurrentChapter);
+    }
     public void SetStageByIndexStage(int stageIndex)
     {
         currStage = stageList.GetStageByStageIndex(stageIndex);
@@ -263,15 +296,32 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         leftTileMaps[0].SetActive(false);
         rightTileMaps[0].SetActive(false);
 
-        currTileMapIndex = CurrentChpater;
+        currTileMapIndex = CurrentChapter;
 
         leftTileMaps[currTileMapIndex -1].SetActive(true);
         rightTileMaps[currTileMapIndex -1].SetActive(true);
+
+        SetVillage();
+        SetAudio();
+    }
+
+    public void SetVillage()
+    {
+        leftVillage[0].SetActive(false);
+        rightVillage[0].SetActive(false);
+
+        leftVillage[currTileMapIndex - 1].SetActive(true);
+        rightVillage[currTileMapIndex - 1].SetActive(true);
+    }
+
+    public void SetAudio()
+    {
+        BackgroundMusic.SetAudioClip(CurrentChapter - 1);
     }
 
     public void UpdateCurrentChapter()
     {
-        CurrentChpater++;
+        CurrentChapter++;
     }
     public void UpdateCurrentStage()
     {
@@ -284,7 +334,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     }
     public void UpdateCurrentWave()
     {
-        if (CurrentChpater == 5 && CurrentStage == 5 && CurrentWave == 5) //최대 40 스테이지까지 제한
+        if (CurrentChapter == 5 && CurrentStage == 5 && CurrentWave == 5) //최대 40 스테이지까지 제한
         {
             //UIManager.Instance.questSystemUi.ClearWave();
             return;
@@ -309,7 +359,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         {
             CurrentWave = 1;
         }
-        currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChpater, CurrentStage, CurrentWave));
+        currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChapter, CurrentStage, CurrentWave));
         timeLimit = currStage.waveTimer;
         timer = 0f;
         SetCurrentStageText();
@@ -348,7 +398,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetCurrentStageText()
     {
-        UIManager.Instance.SetCurrentStageText(CurrentChpater, CurrentStage, CurrentWave);
+        UIManager.Instance.SetCurrentStageText(CurrentChapter, CurrentStage, CurrentWave);
     }
 
     IEnumerator SetMonstersStop()
@@ -410,6 +460,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     private void StopArrows()
     {
+        ReleaseShooter();
         GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
             .Where(arrow => arrow.activeSelf)
             .ToArray();

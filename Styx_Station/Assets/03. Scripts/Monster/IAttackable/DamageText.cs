@@ -31,7 +31,7 @@ public class DamageText : PoolAble
         if (isSet)
         {
             timer += Time.deltaTime;
-            textMesh.alpha = 1f - (timer / duration);
+            //textMesh.alpha = 1f - (timer / duration);
 
             transform.position += Vector3.up * speed * Time.deltaTime;
 
@@ -45,6 +45,7 @@ public class DamageText : PoolAble
     public override void ReleaseObject()
     {
         isSet = false;
+        timer = 0f;
         base.ReleaseObject();
     }
 }

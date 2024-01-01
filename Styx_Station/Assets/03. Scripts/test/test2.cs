@@ -7,6 +7,6 @@ public class test2 : MonoBehaviour
 {
     public void TestCode()
     {
-        SceneManager.LoadScene("Test_VampireSurvival");
+       MakeTableData.Instance.gameSaveLoad.Save();
     }
 }

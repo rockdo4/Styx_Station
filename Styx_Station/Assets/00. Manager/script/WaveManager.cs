@@ -8,31 +8,36 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     private void Awake()
     {
         //시작시 1번 스테이지로 초기화
-        currStage = stageList.GetStage(0);
+        //currStage = stageList.GetStage(0);
 
-        CurrentStage = currStage.stageId;
-        CurrentWave = currStage.waveId;
-        CurrentChapter = currStage.chapterId;
+        //CurrentStage = currStage.stageId;
+        //CurrentWave = currStage.waveId;
+        //CurrentChapter = currStage.chapterId;
 
-        for (int i = 0; i < Background.transform.childCount; i++)
+        //for (int i = 0; i < Background.transform.childCount; i++)
+        //{
+        //    backgroundList.Add(Background.transform.GetChild(i).GetComponent<ScrollingObject>());
+        //}
+
+        //playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+
+        //int tilemapCount = Background.transform.childCount;
+        //for(int i = 0;i < tilemapCount; i++)
+        //{
+        //    tileObjects[i] = Background.transform.GetChild(i).gameObject;
+        //    //tileMaps.Add(Background.transform.GetChild(i).gameObject);
+        //}
+        //for (int i = 0; i < tileObjects[0].transform.childCount; i++)
+        //{
+        //    leftTileMaps.Add(tileObjects[0].transform.GetChild(i).gameObject);
+        //    rightTileMaps.Add(tileObjects[1].transform.GetChild(i).gameObject);
+        //}
+        if(!isLoad)
         {
-            backgroundList.Add(Background.transform.GetChild(i).GetComponent<ScrollingObject>());
-        }
-
-        playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
-        int tilemapCount = Background.transform.childCount;
-        for(int i = 0;i < tilemapCount; i++)
-        {
-            tileObjects[i] = Background.transform.GetChild(i).gameObject;
-            //tileMaps.Add(Background.transform.GetChild(i).gameObject);
-        }
-        for (int i = 0; i < tileObjects[0].transform.childCount; i++)
-        {
-            leftTileMaps.Add(tileObjects[0].transform.GetChild(i).gameObject);
-            rightTileMaps.Add(tileObjects[1].transform.GetChild(i).gameObject);
+            PrevLoadSetting();
         }
     }
+    private bool isLoad;
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
     public int CurrentChapter { get; private set; } //현재 챕터
@@ -79,6 +84,15 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
         //StageData = GameManager.instance.StageTable.GetStageTableData(index);
         waitForSeconds = new WaitForSeconds(waitTime);
+        if(playerController == null)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if(player !=null)
+            {
+                playerController = player.GetComponent<PlayerController>();
+                SetAudio();
+            }
+        }
     }
 
     private void Update()
@@ -293,6 +307,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetTileMap()
     {
+        PrevLoadSetting(); 
         leftTileMaps[0].SetActive(false);
         rightTileMaps[0].SetActive(false);
 
@@ -302,7 +317,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         rightTileMaps[currTileMapIndex -1].SetActive(true);
 
         SetVillage();
-        SetAudio();
+        //  
     }
 
     public void SetVillage()
@@ -526,5 +541,42 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public bool GetIsRepeat()
     {
         return IsRepeating;
+    }
+
+    private void PrevLoadSetting()
+    {
+        currStage = stageList.GetStage(0);
+
+        CurrentStage = currStage.stageId;
+        CurrentWave = currStage.waveId;
+        CurrentChapter = currStage.chapterId;
+
+        for (int i = 0; i < Background.transform.childCount; i++)
+        {
+            backgroundList.Add(Background.transform.GetChild(i).GetComponent<ScrollingObject>());
+        }
+
+        if (playerController == null)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                playerController = player.GetComponent<PlayerController>();
+            }
+        }
+
+        int tilemapCount = Background.transform.childCount;
+        for (int i = 0; i < tilemapCount; i++)
+        {
+            tileObjects[i] = Background.transform.GetChild(i).gameObject;
+            //tileMaps.Add(Background.transform.GetChild(i).gameObject);
+        }
+        for (int i = 0; i < tileObjects[0].transform.childCount; i++)
+        {
+            leftTileMaps.Add(tileObjects[0].transform.GetChild(i).gameObject);
+            rightTileMaps.Add(tileObjects[1].transform.GetChild(i).gameObject);
+        }
+
+        isLoad = true;
     }
 }

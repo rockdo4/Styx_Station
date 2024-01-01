@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     public Window[] windows;
 
     public GameObject panel;
+    public GameObject tutorial;
 
     public WindowType currentWindow;
 
@@ -681,6 +682,12 @@ public class UIManager : Singleton<UIManager>
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            var tu = tutorial.GetComponent<TutorialSystem>();
+            tu.playTutorial = true;
+            tu.StartTutorial();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if ((ButtonList.mainButton == ButtonType.Main))

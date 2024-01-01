@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
 
 public class PlayerStatsUiData : MonoBehaviour
 {

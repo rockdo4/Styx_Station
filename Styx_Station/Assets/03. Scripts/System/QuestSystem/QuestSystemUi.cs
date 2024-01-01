@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class QuestSystemUi : MonoBehaviour
 {
-    private Button questButton;
+    public Button questButton { get; private set; }
     private List<QuestTableDatas> questTableDatas;
     private List<QuestTableDatas> loopQuestTableDatas;
 
@@ -146,9 +146,6 @@ public class QuestSystemUi : MonoBehaviour
 
     private void GetReward()
     {
-       
-        
-
         var index = MakeTableData.Instance.currentQuestIndex;
         if (index < MakeTableData.Instance.questTable.questList.Count)
         {

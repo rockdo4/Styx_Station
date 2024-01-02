@@ -581,7 +581,7 @@ public class TutorialSystem : MonoBehaviour
         message = true;
 
         if (!mask[25].activeSelf)
-            mask[0].SetActive(true);
+            mask[25].SetActive(true);
 
         if (!textBox.activeSelf)
             textBox.SetActive(true);
@@ -1042,10 +1042,11 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
 
                         mask[25].SetActive(false);
+                        textBox.SetActive(false);
 
                         tutorialIndex++;
 
-                        mask[18].SetActive(true);
+                        mask[16].SetActive(true);
                     }
                     else if (message && !next)
                     {
@@ -1149,6 +1150,17 @@ public class TutorialSystem : MonoBehaviour
 
             mask[1].SetActive(true);
         }
+        else if(tutorialIndex == 32)
+        {
+            mask[8].SetActive(false);
+
+            UIManager.Instance.OnClickClose();
+
+            tutorialIndex++;
+
+            tutorial.SetActive(false);
+            playTutorial = false;
+        }
     }
 
     public void OnClickShop()
@@ -1248,7 +1260,7 @@ public class TutorialSystem : MonoBehaviour
     {
         if(tutorialIndex == 28)
         {
-            mask[14].SetActive(false);
+            mask[15].SetActive(false);
 
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
@@ -1264,7 +1276,7 @@ public class TutorialSystem : MonoBehaviour
     {
         if(tutorialIndex == 30)
         {
-            mask[18].SetActive(false);
+            mask[16].SetActive(false);
 
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
@@ -1272,6 +1284,23 @@ public class TutorialSystem : MonoBehaviour
 
             tutorialIndex++;
 
+            mask[17].SetActive(true);
+        }
+    }
+
+    public void OnClickItemInfoExit()
+    {
+        if(tutorialIndex == 31)
+        {
+            mask[17].SetActive(false);
+
+            var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
+
+            ui.OnClickCloseWeaponInfo();
+
+            tutorialIndex++;
+
+            mask[8].SetActive(true);
         }
     }
 }

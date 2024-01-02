@@ -7,16 +7,25 @@ using UnityEngine.UI;
 public class test1 : MonoBehaviour
 {
     public PlayerController playerController;
+    public Camera uiCamera;
     private void Awake()
     {
         Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
         UIManager.Instance.gameObject.SetActive(true);
+        // Áö¿ï°Í 
+        UIManager.Instance.gameObject.GetComponent<Canvas>().worldCamera = uiCamera;    
         UIManager.Instance.HpGauge = playerController.hpBar;
+        //
 
         //WaveManager.Instance.SetStageByIndexStage(GameData.stageData_WaveManager);
         //WaveManager.Instance.SetTileMap();
         //WaveManager.Instance.SetRepeat(GameData.isRepeatData_WaveManager);
 
+
+        
+    }
+    private void OnEnable()
+    {
         var state = StateSystem.Instance;
 
         state.TotalUpdate();
@@ -33,5 +42,9 @@ public class test1 : MonoBehaviour
         GameData.PetDataSetting();
         GameData.EquipPetDataSetting();
         UIManager.Instance.SetAutoSkillButton(GameData.isAutoData);
+
+
+        var button = UIManager.Instance.RepeatButton.transform.GetChild(3).GetComponent<Button>();
+        button.onClick.AddListener(() => WaveManager.Instance.SetRepeat(false));
     }
 }

@@ -48,10 +48,11 @@ public class ResultPlayerStats : MonoBehaviour
     }
     private void OnEnable()
     {
-        SharedPlayerStats.resultPlayerStats = this;
-        prevUpgradeHp = SharedPlayerStats.GetHp() - 1;
-        playerCurrentHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
-        playerMaxHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
+        //SharedPlayerStats.resultPlayerStats = this;
+
+        //prevUpgradeHp = SharedPlayerStats.GetHp() - 1;
+        //playerCurrentHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
+        //playerMaxHp = playerAttribute.MaxHp + (prevUpgradeHp * increaseUpgradeHp);
         //CurrentMaxHpSet();
         //playerCurrentHp = playerMaxHp;
     }

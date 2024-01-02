@@ -181,16 +181,18 @@ public class QuestSystemUi : MonoBehaviour
         questButton.interactable = false;
         SetQuestTextMeshProUGUI(data);
         questLevel.text = $"Quest {MakeTableData.Instance.currentQuestIndex + 1 + MakeTableData.Instance.loppCurrentQuestIndex:D2}";
+        var ui = UIManager.Instance.tutorial.GetComponent<TutorialSystem>();
         switch (currentQuestType)
         {
             case QuestType.EneyDeathCount:
                 SetDeathEnemyCount(data);
                 break;
             case QuestType.WaveClear:
-                SetWaveClearId(data);
+                SetWaveClearId(data);  
                 break;
             case QuestType.DungeonClear:
                 SetDungeonClear(data);
+
                 break;
             case QuestType.Gatcha:
                 SetGatcha(data);

@@ -13,9 +13,9 @@ public class test1 : MonoBehaviour
         UIManager.Instance.gameObject.SetActive(true);
         UIManager.Instance.HpGauge = playerController.hpBar;
 
-        WaveManager.Instance.SetStageByIndexStage(GameData.stageData_WaveManager);
-        WaveManager.Instance.SetTileMap();
-        WaveManager.Instance.SetRepeat(GameData.isRepeatData_WaveManager);
+        //WaveManager.Instance.SetStageByIndexStage(GameData.stageData_WaveManager);
+       // WaveManager.Instance.SetTileMap();
+        //WaveManager.Instance.SetRepeat(GameData.isRepeatData_WaveManager);
 
         var state = StateSystem.Instance;
 

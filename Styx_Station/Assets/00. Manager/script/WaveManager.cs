@@ -307,7 +307,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetTileMap()
     {
-        PrevLoadSetting(); 
+        //PrevLoadSetting(); 
         leftTileMaps[0].SetActive(false);
         rightTileMaps[0].SetActive(false);
 
@@ -545,11 +545,12 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     private void PrevLoadSetting()
     {
-        currStage = stageList.GetStage(0);
+        //currStage = stageList.GetStage(0);
+        SetStageByIndexStage(GameData.stageData_WaveManager);
 
-        CurrentStage = currStage.stageId;
-        CurrentWave = currStage.waveId;
-        CurrentChapter = currStage.chapterId;
+        //CurrentStage = currStage.stageId;
+       // CurrentWave = currStage.waveId;
+       // CurrentChapter = currStage.chapterId;
 
         for (int i = 0; i < Background.transform.childCount; i++)
         {
@@ -577,6 +578,9 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             rightTileMaps.Add(tileObjects[1].transform.GetChild(i).gameObject);
         }
 
+        SetTileMap();
+        SetRepeat(GameData.isRepeatData_WaveManager);
+        WaveManager.Instance.SetWavePanel();
         isLoad = true;
     }
 }

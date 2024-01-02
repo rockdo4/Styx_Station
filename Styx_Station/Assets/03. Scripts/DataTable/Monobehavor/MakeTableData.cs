@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MakeTableData : Singleton<MakeTableData>
@@ -53,7 +51,7 @@ public class MakeTableData : Singleton<MakeTableData>
 #if UNITY_ANDROID
     private void OnApplicationFocus(bool pauseStatus)
     {
-        if (!pauseStatus)
+        if (!pauseStatus && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LswGameScene")
         {
             gameSaveLoad.Save();
         }

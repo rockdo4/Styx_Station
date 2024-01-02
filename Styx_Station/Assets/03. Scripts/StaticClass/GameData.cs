@@ -30,7 +30,7 @@ public static class GameData
     public static int tic = 1000;
 
     public static LabBuffData labBuffData;
-    public static int labBuffDataPercent = 10;
+    public static int labBuffDataPercent = 100;
     private static int compensationTime;
 
     private static bool isBanchiCompensationTime;

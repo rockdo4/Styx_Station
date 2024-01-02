@@ -36,8 +36,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
     public int CurrentChapter { get; private set; } //현재 챕터
-    public int maxWaveLevel = 5; //최대 웨이브 레벨
-    public int maxStageLevel = 10; //최대 스테이지 레벨
+    //public int maxWaveLevel = 5; //최대 웨이브 레벨
+    //public int maxStageLevel = 10; //최대 스테이지 레벨
 
     private bool IsRepeating = false;
     public bool haveToChangeTile = false;
@@ -71,13 +71,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public BackgroundMusic BackgroundMusic;
 
-    //public StageTable.StageTableData StageData { get; private set; }
-
     private void Start()
     {
-        //var index = GameManager.instance.StageTable.GetIndex(CurrentChpater, CurrentStage, CurrentWave);
-
-        //StageData = GameManager.instance.StageTable.GetStageTableData(index);
         waitForSeconds = new WaitForSeconds(waitTime);
     }
 
@@ -86,7 +81,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         if(isWaveInProgress)
         {
             timer += Time.deltaTime;
-           // Debug.Log(timer);
             UIManager.Instance.SetTimerSlierValue((timeLimit - timer) / timeLimit);
             var timertext = FormatTime(timeLimit - timer);
             UIManager.Instance.SetTimerText(timertext);
@@ -156,13 +150,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             spawner.SpawnMonster(currStage.monster1.name,
                 currStage.monster1Count,
                 monName2,
-                //currStage.monster2.name,
                 currStage.monster2Count,
                 monName3,
-                //currStage.monster3.name,
                 currStage.monster3Count,
                 monName4,
-                //currStage.monster4.name,
                 currStage.monster4Count,
                 currStage.monsterAttackIncrease,
                 currStage.monsterHealthIncrease,
@@ -179,7 +170,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         spawner.stopSpawn();
         StopArrows();
         StartCoroutine(SetMonstersStop());
-        //StartCoroutine(SetArrowStop());
     }
 
     public void ChangeWave()
@@ -215,7 +205,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         MoveMonPosition();
         ScrollBackground(true);
         SetWavePanel();
-        //StartWave();
         UIManager.Instance.questSystemUi.ClearWave();
     }
 
@@ -336,7 +325,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     {
         if (CurrentChapter == 5 && CurrentStage == 5 && CurrentWave == 5) //최대 40 스테이지까지 제한
         {
-            //UIManager.Instance.questSystemUi.ClearWave();
             return;
         }
         CurrentWave++;
@@ -345,10 +333,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             CurrentWave = 1;
             UpdateCurrentStage();
         }
-        //if(CurrentWave > 4) //임시, 4번째 웨이브 계속 반복하도록
-        //{
-        //    CurrentWave = 4;
-        //}
         SetCurrentStageText();
     }
 

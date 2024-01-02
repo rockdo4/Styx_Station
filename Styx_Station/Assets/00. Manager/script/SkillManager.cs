@@ -65,7 +65,7 @@ public class SkillManager : Singleton<SkillManager>
     private SkillCool[] equipSkillFlags = new SkillCool[6];
     public List<SkillBase> skills = new List<SkillBase>(); //스킬 인벤토리의 skill index와 index 맞추기
     
-    private GameObject player;
+    public GameObject player;
 
     public GameObject tripleShotShooterPrefab;
     public GameObject ArrowRainShooterPrefab;

@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(playerStateManager.GetCurrentState());
         //Debug.Log(gameObject.GetComponent<ResultPlayerStats>().playerCurrentHp);
         playerStateManager.Update();
-        if (!IsStartTarget)
+        if (!IsStartTarget&&UIManager.Instance.gameObject.activeSelf)
         {
             StartMove();
         }

@@ -1,28 +1,37 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class test1 : MonoBehaviour
 {
+    public PlayerController playerController;
     private void Awake()
     {
-        // 현재 위치를 저장
-        Vector2 currentPosition = transform.position;
+        Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
+        UIManager.Instance.gameObject.SetActive(true);
+        UIManager.Instance.HpGauge = playerController.hpBar;
 
-        // 현재 방향 벡터 (오른쪽 방향)
-        Vector2 currentDirection = Vector2.right;
+        //WaveManager.Instance.SetStageByIndexStage(GameData.stageData_WaveManager);
+        //WaveManager.Instance.SetTileMap();
+        //WaveManager.Instance.SetRepeat(GameData.isRepeatData_WaveManager);
 
-        // 3도 위로 회전 (반시계 방향으로 회전)
-        Quaternion rotatedUp = Quaternion.Euler(0, 0, 3); // 반시계 방향으로 회전
+        var state = StateSystem.Instance;
 
-        // 3도 회전한 방향으로 이동 (길이가 10인 벡터)
-        Vector2 newDirection = rotatedUp * currentDirection;
+        state.TotalUpdate();
+        //WaveManager.Instance.SetWavePanel(); 
+        UIManager.Instance.BangchiOpen();
+        UIManager.Instance.OpenPlayerBuffInfo();
 
-        // 길이가 10인 벡터를 현재 위치에 더하여 새로운 위치를 얻음
-        Vector2 newPosition = currentPosition + newDirection.normalized * 10f;
+        MakeTableData.Instance.gameSaveLoad.waveManager = WaveManager.Instance;
+        MakeTableData.Instance.gameSaveLoad.skillManager = SkillManager.Instance;
 
-        // 새로운 위치로 이동
-        GameObject.Instantiate(gameObject, newPosition, Quaternion.identity);
-        //transform.position = newPosition;
+        GameData.EquipItemDataSetting();
+        GameData.SkillDataSetting();
+        GameData.EquipSkillDataSetting();
+        GameData.PetDataSetting();
+        GameData.EquipPetDataSetting();
+        UIManager.Instance.SetAutoSkillButton(GameData.isAutoData);
     }
 }

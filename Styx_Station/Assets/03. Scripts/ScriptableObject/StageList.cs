@@ -20,6 +20,10 @@ public class StageList : ScriptableObject
 
     public Stage GetStageByStageIndex(int stageIndex)
     {
+        if(stageIndex <=0)
+        {
+            stageIndex = table[0].index;
+        }
         for(int i = 0; i<table.Count;i++)
         {
             if (table[i].index == stageIndex)

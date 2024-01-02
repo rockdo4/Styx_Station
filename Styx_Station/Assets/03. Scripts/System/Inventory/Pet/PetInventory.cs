@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PetInventory : MonoBehaviour
 {
@@ -75,13 +76,16 @@ public class PetInventory : MonoBehaviour
             equipPets[equipIndex].equipIndex = -1;
         }
 
-        PetManager.Instance.ChagngePet(equipIndex, pets[petIndex]);
+        
+        if (SceneManager.GetActiveScene().name == "LswGameScene")
+        {
+            PetManager.Instance.ChagngePet(equipIndex, pets[petIndex]);
 
-        equipPets[equipIndex] = pets[petIndex];
-        pets[petIndex].equip = true;
-        pets[petIndex].equipIndex = equipIndex;
+            equipPets[equipIndex] = pets[petIndex];
+            pets[petIndex].equip = true;
+            pets[petIndex].equipIndex = equipIndex;
 
-        //pet 바꿔주는 코드 추가해야함 ...
+        }
     }
 
     public void DequipPet(int petIndex, int equipIndex)
@@ -110,12 +114,13 @@ public class PetInventory : MonoBehaviour
 
         if (equipPets[equipIndex].pet == null)
             return;
+        if (SceneManager.GetActiveScene().name == "LswGameScene")
+        {
+            PetManager.Instance.DequipPets(equipIndex);
 
-        PetManager.Instance.DequipPets(equipIndex);
-
-        pets[petIndex].equip = false;
-        pets[petIndex].equipIndex = -1;
-        equipPets[equipIndex] = null;
-        //빠질떄
+            pets[petIndex].equip = false;
+            pets[petIndex].equipIndex = -1;
+            equipPets[equipIndex] = null;
+        }
     }
 }

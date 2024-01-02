@@ -64,7 +64,7 @@ public class PlayerStatsUiData : MonoBehaviour
                 if (upgradePlayerStatsAction.TryGetValue(index, out var action))
                 {
                     action.Invoke();
-                   
+
                 }
                 if (button.interactable)
                 {
@@ -73,6 +73,14 @@ public class PlayerStatsUiData : MonoBehaviour
                 SetTextLevelAndPrice(index);
             }
         }
+    }
+    public void Tutorial()
+    {
+        if (upgradePlayerStatsAction.TryGetValue(0, out var action))
+        {
+            action.Invoke();
+        }
+        SetTextLevelAndPrice(0);
     }
     private void LateUpdate()
     {

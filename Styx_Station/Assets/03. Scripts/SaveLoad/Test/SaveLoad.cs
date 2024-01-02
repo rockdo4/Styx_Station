@@ -11,26 +11,27 @@ using System;
 public class SaveLoad : MonoBehaviour
 {
     private DiningRoomSystem diningRoomsystem;
-    private PlayerBuff playerbuff;
-    private WaveManager waveManager;
-    private ShopSystem shop;
-    private LabSystem labSystem;
-    private SkillManager skillManager;
+    public PlayerBuff playerbuff;
+    public WaveManager waveManager;
+    public ShopSystem shop;
+    public LabSystem labSystem;
+    public SkillManager skillManager;
     //12.26 이승우 추가
-    private UIManager UIManager;
-    private MakeTableData MakeTableData;
+    public UIManager UIManager;
+    public MakeTableData MakeTableData;
     private void Start()
     {
         playerbuff = PlayerBuff.Instance;
-        waveManager = WaveManager.Instance;
+        //waveManager = WaveManager.Instance;
         shop = ShopSystem.Instance;
         labSystem = LabSystem.Instance;
-        skillManager = SkillManager.Instance;
+        //skillManager = SkillManager.Instance;
         UIManager = UIManager.Instance;
         MakeTableData = MakeTableData.Instance;
     }
     public void Save()
     {
+        Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
 
         data.gameSaveDatas.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
@@ -154,10 +155,18 @@ public class SaveLoad : MonoBehaviour
 
         //data.gameSaveDatas.stageData = GameData.stageData;
 
-        data.gameSaveDatas.stageIndex = waveManager.GetCurrentIndex();
-        data.gameSaveDatas.isRepeat = waveManager.GetIsRepeat();
+        if(waveManager!=null)
+        {
+            data.gameSaveDatas.stageIndex = waveManager.GetCurrentIndex();
+            data.gameSaveDatas.isRepeat = waveManager.GetIsRepeat();
+        }
 
-        data.gameSaveDatas.isAuto = skillManager.isAuto;
+
+        if(skillManager!=null)
+        {
+            data.gameSaveDatas.isAuto = skillManager.isAuto;
+        }
+        
 
         if (diningRoomsystem != null)
         {
@@ -176,7 +185,7 @@ public class SaveLoad : MonoBehaviour
             data.gameSaveDatas.foodSelectUpgradeLevelUp = diningRoomsystem.selectFoodCount;
             data.gameSaveDatas.diningRoomTimer = diningRoomsystem.timer;
         }
-
+        
         data.gameSaveDatas.playerBuff = playerbuff.buffData;
         data.gameSaveDatas.buffFoddID = playerbuff.foodId.ToString();
 
@@ -218,10 +227,12 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.currentQuestSystemData = UIManager.questSystemUi.questData;
 
         SaveLoadSystem.JsonSave(data, "Test.json");
-        Debug.Log("Save");
+        //Debug.Log("Save");
+        Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
     }
     public void Load()
     {
+      
         if (diningRoomsystem == null)
         {
             diningRoomsystem = DiningRoomSystem.Instance;
@@ -314,56 +325,58 @@ public class SaveLoad : MonoBehaviour
                     }
                 }
 
-                var uiInvenvtory = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>();
-                uiInvenvtory.Setting();
-                var uiSkill = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[2].GetComponent<SkillWindow>();
-                uiSkill.Setting();
-                var uiPet = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[3].GetComponent<PetWindow>();
-                uiPet.Setting();
+                //var uiInvenvtory = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>();
+                //uiInvenvtory.Setting();
+                //var uiSkill = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[2].GetComponent<SkillWindow>();
+                //uiSkill.Setting();
+                //var uiPet = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[3].GetComponent<PetWindow>();
+                //uiPet.Setting();
 
                 if (gameSaveDatas["equipItem"] is JToken equipToken)
                 {
                     string equipItem = equipToken.ToString();
                     var equipItemData = JsonConvert.DeserializeObject<List<EquipData>>(equipItem);
 
-                    var weaponInfo = uiInvenvtory.inventoryTypes[0].gameObject.GetComponent<WeaponType>().info.GetComponent<WeaponEquipInfoUi>();
-                    var armorInfo = uiInvenvtory.inventoryTypes[1].gameObject.GetComponent<ArmorType>().info.GetComponent<ArmorEquipInfoUi>();
+                    GameData.equipItemData = equipItemData;
 
-                    foreach (var item in equipItemData)
-                    {
-                        switch (item.itemType)
-                        {
-                            case ItemType.Weapon:
-                                var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                                if (weapon != null)
-                                {
-                                    weaponInfo.selectIndex = weapon.index;
-                                    weaponInfo.OnClickWeaponEquip();
-                                }
-                                break;
+                    //var weaponInfo = uiInvenvtory.inventoryTypes[0].gameObject.GetComponent<WeaponType>().info.GetComponent<WeaponEquipInfoUi>();
+                    //var armorInfo = uiInvenvtory.inventoryTypes[1].gameObject.GetComponent<ArmorType>().info.GetComponent<ArmorEquipInfoUi>();
 
-                            case ItemType.Armor:
-                                var armor = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                                if (armor != null)
-                                {
-                                    armorInfo.selectIndex = armor.index;
-                                    armorInfo.OnClickArmorEquip();
-                                }
-                                break;
+                    //foreach (var item in equipItemData)
+                    //{
+                    //    switch (item.itemType)
+                    //    {
+                    //        case ItemType.Weapon:
+                    //            var weapon = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                    //            if (weapon != null)
+                    //            {
+                    //                weaponInfo.selectIndex = weapon.index;
+                    //                weaponInfo.OnClickWeaponEquip();
+                    //            }
+                    //            break;
 
-                            case ItemType.Ring:
-                                var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
-                                if (ring != null)
-                                    inventory.EquipItem(ring.item.index, item.itemType);
-                                break;
+                    //        case ItemType.Armor:
+                    //            var armor = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
+                    //            if (armor != null)
+                    //            {
+                    //                armorInfo.selectIndex = armor.index;
+                    //                armorInfo.OnClickArmorEquip();
+                    //            }
+                    //            break;
 
-                            case ItemType.Symbol:
-                                var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
-                                if (symbol != null)
-                                    inventory.EquipItem(symbol.item.index, item.itemType);
-                                break;
-                        }
-                    }
+                    //        case ItemType.Ring:
+                    //            var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
+                    //            if (ring != null)
+                    //                inventory.EquipItem(ring.item.index, item.itemType);
+                    //            break;
+
+                    //        case ItemType.Symbol:
+                    //            var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
+                    //            if (symbol != null)
+                    //                inventory.EquipItem(symbol.item.index, item.itemType);
+                    //            break;
+                    //    }
+                    //}
                 }
                 var skillInventory = InventorySystem.Instance.skillInventory;
 
@@ -371,34 +384,36 @@ public class SaveLoad : MonoBehaviour
                 {
                     string skills = skillToken.ToString();
                     var sData = JsonConvert.DeserializeObject<List<SkillData>>(skills);
-                    foreach (var skill in sData)
-                    {
-                        var skillData = skillInventory.skills.Where(x => x.skill.name == skill.skillName).FirstOrDefault();
-                        if (skillData != null)
-                        {
-                            skillData.upgradeLev = skill.skillLevel;
-                            skillData.acquire = skill.acquire;
-                            skillData.stock = skill.stock;
-                        }
-                    }
+                    GameData.sData = sData;
+                    //foreach (var skill in sData)
+                    //{
+                    //    var skillData = skillInventory.skills.Where(x => x.skill.name == skill.skillName).FirstOrDefault();
+                    //    if (skillData != null)
+                    //    {
+                    //        skillData.upgradeLev = skill.skillLevel;
+                    //        skillData.acquire = skill.acquire;
+                    //        skillData.stock = skill.stock;
+                    //    }
+                    //}
                 }
 
                 if (gameSaveDatas["equipSkill"] is JToken equipSkillToken)
                 {
                     string equipSkill = equipSkillToken.ToString();
                     var equipSkillData = JsonConvert.DeserializeObject<List<EquipSkillData>>(equipSkill);
-                    foreach (var equip in equipSkillData)
-                    {
-                        var skill = skillInventory.skills.Where(x => x.skill.name == equip.skillName).FirstOrDefault();
-                        if (skill != null)
-                        {
-                            uiSkill.selectIndex = skill.skillIndex;
-                            uiSkill.equipMode = true;
-                            uiSkill.equipButtons[equip.equipIndex].GetComponent<NormalButton>().OnClickEquip(uiSkill);
-                            uiSkill.selectIndex = -1;
-                        }
-                    }
-                    UIManager.Instance.SkillButtonOn();
+                    GameData.equipSkillDatas =equipSkillData;
+                    //foreach (var equip in equipSkillData)
+                    //{
+                    //    var skill = skillInventory.skills.Where(x => x.skill.name == equip.skillName).FirstOrDefault();
+                    //    if (skill != null)
+                    //    {
+                    //        uiSkill.selectIndex = skill.skillIndex;
+                    //        uiSkill.equipMode = true;
+                    //        uiSkill.equipButtons[equip.equipIndex].GetComponent<NormalButton>().OnClickEquip(uiSkill);
+                    //        uiSkill.selectIndex = -1;
+                    //    }
+                    //}
+                    //UIManager.Instance.SkillButtonOn();
                 }
                 var petInventory = InventorySystem.Instance.petInventory;
 
@@ -406,30 +421,32 @@ public class SaveLoad : MonoBehaviour
                 {
                     string pets = petToken.ToString();
                     var pData = JsonConvert.DeserializeObject<List<PetData>>(pets);
-                    foreach (var pet in pData)
-                    {
-                        var petData = petInventory.pets.Where(x => x.pet.name == pet.petName).FirstOrDefault();
-                        if (petData != null)
-                        {
-                            petData.upgradeLev = pet.petLevel;
-                            petData.acquire = pet.acquire;
-                            petData.stock = pet.stock;
-                        }
-                    }
+                    GameData.pData = pData;
+                    //foreach (var pet in pData)
+                    //{
+                    //    var petData = petInventory.pets.Where(x => x.pet.name == pet.petName).FirstOrDefault();
+                    //    if (petData != null)
+                    //    {
+                    //        petData.upgradeLev = pet.petLevel;
+                    //        petData.acquire = pet.acquire;
+                    //        petData.stock = pet.stock;
+                    //    }
+                    //}
                 }
 
                 if (gameSaveDatas["equipPet"] is JToken equipPetToken)
                 {
                     string equipPet = equipPetToken.ToString();
                     var equipPetData = JsonConvert.DeserializeObject<List<EquipPetData>>(equipPet);
-                    foreach (var equip in equipPetData)
-                    {
-                        var pet = petInventory.pets.Where(x => x.pet.name == equip.petName).FirstOrDefault();
-                        if (pet != null)
-                        {
-                            petInventory.EquipPet(pet.petIndex, equip.equipIndex);
-                        }
-                    }
+                    GameData.equipPetData = equipPetData;
+                    //foreach (var equip in equipPetData)
+                    //{
+                    //    var pet = petInventory.pets.Where(x => x.pet.name == equip.petName).FirstOrDefault();
+                    //    if (pet != null)
+                    //    {
+                    //        petInventory.EquipPet(pet.petIndex, equip.equipIndex);
+                    //    }
+                    //}
                 }
 
 
@@ -585,9 +602,9 @@ public class SaveLoad : MonoBehaviour
                     string str = stageIndex.ToString();
                     var stageData = JsonConvert.DeserializeObject<int>(str);
 
-                    WaveManager.Instance.SetStageByIndexStage(stageData);
-                    WaveManager.Instance.SetTileMap();
-                    //WaveManager.Instance.SetWavePanel();
+                    GameData.stageData_WaveManager = stageData;
+                    //WaveManager.Instance.SetStageByIndexStage(stageData);
+                    //WaveManager.Instance.SetTileMap();
                 }
 
                 if (gameSaveDatas["language"] is JToken languageToken)
@@ -599,12 +616,10 @@ public class SaveLoad : MonoBehaviour
 
                 if (gameSaveDatas["isRepeat"] is JToken isRepeat)
                 {
-                    //string str = isRepeat.ToString();
-                    //var isRepeatData = JsonConvert.DeserializeObject<bool>(str);
                     var isRepeatData = isRepeat.Value<bool>();
 
-                    //UIManager.Instance.SetActiveRepeatButton(isRepeatData);
-                    WaveManager.Instance.SetRepeat(isRepeatData);
+                    GameData.isRepeatData_WaveManager = isRepeatData;
+                    //WaveManager.Instance.SetRepeat(isRepeatData);
                 }
 
                 if (gameSaveDatas["isAuto"] is JToken isAuto)
@@ -612,8 +627,8 @@ public class SaveLoad : MonoBehaviour
                     //string str = isRepeat.ToString();
                     //var isRepeatData = JsonConvert.DeserializeObject<bool>(str);
                     var isAutoData = isAuto.Value<bool>();
-
-                    UIManager.Instance.SetAutoSkillButton(isAutoData);
+                    GameData.isAutoData=isAutoData;
+                    //UIManager.Instance.SetAutoSkillButton(isAutoData);
                 }
 
                 if (gameSaveDatas["Re001_Lab_SaveDatas"] is JToken labATK1)
@@ -736,11 +751,11 @@ public class SaveLoad : MonoBehaviour
             }
         }
 
-        var state = StateSystem.Instance;
+        //var state = StateSystem.Instance;
 
-        state.TotalUpdate();
-        WaveManager.Instance.SetWavePanel(); //나중에 타이틀 씬으로 옮기기
-        UIManager.Instance.BangchiOpen();
-        UIManager.Instance.OpenPlayerBuffInfo();
+        //state.TotalUpdate();
+        //WaveManager.Instance.SetWavePanel(); //나중에 타이틀 씬으로 옮기기
+        //UIManager.Instance.BangchiOpen();
+        //UIManager.Instance.OpenPlayerBuffInfo();
     }
 }

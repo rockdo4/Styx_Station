@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class MakeTableData : Singleton<MakeTableData>
 {
-    private SaveLoad gameSaveLoad;
+    [HideInInspector] public  SaveLoad gameSaveLoad;
     [HideInInspector] public StringTable stringTable;
     [HideInInspector] public DiningTable diningRoomTable;
     [HideInInspector] public StageTable stageTable;
@@ -12,10 +11,15 @@ public class MakeTableData : Singleton<MakeTableData>
     [HideInInspector] public QuestListTable questTable;
     public int currentQuestIndex = 0;
     public int loppCurrentQuestIndex = 0;
+
     private void Awake()
     {
         gameSaveLoad = gameObject.AddComponent<SaveLoad>();
+        
+        Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
+        UIManager.Instance.gameObject.SetActive(false);
         gameSaveLoad.Load();
+        Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
     }
     private void Start()
     {
@@ -37,11 +41,20 @@ public class MakeTableData : Singleton<MakeTableData>
       
     }
     private void OnApplicationQuit() => gameSaveLoad.Save();
+
+
+    private void OnApplicationPause(bool pause)
+    {
+        
+    }
+
+#if UNITY_ANDROID
     private void OnApplicationFocus(bool pauseStatus)
     {
-        if (!pauseStatus)
+        if (!pauseStatus && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LswGameScene")
         {
             gameSaveLoad.Save();
         }
     }
+#endif
 }

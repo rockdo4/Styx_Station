@@ -4639,7 +4639,9 @@ GameObject:
   m_Component:
   - component: {fileID: 116018559}
   - component: {fileID: 116018560}
-  m_Layer: 0
+  - component: {fileID: 116018562}
+  - component: {fileID: 116018561}
+  m_Layer: 28
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4708,6 +4710,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.66667, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &116018561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116018558}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251f4bf591c784f4bb120e3e62ab74af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+--- !u!114 &116018562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116018558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc70847487b34d4695f60ad644f79bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {fileID: 2082239961}
+  centerPos: {x: 0, y: 0}
 --- !u!1 &117405199
 GameObject:
   m_ObjectHideFlags: 0
@@ -6542,7 +6571,8 @@ GameObject:
   - component: {fileID: 145167712}
   - component: {fileID: 145167714}
   - component: {fileID: 145167713}
-  m_Layer: 0
+  - component: {fileID: 145167715}
+  m_Layer: 28
   m_Name: Clean 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6796,6 +6826,51 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!61 &145167715
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 145167711}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -1.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 12, y: 3}
+  m_EdgeRadius: 0
 --- !u!1 &146787852
 GameObject:
   m_ObjectHideFlags: 0
@@ -11892,7 +11967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 259167431}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: BackVillage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12136,7 +12211,7 @@ GameObject:
   - component: {fileID: 265205183}
   - component: {fileID: 265205185}
   - component: {fileID: 265205184}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Clean 1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13931,7 +14006,7 @@ GameObject:
   - component: {fileID: 283357392}
   - component: {fileID: 283357394}
   - component: {fileID: 283357393}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17515,7 +17590,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 375115939}
-  m_Layer: 0
+  - component: {fileID: 375115941}
+  - component: {fileID: 375115940}
+  - component: {fileID: 375115942}
+  m_Layer: 28
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17539,6 +17617,78 @@ Transform:
   - {fileID: 470830688}
   m_Father: {fileID: 684279450}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &375115940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375115938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc70847487b34d4695f60ad644f79bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {fileID: 375115939}
+  centerPos: {x: 0, y: 0}
+--- !u!114 &375115941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375115938}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251f4bf591c784f4bb120e3e62ab74af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+--- !u!61 &375115942
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375115938}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.5, y: 1.12}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 12, y: 3}
+  m_EdgeRadius: 0
 --- !u!1 &375629312
 GameObject:
   m_ObjectHideFlags: 0
@@ -19346,7 +19496,7 @@ GameObject:
   - component: {fileID: 413487989}
   - component: {fileID: 413487991}
   - component: {fileID: 413487990}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22431,7 +22581,7 @@ GameObject:
   - component: {fileID: 470830688}
   - component: {fileID: 470830690}
   - component: {fileID: 470830689}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Clean 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22921,7 +23071,7 @@ GameObject:
   - component: {fileID: 473316726}
   - component: {fileID: 473316728}
   - component: {fileID: 473316727}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24640,7 +24790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 497368514}
   - component: {fileID: 497368515}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: T_Rural_Windmill_7 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28806,6 +28956,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9709145c1a15c94b988c2449f5705ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerbuff: {fileID: 0}
+  waveManager: {fileID: 0}
+  shop: {fileID: 0}
+  labSystem: {fileID: 0}
+  skillManager: {fileID: 0}
+  UIManager: {fileID: 0}
+  MakeTableData: {fileID: 0}
 --- !u!1 &594318172
 GameObject:
   m_ObjectHideFlags: 0
@@ -32534,7 +32691,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684279450}
   - component: {fileID: 684279449}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: TileMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35247,7 +35404,7 @@ GameObject:
   - component: {fileID: 737480592}
   - component: {fileID: 737480594}
   - component: {fileID: 737480593}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43342,7 +43499,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 927989827}
-  m_Layer: 0
+  - component: {fileID: 927989829}
+  - component: {fileID: 927989828}
+  - component: {fileID: 927989830}
+  m_Layer: 28
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43366,6 +43526,78 @@ Transform:
   - {fileID: 265205183}
   m_Father: {fileID: 684279450}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &927989828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927989826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc70847487b34d4695f60ad644f79bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {fileID: 375115939}
+  centerPos: {x: 0, y: 0}
+--- !u!114 &927989829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927989826}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251f4bf591c784f4bb120e3e62ab74af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+--- !u!61 &927989830
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927989826}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1.12}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 12, y: 3}
+  m_EdgeRadius: 0
 --- !u!1 &929836886
 GameObject:
   m_ObjectHideFlags: 0
@@ -45490,7 +45722,7 @@ GameObject:
   - component: {fileID: 975953822}
   - component: {fileID: 975953824}
   - component: {fileID: 975953823}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47813,7 +48045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7216572250707090445, guid: e4e2249845be069478978c56117f318d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8120313100823373966, guid: e4e2249845be069478978c56117f318d, type: 3}
       propertyPath: m_Name
@@ -48143,6 +48375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa10f2ce065cc974dbfabdeb9292cab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxWaveLevel: 5
+  maxStageLevel: 10
   haveToChangeTile: 0
   spawner: {fileID: 644709681}
   aliveMonsterCount: 0
@@ -48158,8 +48392,72 @@ MonoBehaviour:
   - {fileID: 1459551133}
   timeLimit: 0
   timer: 0
+  isWaveInPro: 0
   isWaveInProgress: 0
   BackgroundMusic: {fileID: 1393207230}
+  isBossRush: 1
+  stages:
+  - {fileID: 11400000, guid: 49d4a85b3beba4a48a2f537ab14e60be, type: 2}
+  - {fileID: 11400000, guid: 5e2aaa39a81e5b047ad4a4424003b000, type: 2}
+  - {fileID: 11400000, guid: 13881d1b5a063df4c8f503b622d627c0, type: 2}
+  - {fileID: 11400000, guid: d3b964fcaafc0514393340d6b24a28bc, type: 2}
+  - {fileID: 11400000, guid: 2a6905ac512743547a61388db486c400, type: 2}
+  - {fileID: 11400000, guid: 54ea820f3f3b0f748aa0336cceaf7a58, type: 2}
+  - {fileID: 11400000, guid: dc856a2c718663248b682bc02c793ad7, type: 2}
+  - {fileID: 11400000, guid: 631013c91552622498ff371576c79770, type: 2}
+  - {fileID: 11400000, guid: c959a00860f680f468442fb23299a9e4, type: 2}
+  - {fileID: 11400000, guid: 4652820f79cc75d4a99c5e9e5c62e650, type: 2}
+  - {fileID: 11400000, guid: e9918e5267e0ac64ca5787b67d920d2a, type: 2}
+  - {fileID: 11400000, guid: fae1871a2546d244389f8d181e715bc9, type: 2}
+  - {fileID: 11400000, guid: f3aacd7e59cbb7c4398749ed97781a49, type: 2}
+  - {fileID: 11400000, guid: 2fb534dd2606ba1448afe4f4b0d5e7a1, type: 2}
+  - {fileID: 11400000, guid: a2278712ebae1b74396eb4bcb3bce09c, type: 2}
+  - {fileID: 11400000, guid: 44d6199b49dc31849a345ee45b7f0b0b, type: 2}
+  - {fileID: 11400000, guid: 9b28f245c2b6bf34dacebb682bd5b2b6, type: 2}
+  - {fileID: 11400000, guid: 1a2083eea68e9d44db264ef15c7a4f39, type: 2}
+  - {fileID: 11400000, guid: 3f8c51a3bc33bdb458beb2bd96ac3d62, type: 2}
+  - {fileID: 11400000, guid: c54f44fdaa24d274fa894adb6b462392, type: 2}
+  - {fileID: 11400000, guid: fdf75f32f0f620c4e894654e2d20abc0, type: 2}
+  - {fileID: 11400000, guid: bf1145e723b4de042bc7863f93790df4, type: 2}
+  - {fileID: 11400000, guid: e1be8b8e00a087d40b697895523619ca, type: 2}
+  - {fileID: 11400000, guid: ec15e2cb65aeca74f8f9d09b08026274, type: 2}
+  - {fileID: 11400000, guid: 7256c795480534e47977571b3940f2dd, type: 2}
+  - {fileID: 11400000, guid: 86aeb35c8482378439bd01c735d7e53d, type: 2}
+  - {fileID: 11400000, guid: 69b3f88def0e5414ea086318a0573e7a, type: 2}
+  - {fileID: 11400000, guid: d961fa5463887d2478ae9dff81b87c6b, type: 2}
+  - {fileID: 11400000, guid: 80426a242a2ce9c49839c3c4e7d47cff, type: 2}
+  - {fileID: 11400000, guid: 7ac6decd2fbe7cc4390d43f7a5c31277, type: 2}
+  - {fileID: 11400000, guid: 35d7ab1c60ba01b469548b572b1a5e3e, type: 2}
+  - {fileID: 11400000, guid: 733f347744f998a47bde48ef55768fe4, type: 2}
+  - {fileID: 11400000, guid: d9cc7125aebcea94c9beb8231d7f4e3a, type: 2}
+  - {fileID: 11400000, guid: 62c6d709a7d8ef142a75175b060496f4, type: 2}
+  - {fileID: 11400000, guid: e10a54f331ec8c142908fcd318d2cc19, type: 2}
+  - {fileID: 11400000, guid: eac34a254eb1fd247b52303f63bbe89e, type: 2}
+  - {fileID: 11400000, guid: 179554672c84a394fa3184bce347079e, type: 2}
+  - {fileID: 11400000, guid: 16f600cbe63ac134ab33d5c180059306, type: 2}
+  - {fileID: 11400000, guid: 09e05adab6a18e14c957a85c7668d2a9, type: 2}
+  - {fileID: 11400000, guid: 20362df50fd4d104ab5832717856d8c2, type: 2}
+  - {fileID: 11400000, guid: bcf9c585b28ec8c4a971201ed63d18a1, type: 2}
+  - {fileID: 11400000, guid: f49f1637c40dc924cb143bea3e81a819, type: 2}
+  - {fileID: 11400000, guid: bcbb5d08dc5467c46b3f6a464fd7efd5, type: 2}
+  - {fileID: 11400000, guid: a7ada63d33ebb7640bb376219fda3a49, type: 2}
+  - {fileID: 11400000, guid: d03166bcb935ad841be1c26acef35c2a, type: 2}
+  - {fileID: 11400000, guid: a45249f0b23704a49a556b4f986eb736, type: 2}
+  - {fileID: 11400000, guid: 3c71ab7d175d5b049b6cd80977f6ac5e, type: 2}
+  - {fileID: 11400000, guid: 32a07056efc92fa4da548fcfae40bbd4, type: 2}
+  - {fileID: 11400000, guid: 2ab1062655df14f46ad56cd5a9ba8884, type: 2}
+  - {fileID: 11400000, guid: 465776aa50adbbb4785733ebe2e4c580, type: 2}
+  - {fileID: 11400000, guid: 5d157b91e9f635d4a99a426d214be169, type: 2}
+  - {fileID: 11400000, guid: faf845e0c5bde45409fd5c6b9b7ab18b, type: 2}
+  - {fileID: 11400000, guid: 44fa6a792a9d6aa42962d7ca7b7fc774, type: 2}
+  - {fileID: 11400000, guid: 0d0cdc51866b324448766f244bdd0eef, type: 2}
+  - {fileID: 11400000, guid: 497ca61d8d22b04429d402c36d0c697e, type: 2}
+  - {fileID: 11400000, guid: 1da9218e0689d8d4cbc3fb7b98eb6425, type: 2}
+  - {fileID: 11400000, guid: 174616ffa5215fc4dace8b7824eddb1d, type: 2}
+  - {fileID: 11400000, guid: 6026ba439ad06e640827c0d8357f7b23, type: 2}
+  - {fileID: 11400000, guid: 9f2a90409c2ac7c4985ecf29c603d608, type: 2}
+  - {fileID: 11400000, guid: 6dedd7c785d59f7459c269b40a50d5c6, type: 2}
+  currStageList: {fileID: 0}
 --- !u!4 &1016353212
 Transform:
   m_ObjectHideFlags: 0
@@ -48190,7 +48488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1017520124}
   - component: {fileID: 1017520125}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: T_Rural_Windmill_1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49938,6 +50236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9271835511bfb8945aa60f40d47e61c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSaveLoad: {fileID: 0}
   currentQuestIndex: 0
   loppCurrentQuestIndex: 0
 --- !u!4 &1045537889
@@ -51491,7 +51790,7 @@ GameObject:
   - component: {fileID: 1084328468}
   - component: {fileID: 1084328470}
   - component: {fileID: 1084328469}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61772,7 +62071,7 @@ GameObject:
   - component: {fileID: 1305034497}
   - component: {fileID: 1305034499}
   - component: {fileID: 1305034498}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Clean 1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67002,7 +67301,7 @@ GameObject:
   - component: {fileID: 1419295463}
   - component: {fileID: 1419295465}
   - component: {fileID: 1419295464}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69171,7 +69470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459551134}
   - component: {fileID: 1459551135}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: T_Rural_Windmill_7 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77473,79 +77772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e729332a183f249b894a27c445a794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stages:
-  - {fileID: 11400000, guid: 49d4a85b3beba4a48a2f537ab14e60be, type: 2}
-  - {fileID: 11400000, guid: 5e2aaa39a81e5b047ad4a4424003b000, type: 2}
-  - {fileID: 11400000, guid: 13881d1b5a063df4c8f503b622d627c0, type: 2}
-  - {fileID: 11400000, guid: d3b964fcaafc0514393340d6b24a28bc, type: 2}
-  - {fileID: 11400000, guid: 2a6905ac512743547a61388db486c400, type: 2}
-  - {fileID: 11400000, guid: 54ea820f3f3b0f748aa0336cceaf7a58, type: 2}
-  - {fileID: 11400000, guid: dc856a2c718663248b682bc02c793ad7, type: 2}
-  - {fileID: 11400000, guid: 631013c91552622498ff371576c79770, type: 2}
-  - {fileID: 11400000, guid: c959a00860f680f468442fb23299a9e4, type: 2}
-  - {fileID: 11400000, guid: 4652820f79cc75d4a99c5e9e5c62e650, type: 2}
-  - {fileID: 11400000, guid: e9918e5267e0ac64ca5787b67d920d2a, type: 2}
-  - {fileID: 11400000, guid: fae1871a2546d244389f8d181e715bc9, type: 2}
-  - {fileID: 11400000, guid: f3aacd7e59cbb7c4398749ed97781a49, type: 2}
-  - {fileID: 11400000, guid: 2fb534dd2606ba1448afe4f4b0d5e7a1, type: 2}
-  - {fileID: 11400000, guid: a2278712ebae1b74396eb4bcb3bce09c, type: 2}
-  - {fileID: 11400000, guid: 44d6199b49dc31849a345ee45b7f0b0b, type: 2}
-  - {fileID: 11400000, guid: 9b28f245c2b6bf34dacebb682bd5b2b6, type: 2}
-  - {fileID: 11400000, guid: 1a2083eea68e9d44db264ef15c7a4f39, type: 2}
-  - {fileID: 11400000, guid: 3f8c51a3bc33bdb458beb2bd96ac3d62, type: 2}
-  - {fileID: 11400000, guid: c54f44fdaa24d274fa894adb6b462392, type: 2}
-  - {fileID: 11400000, guid: fdf75f32f0f620c4e894654e2d20abc0, type: 2}
-  - {fileID: 11400000, guid: bf1145e723b4de042bc7863f93790df4, type: 2}
-  - {fileID: 11400000, guid: e1be8b8e00a087d40b697895523619ca, type: 2}
-  - {fileID: 11400000, guid: ec15e2cb65aeca74f8f9d09b08026274, type: 2}
-  - {fileID: 11400000, guid: 7256c795480534e47977571b3940f2dd, type: 2}
-  - {fileID: 11400000, guid: 86aeb35c8482378439bd01c735d7e53d, type: 2}
-  - {fileID: 11400000, guid: 69b3f88def0e5414ea086318a0573e7a, type: 2}
-  - {fileID: 11400000, guid: d961fa5463887d2478ae9dff81b87c6b, type: 2}
-  - {fileID: 11400000, guid: 80426a242a2ce9c49839c3c4e7d47cff, type: 2}
-  - {fileID: 11400000, guid: 7ac6decd2fbe7cc4390d43f7a5c31277, type: 2}
-  - {fileID: 11400000, guid: 35d7ab1c60ba01b469548b572b1a5e3e, type: 2}
-  - {fileID: 11400000, guid: 733f347744f998a47bde48ef55768fe4, type: 2}
-  - {fileID: 11400000, guid: d9cc7125aebcea94c9beb8231d7f4e3a, type: 2}
-  - {fileID: 11400000, guid: 62c6d709a7d8ef142a75175b060496f4, type: 2}
-  - {fileID: 11400000, guid: e10a54f331ec8c142908fcd318d2cc19, type: 2}
-  - {fileID: 11400000, guid: eac34a254eb1fd247b52303f63bbe89e, type: 2}
-  - {fileID: 11400000, guid: 179554672c84a394fa3184bce347079e, type: 2}
-  - {fileID: 11400000, guid: 16f600cbe63ac134ab33d5c180059306, type: 2}
-  - {fileID: 11400000, guid: 09e05adab6a18e14c957a85c7668d2a9, type: 2}
-  - {fileID: 11400000, guid: 20362df50fd4d104ab5832717856d8c2, type: 2}
-  - {fileID: 11400000, guid: bcf9c585b28ec8c4a971201ed63d18a1, type: 2}
-  - {fileID: 11400000, guid: f49f1637c40dc924cb143bea3e81a819, type: 2}
-  - {fileID: 11400000, guid: bcbb5d08dc5467c46b3f6a464fd7efd5, type: 2}
-  - {fileID: 11400000, guid: a7ada63d33ebb7640bb376219fda3a49, type: 2}
-  - {fileID: 11400000, guid: d03166bcb935ad841be1c26acef35c2a, type: 2}
-  - {fileID: 11400000, guid: a45249f0b23704a49a556b4f986eb736, type: 2}
-  - {fileID: 11400000, guid: 3c71ab7d175d5b049b6cd80977f6ac5e, type: 2}
-  - {fileID: 11400000, guid: 32a07056efc92fa4da548fcfae40bbd4, type: 2}
-  - {fileID: 11400000, guid: 2ab1062655df14f46ad56cd5a9ba8884, type: 2}
-  - {fileID: 11400000, guid: 465776aa50adbbb4785733ebe2e4c580, type: 2}
-  - {fileID: 11400000, guid: 5d157b91e9f635d4a99a426d214be169, type: 2}
-  - {fileID: 11400000, guid: faf845e0c5bde45409fd5c6b9b7ab18b, type: 2}
-  - {fileID: 11400000, guid: 44fa6a792a9d6aa42962d7ca7b7fc774, type: 2}
-  - {fileID: 11400000, guid: 0d0cdc51866b324448766f244bdd0eef, type: 2}
-  - {fileID: 11400000, guid: 497ca61d8d22b04429d402c36d0c697e, type: 2}
-  - {fileID: 11400000, guid: 1da9218e0689d8d4cbc3fb7b98eb6425, type: 2}
-  - {fileID: 11400000, guid: 174616ffa5215fc4dace8b7824eddb1d, type: 2}
-  - {fileID: 11400000, guid: 6026ba439ad06e640827c0d8357f7b23, type: 2}
-  - {fileID: 11400000, guid: 9f2a90409c2ac7c4985ecf29c603d608, type: 2}
-  - {fileID: 11400000, guid: 6dedd7c785d59f7459c269b40a50d5c6, type: 2}
-  currStageList: {fileID: 0}
-  currStage: {fileID: 0}
-  spawner: {fileID: 0}
-  aliveMonsterCount: 0
-  Background: {fileID: 0}
-  village: {fileID: 0}
-  leftVillage: []
-  rightVillage: []
-  timeLimit: 0
-  timer: 0
-  isWaveInProgress: 0
-  BackgroundMusic: {fileID: 0}
 --- !u!1 &1625610483
 GameObject:
   m_ObjectHideFlags: 0
@@ -79825,7 +80051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1683398678
 RectTransform:
   m_ObjectHideFlags: 0
@@ -84169,6 +84395,7 @@ GameObject:
   - component: {fileID: 1781966723}
   - component: {fileID: 1781966722}
   - component: {fileID: 1781966725}
+  - component: {fileID: 1781966726}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -84263,6 +84490,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1781966723}
+--- !u!114 &1781966726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781966721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5f8ca4b7567cb46b6a51abf6a4d6aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1784338410
 GameObject:
   m_ObjectHideFlags: 0
@@ -87023,7 +87262,7 @@ GameObject:
   - component: {fileID: 1834082138}
   - component: {fileID: 1834082140}
   - component: {fileID: 1834082139}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: Tilemap (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92276,6 +92515,7 @@ MonoBehaviour:
   - {fileID: 2058706334}
   - {fileID: 468744009}
   panel: {fileID: 0}
+  tutorial: {fileID: 0}
   currentWindow: 0
   windowButtons:
   - {fileID: 1925183412}
@@ -92426,12 +92666,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a10bee612a5d844ea4ca412554eb047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shop: 0
   dining: 0
   lab: 0
   clean: 0
   failrue: 0
-  TutorialWindow: {fileID: 1519523099}
-  TutorialFinger: {fileID: 401854945}
+  tutorialIndex: 0
+  tutorial: {fileID: 0}
+  playTutorial: 0
+  mask: []
+  textBox: {fileID: 0}
+  crewName: {fileID: 0}
+  crewText: {fileID: 0}
 --- !u!1 &1936350045
 GameObject:
   m_ObjectHideFlags: 0
@@ -101081,7 +101327,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2082239961}
   - component: {fileID: 2082239962}
-  m_Layer: 0
+  - component: {fileID: 2082239964}
+  - component: {fileID: 2082239963}
+  m_Layer: 28
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101150,6 +101398,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 10.66667, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2082239963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082239960}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251f4bf591c784f4bb120e3e62ab74af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+--- !u!114 &2082239964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082239960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afc70847487b34d4695f60ad644f79bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  center: {fileID: 2082239961}
+  centerPos: {x: 0, y: 0}
 --- !u!1 &2083095912
 GameObject:
   m_ObjectHideFlags: 0
@@ -101235,7 +101510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2085062577}
   - component: {fileID: 2085062578}
-  m_Layer: 0
+  m_Layer: 28
   m_Name: T_Rural_Windmill_1 1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

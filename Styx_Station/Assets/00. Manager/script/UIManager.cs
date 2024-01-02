@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -509,9 +510,9 @@ public class UIManager : Singleton<UIManager>
         stageText.SetText(newTxt);
     }
 
-    public void SetCurrentBossText(int wave)
+    public void SetCurrentBossText(int stage, int wave)
     {
-        string newTxt = $"{wave}";
+        string newTxt = $"{stage} - {wave}";
         stageText.SetText(newTxt);
     }
 
@@ -793,5 +794,10 @@ public class UIManager : Singleton<UIManager>
     public void ClosePlayerBuffInfo()
     {
         playerBuffWindow.Close();
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -5489,6 +5489,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   labInfoWindow: {fileID: 623263290}
   labCompleteWindwo: {fileID: 711544752}
+  labNameStringKey: 
+  labNameTextMeshProUGUI: {fileID: 0}
 --- !u!114 &106773797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7147,6 +7149,38 @@ PrefabInstance:
     - target: {fileID: 7595402553519040980, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
       propertyPath: m_Color.r
       value: 0.49019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 777815803}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBossRussh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37522,6 +37556,8 @@ MonoBehaviour:
   bangchiWindow: {fileID: 1467909303}
   playerBuffWindow: {fileID: 1220741334}
   roomUIManager: {fileID: 196083535}
+  IsPetFristSetting: 0
+  bossRushSceneName: YYL_BossRush
 --- !u!114 &777815804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46395,6 +46431,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cleanstage
       objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 777815803}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBossRussh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -50325,6 +50389,38 @@ PrefabInstance:
     - target: {fileID: 7595402553519040980, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
       propertyPath: m_Color.r
       value: 0.49019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 777815803}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBossRussh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61360,6 +61456,7 @@ MonoBehaviour:
   buffInfoText: {fileID: 1892201887}
   playerBuffInfoObjectArrow: {fileID: 1912747459}
   playerBuffInfoObjectTextType: {fileID: 1055196392}
+  foodBuffButton: {fileID: 0}
 --- !u!224 &1220741335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -83907,6 +84004,38 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.49019608
       objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 777815803}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBossRussh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -89378,6 +89507,38 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.49019608
       objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 777815803}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBossRussh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -93321,6 +93482,38 @@ PrefabInstance:
     - target: {fileID: 7595402553519040980, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
       propertyPath: m_Color.r
       value: 0.49019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 777815803}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBossRussh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7637230507217385523, guid: 8c9d1460fc46cd941902b4921382384d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

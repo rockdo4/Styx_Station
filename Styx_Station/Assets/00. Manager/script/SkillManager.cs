@@ -104,6 +104,8 @@ public class SkillManager : Singleton<SkillManager>
     {
         false, false, false, false, false, false
     };
+
+    private List<Slider> sliders = new List<Slider>();
     /// <summary>
     /// 세이브로드
     /// </summary>
@@ -151,6 +153,10 @@ public class SkillManager : Singleton<SkillManager>
             Skill6CoolDown
         };
 
+        for(int i = 0; i < 6; i++)
+        {
+            sliders.Add(skillWindow.equipButtons[i].GetComponent<NormalButton>().cool);
+        }
     }
 
     public void SetIsAuto(bool isA)
@@ -216,12 +222,11 @@ public class SkillManager : Singleton<SkillManager>
         equipSkills[index] = inventory.equipSkills[index];
         equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
 
-        //StopCoroutine(coroutines[index]);
-        //if (skillbutton.Contains(skillWindow.slotButtons[index]))
         if (skillWindow == null)
             skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
 
-        skillbutton.Enqueue(skillWindow.slotButtons[index]);
+        //skillbutton.Enqueue(skillWindow.slotButtons[index]);
+        coroutines[index] = StartCoroutine(cooldownCoroutines[index](equipSkills[index].skill.Skill_Cool, equipSkillFlags[index], sliders[index]));
         isDequip[index] = false;
     }
 
@@ -229,7 +234,8 @@ public class SkillManager : Singleton<SkillManager>
     {
         equipSkills[index] = null;
         isDequip[index] = true;
-        //StopCoroutine(coroutines[index]);
+        StopCoroutine(coroutines[index]);
+        sliders[index].value = 0;
     }
 
     private bool CheckSkillCool(int equipIndex) //true: 쿨x false: 쿨O
@@ -294,7 +300,7 @@ public class SkillManager : Singleton<SkillManager>
             cool.value = 1;
             FindeSkillBase(equipSkills[1].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[1];
-            StartCoroutine(Skill2CoolDown(equipSkills[1].skill.Skill_Cool, equipSkillFlags[1], cool));
+            coroutines[1] = StartCoroutine(Skill2CoolDown(equipSkills[1].skill.Skill_Cool, equipSkillFlags[1], cool));
         }
     }
 
@@ -322,7 +328,7 @@ public class SkillManager : Singleton<SkillManager>
             cool.value = 1;
             FindeSkillBase(equipSkills[2].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[2];
-            StartCoroutine(Skill3CoolDown(equipSkills[2].skill.Skill_Cool, equipSkillFlags[2], cool));
+            coroutines[2] = StartCoroutine(Skill3CoolDown(equipSkills[2].skill.Skill_Cool, equipSkillFlags[2], cool));
         }
     }
 
@@ -350,7 +356,7 @@ public class SkillManager : Singleton<SkillManager>
             cool.value = 1;
             FindeSkillBase(equipSkills[3].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[3];
-            StartCoroutine(Skill4CoolDown(equipSkills[3].skill.Skill_Cool, equipSkillFlags[3], cool));
+            coroutines[3] = StartCoroutine(Skill4CoolDown(equipSkills[3].skill.Skill_Cool, equipSkillFlags[3], cool));
         }
     }
 
@@ -378,7 +384,7 @@ public class SkillManager : Singleton<SkillManager>
             cool.value = 1;
             FindeSkillBase(equipSkills[4].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[4];
-            StartCoroutine(Skill5CoolDown(equipSkills[4].skill.Skill_Cool, equipSkillFlags[4], cool));
+            coroutines[4] = StartCoroutine(Skill5CoolDown(equipSkills[4].skill.Skill_Cool, equipSkillFlags[4], cool));
         }
     }
 
@@ -406,7 +412,7 @@ public class SkillManager : Singleton<SkillManager>
             cool.value = 1;
             FindeSkillBase(equipSkills[5].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[5];
-            StartCoroutine(Skill6CoolDown(equipSkills[5].skill.Skill_Cool, equipSkillFlags[5], cool));
+            coroutines[5] = StartCoroutine(Skill6CoolDown(equipSkills[5].skill.Skill_Cool, equipSkillFlags[5], cool));
         }
     }
     
@@ -416,7 +422,34 @@ public class SkillManager : Singleton<SkillManager>
     }
     IEnumerator Skill1CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
-        yield return new WaitForSeconds(cooldown);
+        //yield return new WaitForSeconds(cooldown);
+
+        //float timer = 0f;
+        //float updateInterval = 1f; // 1초마다 업데이트
+
+        //while (timer < cooldown)
+        //{
+        //    yield return null; // 다음 프레임까지 대기
+
+        //    timer += Time.deltaTime; // 경과 시간 업데이트
+
+        //    if (timer >= updateInterval) // updateInterval(1초)마다 실행
+        //    {
+        //        coolSl.value = Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
+        //        timer -= updateInterval; // 타이머 재설정
+        //    }
+        //}
+
+        float timer = 0f;
+
+        while (timer < cooldown)
+        {
+            yield return null; // 다음 프레임까지 대기
+
+            timer += Time.deltaTime; // 경과 시간 업데이트
+            coolSl.value = 1 - Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
+        }
+
         skillcool &= ~cool;
         coolSl.value = 0;
 
@@ -428,7 +461,15 @@ public class SkillManager : Singleton<SkillManager>
 
     IEnumerator Skill2CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
-        yield return new WaitForSeconds(cooldown);
+        //yield return new WaitForSeconds(cooldown);
+        float timer = 0f;
+        while (timer < cooldown)
+        {
+            yield return null; // 다음 프레임까지 대기
+
+            timer += Time.deltaTime; // 경과 시간 업데이트
+            coolSl.value = 1 - Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
+        }
         skillcool &= ~cool;
         coolSl.value = 0;
 
@@ -440,7 +481,16 @@ public class SkillManager : Singleton<SkillManager>
 
     IEnumerator Skill3CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
-        yield return new WaitForSeconds(cooldown);
+        //yield return new WaitForSeconds(cooldown);
+        float timer = 0f;
+
+        while (timer < cooldown)
+        {
+            yield return null; // 다음 프레임까지 대기
+
+            timer += Time.deltaTime; // 경과 시간 업데이트
+            coolSl.value = 1 - Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
+        }
         skillcool &= ~cool;
         coolSl.value = 0;
 
@@ -452,7 +502,16 @@ public class SkillManager : Singleton<SkillManager>
 
     IEnumerator Skill4CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
-        yield return new WaitForSeconds(cooldown);
+        //yield return new WaitForSeconds(cooldown);
+        float timer = 0f;
+
+        while (timer < cooldown)
+        {
+            yield return null; // 다음 프레임까지 대기
+
+            timer += Time.deltaTime; // 경과 시간 업데이트
+            coolSl.value = 1 - Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
+        }
         skillcool &= ~cool;
         coolSl.value = 0;
         if (!isDequip[3])
@@ -462,7 +521,16 @@ public class SkillManager : Singleton<SkillManager>
     }
     IEnumerator Skill5CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
-        yield return new WaitForSeconds(cooldown);
+        //yield return new WaitForSeconds(cooldown);
+        float timer = 0f;
+
+        while (timer < cooldown)
+        {
+            yield return null; // 다음 프레임까지 대기
+
+            timer += Time.deltaTime; // 경과 시간 업데이트
+            coolSl.value = 1 - Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
+        }
         skillcool &= ~cool;
         coolSl.value = 0;
 
@@ -474,7 +542,16 @@ public class SkillManager : Singleton<SkillManager>
     }
     IEnumerator Skill6CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
-        yield return new WaitForSeconds(cooldown);
+        //yield return new WaitForSeconds(cooldown);
+        float timer = 0f;
+
+        while (timer < cooldown)
+        {
+            yield return null; // 다음 프레임까지 대기
+
+            timer += Time.deltaTime; // 경과 시간 업데이트
+            coolSl.value = 1 - Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
+        }
         skillcool &= ~cool;
         coolSl.value = 0;
 
@@ -496,6 +573,19 @@ public class SkillManager : Singleton<SkillManager>
             (x, y) => x.GetComponentInChildren<NormalButton>().equipIndex.CompareTo(y.GetComponentInChildren<NormalButton>().equipIndex));
 
         skillbutton = new Queue<GameObject>(sortList);
+    }
+
+    public void ResetAllSkillCool()
+    {
+        for (int i = 0; i < coroutines.Length; i++)
+        {
+            if (coroutines[i] == null)
+                continue;
+            StopCoroutine(coroutines[i]);
+            skillcool &= ~equipSkillFlags[i];
+            sliders[i].value = 0;
+            skillbutton.Enqueue(skillWindow.slotButtons[i]);
+        }
     }
 
 }

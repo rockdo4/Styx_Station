@@ -117,6 +117,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         if (currStage.isBossWave)
         {
             spawner.spawnBoss(currStage.bossMonster.name);
+            aliveMonsterCount = 1;
         }
         else
         {
@@ -168,18 +169,20 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void EndWave()
     {
+        isWaveInProgress = false;
         if(!isBossRush)
         {
-            isWaveInProgress = false;
             aliveMonsterCount = 0;
             playerController.GetAnimator().StopPlayback();
             spawner.stopSpawn();
             StopArrows();
             StartCoroutine(SetMonstersStop());
+            SkillManager.Instance.ResetAllSkillCool();
         }
         else
         {
             UIManager.Instance.SetGameOverPopUpActive(true);
+            SkillManager.Instance.ResetAllSkillCool();
             UIManager.Instance.LoadScene("YYL_0102");
         }
     }
@@ -195,7 +198,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             {
                 UpdateCurrentWave();
             }
-            currStage = currStageList.GetStage(CurrentWave);
+            currStage = currStageList.GetStage(CurrentWave - 1);
             clearWaveCount++;
             timeLimit = currStage.waveTimer;
             timer = 0f;
@@ -328,16 +331,18 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
             leftTileMaps[currTileMapIndex - 1].SetActive(true);
             rightTileMaps[currTileMapIndex - 1].SetActive(true);
+
+            SetVillage();
         }
 
         else
         {
-            currTileMapIndex = 0;
+            //currTileMapIndex = 0;
+            currTileMapIndex = UIManager.Instance.bossRushIndex / 30;
 
             leftTileMaps[currTileMapIndex].SetActive(true);
             rightTileMaps[currTileMapIndex].SetActive(true);
         }
-        SetVillage();
     }
 
     public void SetVillage()
@@ -385,13 +390,17 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         CurrentWave++;
         if (CurrentWave > 5)
         {
-            CurrentWave = 1;
-            UpdateCurrentStage();
+            if(isBossRush)
+            {
+                UIManager.Instance.LoadScene("YYL_0102");
+                return;
+            }
+            else
+            {
+                CurrentWave = 1;
+                UpdateCurrentStage();
+            }
         }
-        //if(CurrentWave > 4) //임시, 4번째 웨이브 계속 반복하도록
-        //{
-        //    CurrentWave = 4;
-        //}
         SetCurrentStageText();
     }
 
@@ -428,9 +437,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             return;
         }
         aliveMonsterCount--;
-        if(aliveMonsterCount <= 0)
+        if (aliveMonsterCount <= 0)
         {
-            ChangeWave();
+            //ChangeWave();
+            Invoke("ChangeWave", 1f);
         }
     }
 
@@ -618,7 +628,10 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         }
 
         SetTileMap();
-        SetRepeat(GameData.isRepeatData_WaveManager);
+        if(!isBossRush)
+        {
+            SetRepeat(GameData.isRepeatData_WaveManager);
+        }
         SetWavePanel();
         isLoad = true;
     }

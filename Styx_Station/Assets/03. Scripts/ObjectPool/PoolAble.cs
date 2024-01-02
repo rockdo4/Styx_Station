@@ -9,9 +9,12 @@ public class PoolAble : MonoBehaviour
 
     public virtual void ReleaseObject()
     {
-        if(gameObject.activeSelf)
+        if(gameObject != null)
         {
-            ObjPool.Release(gameObject);
+            if (gameObject.activeSelf)
+            {
+                ObjPool.Release(gameObject);
+            }
         }
     }
 }

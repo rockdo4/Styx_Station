@@ -10,6 +10,7 @@ public class testYY : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha7))
         {
+            UIManager.Instance.SetBossRushIndex(1);
             SceneManager.LoadScene("YYL_BossRush");
         }
         if(Input.GetKeyDown(KeyCode.Alpha8)) 

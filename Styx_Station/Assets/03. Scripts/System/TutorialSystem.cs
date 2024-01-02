@@ -22,6 +22,7 @@ public class TutorialSystem : MonoBehaviour
     public GameObject tutorial;
 
     public bool playTutorial = false;
+    public bool stop = false;
 
     public List<GameObject> mask = new List<GameObject>();
 
@@ -138,41 +139,49 @@ public class TutorialSystem : MonoBehaviour
                 break;
 
             case 20:
-                Shop_1();
+                Log_15();
                 break;
 
             case 21:
-                Shop_2();
+                Shop_1();
                 break;
 
             case 22:
-            case 23:
-                tutorialIndex = 24;
-                Log_15();
+                Shop_2();
                 break;
 
+            case 23:
             case 24:
-                Log_15();
+                tutorialIndex = 25;
+                Log_16();
                 break;
 
             case 25:
-                Info_1();
+                Log_16();
                 break;
 
             case 26:
-                Info_3();
+                Info_1();
                 break;
 
             case 27:
-                Info_4();
+                Info_3();
                 break;
 
             case 28:
-                Info_5();
+                Info_4();
                 break;
 
             case 29:
-                Log_16();
+                Info_5();
+                break;
+
+            case 30:
+                Log_17();
+                break;
+
+            case 34:
+
                 break;
 
             default:
@@ -580,8 +589,8 @@ public class TutorialSystem : MonoBehaviour
     {
         message = true;
 
-        if (!mask[25].activeSelf)
-            mask[25].SetActive(true);
+        if (!mask[0].activeSelf)
+            mask[0].SetActive(true);
 
         if (!textBox.activeSelf)
             textBox.SetActive(true);
@@ -601,6 +610,32 @@ public class TutorialSystem : MonoBehaviour
 
         text = StartCoroutine(TextCoroutine(str));
     }
+    private void Log_17()
+    {
+        message = true;
+
+        if (!mask[25].activeSelf)
+            mask[25].SetActive(true);
+
+        if (!textBox.activeSelf)
+            textBox.SetActive(true);
+
+        str = string.Empty;
+
+        if (Global.language == Language.KOR)
+            str = stringTable.GetStringTableData("Tutorial_Log17").KOR;
+        else if (Global.language == Language.ENG)
+            str = stringTable.GetStringTableData("Tutorial_Log17").ENG;
+
+        if (text != null)
+        {
+            StopCoroutine(text);
+            text = null;
+        }
+
+        text = StartCoroutine(TextCoroutine(str));
+    }
+
     private void Quest_1()
     {
         mask[1].SetActive(true);
@@ -994,6 +1029,27 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        tutorialIndex++;
+
+                        FindTutorialIndex();
+                    }
+                    else if (message && !next)
+                    {
+                        StopCoroutine(text);
+                        text = null;
+
+                        crewText.text = str;
+
+                        message = false;
+                        next = true;
+                    }
+                    break;
+
+                case 20:
+                    if (!message && next)
+                    {
+                        next = false;
+
                         textBox.SetActive(false);
                         mask[0].SetActive(false);
 
@@ -1013,7 +1069,7 @@ public class TutorialSystem : MonoBehaviour
                     }
                     break;
 
-                case 24:
+                case 25:
                     if (!message && next)
                     {
                         next = false;
@@ -1036,7 +1092,7 @@ public class TutorialSystem : MonoBehaviour
                     }
                     break;
 
-                case 29:
+                case 30:
                     if (!message && next)
                     {
                         next = false;
@@ -1079,6 +1135,7 @@ public class TutorialSystem : MonoBehaviour
 
             FindTutorialIndex();
         }
+        // 1차 튜토리얼 종료
         else if(tutorialIndex == 18)
         {
             mask[1].SetActive(false);
@@ -1088,6 +1145,7 @@ public class TutorialSystem : MonoBehaviour
             tutorialIndex++;
 
             tutorial.SetActive(false);
+            stop = false;
             playTutorial = false;
         }
     }
@@ -1107,7 +1165,7 @@ public class TutorialSystem : MonoBehaviour
 
             FindTutorialIndex();
         }
-        else if(tutorialIndex == 25)
+        else if(tutorialIndex == 26)
         {
             mask[6].SetActive(false);
 
@@ -1127,7 +1185,9 @@ public class TutorialSystem : MonoBehaviour
         {
             mask[7].SetActive(false);
 
-            // 스텟 오르는거 전부 Private 라 접근이 안됨
+            var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[0].GetComponent<PlayerStatsUIManager>();
+
+            ui.playerStatsUiDatas[0].Tutorial();
 
             tutorialIndex++;
 
@@ -1150,7 +1210,8 @@ public class TutorialSystem : MonoBehaviour
 
             mask[1].SetActive(true);
         }
-        else if(tutorialIndex == 32)
+        // 2차 튜토리얼 종료
+        else if(tutorialIndex == 33)
         {
             mask[8].SetActive(false);
 
@@ -1159,13 +1220,14 @@ public class TutorialSystem : MonoBehaviour
             tutorialIndex++;
 
             tutorial.SetActive(false);
+            stop = false;
             playTutorial = false;
         }
     }
 
     public void OnClickShop()
     {
-        if (tutorialIndex == 20)
+        if (tutorialIndex == 21)
         {
             mask[9].SetActive(false);
 
@@ -1179,7 +1241,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickGacha()
     {
-        if(tutorialIndex == 21)
+        if(tutorialIndex == 22)
         {
             mask[10].SetActive(false);
 
@@ -1193,7 +1255,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickGachaInfoExit()
     {
-        if(tutorialIndex == 22)
+        if(tutorialIndex == 23)
         {
             mask[11].SetActive(false);
 
@@ -1207,7 +1269,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickShopExit()
     {
-        if(tutorialIndex == 23)
+        if(tutorialIndex == 24)
         {
             mask[12].SetActive(false);
 
@@ -1221,7 +1283,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickInventory()
     {
-        if(tutorialIndex == 26)
+        if(tutorialIndex == 27)
         {
             mask[13].SetActive(false);
 
@@ -1242,7 +1304,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickItem()
     {
-        if (tutorialIndex == 27)
+        if (tutorialIndex == 28)
         {
             mask[14].SetActive(false);
 
@@ -1258,7 +1320,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickItemEquip()
     {
-        if(tutorialIndex == 28)
+        if(tutorialIndex == 29)
         {
             mask[15].SetActive(false);
 
@@ -1274,7 +1336,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickItemUpgrade()
     {
-        if(tutorialIndex == 30)
+        if(tutorialIndex == 31)
         {
             mask[16].SetActive(false);
 
@@ -1290,7 +1352,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickItemInfoExit()
     {
-        if(tutorialIndex == 31)
+        if(tutorialIndex == 32)
         {
             mask[17].SetActive(false);
 

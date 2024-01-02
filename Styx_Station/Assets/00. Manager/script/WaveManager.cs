@@ -2,41 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEditor.PackageManager;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
     private void Awake()
     {
-        //시작시 1번 스테이지로 초기화
-        //currStage = stageList.GetStage(0);
-
-        //CurrentStage = currStage.stageId;
-        //CurrentWave = currStage.waveId;
-        //CurrentChapter = currStage.chapterId;
-
-        //for (int i = 0; i < Background.transform.childCount; i++)
-        //{
-        //    backgroundList.Add(Background.transform.GetChild(i).GetComponent<ScrollingObject>());
-        //}
-
-        //playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-
-        //int tilemapCount = Background.transform.childCount;
-        //for(int i = 0;i < tilemapCount; i++)
-        //{
-        //    tileObjects[i] = Background.transform.GetChild(i).gameObject;
-        //    //tileMaps.Add(Background.transform.GetChild(i).gameObject);
-        //}
-        //for (int i = 0; i < tileObjects[0].transform.childCount; i++)
-        //{
-        //    leftTileMaps.Add(tileObjects[0].transform.GetChild(i).gameObject);
-        //    rightTileMaps.Add(tileObjects[1].transform.GetChild(i).gameObject);
-        //}
         if(!isLoad)
         {
             PrevLoadSetting();
         }
     }
+
     private bool isLoad;
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
@@ -72,17 +49,21 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public float timeLimit = 0f;
     public float timer = 0f;
+    public bool isWaveInPro = false;
+
     public bool isWaveInProgress = false;
 
     public BackgroundMusic BackgroundMusic;
 
-    //public StageTable.StageTableData StageData { get; private set; }
+    //BossRush
+    public bool isBossRush;
+
+    public List<StageList> stages = new List<StageList>();
+    public StageList currStageList;
+
 
     private void Start()
     {
-        //var index = GameManager.instance.StageTable.GetIndex(CurrentChpater, CurrentStage, CurrentWave);
-
-        //StageData = GameManager.instance.StageTable.GetStageTableData(index);
         waitForSeconds = new WaitForSeconds(waitTime);
         if(playerController == null)
         {
@@ -187,13 +168,20 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void EndWave()
     {
-        isWaveInProgress = false;
-        aliveMonsterCount = 0;
-        playerController.GetAnimator().StopPlayback();
-        spawner.stopSpawn();
-        StopArrows();
-        StartCoroutine(SetMonstersStop());
-        //StartCoroutine(SetArrowStop());
+        if(!isBossRush)
+        {
+            isWaveInProgress = false;
+            aliveMonsterCount = 0;
+            playerController.GetAnimator().StopPlayback();
+            spawner.stopSpawn();
+            StopArrows();
+            StartCoroutine(SetMonstersStop());
+        }
+        else
+        {
+            UIManager.Instance.SetGameOverPopUpActive(true);
+            UIManager.Instance.LoadScene("YYL_0102");
+        }
     }
 
     public void ChangeWave()
@@ -201,36 +189,60 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         StopArrows();
         isWaveInProgress = false;
 
-        int stageNum = CurrentStage % 5;
-        int waveNum = CurrentWave % 5;
-        if (stageNum == 0 && waveNum == 0)
+        if(isBossRush)
         {
-            currTileMapIndex = CurrentChapter;
-            haveToChangeTile = true;
-            ChangeTileMap();
-            ChangeVillage();
-        }
+            if (!IsRepeating)
+            {
+                UpdateCurrentWave();
+            }
+            currStage = currStageList.GetStage(CurrentWave);
+            clearWaveCount++;
+            timeLimit = currStage.waveTimer;
+            timer = 0f;
+            if (currStage == null)
+            {
+                Debug.Log("ERR: currStage is null.");
+                return;
+            }
 
-        if (!IsRepeating)
-        {
-            UpdateCurrentWave();
+            playerController.SetState(States.Move);
+            MoveMonPosition();
+            ScrollBackground(true);
+            SetWavePanel();
         }
+        else
+        {
+            int stageNum = CurrentStage % 5;
+            int waveNum = CurrentWave % 5;
+            if (stageNum == 0 && waveNum == 0)
+            {
+                currTileMapIndex = CurrentChapter;
+                haveToChangeTile = true;
+                ChangeTileMap();
+                ChangeVillage();
+            }
 
-        currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChapter, CurrentStage, CurrentWave));
-        clearWaveCount++;
-        timeLimit = currStage.waveTimer;
-        timer = 0f;
-        if (currStage == null)
-        {
-            Debug.Log("ERR: currStage is null.");
-            return;
+            if (!IsRepeating)
+            {
+                UpdateCurrentWave();
+            }
+
+            currStage = stageList.GetStageByStageIndex(GetIndex(CurrentChapter, CurrentStage, CurrentWave));
+            clearWaveCount++;
+            timeLimit = currStage.waveTimer;
+            timer = 0f;
+            if (currStage == null)
+            {
+                Debug.Log("ERR: currStage is null.");
+                return;
+            }
+
+            playerController.SetState(States.Move);
+            MoveMonPosition();
+            ScrollBackground(true);
+            SetWavePanel();
+            UIManager.Instance.questSystemUi.ClearWave();
         }
-        playerController.SetState(States.Move);
-        MoveMonPosition();
-        ScrollBackground(true);
-        SetWavePanel();
-        //StartWave();
-        UIManager.Instance.questSystemUi.ClearWave();
     }
 
     public void MoveMonPosition()
@@ -307,26 +319,42 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetTileMap()
     {
-        //PrevLoadSetting(); 
         leftTileMaps[0].SetActive(false);
         rightTileMaps[0].SetActive(false);
 
-        currTileMapIndex = CurrentChapter;
+        if(!isBossRush)
+        {
+            currTileMapIndex = CurrentChapter;
 
-        leftTileMaps[currTileMapIndex -1].SetActive(true);
-        rightTileMaps[currTileMapIndex -1].SetActive(true);
+            leftTileMaps[currTileMapIndex - 1].SetActive(true);
+            rightTileMaps[currTileMapIndex - 1].SetActive(true);
+        }
 
+        else
+        {
+            currTileMapIndex = 0;
+
+            leftTileMaps[currTileMapIndex].SetActive(true);
+            rightTileMaps[currTileMapIndex].SetActive(true);
+        }
         SetVillage();
-        //  
     }
 
     public void SetVillage()
     {
-        leftVillage[0].SetActive(false);
-        rightVillage[0].SetActive(false);
+        if(isBossRush)
+        {
+            leftVillage[currTileMapIndex].SetActive(true);
+            rightVillage[currTileMapIndex].SetActive(true);
+        }
+        else
+        {
+            leftVillage[0].SetActive(false);
+            rightVillage[0].SetActive(false);
 
-        leftVillage[currTileMapIndex - 1].SetActive(true);
-        rightVillage[currTileMapIndex - 1].SetActive(true);
+            leftVillage[currTileMapIndex - 1].SetActive(true);
+            rightVillage[currTileMapIndex - 1].SetActive(true);
+        }
     }
 
     public void SetAudio()
@@ -369,6 +397,9 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void DecreaseCurrentWave()
     {
+        if (isBossRush)
+            return;
+
         CurrentWave--;
         if (CurrentWave <= 0)
         {
@@ -413,7 +444,14 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetCurrentStageText()
     {
-        UIManager.Instance.SetCurrentStageText(CurrentChapter, CurrentStage, CurrentWave);
+        if(isBossRush)
+        {
+            UIManager.Instance.SetCurrentBossText(CurrentStage, CurrentWave);
+        }
+        else
+        {
+            UIManager.Instance.SetCurrentStageText(CurrentChapter, CurrentStage, CurrentWave);
+        }
     }
 
     IEnumerator SetMonstersStop()
@@ -473,7 +511,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         }
     }
 
-    private void StopArrows()
+    protected void StopArrows()
     {
         ReleaseShooter();
         GameObject[] Arrows = GameObject.FindGameObjectsWithTag("Arrow")
@@ -545,12 +583,14 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     private void PrevLoadSetting()
     {
-        //currStage = stageList.GetStage(0);
-        SetStageByIndexStage(GameData.stageData_WaveManager);
-
-        //CurrentStage = currStage.stageId;
-       // CurrentWave = currStage.waveId;
-       // CurrentChapter = currStage.chapterId;
+        if(!isBossRush)
+        {
+            SetStageByIndexStage(GameData.stageData_WaveManager);
+        }
+        else
+        {
+            SetBossRushStage(UIManager.Instance.bossRushIndex);
+        }
 
         for (int i = 0; i < Background.transform.childCount; i++)
         {
@@ -570,7 +610,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         for (int i = 0; i < tilemapCount; i++)
         {
             tileObjects[i] = Background.transform.GetChild(i).gameObject;
-            //tileMaps.Add(Background.transform.GetChild(i).gameObject);
         }
         for (int i = 0; i < tileObjects[0].transform.childCount; i++)
         {
@@ -582,5 +621,16 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         SetRepeat(GameData.isRepeatData_WaveManager);
         SetWavePanel();
         isLoad = true;
+    }
+
+    private void SetBossRushStage(int index)
+    {
+        currStageList = stages[index];
+        currStage = currStageList.GetStage(0);
+        CurrentChapter = 0;
+        CurrentStage = index + 1;
+        CurrentWave = 1;
+
+        SetCurrentStageText();
     }
 }

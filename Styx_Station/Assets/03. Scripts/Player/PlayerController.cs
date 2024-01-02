@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
         executeHit = GetComponentInChildren<ExcuteAttackPlayer>();
 
         initialPos = transform.position;
+
+        UIManager.Instance.HpGauge = hpBar;
     }
     private void FixedUpdate()
     {
@@ -112,6 +114,7 @@ public class PlayerController : MonoBehaviour
                 IsStartTarget = true;
                 SetState(States.Idle);
                 WaveManager.Instance.StartWave();
+                //BossRushManager.Instance.StartWave();
                 playerStartTimer = 0f;
             }
         }

@@ -52768,6 +52768,7 @@ MonoBehaviour:
   - {fileID: 2043102490}
   - {fileID: 167167326}
   panel: {fileID: 0}
+  tutorial: {fileID: 0}
   currentWindow: 0
   windowButtons:
   - {fileID: 533152131}
@@ -52815,12 +52816,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a10bee612a5d844ea4ca412554eb047, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shop: 0
   dining: 0
   lab: 0
   clean: 0
   failrue: 0
-  TutorialWindow: {fileID: 1055888320}
-  TutorialFinger: {fileID: 843056240}
+  tutorialIndex: 0
+  tutorial: {fileID: 0}
+  playTutorial: 0
+  mask: []
+  textBox: {fileID: 0}
+  crewName: {fileID: 0}
+  crewText: {fileID: 0}
 --- !u!114 &1057540113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58611,7 +58618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 233.54541, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1181238226 stripped
@@ -85451,7 +85458,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 233.54541, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1761342163

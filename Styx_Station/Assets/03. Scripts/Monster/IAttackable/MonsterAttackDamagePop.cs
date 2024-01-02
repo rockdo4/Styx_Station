@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
 {
@@ -38,13 +39,20 @@ public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
             damage = monsterStats.maxHp;
         }
         var damageString = UnitConverter.OutString(damage);
-        if(attack.IsCritical)
-        {
-            color = Color.red;
-        }
         if (attacker.CompareTag("Pet"))
         {
             color = new Color(40f/255f, 1f, 237/255f);
+        }
+        else
+        {
+            if (attack.IsCritical)
+            {
+                color = Color.red;
+            }
+            else
+            {
+                color = Color.white;
+            }
         }
         text.Set(damageString, color);
     }

@@ -32,12 +32,16 @@ public class PetManager : MonoBehaviour
         {
             petInventory = InventorySystem.Instance.petInventory;
         }
-        //var copy = petInventory.equipPets;
-        //for(int i=0;i<copy.Length; i++)
-        //{
-        //    if (copy[i] != null)
-        //        ChagngePet(i, copy[i]);
-        //}
+        if (UIManager.Instance.IsPetFristSetting)
+        {
+            var copy = petInventory.equipPets;
+            for (int i = 0; i < copy.Length; i++)
+            {
+                if (copy[i] != null)
+                    ChagngePet(i, copy[i]);
+            }
+        }
+        
     }
 
     private void Update()
@@ -63,6 +67,7 @@ public class PetManager : MonoBehaviour
     }
     public void ChagngePet(int index, PetInventory.InventoryPet pet)
     {
+        UIManager.Instance.IsPetFristSetting = true;
         switch (index)
         {
             case 0:

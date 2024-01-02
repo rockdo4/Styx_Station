@@ -10736,7 +10736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 233.54541, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &216390160
@@ -21053,7 +21053,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 777815807}
         m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
         m_MethodName: IncreaseTestMoney4
         m_Mode: 1
@@ -26142,7 +26142,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 777815807}
         m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
         m_MethodName: IncreaseTestMoney1
         m_Mode: 1
@@ -28301,7 +28301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2623f4da028ca174eae2815aa41117ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameScene: YYL_0102
+  GameScene: LswGameScene
   loadingBar: {fileID: 1698988136}
 --- !u!114 &554341310
 MonoBehaviour:
@@ -32187,7 +32187,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 777815807}
         m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
         m_MethodName: IncreaseTestMoney3
         m_Mode: 1
@@ -37454,6 +37454,7 @@ GameObject:
   - component: {fileID: 777815805}
   - component: {fileID: 777815804}
   - component: {fileID: 777815803}
+  - component: {fileID: 777815807}
   m_Layer: 5
   m_Name: ManGameUI
   m_TagString: Untagged
@@ -37542,6 +37543,7 @@ MonoBehaviour:
   bangchiWindow: {fileID: 1467909303}
   playerBuffWindow: {fileID: 1220741334}
   roomUIManager: {fileID: 196083535}
+  IsPetFristSetting: 0
 --- !u!114 &777815804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37605,6 +37607,24 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &777815807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777815800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae2416bf5ece404d9781a6f8db5acbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickTime: 0.05
+  ll:
+  - {fileID: 198460426}
+  - {fileID: 1462176638}
+  - {fileID: 259758518}
+  - {fileID: 1544838200}
 --- !u!1 &779783991
 GameObject:
   m_ObjectHideFlags: 0
@@ -67665,7 +67685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 233.54541, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1371960121
@@ -80978,7 +80998,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 777815807}
         m_TargetAssemblyTypeName: MoneyTest, Assembly-CSharp
         m_MethodName: IncreaseTestMoney2
         m_Mode: 1
@@ -104000,7 +104020,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

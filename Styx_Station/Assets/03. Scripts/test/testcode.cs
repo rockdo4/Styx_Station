@@ -12,7 +12,7 @@ public class testcode : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            SceneManager.LoadScene("YYL_0102");
+            SceneManager.LoadScene("LswGameScene");
         }
 
     }

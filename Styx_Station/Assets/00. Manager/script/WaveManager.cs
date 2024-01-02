@@ -36,8 +36,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public int CurrentStage { get; private set; }  //현재 스테이지
     public int CurrentWave { get; private set; } //현재 웨이브
     public int CurrentChapter { get; private set; } //현재 챕터
-    public int maxWaveLevel = 5; //최대 웨이브 레벨
-    public int maxStageLevel = 10; //최대 스테이지 레벨
+    //public int maxWaveLevel = 5; //최대 웨이브 레벨
+    //public int maxStageLevel = 10; //최대 스테이지 레벨
 
     private bool IsRepeating = false;
     public bool haveToChangeTile = false;

@@ -33,7 +33,6 @@ public class UIManager : Singleton<UIManager>
 
     public QuestSystemUi questSystemUi;
 
-    //12.18 윤유림 웨이브 반복 버튼
     public GameObject RepeatButton;
     public Slider timerSlider;
     public TextMeshProUGUI timerText;
@@ -56,6 +55,8 @@ public class UIManager : Singleton<UIManager>
 
     public PlayerBuffWindow playerBuffWindow;
     public DiningRoomUIManager roomUIManager;
+
+    public int bossRushIndex { get; private set; } = 0;
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
@@ -504,6 +505,12 @@ public class UIManager : Singleton<UIManager>
     public void SetCurrentStageText(int chapter, int stage, int wave)
     {
         string newTxt = $"{chapter} - {stage} - {wave}";
+        stageText.SetText(newTxt);
+    }
+
+    public void SetCurrentBossText(int wave)
+    {
+        string newTxt = $"{wave}";
         stageText.SetText(newTxt);
     }
 

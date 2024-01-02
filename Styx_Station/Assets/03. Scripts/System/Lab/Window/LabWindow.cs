@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class LabWindow : Window
@@ -8,11 +9,29 @@ public class LabWindow : Window
     public LabInfoWindow labInfoWindow;
     public LabCompleteWindwo labCompleteWindwo;
     private bool isLoad;
+    private bool isFristSet;
+    public string labNameStringKey;
+    public TextMeshProUGUI labNameTextMeshProUGUI;
+    private StringTableData labNameStringTableData;
     public override void Open()
     {
+        if(!isFristSet)
+        {
+            isFristSet = true;
+            labNameStringTableData = MakeTableData.Instance.stringTable.GetStringTableData(labNameStringKey);
+        }
         labInfoWindow.Close();
         if (LabSystem.Instance.isTimerZero)
             labCompleteWindwo.Open();
+        switch (Global.language)
+        {
+            case Language.KOR:
+                labNameTextMeshProUGUI.text = labNameStringTableData.KOR;
+                break;
+            case Language.ENG:
+                labNameTextMeshProUGUI.text = labNameStringTableData.ENG;
+                break;
+        }
         base.Open();
         if (!isLoad)
         {

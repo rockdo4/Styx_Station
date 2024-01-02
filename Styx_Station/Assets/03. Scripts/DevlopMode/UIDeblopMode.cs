@@ -5,7 +5,7 @@ public class UIDeblopMode : MonoBehaviour
     private bool skill = false;
    public void DiningRoomDecearseTime()
     {
-        DiningRoomSystem.Instance.timer -= 10000;
+        DiningRoomSystem.Instance.timer =1f;
     }
 
     public void PlayerBuffReset()

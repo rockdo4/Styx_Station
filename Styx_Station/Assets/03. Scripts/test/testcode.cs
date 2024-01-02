@@ -1,10 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using Unity.VisualScripting;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86;
+using UnityEngine.SceneManagement;
 
 public class testcode : MonoBehaviour
 {
@@ -15,14 +10,9 @@ public class testcode : MonoBehaviour
     static float maxResult = 86400; // 24시간을 초로 나눈 상태 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            GameData.GetAccumulateOfflineEarnings();
-            Debug.Log($"result :{GameData.result}");
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            GameData.ChnageTime();
+            SceneManager.LoadScene("LswGameScene");
         }
 
     }

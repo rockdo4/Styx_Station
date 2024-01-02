@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerBuffWindow : Window
@@ -17,7 +15,10 @@ public class PlayerBuffWindow : Window
     private bool isDraw;
     public GameObject playerBuffInfoObjectArrow;
     public GameObject playerBuffInfoObjectTextType;
-    
+
+    private bool isFristSetting;
+    public Button foodBuffButton;
+
     public override void Open()
     {
 
@@ -40,7 +41,23 @@ public class PlayerBuffWindow : Window
         }
         if(newFoodImage != null) 
             foodImage.sprite = newFoodImage;
-        
+        if (!isFristSetting)
+        {
+            isFristSetting = true;
+            var eventTrigger = foodBuffButton.GetComponent<EventTrigger>();
+            if (eventTrigger != null)
+            {
+                var pointerDown = new EventTrigger.Entry();
+                pointerDown.eventID = EventTriggerType.PointerDown;
+                pointerDown.callback.AddListener((data) => { DrawBuffText(); });
+                eventTrigger.triggers.Add(pointerDown);
+
+                var pointerUp = new EventTrigger.Entry();
+                pointerUp.eventID = EventTriggerType.PointerUp;
+                pointerUp.callback.AddListener((data) => { DrawBuffText(); });
+                eventTrigger.triggers.Add(pointerUp);
+            }
+        }
         base.Open();
     }
 

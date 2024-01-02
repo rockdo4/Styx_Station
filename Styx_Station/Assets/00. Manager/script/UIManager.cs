@@ -59,6 +59,7 @@ public class UIManager : Singleton<UIManager>
     public DiningRoomUIManager roomUIManager;
 
     public int bossRushIndex { get; private set; } = 0;
+    [HideInInspector] public bool IsPetFristSetting;
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();

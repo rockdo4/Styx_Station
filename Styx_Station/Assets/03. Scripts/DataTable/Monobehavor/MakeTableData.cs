@@ -51,7 +51,7 @@ public class MakeTableData : Singleton<MakeTableData>
 #if UNITY_ANDROID
     private void OnApplicationFocus(bool pauseStatus)
     {
-        if (!pauseStatus && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "LswGameScene")
+        if (!pauseStatus && UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "LswGameScene")
         {
             gameSaveLoad.Save();
         }

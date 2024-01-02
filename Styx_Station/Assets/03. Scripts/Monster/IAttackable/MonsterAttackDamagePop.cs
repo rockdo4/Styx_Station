@@ -30,7 +30,6 @@ public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
             return;
         }
         textObj.transform.position = position;
-        Debug.Log($"{transform.GetChild(2).name} {textObj.transform.position.y}");
         var text = textObj.GetComponent<DamageText>();
 
         BigInteger damage = attack.Damage;

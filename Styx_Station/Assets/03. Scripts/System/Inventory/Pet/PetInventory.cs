@@ -77,7 +77,7 @@ public class PetInventory : MonoBehaviour
         }
 
         
-        if (SceneManager.GetActiveScene().name == "LswGameScene")
+        if (SceneManager.GetActiveScene().name == "Build_01.03 Game")
         {
             PetManager.Instance.ChagngePet(equipIndex, pets[petIndex]);
 

@@ -42,6 +42,13 @@ public static class UnitConverter
         for (char c1 = 'A'; c1 <= 'Z'; c1++)
         {
             namesList.Add(c1.ToString());
+            //for (char c2 = 'A'; c2 <= 'Z'; c2++)
+            //{
+            //    namesList.Add($"{c1}{c2}");
+            //}
+        }
+        for (char c1 = 'A'; c1 <= 'Z'; c1++)
+        {
             for (char c2 = 'A'; c2 <= 'Z'; c2++)
             {
                 namesList.Add($"{c1}{c2}");

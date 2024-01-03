@@ -81,6 +81,7 @@ public class PlayerStatsUiData : MonoBehaviour
             action.Invoke();
         }
         SetTextLevelAndPrice(0);
+        UIManager.Instance.questSystemUi.UpgradeQuestSet(0);
     }
     private void LateUpdate()
     {

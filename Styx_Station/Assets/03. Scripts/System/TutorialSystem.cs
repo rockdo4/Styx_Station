@@ -1706,6 +1706,8 @@ public class TutorialSystem : MonoBehaviour
                         tutorial.SetActive(false);
                         stop = false;
                         playTutorial = false;
+
+                        WaveManager.Instance.StartWave();
                     }
                     else if (message && !next)
                     {
@@ -1937,6 +1939,8 @@ public class TutorialSystem : MonoBehaviour
             tutorial.SetActive(false);
             stop = false;
             playTutorial = false;
+
+            WaveManager.Instance.StartWave();
         }
     }
 

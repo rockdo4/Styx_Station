@@ -60,6 +60,9 @@ public class UIManager : Singleton<UIManager>
 
     public int bossRushIndex { get; private set; } = 0;
     [HideInInspector] public bool IsPetFristSetting;
+
+    //yyl 0102
+    public string bossRushSceneName;
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
@@ -591,6 +594,8 @@ public class UIManager : Singleton<UIManager>
         windowButtons[0].GetComponent<Button>().interactable = true;
         windowButtons[1].GetComponent<Button>().interactable = true;
         windowButtons[2].GetComponent<Button>().interactable = true;
+        windowButtons[3].GetComponent<Button>().interactable = true;
+        windowButtons[4].GetComponent<Button>().interactable = true;
 
         //if ((ButtonList.tutorialBit & TutorialBit.DiningRoom) != 0)
         //    windowButtons[1].GetComponent<Button>().interactable = true;
@@ -602,15 +607,15 @@ public class UIManager : Singleton<UIManager>
         //else if ((ButtonList.tutorialBit & TutorialBit.Lab) == 0)
         //    windowButtons[2].GetComponent<Button>().interactable = false;
 
-        if ((ButtonList.tutorialBit & TutorialBit.Clean) != 0)
-            windowButtons[3].GetComponent<Button>().interactable = true;
-        else if ((ButtonList.tutorialBit & TutorialBit.Clean) == 0)
-            windowButtons[3].GetComponent<Button>().interactable = false;
+        //if ((ButtonList.tutorialBit & TutorialBit.Clean) != 0)
+        //    windowButtons[3].GetComponent<Button>().interactable = true;
+        //else if ((ButtonList.tutorialBit & TutorialBit.Clean) == 0)
+        //    windowButtons[3].GetComponent<Button>().interactable = false;
 
-        if ((ButtonList.tutorialBit & TutorialBit.Failure) != 0)
-            windowButtons[4].GetComponent<Button>().interactable = true;
-        else if ((ButtonList.tutorialBit & TutorialBit.Failure) == 0)
-            windowButtons[4].GetComponent<Button>().interactable = false;
+        //if ((ButtonList.tutorialBit & TutorialBit.Failure) != 0)
+        //    windowButtons[4].GetComponent<Button>().interactable = true;
+        //else if ((ButtonList.tutorialBit & TutorialBit.Failure) == 0)
+        //    windowButtons[4].GetComponent<Button>().interactable = false;
 
         buttons.transform.position = buttonPos - wayPoint;
 
@@ -808,8 +813,24 @@ public class UIManager : Singleton<UIManager>
         playerBuffWindow.Close();
     }
 
+    //yyl. 0102
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void SetBossRushIndex(int index)
+    {
+        bossRushIndex = index;
+    }
+    
+    public void LoadBossRussh(int index)
+    {
+        GameData.stageData_WaveManager = WaveManager.Instance.currStage.index;
+        OnClickClose();
+        SetBossRushIndex(index);
+        WaveManager.Instance.isWaveInProgress = false;
+        SkillManager.Instance.ResetAllSkillCool();
+        LoadScene(bossRushSceneName);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class test_uimanager : MonoBehaviour
 {
     public PlayerController test;
+    public GameObject castZone;
     private void Awake()
     {
         UIManager.Instance.gameObject.SetActive(true);
@@ -12,5 +13,7 @@ public class test_uimanager : MonoBehaviour
         var state = StateSystem.Instance;
         state.TotalUpdate();
         SkillManager.Instance.player = test.gameObject;
+        SkillManager.Instance.castZone = castZone;
+        SkillManager.Instance.SetCaztZone(castZone);
     }
 }

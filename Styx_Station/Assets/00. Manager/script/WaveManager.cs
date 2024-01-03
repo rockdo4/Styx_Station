@@ -54,6 +54,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public bool isWaveInProgress = false;
 
     public BackgroundMusic BackgroundMusic;
+    public string GameSceneName;
 
     //BossRush
     public bool isBossRush;
@@ -183,7 +184,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         {
             UIManager.Instance.SetGameOverPopUpActive(true);
             SkillManager.Instance.ResetAllSkillCool();
-            UIManager.Instance.LoadScene("YYL_0102");
+            UIManager.Instance.LoadScene(GameSceneName);
         }
     }
 
@@ -392,7 +393,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         {
             if(isBossRush)
             {
-                UIManager.Instance.LoadScene("YYL_0102");
+                UIManager.Instance.LoadScene(GameSceneName);
                 return;
             }
             else

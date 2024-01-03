@@ -9,6 +9,8 @@ public class TutorialSystem : MonoBehaviour
 {
     private StringTable stringTable;
 
+    public bool loadTutorial = false;
+
     public bool shop = false;
     public bool dining = false;
     public bool lab = false;
@@ -61,6 +63,8 @@ public class TutorialSystem : MonoBehaviour
 
     public void FindTutorialIndex()
     {
+        loadTutorial = true;
+
         switch (tutorialIndex)
         {
             case 0:
@@ -615,6 +619,8 @@ public class TutorialSystem : MonoBehaviour
         if (!textBox.activeSelf)
             textBox.SetActive(true);
 
+        shop = true;
+
         str = string.Empty;
 
         if (Global.language == Language.KOR)
@@ -720,6 +726,8 @@ public class TutorialSystem : MonoBehaviour
             textBox.SetActive(true);
 
         str = string.Empty;
+
+        dining = true;
 
         if (Global.language == Language.KOR)
             str = stringTable.GetStringTableData("Tutorial_Log18").KOR;
@@ -928,6 +936,8 @@ public class TutorialSystem : MonoBehaviour
             textBox.SetActive(true);
 
         str = string.Empty;
+
+        lab = true;
 
         if (Global.language == Language.KOR)
             str = stringTable.GetStringTableData("Tutorial_Log26").KOR;
@@ -1706,6 +1716,7 @@ public class TutorialSystem : MonoBehaviour
                         tutorial.SetActive(false);
                         stop = false;
                         playTutorial = false;
+                        loadTutorial = false;
 
                         WaveManager.Instance.StartWave();
                     }
@@ -1862,6 +1873,7 @@ public class TutorialSystem : MonoBehaviour
             tutorial.SetActive(false);
             stop = false;
             playTutorial = false;
+            loadTutorial = false;
 
             WaveManager.Instance.StartWave();
         }
@@ -1939,6 +1951,7 @@ public class TutorialSystem : MonoBehaviour
             tutorial.SetActive(false);
             stop = false;
             playTutorial = false;
+            loadTutorial = false;
 
             WaveManager.Instance.StartWave();
         }

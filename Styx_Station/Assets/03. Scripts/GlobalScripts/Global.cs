@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class Global
 {
-    public static Language language = Language.ENG;
+    public static Language language = Language.KOR;
 }

@@ -227,6 +227,15 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.currentLoopQuestIndex = MakeTableData.loppCurrentQuestIndex;
         data.gameSaveDatas.currentQuestSystemData = UIManager.questSystemUi.questData;
 
+        var tutorialData = UIManager.tutorial.GetComponent<TutorialSystem>();
+        data.gameSaveDatas.tutorialIndex = tutorialData.tutorialIndex;
+        data.gameSaveDatas.shop = tutorialData.shop;
+        data.gameSaveDatas.dining = tutorialData.dining;
+        data.gameSaveDatas.lab = tutorialData.lab;
+        data.gameSaveDatas.clean = tutorialData.clean;
+        data.gameSaveDatas.fail = tutorialData.failrue;
+        data.gameSaveDatas.loadTutorial = tutorialData.loadTutorial;
+
         SaveLoadSystem.JsonSave(data, "Test.json");
         //Debug.Log("Save");
         Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
@@ -712,6 +721,54 @@ public class SaveLoad : MonoBehaviour
 
                     GameData.labBuffData = datas;
                 }
+
+
+                var tutorialUi = UIManager.Instance.tutorial.GetComponent<TutorialSystem>();
+
+                if (gameSaveDatas["tutorialIndex"] is JToken indexToken)
+                {
+                    string str = indexToken.ToString();
+                    var datas = JsonConvert.DeserializeObject<int>(str);
+
+                    tutorialUi.tutorialIndex = datas;
+                }
+
+                if (gameSaveDatas["shop"] is JToken shopBool)
+                {
+                    var datas = shopBool.Value<bool>();
+                    tutorialUi.shop = datas;
+                }
+
+                if (gameSaveDatas["lab"] is JToken labBool)
+                {
+                    var datas = labBool.Value<bool>();
+                    tutorialUi.lab = datas;
+                }
+
+                if (gameSaveDatas["dining"] is JToken diningBool)
+                {
+                    var datas = diningBool.Value<bool>();
+                    tutorialUi.dining = datas;
+                }
+
+                if (gameSaveDatas["clean"] is JToken cleanBool)
+                {
+                    var datas = cleanBool.Value<bool>();
+                    tutorialUi.clean = datas;
+                }
+
+                if (gameSaveDatas["fail"] is JToken failBool)
+                {
+                    var datas = failBool.Value<bool>();
+                    tutorialUi.failrue = datas;
+                }
+
+                if (gameSaveDatas["loadTutorial"] is JToken loadTutorialBool)
+                {
+                    var datas = loadTutorialBool.Value<bool>();
+                    tutorialUi.loadTutorial = datas;
+                }
+
                 if (gameSaveDatas["currentQuestIndex"] is JToken currentQuestIndex)
                 {
                     string str = currentQuestIndex.ToString();
@@ -749,6 +806,9 @@ public class SaveLoad : MonoBehaviour
                     var sound = soundToken.Value<bool>();
                     UiSetting.soundValue = sound;
                 }
+
+
+
             }
             GameData.isLoad = true;
         }

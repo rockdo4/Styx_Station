@@ -110,6 +110,14 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void StartWave()
     {
+        if (UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop == true)
+        {
+            var tutorial = UIManager.Instance.tutorial.GetComponent<TutorialSystem>();
+            tutorial.playTutorial = true;
+            tutorial.stop = false;
+            tutorial.StartTutorial();
+            return;
+        }
         playerController.GetComponent<ResultPlayerStats>().ResetHp();
         timeLimit = currStage.waveTimer;
         timer = 0f;

@@ -48,8 +48,12 @@ public class TutorialSystem : MonoBehaviour
 
             stringTable = MakeTableData.Instance.stringTable;
         }
+
+        UIManager.Instance.OnClickClose();
+
         tutorial.SetActive(true);
 
+        mask[26].SetActive(false);
         mask[0].SetActive(true);
 
         FindTutorialIndex();
@@ -1045,6 +1049,7 @@ public class TutorialSystem : MonoBehaviour
 
     private void Quest_1()
     {
+        mask[0].SetActive(false);
         mask[1].SetActive(true);
     }
 
@@ -1168,13 +1173,13 @@ public class TutorialSystem : MonoBehaviour
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
-                        // 웨이브 스타트
+                        mask[26].SetActive(true);
+
+                        WaveManager.Instance.StartWave();
+
+                        stop = true;
 
                         tutorialIndex++;
-
-
-                        //파인드 삭제
-                        FindTutorialIndex();
                     }
                     else if (message && !next)
                     {
@@ -1396,11 +1401,13 @@ public class TutorialSystem : MonoBehaviour
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
-                        //웨이브 시작
-                        tutorialIndex++;
+                        mask[26].SetActive(true);
 
-                        //웨이브 적용 시 파인드 삭제
-                        FindTutorialIndex();
+                        WaveManager.Instance.StartWave();
+
+                        stop = true;
+
+                        tutorialIndex++;
                     }
                     else if (message && !next)
                     {
@@ -1853,6 +1860,8 @@ public class TutorialSystem : MonoBehaviour
             tutorial.SetActive(false);
             stop = false;
             playTutorial = false;
+
+            WaveManager.Instance.StartWave();
         }
     }
 

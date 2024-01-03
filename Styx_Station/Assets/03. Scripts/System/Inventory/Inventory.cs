@@ -466,6 +466,14 @@ public class Inventory : MonoBehaviour
 
         customRings.Remove(item);
 
+        if(customRings.Count>0)
+        {
+            for(int i = 0; i < customRings.Count; i++)
+            {
+                customRings[i].item.item.name = i.ToString();
+            }
+        }
+
         ItemSorting(ItemType.Ring);
     }
 
@@ -495,6 +503,14 @@ public class Inventory : MonoBehaviour
         }
 
         customSymbols.Remove(item);
+
+        if (customSymbols.Count > 0)
+        {
+            for (int i = 0; i < customSymbols.Count; i++)
+            {
+                customSymbols[i].item.item.name = i.ToString();
+            }
+        }
 
         ItemSorting(ItemType.Symbol);
     }

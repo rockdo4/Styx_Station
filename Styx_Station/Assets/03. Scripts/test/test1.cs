@@ -24,7 +24,7 @@ public class test1 : MonoBehaviour
 
         //YL 0102
         SkillManager.Instance.player = playerController.gameObject;
-        SkillManager.Instance.SetCaztZone(castZone);
+        
         
     }
     private void OnEnable()
@@ -54,5 +54,7 @@ public class test1 : MonoBehaviour
 
         var button = UIManager.Instance.RepeatButton.transform.GetChild(3).GetComponent<Button>();
         button.onClick.AddListener(() => WaveManager.Instance.SetRepeat(false));
+
+        SkillManager.Instance.SetCaztZone(castZone);
     }
 }

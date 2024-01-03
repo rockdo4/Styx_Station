@@ -14,6 +14,10 @@ public class test_uimanager : MonoBehaviour
         state.TotalUpdate();
         SkillManager.Instance.player = test.gameObject;
         SkillManager.Instance.castZone = castZone;
+
+    }
+    private void OnEnable()
+    {
         SkillManager.Instance.SetCaztZone(castZone);
     }
 }

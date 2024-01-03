@@ -535,7 +535,7 @@ public class DiningRoomUIManager : MonoBehaviour
         {
             timerUpgradeButton.interactable = false;
         }
-        DiningRoomSystem.Instance.max -= DiningRoomSystem.Instance.decreaseMaxTimer;
+        //DiningRoomSystem.Instance.max -= DiningRoomSystem.Instance.decreaseMaxTimer;
         TimerUpgradeTextSetting();
     }
     public void SelectFoodUpgradeButton()

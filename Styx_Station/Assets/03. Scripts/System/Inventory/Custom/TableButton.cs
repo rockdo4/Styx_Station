@@ -9,14 +9,14 @@ public class TableButton : MonoBehaviour
     
     public void OnClickTalbe()
     {
-        if (customWindow == null)
-            return;
+        //    if (customWindow == null)
+        //        return;
 
-        var table = customWindow.GetComponent<CustomWindow>().tableName;
+        //    //var table = customWindow.GetComponent<CustomWindow>().tableName;
 
-        if (table == null)
-            return;
+        //    if (table == null)
+        //        return;
 
-        table.text = tableName.text; 
+        //    table.text = tableName.text; 
     }
 }

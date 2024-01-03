@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public float t_Attack;
-    public float t_Health;
-    public float t_AttackSpeed;
-    public float t_HealHealth;
-    public float t_AttackPer;
-    public float t_Evade;
-    public float t_DamageReduction;
-    public float t_BloodSucking;
-    public float t_CoinAcquire;
-    public float t_NormalDamage;
-    public float t_SkillDamage;
-    public float t_BossDamage;
-
     [System.Serializable]
     public class InventoryItem
     {
@@ -244,6 +231,8 @@ public class Inventory : MonoBehaviour
         dummy.itemName = dummyDate.itemName;
         dummy.type = dummyDate.type;
         dummy.tier = dummyDate.tier;
+        dummy.enchant = dummyDate.enchant;
+        dummy.itemLevUpNum = dummyDate.itemLevUpNum;
         dummy.options = dummyDate.options;
         dummy.itemIcon = dummyDate.itemIcon;
        
@@ -448,5 +437,65 @@ public class Inventory : MonoBehaviour
         item.equip = false;
         equipItems[3] = null;
         state.EquipUpdate();
+    }
+
+    public void BreakRing(CustomInventoryItem item)
+    {
+        switch(item.item.item.tier)
+        {
+            case Tier.Common:
+                CurrencyManager.itemAsh += 50;
+                break;
+
+            case Tier.Uncommon:
+                CurrencyManager.itemAsh += 150;
+                break;
+
+            case Tier.Rare:
+                CurrencyManager.itemAsh += 450;
+                break;
+
+            case Tier.Unique:
+                CurrencyManager.itemAsh += 1350;
+                break;
+
+            case Tier.Legendry:
+                CurrencyManager.itemAsh += 4050;
+                break;
+        }
+
+        customRings.Remove(item);
+
+        ItemSorting(ItemType.Ring);
+    }
+
+    public void BreakSymbol(CustomInventoryItem item)
+    {
+        switch (item.item.item.tier)
+        {
+            case Tier.Common:
+                CurrencyManager.itemAsh += 50;
+                break;
+
+            case Tier.Uncommon:
+                CurrencyManager.itemAsh += 150;
+                break;
+
+            case Tier.Rare:
+                CurrencyManager.itemAsh += 450;
+                break;
+
+            case Tier.Unique:
+                CurrencyManager.itemAsh += 1350;
+                break;
+
+            case Tier.Legendry:
+                CurrencyManager.itemAsh += 4050;
+                break;
+        }
+
+        customSymbols.Remove(item);
+
+        ItemSorting(ItemType.Symbol);
     }
 }

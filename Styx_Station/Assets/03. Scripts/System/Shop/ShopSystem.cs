@@ -8,6 +8,8 @@ public class ShopSystem : Singleton<ShopSystem>
     public SkillDropTable skillTable { get; private set; }
     public PetDropTable petTable { get; private set; }
 
+    public ItemDropTable CustomTable { get; private set; }
+
     public int currentItemRank = 0;
     public int currentItemRankUp = 0;
     public int currentSkillRank= 0;
@@ -27,10 +29,22 @@ public class ShopSystem : Singleton<ShopSystem>
 
         petTable = Resources.Load<PetDropTable>("Table/PetDropTable");
 
+        CustomTable = Resources.Load<ItemDropTable>("Table/CustumBaseTable");
+
         inventory = InventorySystem.Instance.inventory;
         skillInventory = InventorySystem.Instance.skillInventory;
         petInventory = InventorySystem.Instance.petInventory;
      }
+
+    public Item CustomBase()
+    {
+        var item = CustomTable.GetItem(0);
+
+        if (item == null)
+            return null;
+
+        return item;
+    }
 
     public void ItemGacha(GachaInfo info, int count)
     {

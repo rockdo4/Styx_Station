@@ -15,13 +15,17 @@ MonoBehaviour:
   addOptions:
   - weight: 0.25
     option: 0
-    value: 10
+    minValue: 10
+    maxValue: 50
+  - weight: 0.25
+    option: 3
+    minValue: 5
+    maxValue: 100
+  - weight: 0.25
+    option: 4
+    minValue: 5
+    maxValue: 100
   - weight: 0.25
     option: 7
-    value: 3
-  - weight: 0.25
-    option: 10
-    value: 30
-  - weight: 0.25
-    option: 11
-    value: 50
+    minValue: 1
+    maxValue: 10

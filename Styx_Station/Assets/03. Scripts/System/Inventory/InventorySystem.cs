@@ -20,6 +20,7 @@ public class InventorySystem : MonoBehaviour
                 instance.inventory = go.AddComponent<Inventory>();
                 instance.skillInventory = go.AddComponent<SkillInventory>();
                 instance.petInventory = go.AddComponent<PetInventory>();
+                instance.customMaker = go.AddComponent<CreateCustom>();
                 instance.stateSystem = StateSystem.Instance;
                 instance.Setting();
                 instance.shopSystem = ShopSystem.Instance;
@@ -36,6 +37,8 @@ public class InventorySystem : MonoBehaviour
     private StateSystem stateSystem;
 
     private ShopSystem shopSystem;
+
+    public CreateCustom customMaker;
 
     private ItemTable item;
     private SkillTable skill;
@@ -84,6 +87,24 @@ public class InventorySystem : MonoBehaviour
         if (option.optionName == AddOptionString.None)
             return;
 
+        switch(item.enchant)
+        {
+            case Enchant.Old:
+                option.value *= 1f;
+                break;
+            case Enchant.EntryLevel:
+                option.value *= 1.2f;
+                break;
+            case Enchant.Creation:
+                option.value *= 1.4f;
+                break;
+            case Enchant.Masters:
+                option.value *= 1.6f;
+                break;
+            case Enchant.MasterPiece:
+                option.value *= 2.0f;
+                break;
+        }
         item.AddOptions(option.optionName, option.value);
     }
 
@@ -118,5 +139,13 @@ public class InventorySystem : MonoBehaviour
         petInventory.PetSorting();
 
         stateSystem.Setting();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            customMaker.CreateCustomItem();
+        }
     }
 }

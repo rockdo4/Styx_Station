@@ -62,7 +62,7 @@ public class SymbolType : InventoryType
         this.inventory = inventory;
         info.GetComponent<SymbolEquipInfoUi>().Inventory();
 
-        for (int i = 0; i < inventory.customRings.Count; ++i)
+        for (int i = 0; i < inventory.customSymbols.Count; ++i)
         {
             Button button = Instantiate(symbolSlot, symbols.transform);
             button.AddComponent<ItemButton>();
@@ -70,12 +70,29 @@ public class SymbolType : InventoryType
             var ui = button.GetComponent<ItemButton>();
             ui.inventory = inventory;
             ui.type = ItemType.Symbol;
+            button.name = i.ToString();
             ui.itemIndex = i;
             ui.image = button.transform.GetChild(0).gameObject;
-            ui.itemLv = button.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            ui.itemLv = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
             button.onClick.AddListener(() => ui.OnClickSymbolOpenInfo(this));
             customSymbolButtons.Add(button);
         }
+    }
+
+    public void AddSymbol()
+    {
+        Button button = Instantiate(symbolSlot, symbols.transform);
+        button.AddComponent<ItemButton>();
+
+        var ui = button.GetComponent<ItemButton>();
+        ui.inventory = inventory;
+        ui.type = ItemType.Symbol;
+        ui.itemIndex = customSymbolButtons.Count;
+        ui.image = button.transform.GetChild(0).gameObject;
+        ui.itemLv = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        button.onClick.AddListener(() => ui.OnClickSymbolOpenInfo(this));
+        customSymbolButtons.Add(button);
     }
 }

@@ -82,7 +82,7 @@ public class ItemButton : MonoBehaviour
 
             case ItemType.Symbol:
                 {
-                    var item = inventory.customRings[itemIndex].item;
+                    var item = inventory.customSymbols[itemIndex].item;
                     image.GetComponent<Image>().sprite = item.item.itemIcon;
                     itemLv.text = $"Lv.{item.upgradeLev}";
                 }

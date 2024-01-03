@@ -616,6 +616,17 @@ public class UIManager : Singleton<UIManager>
 
         ButtonList.mainButton |= ButtonType.Train;
         ButtonList.mainButton &= ~ButtonType.TrainMove;
+
+        if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 37)
+        {
+            tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().mask[19].SetActive(true);
+        }
+        else if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 49)
+        {
+            tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().mask[22].SetActive(true);
+        }
     }
 
     public void SetGameOverPopUpActive(bool isActive)

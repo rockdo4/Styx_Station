@@ -6,7 +6,7 @@ public class LabMainVertex : MonoBehaviour
 {
     public string vertexID;
     private bool isAwakeTime;
-    private Button vertexButton;
+    public Button vertexButton { get; private set; }
     public List<LabMainEdge> edges = new List<LabMainEdge>();
     public int LabTypeLevel;
     public bool isClear;

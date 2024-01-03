@@ -70,12 +70,29 @@ public class RingType : InventoryType
             var ui = button.GetComponent<ItemButton>();
             ui.inventory = inventory;
             ui.type = ItemType.Ring;
+            button.name = i.ToString();
             ui.itemIndex = i;
             ui.image = button.transform.GetChild(0).gameObject;
-            ui.itemLv = button.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            ui.itemLv = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
             button.onClick.AddListener(() => ui.OnClickRingOpenInfo(this));
             customRingButtons.Add(button);
         }
+    }
+
+    public void AddRing()
+    {
+        Button button = Instantiate(ringSlot, rings.transform);
+        button.AddComponent<ItemButton>();
+
+        var ui = button.GetComponent<ItemButton>();
+        ui.inventory = inventory;
+        ui.type = ItemType.Ring;
+        ui.itemIndex = customRingButtons.Count;
+        ui.image = button.transform.GetChild(0).gameObject;
+        ui.itemLv = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        button.onClick.AddListener(() => ui.OnClickRingOpenInfo(this));
+        customRingButtons.Add(button);
     }
 }

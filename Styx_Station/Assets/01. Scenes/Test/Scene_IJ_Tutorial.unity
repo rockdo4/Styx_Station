@@ -512,6 +512,7 @@ GameObject:
   - component: {fileID: 11767777}
   - component: {fileID: 11767776}
   - component: {fileID: 11767775}
+  - component: {fileID: 11767778}
   m_Layer: 5
   m_Name: ResearchOpenMask
   m_TagString: Untagged
@@ -590,6 +591,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11767773}
   m_CullTransparentMesh: 1
+--- !u!114 &11767778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11767773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 856901166}
+          m_TargetAssemblyTypeName: TutorialSystem, Assembly-CSharp
+          m_MethodName: OnClickLabOpen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!224 &17764493 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3570416905063751424, guid: c2065921b5c876f48931b4468c77c7e4, type: 3}
@@ -6544,6 +6574,7 @@ GameObject:
   - component: {fileID: 134840291}
   - component: {fileID: 134840290}
   - component: {fileID: 134840289}
+  - component: {fileID: 134840292}
   m_Layer: 5
   m_Name: FoodEatMask
   m_TagString: Untagged
@@ -6622,6 +6653,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 134840287}
   m_CullTransparentMesh: 1
+--- !u!114 &134840292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134840287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 856901166}
+          m_TargetAssemblyTypeName: TutorialSystem, Assembly-CSharp
+          m_MethodName: OnclickFoodEat
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &138263335
 GameObject:
   m_ObjectHideFlags: 0
@@ -17273,7 +17333,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 368172149}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1038371399}
+        m_TargetAssemblyTypeName: SymbolEquipInfoUi, Assembly-CSharp
+        m_MethodName: OnClickUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &368172149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18588,7 +18660,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 39.08558, y: 0, z: 16.937141, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -18868,6 +18940,10 @@ PrefabInstance:
       propertyPath: coolTime
       value: 
       objectReference: {fileID: 1090497673}
+    - target: {fileID: 3715163512731843352, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
+      propertyPath: isResearching
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3715163512731843352, guid: 978050a4beff8ac4ead5c950b679e4b3, type: 3}
       propertyPath: popUpLabInfoObject
       value: 
@@ -26217,6 +26293,7 @@ GameObject:
   - component: {fileID: 524219428}
   - component: {fileID: 524219427}
   - component: {fileID: 524219426}
+  - component: {fileID: 524219429}
   m_Layer: 5
   m_Name: AttackResearchOpenMask
   m_TagString: Untagged
@@ -26295,6 +26372,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524219424}
   m_CullTransparentMesh: 1
+--- !u!114 &524219429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524219424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 856901166}
+          m_TargetAssemblyTypeName: TutorialSystem, Assembly-CSharp
+          m_MethodName: OnClickLabInfo
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &525297870
 GameObject:
   m_ObjectHideFlags: 0
@@ -36836,6 +36942,7 @@ GameObject:
   - component: {fileID: 765803372}
   - component: {fileID: 765803371}
   - component: {fileID: 765803370}
+  - component: {fileID: 765803373}
   m_Layer: 5
   m_Name: FoodMask
   m_TagString: Untagged
@@ -36914,6 +37021,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765803368}
   m_CullTransparentMesh: 1
+--- !u!114 &765803373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765803368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 856901166}
+          m_TargetAssemblyTypeName: TutorialSystem, Assembly-CSharp
+          m_MethodName: OnClickFoodInfo
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &767435834
 GameObject:
   m_ObjectHideFlags: 0
@@ -37417,7 +37553,7 @@ GameObject:
   - component: {fileID: 777815803}
   - component: {fileID: 777815802}
   m_Layer: 5
-  m_Name: ManGameUI
+  m_Name: MainGameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37572,7 +37708,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 360269348}
   m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -38181,6 +38317,7 @@ GameObject:
   - component: {fileID: 791282130}
   - component: {fileID: 791282129}
   - component: {fileID: 791282128}
+  - component: {fileID: 791282131}
   m_Layer: 5
   m_Name: AttackResearchStartMask
   m_TagString: Untagged
@@ -38259,6 +38396,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791282126}
   m_CullTransparentMesh: 1
+--- !u!114 &791282131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791282126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 856901166}
+          m_TargetAssemblyTypeName: TutorialSystem, Assembly-CSharp
+          m_MethodName: OnClickLabStart
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &797700966
 GameObject:
   m_ObjectHideFlags: 0
@@ -48280,7 +48446,19 @@ MonoBehaviour:
   itemText: {fileID: 1541916016}
   equip: {fileID: 946388081}
   ringBraek: {fileID: 1493439360}
-  upragde: {fileID: 1528988595}
+  upgrade: {fileID: 1528988595}
+--- !u!114 &992360056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992360051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe4ee40688e8a346b4da6b1244d73a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &992857848
 GameObject:
   m_ObjectHideFlags: 0
@@ -50682,8 +50860,20 @@ MonoBehaviour:
   itemName: {fileID: 746820200}
   itemText: {fileID: 1667688113}
   equip: {fileID: 1467983487}
-  ringBraek: {fileID: 1341556560}
-  upragde: {fileID: 368172148}
+  symbolBraek: {fileID: 1341556560}
+  upgrade: {fileID: 368172148}
+--- !u!114 &1038371402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038371397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe4ee40688e8a346b4da6b1244d73a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1042059918
 GameObject:
   m_ObjectHideFlags: 0
@@ -62704,6 +62894,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4587366234356581097, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587366234356581097, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587366234356581097, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992360053}
+    - target: {fileID: 4587366234356581097, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587366234356581097, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickRingEquip
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587366234356581097, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RingEquipInfoUi, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4587366234356581097, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5171502374235326376, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -62747,6 +62965,34 @@ PrefabInstance:
     - target: {fileID: 5555721390107532441, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
       propertyPath: m_enableAutoSizing
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551110033977404346, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551110033977404346, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551110033977404346, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 992360053}
+    - target: {fileID: 6551110033977404346, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551110033977404346, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickBreak
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551110033977404346, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RingEquipInfoUi, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551110033977404346, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7968615047749600495, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
       propertyPath: m_fontSizeMax
@@ -62802,6 +63048,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1327929312}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1328025284440581772, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 992360056}
     - targetCorrespondingSourceObject: {fileID: 1328025284440581772, guid: ae2634c94af1fb640bab3f97bfeafb0b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 992360053}
@@ -69798,6 +70047,34 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294956211
       objectReference: {fileID: 0}
+    - target: {fileID: 2992431211868487955, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992431211868487955, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992431211868487955, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1038371399}
+    - target: {fileID: 2992431211868487955, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992431211868487955, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickBreak
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992431211868487955, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SymbolEquipInfoUi, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992431211868487955, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3076128832397299947, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
       propertyPath: m_Type
       value: 1
@@ -69904,7 +70181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3672928031063497681, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickRingEquip
+      value: OnClickSymbolEquip
       objectReference: {fileID: 0}
     - target: {fileID: 3672928031063497681, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -69981,6 +70258,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1740621183}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4961648503219665643, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1038371402}
     - targetCorrespondingSourceObject: {fileID: 4961648503219665643, guid: 7e2e258993c1cc44a99d2edc375e758f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1038371399}
@@ -75600,7 +75880,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1528988596}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 992360053}
+        m_TargetAssemblyTypeName: RingEquipInfoUi, Assembly-CSharp
+        m_MethodName: OnClickUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1528988596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94608,6 +94900,7 @@ GameObject:
   - component: {fileID: 1864102958}
   - component: {fileID: 1864102957}
   - component: {fileID: 1864102956}
+  - component: {fileID: 1864102959}
   m_Layer: 5
   m_Name: TrainOpenMask
   m_TagString: Untagged
@@ -94686,6 +94979,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864102954}
   m_CullTransparentMesh: 1
+--- !u!114 &1864102959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864102954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 856901166}
+          m_TargetAssemblyTypeName: TutorialSystem, Assembly-CSharp
+          m_MethodName: OnClickOpenTrain
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1864545748
 GameObject:
   m_ObjectHideFlags: 0
@@ -106891,6 +107213,7 @@ GameObject:
   - component: {fileID: 2126503821}
   - component: {fileID: 2126503820}
   - component: {fileID: 2126503819}
+  - component: {fileID: 2126503822}
   m_Layer: 5
   m_Name: FoodOpenMask
   m_TagString: Untagged
@@ -106969,6 +107292,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126503817}
   m_CullTransparentMesh: 1
+--- !u!114 &2126503822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126503817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 856901166}
+          m_TargetAssemblyTypeName: TutorialSystem, Assembly-CSharp
+          m_MethodName: OnClickFoodOpen
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &2126998394
 GameObject:
   m_ObjectHideFlags: 0

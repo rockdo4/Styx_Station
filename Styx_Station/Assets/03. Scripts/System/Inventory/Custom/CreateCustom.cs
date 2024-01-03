@@ -18,38 +18,29 @@ public class CreateCustom : MonoBehaviour
 
     public void CreateCustomItem()
     {
-        var item = baseItem.GetComponent<BaseCustomButton>();
+        var item = ShopSystem.Instance.CustomBase();
 
         if (item == null)
             return;
 
-        if (item.itemIndex < 0)
-            return;
-
         var table = InventorySystem.Instance.optionTable;
 
-        var tableName = manager.windows[1].GetComponent<CustomWindow>().tableName;
+        var tableName = string.Empty;
 
-        var custom = table.table.Where(x => x.name == tableName.text).FirstOrDefault();
+        if (item.type == ItemType.Ring)
+            tableName = table.table[0].name;
+
+        else if(item.type == ItemType.Symbol)
+            tableName = table.table[1].name;
+
+        var custom = table.table.Where(x => x.name == tableName).FirstOrDefault();
 
         if (custom == null)
             return;
 
         int optionCount = 0;
 
-        Tier tier = Tier.Common;
-
-        switch (item.type)
-        {
-            case ItemType.Ring:
-                tier = inventory.rings[item.itemIndex].item.tier;
-                break;
-            case ItemType.Symbol:
-                tier = inventory.symbols[item.itemIndex].item.tier;
-                break;
-        }
-
-        switch (tier)
+        switch (item.tier)
         {
             case Tier.Common:
                 optionCount = 1;
@@ -71,13 +62,12 @@ public class CreateCustom : MonoBehaviour
         switch (item.type)
         {
             case ItemType.Ring:
-                optionCount -= inventory.rings[item.itemIndex].item.addOptions.Count;
+                optionCount -= item.addOptions.Count;
                 break;
             case ItemType.Symbol:
-                optionCount -= inventory.symbols[item.itemIndex].item.addOptions.Count;
+                optionCount -= item.addOptions.Count;
                 break;
         }
-
 
         if (optionCount <= 0)
             return;
@@ -86,17 +76,15 @@ public class CreateCustom : MonoBehaviour
         {
             case ItemType.Ring:
                 {
-                    var baseItem = inventory.rings[item.itemIndex].item;
-                    var dummy = InventorySystem.Instance.Custom(baseItem, optionCount, custom.name);
-                    manager.windows[0].GetComponent<EquipWindow>().AddRing(dummy.index, item.itemIndex);
+                    var dummy = InventorySystem.Instance.Custom(item, optionCount, custom.name);
+                    manager.windows[0].GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[2].GetComponent<RingType>().AddRing();
                 }
                 break;
 
             case ItemType.Symbol:
                 {
-                    var baseItem = inventory.symbols[item.itemIndex].item;
-                    var dummy = InventorySystem.Instance.Custom(baseItem, optionCount, custom.name);
-                    manager.windows[0].GetComponent<EquipWindow>().AddSymbol(dummy.index, item.itemIndex);
+                    var dummy = InventorySystem.Instance.Custom(item, optionCount, custom.name);
+                    manager.windows[0].GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[3].GetComponent<SymbolType>().AddSymbol();
                 }
                 break;
         }

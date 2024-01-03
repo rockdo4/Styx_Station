@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class RingEquipInfoUi : MonoBehaviour
 {
     private Inventory inventory;
+    private StateSystem state;
+    private InfoWindow info;
 
     public int selectIndex;
 
@@ -17,28 +19,70 @@ public class RingEquipInfoUi : MonoBehaviour
     public TextMeshProUGUI itemText;
     public Button equip;
     public Button ringBraek;
-    public Button upragde;
+    public Button upgrade;
 
     public void Inventory()
     {
         inventory = InventorySystem.Instance.inventory;
+        state = StateSystem.Instance;
+        info = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>();
     }
 
     public void InfoUpdate()
     {
-        var ring = inventory.customRings[selectIndex].item;
+        var ring = inventory.customRings[selectIndex];
 
-        if (ring.acquire)
+        if (ring.item.acquire)
             equip.interactable = true;
 
-        else if (!ring.acquire)
+        else if (!ring.item.acquire)
             equip.interactable = false;
 
-        if (ring.upgradeLev < ring.item.itemLevUpNum.Count)
-            lev.text = $"Lv.{ring.upgradeLev}\n\n({CurrencyManager.itemAsh} / {ring.item.itemLevUpNum[ring.upgradeLev]})";
+        if (MakeTableData.Instance.stringTable == null)
+            MakeTableData.Instance.stringTable = new StringTable();
 
-        else
-            lev.text = $"Lv.{ring.upgradeLev}\n\n({CurrencyManager.itemAsh} / {ring.item.itemLevUpNum[ring.item.itemLevUpNum.Count-1]})";
+        var stringTable = MakeTableData.Instance.stringTable;
+
+        if(Global.language == Language.KOR)
+        {
+            if (ring.item.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").KOR}";
+            }
+            else if (!ring.item.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").KOR}";
+            }
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").KOR}";
+            ringBraek.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Ring001").KOR}";
+            tier.text = $"{stringTable.GetStringTableData(ring.item.item.tier.ToString()).KOR}";
+            itemName.text = $"{stringTable.GetStringTableData(ring.copyData.name + "_Name").KOR}";
+            string text = string.Format(stringTable.GetStringTableData(ring.copyData.name + "_Info").KOR,
+                ring.item.item.options[0].value + ring.item.upgradeLev * ring.item.item.options[0].upgradeValue,
+                ring.item.item.addOptions[0].value + ring.item.upgradeLev * ring.item.item.addOptions[0].upgradeValue);
+            itemText.text = $"{text}";
+        }
+        else if(Global.language == Language.ENG)
+        {
+            if (ring.item.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").ENG}";
+            }
+            else if (!ring.item.equip)
+            {
+                equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").ENG}";
+            }
+            upgrade.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Upgrade").ENG}";
+            ringBraek.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Ring001").ENG}";
+            tier.text = $"{stringTable.GetStringTableData(ring.item.item.tier.ToString()).ENG}";
+            itemName.text = $"{stringTable.GetStringTableData(ring.copyData.name + "_Name").ENG}";
+            string text = string.Format(stringTable.GetStringTableData(ring.copyData.name + "_Info").ENG,
+                ring.item.item.options[0].value + ring.item.upgradeLev * ring.item.item.options[0].upgradeValue,
+                ring.item.item.addOptions[0].value + ring.item.upgradeLev * ring.item.item.addOptions[0].upgradeValue);
+            itemText.text = $"{text}";
+        }
+
+        lev.text = $"Lv.{ring.item.upgradeLev}";
     }
 
     public void OnClickRingEquip()
@@ -46,7 +90,7 @@ public class RingEquipInfoUi : MonoBehaviour
         if (!inventory.customRings[selectIndex].item.acquire)
             return;
 
-        var equip = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().equipButtons[2];
+        var equip = info.equipButtons[2];
 
         if (equip == null)
             return;
@@ -58,6 +102,10 @@ public class RingEquipInfoUi : MonoBehaviour
             inventory.EquipItem(selectIndex, ItemType.Ring);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.customRings[selectIndex].item.item.itemIcon;
             AlphaChange(equip, true);
+            state.EquipUpdate();
+            state.TotalUpdate();
+            InfoUpdate();
+            info.InfoTextUpdate();
             return;
         }
 
@@ -72,12 +120,20 @@ public class RingEquipInfoUi : MonoBehaviour
             inventory.DequipItem(item, ItemType.Ring);
             AlphaChange(equip, false);
             equip.transform.GetChild(0).GetComponent<Image>().sprite = null;
+            state.EquipUpdate();
+            state.TotalUpdate();
+            InfoUpdate();
+            info.InfoTextUpdate();
             return;
         }
 
         inventory.EquipItem(selectIndex, ItemType.Ring);
         equip.transform.GetChild(0).GetComponent<Image>().sprite = inventory.customRings[selectIndex].item.item.itemIcon;
         AlphaChange(equip, true);
+        state.EquipUpdate();
+        state.TotalUpdate();
+        InfoUpdate();
+        info.InfoTextUpdate();
     }
 
     private void AlphaChange(Button button, bool value)
@@ -106,5 +162,43 @@ public class RingEquipInfoUi : MonoBehaviour
         gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Ring);
 
         InfoUpdate();
+    }
+
+    public void OnClickBreak()
+    {
+        var ring = inventory.customRings[selectIndex];
+
+        if (ring == null)
+            return;
+
+        if (ring.item.equip)
+            return;
+
+        inventory.BreakRing(ring);
+
+        var ringType = info.inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[2].GetComponent<RingType>();
+        var obj = ringType.customRingButtons[selectIndex].GetComponent<Button>();
+
+        ringType.customRingButtons.Remove(obj);
+
+        for (int i = 0; i < inventory.customRings.Count; ++i)
+        {
+            var ui = ringType.customRingButtons[i].GetComponent<ItemButton>();
+
+            if (ui == null)
+                continue;
+
+            ui.name = i.ToString();
+            ui.itemIndex = i;
+        }
+
+        ringType.OnClickCloseRingInfo();
+
+        Destroy(obj.gameObject);
+
+        state.EquipUpdate();
+        state.TotalUpdate();
+        InfoUpdate();
+        info.InfoTextUpdate();
     }
 }

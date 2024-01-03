@@ -30,7 +30,7 @@ public static class GameData
     public static int tic = 1000;
 
     public static LabBuffData labBuffData;
-    public static int labBuffDataPercent = 10;
+    public static int labBuffDataPercent = 100;
     private static int compensationTime;
 
     private static bool isBanchiCompensationTime;
@@ -112,6 +112,8 @@ public static class GameData
 
         var weaponInfo = uiInvenvtory.inventoryTypes[0].gameObject.GetComponent<WeaponType>().info.GetComponent<WeaponEquipInfoUi>();
         var armorInfo = uiInvenvtory.inventoryTypes[1].gameObject.GetComponent<ArmorType>().info.GetComponent<ArmorEquipInfoUi>();
+        var ringInfo = uiInvenvtory.inventoryTypes[2].gameObject.GetComponent<RingType>().info.GetComponent<RingEquipInfoUi>();
+        var symbolInfo = uiInvenvtory.inventoryTypes[3].gameObject.GetComponent<SymbolType>().info.GetComponent<SymbolEquipInfoUi>();
 
         foreach (var item in equipItemData)
         {
@@ -138,13 +140,19 @@ public static class GameData
                 case ItemType.Ring:
                     var ring = inventory.customRings.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                     if (ring != null)
-                        inventory.EquipItem(ring.item.index, item.itemType);
+                    {
+                        ringInfo.selectIndex = ring.item.index;
+                        ringInfo.OnClickRingEquip();
+                    }
                     break;
 
                 case ItemType.Symbol:
                     var symbol = inventory.customSymbols.Where(x => x.item.item.name == item.itemName).FirstOrDefault();
                     if (symbol != null)
-                        inventory.EquipItem(symbol.item.index, item.itemType);
+                    {
+                        symbolInfo.selectIndex = symbol.item.index;
+                        symbolInfo.OnClickSymbolEquip();
+                    }
                     break;
             }
         }

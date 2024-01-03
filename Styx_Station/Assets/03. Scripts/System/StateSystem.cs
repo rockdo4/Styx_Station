@@ -199,6 +199,9 @@ public class StateSystem : Singleton<StateSystem>
             if(equips == null)
                 continue;
 
+            if (equips.item == null)
+                continue;
+
             if (equips.item.options.Count <= 0)
                 continue;
 

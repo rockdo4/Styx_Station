@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Items/CustomOptionTable")]
 public class CustomOptionTable : ScriptableObject
 {
-    
     public List<CustomOption> table = new List<CustomOption>();
 
     [System.Serializable]

@@ -46,6 +46,7 @@ public static class GameData
     public static List<EquipPetData> equipPetData;
     public static bool isAutoData;
 
+    public static bool isLoad;
     public static void GetAccumulateOfflineEarnings()
     {
         if(keyPrevAccumlateTime.ToString() == string.Empty)

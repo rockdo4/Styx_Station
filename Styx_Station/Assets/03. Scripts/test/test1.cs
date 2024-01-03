@@ -38,13 +38,15 @@ public class test1 : MonoBehaviour
 
         MakeTableData.Instance.gameSaveLoad.waveManager = WaveManager.Instance;
         MakeTableData.Instance.gameSaveLoad.skillManager = SkillManager.Instance;
-
-        GameData.EquipItemDataSetting();
-        GameData.SkillDataSetting();
-        GameData.EquipSkillDataSetting();
-        GameData.PetDataSetting();
-        GameData.EquipPetDataSetting();
-        UIManager.Instance.SetAutoSkillButton(GameData.isAutoData);
+        if(GameData.isLoad)
+        {
+            GameData.EquipItemDataSetting();
+            GameData.SkillDataSetting();
+            GameData.EquipSkillDataSetting();
+            GameData.PetDataSetting();
+            GameData.EquipPetDataSetting();
+            UIManager.Instance.SetAutoSkillButton(GameData.isAutoData);
+        }
 
         //yyl 0102
         SkillManager.Instance.ResetAllSkillCool();

@@ -7,6 +7,7 @@ using SaveDataVersionCurrent = SaveDataV4;
 using System.Numerics;
 using System.Linq;
 using System;
+using System.Runtime.CompilerServices;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -749,6 +750,7 @@ public class SaveLoad : MonoBehaviour
                     UiSetting.soundValue = sound;
                 }
             }
+            GameData.isLoad = true;
         }
 
         //var state = StateSystem.Instance;

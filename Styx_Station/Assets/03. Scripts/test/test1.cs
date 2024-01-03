@@ -8,6 +8,7 @@ public class test1 : MonoBehaviour
 {
     public PlayerController playerController;
     public Camera uiCamera;
+    public GameObject castZone;
     private void Awake()
     {
         Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
@@ -19,9 +20,11 @@ public class test1 : MonoBehaviour
 
         //WaveManager.Instance.SetStageByIndexStage(GameData.stageData_WaveManager);
         //WaveManager.Instance.SetTileMap();
-        //WaveManager.Instance.SetRepeat(GameData.isRepeatData_WaveManager);
+        //WaveManager.Instance.SetRepeat(GameData.isRepeatData_WaveManager); 
 
-
+        //YL 0102
+        SkillManager.Instance.player = playerController.gameObject;
+        SkillManager.Instance.SetCaztZone(castZone);
         
     }
     private void OnEnable()
@@ -42,6 +45,9 @@ public class test1 : MonoBehaviour
         GameData.PetDataSetting();
         GameData.EquipPetDataSetting();
         UIManager.Instance.SetAutoSkillButton(GameData.isAutoData);
+
+        //yyl 0102
+        SkillManager.Instance.ResetAllSkillCool();
 
 
         var button = UIManager.Instance.RepeatButton.transform.GetChild(3).GetComponent<Button>();

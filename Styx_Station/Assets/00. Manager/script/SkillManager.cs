@@ -159,6 +159,11 @@ public class SkillManager : Singleton<SkillManager>
         }
     }
 
+    public void SetCaztZone(GameObject zone)
+    {
+        ((ArrowRain)skills[1]).SetCastZone(zone);
+    }
+
     public void SetIsAuto(bool isA)
     {
         isAuto = isA;

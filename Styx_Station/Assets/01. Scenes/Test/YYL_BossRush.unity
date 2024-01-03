@@ -64254,7 +64254,7 @@ PrefabInstance:
     - target: {fileID: 5947216179295495208, guid: 3d6bb766f4c9ca340b0b180348774c59, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: b9903b880857cd248a7605701977d263, type: 3}
+      objectReference: {fileID: 8300000, guid: 2fb6eef2d47baec43b7fd7fcabe48e21, type: 3}
     - target: {fileID: 6230823836835832733, guid: 3d6bb766f4c9ca340b0b180348774c59, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.27268934
@@ -64295,6 +64295,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7862049313451287559, guid: 3d6bb766f4c9ca340b0b180348774c59, type: 3}
+      propertyPath: audioClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7862049313451287559, guid: 3d6bb766f4c9ca340b0b180348774c59, type: 3}
+      propertyPath: audioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2fb6eef2d47baec43b7fd7fcabe48e21, type: 3}
     - target: {fileID: 8487450934299132274, guid: 3d6bb766f4c9ca340b0b180348774c59, type: 3}
       propertyPath: m_Name
       value: BackgroundMusic
@@ -82834,6 +82842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   test: {fileID: 352992665}
+  castZone: {fileID: 843515381}
 --- !u!1 &1784338410
 GameObject:
   m_ObjectHideFlags: 0

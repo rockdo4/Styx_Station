@@ -31,6 +31,9 @@ public class SymbolEquipInfoUi : MonoBehaviour
 
     public void InfoUpdate()
     {
+        if (inventory.customSymbols.Count < 1)
+            return;
+
         var symbol = inventory.customSymbols[selectIndex];
 
         if (symbol.item.acquire)
@@ -199,10 +202,8 @@ public class SymbolEquipInfoUi : MonoBehaviour
 
         Destroy(obj.gameObject);
 
-
         state.EquipUpdate();
         state.TotalUpdate();
-        InfoUpdate();
         info.InfoTextUpdate();
     }
 }

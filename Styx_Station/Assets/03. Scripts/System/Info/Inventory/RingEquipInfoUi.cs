@@ -30,6 +30,9 @@ public class RingEquipInfoUi : MonoBehaviour
 
     public void InfoUpdate()
     {
+        if (inventory.customRings.Count < 1)
+            return;
+
         var ring = inventory.customRings[selectIndex];
 
         if (ring.item.acquire)
@@ -198,7 +201,6 @@ public class RingEquipInfoUi : MonoBehaviour
 
         state.EquipUpdate();
         state.TotalUpdate();
-        InfoUpdate();
         info.InfoTextUpdate();
     }
 }

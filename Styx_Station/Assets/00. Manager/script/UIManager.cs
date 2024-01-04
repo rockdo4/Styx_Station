@@ -329,6 +329,9 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickShop()
     {
+        if (!tutorial.GetComponent<TutorialSystem>().shop)
+            return;
+
         if ((ButtonList.mainButton & ButtonType.Shop) == 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
             move == null)
@@ -591,31 +594,29 @@ public class UIManager : Singleton<UIManager>
             yield return null;
         }
 
+        var buttonTrain = tutorial.GetComponent<TutorialSystem>();
+
         windowButtons[0].GetComponent<Button>().interactable = true;
-        windowButtons[1].GetComponent<Button>().interactable = true;
-        windowButtons[2].GetComponent<Button>().interactable = true;
-        windowButtons[3].GetComponent<Button>().interactable = true;
-        windowButtons[4].GetComponent<Button>().interactable = true;
 
-        //if ((ButtonList.tutorialBit & TutorialBit.DiningRoom) != 0)
-        //    windowButtons[1].GetComponent<Button>().interactable = true;
-        //else if ((ButtonList.tutorialBit & TutorialBit.DiningRoom) == 0)
-        //    windowButtons[1].GetComponent<Button>().interactable = false;
+        if (buttonTrain.dining)
+            windowButtons[1].GetComponent<Button>().interactable = true;
+        else if (!buttonTrain.dining)
+            windowButtons[1].GetComponent<Button>().interactable = false;
 
-        //if ((ButtonList.tutorialBit & TutorialBit.Lab) != 0)
-        //    windowButtons[2].GetComponent<Button>().interactable = true;
-        //else if ((ButtonList.tutorialBit & TutorialBit.Lab) == 0)
-        //    windowButtons[2].GetComponent<Button>().interactable = false;
+        if (buttonTrain.lab)
+            windowButtons[2].GetComponent<Button>().interactable = true;
+        else if (!buttonTrain.lab)
+            windowButtons[2].GetComponent<Button>().interactable = false;
 
-        //if ((ButtonList.tutorialBit & TutorialBit.Clean) != 0)
-        //    windowButtons[3].GetComponent<Button>().interactable = true;
-        //else if ((ButtonList.tutorialBit & TutorialBit.Clean) == 0)
-        //    windowButtons[3].GetComponent<Button>().interactable = false;
+        if (buttonTrain.clean)
+            windowButtons[3].GetComponent<Button>().interactable = true;
+        else if (!buttonTrain.clean)
+            windowButtons[3].GetComponent<Button>().interactable = false;
 
-        //if ((ButtonList.tutorialBit & TutorialBit.Failure) != 0)
-        //    windowButtons[4].GetComponent<Button>().interactable = true;
-        //else if ((ButtonList.tutorialBit & TutorialBit.Failure) == 0)
-        //    windowButtons[4].GetComponent<Button>().interactable = false;
+        if (buttonTrain.failrue)
+            windowButtons[4].GetComponent<Button>().interactable = true;
+        else if (!buttonTrain.failrue)
+            windowButtons[4].GetComponent<Button>().interactable = false;
 
         buttons.transform.position = buttonPos - wayPoint;
 
@@ -627,12 +628,16 @@ public class UIManager : Singleton<UIManager>
         if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 37)
         {
             tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
             tutorial.GetComponent<TutorialSystem>().mask[19].SetActive(true);
+            tutorial.GetComponent<TutorialSystem>().finger[15].SetActive(true);
         }
         else if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 49)
         {
             tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
             tutorial.GetComponent<TutorialSystem>().mask[22].SetActive(true);
+            tutorial.GetComponent<TutorialSystem>().finger[18].SetActive(true);
         }
     }
 

@@ -192,4 +192,12 @@ public class GameSaveData
     public int currentQuestType;
     public int currentLoopQuestIndex;
     public QuestSystemData currentQuestSystemData;
+
+    public int tutorialIndex;
+    public bool shop;
+    public bool dining;
+    public bool lab;
+    public bool clean;
+    public bool fail;
+    public bool loadTutorial;
 }

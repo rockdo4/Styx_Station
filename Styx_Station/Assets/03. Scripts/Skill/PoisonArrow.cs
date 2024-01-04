@@ -14,10 +14,13 @@ public class PoisonArrow : PoolAble
     private float speed;
 
     private bool isRelease = false;
+    private AudioSource aoudioSourece;
+    public AudioClip arrowClip;
 
     private void Awake()
     {
         rg = GetComponent<Rigidbody2D>();
+        aoudioSourece= GetComponent<AudioSource>(); 
     }
 
     private void Start()
@@ -66,6 +69,9 @@ public class PoisonArrow : PoolAble
 
     public void Fire(GameObject c, float s)
     {
+        if (aoudioSourece == null)
+            aoudioSourece = GetComponent<AudioSource>();
+        aoudioSourece.PlayOneShot(arrowClip);
         speed = s;
         caster = c;
     }

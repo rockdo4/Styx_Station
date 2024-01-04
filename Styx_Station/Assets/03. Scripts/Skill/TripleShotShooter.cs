@@ -14,7 +14,6 @@ public class TripleShotShooter : Shooter
     private float damageMultiplier = 0;
 
     private WaitForSeconds wait;
-
     private void Start()
     {
         wait = new WaitForSeconds(fireBet);

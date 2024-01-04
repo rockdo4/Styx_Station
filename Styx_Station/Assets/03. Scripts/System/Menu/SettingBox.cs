@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class SettingBox : MonoBehaviour
@@ -31,6 +32,9 @@ public class SettingBox : MonoBehaviour
     private bool first = false;
     public bool soundValue = true;
 
+    public AudioMixer mainGameAudioMixer;
+    public AudioMixerSnapshot soundPlay;
+    public AudioMixerSnapshot soundOff;
     //12.29yyl
     public GameObject backgroundMusic;
     public void OnClickChangeLenguage()
@@ -43,12 +47,13 @@ public class SettingBox : MonoBehaviour
         UIManager.Instance.AutoTextUpdate();
         SettingBoxTextUpdate();
     }
-
+  
     public void OnClickChangeSound()
     {
         soundValue = !soundValue;
         SoundValueText();
-        backgroundMusic.SetActive(soundValue);//////
+        SoundSetting();
+        //backgroundMusic.SetActive(soundValue);//////
     }
 
     public void OnClickCouPon()
@@ -182,6 +187,17 @@ public class SettingBox : MonoBehaviour
         {
             ButtonList.settingButton &= ~SettingButton.Cheat;
             cheat.SetActive(false);
+        }
+    }
+    public void SoundSetting()
+    {
+        if (soundValue)
+        {
+            mainGameAudioMixer.SetFloat("GameSound", 0f);
+        }
+        else
+        {
+            mainGameAudioMixer.SetFloat("GameSound", -80f);
         }
     }
 }

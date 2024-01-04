@@ -34,6 +34,10 @@ public class Meteor : SkillBase
             meteor.transform.position = new Vector2(attacker.transform.position.x + skillStartPos + i, posY);
             var meteorite = meteor.GetComponent<Meteorite>();
             meteorite.Fire(attacker, speed);
+            if(i ==0)
+            {
+                meteorite.AudioPlay();
+            }
             if (!meteorite.CheckOnCollided())
             {
                 meteorite.OnCollided += OnMeteoritecollided;

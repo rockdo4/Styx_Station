@@ -63,6 +63,9 @@ public class UIManager : Singleton<UIManager>
 
     //yyl 0102
     public string bossRushSceneName;
+
+    //01.04 lsw
+    public SettingBox settingBox;
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
@@ -70,6 +73,10 @@ public class UIManager : Singleton<UIManager>
         PrintSoulMoney();
         PrintMemoryMoney();
 
+    }
+    private void OnEnable()
+    {
+        settingBox.SoundSetting();
     }
     public void Open(WindowType inventoryType)
     {

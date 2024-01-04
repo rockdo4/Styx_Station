@@ -7,7 +7,9 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
     private void Awake()
     {
-        if(!isLoad)
+        if (CheckInstance())
+            return;
+        if (!isLoad)
         {
             PrevLoadSetting();
         }

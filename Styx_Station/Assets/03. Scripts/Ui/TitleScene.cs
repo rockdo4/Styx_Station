@@ -16,6 +16,8 @@ public class TitleScene : MonoBehaviour
     private void Awake()
     {
         //UIManager.Instance.gameObject.SetActive(false);
+        if(!LabSystem.Instance.gameObject.activeSelf)
+            LabSystem.Instance.gameObject.SetActive(true);
     }
     public void GoGameScene()
     {

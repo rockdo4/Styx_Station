@@ -6,6 +6,7 @@ public class test_uimanager : MonoBehaviour
 {
     public PlayerController test;
     public GameObject castZone;
+    public Camera uiCamera;
     private void Awake()
     {
         UIManager.Instance.gameObject.SetActive(true);
@@ -14,6 +15,7 @@ public class test_uimanager : MonoBehaviour
         state.TotalUpdate();
         SkillManager.Instance.player = test.gameObject;
         SkillManager.Instance.castZone = castZone;
+        UIManager.Instance.gameObject.GetComponent<Canvas>().worldCamera = uiCamera;
 
     }
     private void OnEnable()

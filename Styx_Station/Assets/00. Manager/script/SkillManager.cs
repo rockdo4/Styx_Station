@@ -112,7 +112,11 @@ public class SkillManager : Singleton<SkillManager>
 
     private void Awake()
     {
-        if(inventory ==null)
+        if (CheckInstance())
+            return;
+        GameData.SkillDataSetting();
+
+        if (inventory ==null)
             inventory = InventorySystem.Instance.skillInventory;
         if(equipSkills ==null)
             equipSkills = inventory.equipSkills;
@@ -157,6 +161,13 @@ public class SkillManager : Singleton<SkillManager>
         {
             sliders.Add(skillWindow.equipButtons[i].GetComponent<NormalButton>().cool);
         }
+        GameData.EquipItemDataSetting();
+        
+        GameData.EquipSkillDataSetting();
+        ResetAllSkillCool();
+        GameData.PetDataSetting();
+        GameData.EquipPetDataSetting();
+        UIManager.Instance.SetAutoSkillButton(GameData.isAutoData);
     }
 
     public void SetCaztZone(GameObject zone)

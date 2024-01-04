@@ -41,8 +41,11 @@ public class SoulDamage : SkillBase
             return;
         if (defender.GetComponent<MonsterStats>().currHealth <= 0)
             return;
-
-        var attackerStats = caster.GetComponent<ResultPlayerStats>();
+        if(caster == null)
+        {
+            caster = GameObject.FindGameObjectWithTag("Player");
+        }
+        var attackerStats = caster.GetComponent<ResultPlayerStats>(); ///caster 이 플레이어임
         var target = defender.GetComponent<MonsterStats>();
         Attack attack = CreateAttackToMonster(attackerStats, target, multiple);
 

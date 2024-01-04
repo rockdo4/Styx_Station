@@ -14,7 +14,7 @@ public class test1 : MonoBehaviour
         Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
         UIManager.Instance.gameObject.SetActive(true);
         // Áö¿ï°Í 
-        UIManager.Instance.gameObject.GetComponent<Canvas>().worldCamera = uiCamera;    
+        UIManager.Instance.gameObject.GetComponent<Canvas>().worldCamera = uiCamera;
         UIManager.Instance.HpGauge = playerController.hpBar;
         //
 
@@ -24,8 +24,10 @@ public class test1 : MonoBehaviour
 
         //YL 0102
         SkillManager.Instance.player = playerController.gameObject;
-        
-        
+
+
+        var button = UIManager.Instance.RepeatButton.transform.GetChild(3).GetComponent<Button>();
+        button.onClick.AddListener(() => WaveManager.Instance.SetRepeat(false));
     }
     private void OnEnable()
     {
@@ -38,22 +40,10 @@ public class test1 : MonoBehaviour
 
         MakeTableData.Instance.gameSaveLoad.waveManager = WaveManager.Instance;
         MakeTableData.Instance.gameSaveLoad.skillManager = SkillManager.Instance;
-        if(GameData.isLoad)
-        {
-            GameData.EquipItemDataSetting();
-            GameData.SkillDataSetting();
-            GameData.EquipSkillDataSetting();
-            GameData.PetDataSetting();
-            GameData.EquipPetDataSetting();
-            UIManager.Instance.SetAutoSkillButton(GameData.isAutoData);
-        }
 
         //yyl 0102
-        SkillManager.Instance.ResetAllSkillCool();
 
-
-        var button = UIManager.Instance.RepeatButton.transform.GetChild(3).GetComponent<Button>();
-        button.onClick.AddListener(() => WaveManager.Instance.SetRepeat(false));
+        
 
         SkillManager.Instance.SetCaztZone(castZone);
     }

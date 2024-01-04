@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -54,8 +50,15 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                             instance.gameObject.name);
                         DontDestroyOnLoad(instance.gameObject);
                     }
-                } 
-
+                }
+                else if (FindObjectsOfType(typeof(T)).Length > 1)
+                {
+                    //T[] instances = FindObjectsOfType(typeof(T)) as T[];
+                    //for (int i = 1; i < instances.Length; i++)
+                    //{
+                    //    Destroy(instances[i].gameObject);
+                    //}
+                }
                 return instance;
             }
         }
@@ -63,5 +66,16 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     public void OnApplicationQuit()
     {
         applicationIsQuitting = true;
+    }
+    public bool CheckInstance()
+    {
+        T[] instances = FindObjectsOfType(typeof(T)) as T[];
+        if (instances.Length > 1)
+        {
+            Destroy(gameObject);
+            return true;
+        }
+        else
+            return false;
     }
 }

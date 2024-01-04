@@ -115,7 +115,8 @@ public static class GameData
         var armorInfo = uiInvenvtory.inventoryTypes[1].gameObject.GetComponent<ArmorType>().info.GetComponent<ArmorEquipInfoUi>();
         var ringInfo = uiInvenvtory.inventoryTypes[2].gameObject.GetComponent<RingType>().info.GetComponent<RingEquipInfoUi>();
         var symbolInfo = uiInvenvtory.inventoryTypes[3].gameObject.GetComponent<SymbolType>().info.GetComponent<SymbolEquipInfoUi>();
-
+        if (equipItemData == null)
+            return;
         foreach (var item in equipItemData)
         {
             switch (item.itemType)
@@ -161,6 +162,8 @@ public static class GameData
     public static void SkillDataSetting()
     {
         var skillInventory = InventorySystem.Instance.skillInventory;
+        if (sData == null)
+            return;
         foreach (var skill in sData)
         {
             var skillData = skillInventory.skills.Where(x => x.skill.name == skill.skillName).FirstOrDefault();
@@ -177,6 +180,8 @@ public static class GameData
         var uiSkill = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[2].GetComponent<SkillWindow>();
         uiSkill.Setting();
         var skillInventory = InventorySystem.Instance.skillInventory;
+        if (equipSkillDatas == null)
+            return;
         foreach (var equip in equipSkillDatas)
         {
             var skill = skillInventory.skills.Where(x => x.skill.name == equip.skillName).FirstOrDefault();
@@ -195,6 +200,8 @@ public static class GameData
         var uiPet = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[3].GetComponent<PetWindow>();
         uiPet.Setting();
         var petInventory = InventorySystem.Instance.petInventory;
+        if (pData == null)
+            return;
         foreach (var pet in pData)
         {
             var petData = petInventory.pets.Where(x => x.pet.name == pet.petName).FirstOrDefault();
@@ -209,6 +216,8 @@ public static class GameData
     public static void EquipPetDataSetting()
     {
         var petInventory = InventorySystem.Instance.petInventory;
+        if (equipPetData == null)
+            return;
         foreach (var equip in equipPetData)
         {
             var pet = petInventory.pets.Where(x => x.pet.name == equip.petName).FirstOrDefault();

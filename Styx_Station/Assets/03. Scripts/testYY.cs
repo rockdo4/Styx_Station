@@ -17,5 +17,9 @@ public class testYY : MonoBehaviour
         {
             SceneManager.LoadScene("YYL_BossRush 1");
         }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SceneManager.LoadScene("Build_01.03 Title");
+        }
     }
 }

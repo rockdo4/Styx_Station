@@ -48,7 +48,7 @@ public class SettingBox : MonoBehaviour
     {
         soundValue = !soundValue;
         SoundValueText();
-        backgroundMusic.SetActive(soundValue);
+        backgroundMusic.SetActive(soundValue);//////
     }
 
     public void OnClickCouPon()

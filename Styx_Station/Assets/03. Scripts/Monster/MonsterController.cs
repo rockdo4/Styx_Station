@@ -156,7 +156,8 @@ public class MonsterController : PoolAble //MonoBehaviour
             {
                 isPoisioned = false;
                 timer = 0f;
-                StopCoroutine(poisonCo);
+                if(poisonCo != null)
+                    StopCoroutine(poisonCo);
                 poisonCo = null;
                 if (skullImage.activeSelf)
                 {

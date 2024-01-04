@@ -628,12 +628,16 @@ public class UIManager : Singleton<UIManager>
         if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 37)
         {
             tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
             tutorial.GetComponent<TutorialSystem>().mask[19].SetActive(true);
+            tutorial.GetComponent<TutorialSystem>().finger[15].SetActive(true);
         }
         else if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 49)
         {
             tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
             tutorial.GetComponent<TutorialSystem>().mask[22].SetActive(true);
+            tutorial.GetComponent<TutorialSystem>().finger[18].SetActive(true);
         }
     }
 

@@ -36,9 +36,9 @@ public class ShopSystem : Singleton<ShopSystem>
         petInventory = InventorySystem.Instance.petInventory;
      }
 
-    public Item CustomBase()
+    public Item CustomBase(int i)
     {
-        var item = CustomTable.GetItem(0);
+        var item = CustomTable.GetItem(i);
 
         if (item == null)
             return null;

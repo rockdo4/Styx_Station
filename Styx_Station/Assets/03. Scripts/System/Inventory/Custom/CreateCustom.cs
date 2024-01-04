@@ -16,9 +16,9 @@ public class CreateCustom : MonoBehaviour
         manager = UIManager.Instance;
     }
 
-    public void CreateCustomItem()
+    public void CreateCustomItem(int i)
     {
-        var item = ShopSystem.Instance.CustomBase();
+        var item = ShopSystem.Instance.CustomBase(i);
 
         if (item == null)
             return;

@@ -22,7 +22,7 @@ public static class GameData
     public static List<LabSaveData> Re_AtkSaveDataList = new List<LabSaveData>();
     public static List<LabSaveData> Re_HPSaveDataList = new List<LabSaveData>();
     public static List<LabSaveData> Re_CriSaveDataList =new List<LabSaveData>();
-    public static List<LabSaveData>Re_SilupSaveDataList=new List<LabSaveData>();
+    public static List<LabSaveData> Re_SilupSaveDataList=new List<LabSaveData>();
     public static List<LabSaveData> Re_MidAtkSaveDataList = new List<LabSaveData>();
     public static List<LabSaveData> Re_MidHPSaveDataList = new List<LabSaveData>();
     public static CurrentLavSaveData currnetLabSaveData;

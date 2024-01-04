@@ -9,6 +9,8 @@ public class TutorialSystem : MonoBehaviour
 {
     private StringTable stringTable;
 
+    public bool loadTutorial = false;
+
     public bool shop = false;
     public bool dining = false;
     public bool lab = false;
@@ -27,6 +29,7 @@ public class TutorialSystem : MonoBehaviour
     public bool stop = false;
 
     public List<GameObject> mask = new List<GameObject>();
+    public List<GameObject> finger = new List<GameObject>();
 
     private Coroutine text;
 
@@ -61,6 +64,8 @@ public class TutorialSystem : MonoBehaviour
 
     public void FindTutorialIndex()
     {
+        loadTutorial = true;
+
         switch (tutorialIndex)
         {
             case 0:
@@ -186,6 +191,18 @@ public class TutorialSystem : MonoBehaviour
                 Log_17();
                 break;
 
+            case 31:
+            case 32:
+            case 33:
+                tutorialIndex = 34;
+
+                tutorial.SetActive(false);
+                stop = false;
+                playTutorial = false;
+                loadTutorial = false;
+
+                WaveManager.Instance.StartWave();
+                break;
             case 34:
                 Log_18();
                 break;
@@ -615,6 +632,8 @@ public class TutorialSystem : MonoBehaviour
         if (!textBox.activeSelf)
             textBox.SetActive(true);
 
+        shop = true;
+
         str = string.Empty;
 
         if (Global.language == Language.KOR)
@@ -720,6 +739,8 @@ public class TutorialSystem : MonoBehaviour
             textBox.SetActive(true);
 
         str = string.Empty;
+
+        dining = true;
 
         if (Global.language == Language.KOR)
             str = stringTable.GetStringTableData("Tutorial_Log18").KOR;
@@ -929,6 +950,8 @@ public class TutorialSystem : MonoBehaviour
 
         str = string.Empty;
 
+        lab = true;
+
         if (Global.language == Language.KOR)
             str = stringTable.GetStringTableData("Tutorial_Log26").KOR;
         else if (Global.language == Language.ENG)
@@ -1051,36 +1074,39 @@ public class TutorialSystem : MonoBehaviour
     {
         mask[0].SetActive(false);
         mask[1].SetActive(true);
+        finger[1].SetActive(true);
     }
 
     private void Quest_2()
     {
         mask[1].SetActive(true);
+        finger[1].SetActive(true);
     }
 
     private void Quest_3()
     {
         mask[1].SetActive(true);
+        finger[1].SetActive(true);
     }
 
     private void Info_1()
     {
         mask[0].SetActive(false);
-
+        finger[2].SetActive(true);
         mask[6].SetActive(true);
     }
 
     private void Info_2()
     {
         UIManager.Instance.OnClickInfo();
-
+        finger[3].SetActive(true);
         mask[7].SetActive(true);
     }
 
     private void Info_3()
     {
         UIManager.Instance.OnClickInfo();
-
+        finger[9].SetActive(true);
         mask[13].SetActive(true);
     }
 
@@ -1095,6 +1121,7 @@ public class TutorialSystem : MonoBehaviour
         UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().OnClickInventory();
 
         mask[14].SetActive(true);
+        finger[10].SetActive(true);
     }
 
     private void Info_5()
@@ -1106,11 +1133,13 @@ public class TutorialSystem : MonoBehaviour
         ui.weaponButtons[0].GetComponent<ItemButton>().OnClickWeaponOpenInfo(ui);
 
         mask[15].SetActive(true);
+        finger[11].SetActive(true);
     }
 
     private void Shop_1()
     {
         mask[9].SetActive(true);
+        finger[5].SetActive(true);
     }
 
     private void Shop_2()
@@ -1118,6 +1147,7 @@ public class TutorialSystem : MonoBehaviour
         UIManager.Instance.OnClickShop();
 
         mask[10].SetActive(true);
+        finger[6].SetActive(true);
     }
 
     private void Dining()
@@ -1133,6 +1163,42 @@ public class TutorialSystem : MonoBehaviour
         {
             crewText.text = text.Substring(0, i);
             yield return timer;
+        }
+
+        switch(tutorialIndex)
+        {
+            case 0:
+            case 1:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 11:
+            case 12:
+            case 15:
+            case 16:
+            case 17:
+            case 19:
+            case 20:
+            case 25:
+            case 30:
+            case 34:
+            case 35:
+            case 38:
+            case 39:
+            case 40:
+            case 41:
+            case 42:
+            case 45:
+            case 46:
+            case 50:
+            case 51:
+            case 52:
+                finger[0].SetActive(true); 
+                break;
+
         }
 
         message = false;
@@ -1151,6 +1217,8 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
                         tutorialIndex++;
 
+                        finger[0].SetActive(false);
+
                         FindTutorialIndex();
                     }
                     else if (message && !next)
@@ -1159,6 +1227,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1173,6 +1243,8 @@ public class TutorialSystem : MonoBehaviour
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
+                        finger[0].SetActive(false);
+
                         mask[26].SetActive(true);
 
                         WaveManager.Instance.StartWave();
@@ -1187,6 +1259,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1200,6 +1274,8 @@ public class TutorialSystem : MonoBehaviour
 
                         tutorialIndex++;
 
+                        finger[0].SetActive(false);
+
                         FindTutorialIndex();
                     }
                     else if (message && !next)
@@ -1208,6 +1284,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1221,6 +1299,10 @@ public class TutorialSystem : MonoBehaviour
 
                         tutorialIndex++;
 
+
+                        finger[0].SetActive(false);
+
+
                         FindTutorialIndex();
                     }
                     else if (message && !next)
@@ -1229,6 +1311,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1241,6 +1325,7 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
 
                         mask[2].SetActive(false);
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
@@ -1252,6 +1337,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1264,6 +1351,7 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
 
                         mask[3].SetActive(false);
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
@@ -1275,6 +1363,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1287,6 +1377,7 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
 
                         mask[4].SetActive(false);
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
@@ -1298,6 +1389,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1311,6 +1404,9 @@ public class TutorialSystem : MonoBehaviour
 
                         mask[0].SetActive(false);
 
+                        finger[0].SetActive(false);
+                        finger[2].SetActive(true);
+
                         mask[6].SetActive(true);
 
                         tutorialIndex++;
@@ -1322,6 +1418,8 @@ public class TutorialSystem : MonoBehaviour
 
                         crewText.text = str;
 
+                        finger[0].SetActive(true);
+
                         message = false;
                         next = true;
                     }
@@ -1331,6 +1429,8 @@ public class TutorialSystem : MonoBehaviour
                     if (!message && next)
                     {
                         next = false;
+
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
@@ -1343,6 +1443,8 @@ public class TutorialSystem : MonoBehaviour
 
                         crewText.text = str;
 
+                        finger[0].SetActive(true);
+
                         message = false;
                         next = true;
                     }
@@ -1353,12 +1455,14 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
                         tutorialIndex++;
 
                         mask[8].SetActive(true);
+                        finger[4].SetActive(true);
                     }
                     else if (message && !next)
                     {
@@ -1366,6 +1470,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1378,6 +1484,8 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
 
                         tutorialIndex++;
+                        
+                        finger[0].SetActive(false);
 
                         FindTutorialIndex();
                     }
@@ -1387,6 +1495,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1398,6 +1508,7 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
@@ -1416,6 +1527,8 @@ public class TutorialSystem : MonoBehaviour
 
                         crewText.text = str;
 
+                        finger[0].SetActive(true);
+
                         message = false;
                         next = true;
                     }
@@ -1426,12 +1539,14 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
                         textBox.SetActive(false);
                         mask[0].SetActive(false);
 
                         tutorialIndex++;
 
                         mask[1].SetActive(true);
+                        finger[1].SetActive(true);
                     }
                     else if (message && !next)
                     {
@@ -1439,6 +1554,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1450,6 +1567,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1460,6 +1579,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1474,14 +1595,19 @@ public class TutorialSystem : MonoBehaviour
                         textBox.SetActive(false);
                         mask[0].SetActive(false);
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
+                        finger[5].SetActive(true);
                         mask[9].SetActive(true);
                     }
                     else if (message && !next)
                     {
                         StopCoroutine(text);
                         text = null;
+
+                        finger[0].SetActive(true);
 
                         crewText.text = str;
 
@@ -1496,15 +1622,19 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
 
                         mask[0].SetActive(false);
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
                         mask[6].SetActive(true);
+                        finger[2].SetActive(true);
                     }
                     else if (message && !next)
                     {
                         StopCoroutine(text);
                         text = null;
+
+                        finger[0].SetActive(true);
 
                         crewText.text = str;
 
@@ -1520,15 +1650,19 @@ public class TutorialSystem : MonoBehaviour
 
                         mask[25].SetActive(false);
                         textBox.SetActive(false);
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
                         mask[16].SetActive(true);
+                        finger[12].SetActive(true);
                     }
                     else if (message && !next)
                     {
                         StopCoroutine(text);
                         text = null;
+
+                        finger[0].SetActive(true);
 
                         crewText.text = str;
 
@@ -1542,6 +1676,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1552,6 +1688,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1565,9 +1703,11 @@ public class TutorialSystem : MonoBehaviour
 
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
+                        finger[14].SetActive(true);
                         mask[18].SetActive(true);
                     }
                     else if (message && !next)
@@ -1576,6 +1716,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1587,6 +1729,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1597,6 +1741,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1608,6 +1754,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1618,6 +1766,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1629,6 +1779,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1640,6 +1792,8 @@ public class TutorialSystem : MonoBehaviour
 
                         crewText.text = str;
 
+                        finger[0].SetActive(true);
+
                         message = false;
                         next = true;
                     }
@@ -1649,6 +1803,8 @@ public class TutorialSystem : MonoBehaviour
                     if (!message && next)
                     {
                         next = false;
+
+                        finger[0].SetActive(false);
 
                         tutorialIndex++;
 
@@ -1663,6 +1819,8 @@ public class TutorialSystem : MonoBehaviour
 
                         crewText.text = str;
 
+                        finger[0].SetActive(true);
+
                         message = false;
                         next = true;
                     }
@@ -1673,12 +1831,14 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
                         tutorialIndex++;
 
                         mask[20].SetActive(true);
+                        finger[16].SetActive(true);
                     }
                     else if (message && !next)
                     {
@@ -1686,6 +1846,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1698,6 +1860,7 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
@@ -1706,6 +1869,7 @@ public class TutorialSystem : MonoBehaviour
                         tutorial.SetActive(false);
                         stop = false;
                         playTutorial = false;
+                        loadTutorial = false;
 
                         WaveManager.Instance.StartWave();
                     }
@@ -1713,6 +1877,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         StopCoroutine(text);
                         text = null;
+
+                        finger[0].SetActive(true);
 
                         crewText.text = str;
 
@@ -1726,6 +1892,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1737,6 +1905,8 @@ public class TutorialSystem : MonoBehaviour
 
                         crewText.text = str;
 
+                        finger[0].SetActive(true);
+
                         message = false;
                         next = true;
                     }
@@ -1746,11 +1916,13 @@ public class TutorialSystem : MonoBehaviour
                     if (!message && next)
                     {
                         next = false;
+                        finger[0].SetActive(false);
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
                         tutorialIndex++;
 
+                        finger[14].SetActive(true);
                         mask[18].SetActive(true);
                     }
                     else if (message && !next)
@@ -1759,6 +1931,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1770,6 +1944,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1780,6 +1956,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1791,6 +1969,8 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
+
                         tutorialIndex++;
 
                         FindTutorialIndex();
@@ -1802,6 +1982,8 @@ public class TutorialSystem : MonoBehaviour
 
                         crewText.text = str;
 
+                        finger[0].SetActive(true);
+
                         message = false;
                         next = true;
                     }
@@ -1812,12 +1994,14 @@ public class TutorialSystem : MonoBehaviour
                     {
                         next = false;
 
+                        finger[0].SetActive(false);
                         mask[0].SetActive(false);
                         textBox.SetActive(false);
 
                         tutorialIndex++;
 
                         mask[23].SetActive(true);
+                        finger[19].SetActive(true);
                     }
                     else if (message && !next)
                     {
@@ -1825,6 +2009,8 @@ public class TutorialSystem : MonoBehaviour
                         text = null;
 
                         crewText.text = str;
+
+                        finger[0].SetActive(true);
 
                         message = false;
                         next = true;
@@ -1842,6 +2028,8 @@ public class TutorialSystem : MonoBehaviour
         {
             mask[1].SetActive(false);
 
+            finger[1].SetActive(false);
+
             UIManager.Instance.questSystemUi.GetComponent<QuestSystemUi>().questButton.onClick.Invoke();
 
             tutorialIndex++;
@@ -1854,6 +2042,7 @@ public class TutorialSystem : MonoBehaviour
         else if(tutorialIndex == 18)
         {
             mask[1].SetActive(false);
+            finger[1].SetActive(false);
 
             UIManager.Instance.questSystemUi.GetComponent<QuestSystemUi>().questButton.onClick.Invoke();
 
@@ -1862,6 +2051,7 @@ public class TutorialSystem : MonoBehaviour
             tutorial.SetActive(false);
             stop = false;
             playTutorial = false;
+            loadTutorial = false;
 
             WaveManager.Instance.StartWave();
         }
@@ -1872,18 +2062,21 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 9)
         {
             mask[6].SetActive(false);
+            finger[2].SetActive(false);
 
             UIManager.Instance.OnClickInfo();
 
             tutorialIndex++;
 
             textBox.SetActive(false);
+            finger[3].SetActive(true);
             mask[7].SetActive(true);
 
             FindTutorialIndex();
         }
         else if(tutorialIndex == 26)
         {
+            finger[2].SetActive(false);
             mask[6].SetActive(false);
 
             UIManager.Instance.OnClickInfo();
@@ -1893,6 +2086,7 @@ public class TutorialSystem : MonoBehaviour
             textBox.SetActive(false);
 
             mask[13].SetActive(true);
+            finger[9].SetActive(true);
         }
     }
 
@@ -1901,6 +2095,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 10)
         {
             mask[7].SetActive(false);
+            finger[3].SetActive(false);
 
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[0].GetComponent<PlayerStatsUIManager>();
 
@@ -1920,17 +2115,20 @@ public class TutorialSystem : MonoBehaviour
         {
             mask[8].SetActive(false);
             textBox.SetActive(false);
+            finger[4].SetActive(false);
 
             UIManager.Instance.OnClickClose();
 
             tutorialIndex++;
 
+            finger[1].SetActive(true);
             mask[1].SetActive(true);
         }
         // 2차 튜토리얼 종료
         else if(tutorialIndex == 33)
         {
             mask[8].SetActive(false);
+            finger[4].SetActive(!false);
 
             UIManager.Instance.OnClickClose();
 
@@ -1939,6 +2137,7 @@ public class TutorialSystem : MonoBehaviour
             tutorial.SetActive(false);
             stop = false;
             playTutorial = false;
+            loadTutorial = false;
 
             WaveManager.Instance.StartWave();
         }
@@ -1949,12 +2148,14 @@ public class TutorialSystem : MonoBehaviour
         if (tutorialIndex == 21)
         {
             mask[9].SetActive(false);
+            finger[5].SetActive(false);
 
             UIManager.Instance.OnClickShop();
 
             tutorialIndex++;
 
             mask[10].SetActive(true);
+            finger[6].SetActive(true);
         }
     }
 
@@ -1963,12 +2164,14 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 22)
         {
             mask[10].SetActive(false);
+            finger[6].SetActive(false);
 
             UIManager.Instance.windows[6].GetComponent<GachaWindow>().itemGacha.GetComponent<ItemGacha>().OnClickMaxGacha();
 
             tutorialIndex++;
 
             mask[11].SetActive(true);
+            finger[7].SetActive(true);
         }
     }
 
@@ -1977,12 +2180,14 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 23)
         {
             mask[11].SetActive(false);
+            finger[7].SetActive(false);
 
             UIManager.Instance.windows[6].GetComponent<GachaWindow>().info.GetComponent<GachaInfo>().OnClickGachaInfoClose();
 
             tutorialIndex++;
 
             mask[12].SetActive(true);
+            finger[8].SetActive(true);
         }
     }
 
@@ -1991,6 +2196,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 24)
         {
             mask[12].SetActive(false);
+            finger[8].SetActive(false);
 
             UIManager.Instance.OnClickClose();
 
@@ -2005,6 +2211,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 27)
         {
             mask[13].SetActive(false);
+            finger[9].SetActive(false);
 
             if (!InventorySystem.Instance.inventory.GetComponent<Inventory>().weapons[0].acquire)
                 InventorySystem.Instance.inventory.GetComponent<Inventory>().weapons[0].acquire = true;
@@ -2018,6 +2225,7 @@ public class TutorialSystem : MonoBehaviour
             tutorialIndex++;
 
             mask[14].SetActive(true);
+            finger[10].SetActive(true);
         }
     }
 
@@ -2026,6 +2234,7 @@ public class TutorialSystem : MonoBehaviour
         if (tutorialIndex == 28)
         {
             mask[14].SetActive(false);
+            finger[10].SetActive(false);
 
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
@@ -2034,6 +2243,7 @@ public class TutorialSystem : MonoBehaviour
             tutorialIndex++;
 
             mask[15].SetActive(true);
+            finger[11].SetActive(true);
         }
     }
 
@@ -2042,6 +2252,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 29)
         {
             mask[15].SetActive(false);
+            finger[11].SetActive (false);
 
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
@@ -2058,6 +2269,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 31)
         {
             mask[16].SetActive(false);
+            finger[12].SetActive(false);
 
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
@@ -2066,6 +2278,7 @@ public class TutorialSystem : MonoBehaviour
             tutorialIndex++;
 
             mask[17].SetActive(true);
+            finger[13].SetActive(true);
         }
     }
 
@@ -2074,7 +2287,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 32)
         {
             mask[17].SetActive(false);
-
+            finger[13].SetActive (false);
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
             ui.OnClickCloseWeaponInfo();
@@ -2082,6 +2295,7 @@ public class TutorialSystem : MonoBehaviour
             tutorialIndex++;
 
             mask[8].SetActive(true);
+            finger[4].SetActive(true);
         }
     }
 
@@ -2091,6 +2305,7 @@ public class TutorialSystem : MonoBehaviour
         {
             mask[18].SetActive(false);
             mask[0].SetActive(true);
+            finger[14].SetActive(false);
 
             UIManager.Instance.CloseTrain();
 
@@ -2103,6 +2318,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 37)
         {
             mask[19].SetActive(false);
+            finger[15].SetActive(false);
 
             UIManager.Instance.OnClickDiningRoom();
 
@@ -2117,12 +2333,14 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex==43)
         {
             mask[20].SetActive(false);
+            finger[16].SetActive(false);
 
             UIManager.Instance.windows[1].gameObject.GetComponent<DiningRoomUIManager>().diningRoomButtdonDatas[0].onClick = true;
 
             tutorialIndex++;
 
             mask[21].SetActive(true);
+            finger[17].SetActive(true);
         }
     }
 
@@ -2131,6 +2349,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex==44)
         {
             mask[21].SetActive(false);
+            finger[17].SetActive(false);
 
             UIManager.Instance.windows[1].gameObject.GetComponent<DiningRoomUIManager>().EatFood();
 
@@ -2145,6 +2364,7 @@ public class TutorialSystem : MonoBehaviour
         if (tutorialIndex == 49)
         {
             mask[22].SetActive(false);
+            finger[18].SetActive(false);
 
             UIManager.Instance.OnClickLab();
 
@@ -2159,6 +2379,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex==53)
         {
             mask[23].SetActive(false);
+            finger[19].SetActive(false);
 
             UIManager.Instance.windows[2].transform.GetChild(5).gameObject.
                 transform.GetChild(0).gameObject.
@@ -2170,6 +2391,7 @@ public class TutorialSystem : MonoBehaviour
             tutorialIndex++;
 
             mask[24].SetActive(true);
+            finger[20].SetActive(true);
         }
     }
 
@@ -2178,6 +2400,7 @@ public class TutorialSystem : MonoBehaviour
         if(tutorialIndex == 54)
         {
             mask[24].SetActive(false);
+            finger[20].SetActive(false);
 
             UIManager.Instance.windows[2].GetComponent<LabWindow>().labInfoWindow.reasearchButton.onClick.Invoke();
 

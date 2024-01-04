@@ -16,7 +16,7 @@ public class test_uimanager : MonoBehaviour
         SkillManager.Instance.player = test.gameObject;
         SkillManager.Instance.castZone = castZone;
         UIManager.Instance.gameObject.GetComponent<Canvas>().worldCamera = uiCamera;
-
+        UIManager.Instance.questSystemUi.PlayDungeon((int)DungeonType.SweepHomeBaseAndClean);
     }
     private void OnEnable()
     {

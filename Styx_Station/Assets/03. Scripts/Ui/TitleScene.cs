@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class TitleScene : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class TitleScene : MonoBehaviour
     private AsyncOperation asyncLoad;
     public GameObject loadingBar;
     private bool sceneLoad;
+    public Slider loadingBarSlider;
     private void Awake()
     {
         //UIManager.Instance.gameObject.SetActive(false);
@@ -34,11 +34,11 @@ public class TitleScene : MonoBehaviour
     {
         if(sceneLoad)
         {
-
             time += Time.unscaledDeltaTime;
-
-            if ((time >= timerDuration && asyncLoad.progress >= 0.9f) || asyncLoad.allowSceneActivation)
+            loadingBarSlider.value =time/timerDuration; 
+            if ((time >= timerDuration ) || asyncLoad.allowSceneActivation)
             {
+                loadingBarSlider.value = 1f;
                 asyncLoad.allowSceneActivation = true; 
             }
         }

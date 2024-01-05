@@ -470,6 +470,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         if (aliveMonsterCount <= 0)
         {
             isWaveInProgress = false;
+            StopArrows();
             Invoke("ChangeWave", 1f);
         }
     }

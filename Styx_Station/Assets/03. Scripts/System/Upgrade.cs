@@ -1,4 +1,6 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Upgrade : MonoBehaviour
 {
@@ -43,6 +45,9 @@ public class Upgrade : MonoBehaviour
         if (item == null)
             return;
 
+        if (item.upgradeLev >= 100)
+            return;
+
         int num = 0;
 
         if (item.item.itemLevUpNum.Count <= item.upgradeLev)
@@ -68,6 +73,9 @@ public class Upgrade : MonoBehaviour
         var item = itemInventory.armors[index];
 
         if (item == null)
+            return;
+
+        if (item.upgradeLev >= 100)
             return;
 
         int num = 0;
@@ -97,6 +105,9 @@ public class Upgrade : MonoBehaviour
         if (item == null)
             return;
 
+        if (item.upgradeLev >= 100)
+            return;
+
         int num = 0;
 
         if (item.item.itemLevUpNum.Count <= item.upgradeLev)
@@ -124,6 +135,9 @@ public class Upgrade : MonoBehaviour
         if (item == null)
             return;
 
+        if (item.upgradeLev >= 100)
+            return;
+
         int num = 0;
 
         if (item.item.itemLevUpNum.Count <= item.upgradeLev)
@@ -146,8 +160,11 @@ public class Upgrade : MonoBehaviour
     public void SkillUpgrade(int index)
     {
         var skill = skillInventory.skills[index];
-
         if (skill == null) return;
+
+
+        if (skill.upgradeLev >= 100)
+            return;
 
         int num = 0;
 
@@ -173,6 +190,9 @@ public class Upgrade : MonoBehaviour
         var pet = petInventory.pets[index];
 
         if(pet == null) return;
+
+        if (pet.upgradeLev >= 100)
+            return;
 
         int num = 0;
 

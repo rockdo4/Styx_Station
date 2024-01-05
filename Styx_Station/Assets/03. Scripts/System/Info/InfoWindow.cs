@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,6 +51,13 @@ public class InfoWindow : Window
         {
             stateSystem = StateSystem.Instance;
         }
+        string bloodSucking = string.Format("{0:F2}", stateSystem.TotalState.BloodSucking);
+        string skillDamage = string.Format("{0:F2}", stateSystem.TotalState.SkillDamage);
+        string normalDamage = string.Format("{0:F2}", stateSystem.TotalState.NormalDamage);
+        string coinAcquire = string.Format("{0:F2}", stateSystem.TotalState.CoinAcquire);
+        string damageReduction = string.Format("{0:F2}", stateSystem.TotalState.DamageReduction);
+        string evade = string.Format("{0:F2}", stateSystem.TotalState.Evade);
+
         if (Global.language == Language.KOR)
         {
             tabs[0].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo001").KOR}";
@@ -58,13 +66,13 @@ public class InfoWindow : Window
             tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").KOR}";
             string text = string.Format(stringTable.GetStringTableData("Playerinfo005").KOR,
                 stateSystem.TotalState.Attack,
-                stateSystem.TotalState.BloodSucking,
-                stateSystem.TotalState.SkillDamage,
-                stateSystem.TotalState.NormalDamage,
+                bloodSucking,
+                skillDamage,
+                normalDamage,
                 stateSystem.TotalState.Health,
-                stateSystem.TotalState.CoinAcquire,
-                stateSystem.TotalState.DamageReduction,
-                stateSystem.TotalState.Evade);
+                coinAcquire,
+                damageReduction, 
+                evade);
             state.text = $"{text}";
 
         }
@@ -76,13 +84,13 @@ public class InfoWindow : Window
             tabs[3].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Playerinfo004").ENG}";
             string text = string.Format(stringTable.GetStringTableData("Playerinfo005").ENG,
                 stateSystem.TotalState.Attack,
-                stateSystem.TotalState.BloodSucking,
-                stateSystem.TotalState.SkillDamage,
-                stateSystem.TotalState.NormalDamage,
+                bloodSucking,
+                skillDamage,
+                normalDamage,
                 stateSystem.TotalState.Health,
-                stateSystem.TotalState.CoinAcquire,
-                stateSystem.TotalState.DamageReduction,
-                stateSystem.TotalState.Evade);
+                coinAcquire,
+                damageReduction,
+                evade);
             state.text = $"{text}";
         }
     }

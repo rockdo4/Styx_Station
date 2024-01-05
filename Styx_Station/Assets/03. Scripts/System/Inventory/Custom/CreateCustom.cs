@@ -16,12 +16,12 @@ public class CreateCustom : MonoBehaviour
         manager = UIManager.Instance;
     }
 
-    public void CreateCustomItem(int i)
+    public Item CreateCustomItem(int i)
     {
         var item = ShopSystem.Instance.CustomBase(i);
 
         if (item == null)
-            return;
+            return null;
 
         var table = InventorySystem.Instance.optionTable;
 
@@ -36,7 +36,7 @@ public class CreateCustom : MonoBehaviour
         var custom = table.table.Where(x => x.name == tableName).FirstOrDefault();
 
         if (custom == null)
-            return;
+            return null;
 
         int optionCount = 0;
 
@@ -70,7 +70,7 @@ public class CreateCustom : MonoBehaviour
         }
 
         if (optionCount <= 0)
-            return;
+            return null;
 
         switch (item.type)
         {
@@ -88,5 +88,6 @@ public class CreateCustom : MonoBehaviour
                 }
                 break;
         }
+        return item;
     }
 }

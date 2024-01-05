@@ -1,6 +1,8 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class RingEquipInfoUi : MonoBehaviour
 {
@@ -60,10 +62,51 @@ public class RingEquipInfoUi : MonoBehaviour
             ringBraek.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Ring001").KOR}";
             tier.text = $"{stringTable.GetStringTableData(ring.item.item.tier.ToString()).KOR}";
             itemName.text = $"{stringTable.GetStringTableData(ring.copyData.name + "_Name").KOR}";
-            string text = string.Format(stringTable.GetStringTableData(ring.copyData.name + "_Info").KOR,
-                ring.item.item.options[0].value + ring.item.upgradeLev * ring.item.item.options[0].upgradeValue,
-                ring.item.item.addOptions[0].value + ring.item.upgradeLev * ring.item.item.addOptions[0].upgradeValue);
-            itemText.text = $"{text}";
+
+            StringBuilder infoText = new StringBuilder();
+            string text = string.Format(stringTable.GetStringTableData("Ring_Status_0").KOR, 1);
+            string option = string.Format("{0:F2}", ring.item.item.options[0].value + ring.item.upgradeLev * ring.item.item.options[0].upgradeValue);
+            infoText.Append(text);
+            text = string.Format(stringTable.GetStringTableData("Ring_Status_1").KOR, option);
+            infoText.Append(text);
+            infoText.AppendLine();
+            for(int i = 0; i<ring.item.item.addOptions.Count; ++i) 
+            {
+                text = string.Format(stringTable.GetStringTableData("Ring_Status_0").KOR, i+2);
+                infoText.Append(text);
+                switch(ring.item.item.addOptions[i].option)
+                {
+                    case AddOptionString.AttackPer:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_1").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.Bloodsucking:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_2").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.BossDamage:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_3").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.SkillDamage:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_4").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+                }
+            }
+
+            itemText.text = $"{infoText} {stringTable.GetStringTableData(ring.copyData.name + "_Info").KOR}";
         }
         else if(Global.language == Language.ENG)
         {
@@ -79,13 +122,77 @@ public class RingEquipInfoUi : MonoBehaviour
             ringBraek.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Ring001").ENG}";
             tier.text = $"{stringTable.GetStringTableData(ring.item.item.tier.ToString()).ENG}";
             itemName.text = $"{stringTable.GetStringTableData(ring.copyData.name + "_Name").ENG}";
-            string text = string.Format(stringTable.GetStringTableData(ring.copyData.name + "_Info").ENG,
-                ring.item.item.options[0].value + ring.item.upgradeLev * ring.item.item.options[0].upgradeValue,
-                ring.item.item.addOptions[0].value + ring.item.upgradeLev * ring.item.item.addOptions[0].upgradeValue);
-            itemText.text = $"{text}";
+            StringBuilder infoText = new StringBuilder();
+            string text = string.Format(stringTable.GetStringTableData("Ring_Status_0").ENG, 1);
+            string option = string.Format("{0:F2}", ring.item.item.options[0].value + ring.item.upgradeLev * ring.item.item.options[0].upgradeValue);
+            infoText.Append(text);
+            text = string.Format(stringTable.GetStringTableData("Ring_Status_1").ENG, option);
+            infoText.Append(text);
+            infoText.AppendLine();
+            for (int i = 0; i < ring.item.item.addOptions.Count; ++i)
+            {
+                text = string.Format(stringTable.GetStringTableData("Ring_Status_0").ENG, i + 2);
+                infoText.Append(text);
+                switch (ring.item.item.addOptions[i].option)
+                {
+                    case AddOptionString.AttackPer:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_1").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.Bloodsucking:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_2").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.BossDamage:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_3").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.SkillDamage:
+                        option = string.Format("{0:F2}", ring.item.item.addOptions[i].value + ring.item.upgradeLev * ring.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Ring_Status_4").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+                }
+            }
+
+            itemText.text = $"{infoText} {stringTable.GetStringTableData(ring.copyData.name + "_Info").ENG}";
         }
 
         lev.text = $"Lv.{ring.item.upgradeLev}";
+        upgrade.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{ring.item.item.itemLevUpNum[ring.item.upgradeLev]}";
+
+        switch (ring.item.item.tier)
+        {
+            case Tier.Common:
+                ringBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "50";
+                break;
+
+            case Tier.Uncommon:
+                ringBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "150";
+                break;
+
+            case Tier.Rare:
+                ringBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "450";
+                break;
+
+            case Tier.Unique:
+                ringBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "1350";
+                break;
+
+            case Tier.Legendry:
+                ringBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "4050";
+                break;
+        } 
     }
 
     public void OnClickRingEquip()
@@ -164,7 +271,11 @@ public class RingEquipInfoUi : MonoBehaviour
     {
         gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Ring);
 
+        state.EquipUpdate();
+        state.TotalUpdate();
         InfoUpdate();
+        info.InfoTextUpdate();
+        info.inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[2].GetComponent<RingType>().infoUpdate();
     }
 
     public void OnClickBreak()

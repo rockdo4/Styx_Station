@@ -15,6 +15,8 @@ public class StageList : ScriptableObject
 
     public Stage GetStage(int index)
     {
+        if (index >= table.Count)
+            return null;
         return table[index];
     }
 

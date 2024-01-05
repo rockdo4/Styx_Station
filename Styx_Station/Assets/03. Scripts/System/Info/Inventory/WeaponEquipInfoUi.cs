@@ -159,6 +159,8 @@ public class WeaponEquipInfoUi : MonoBehaviour
     {
         gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Weapon);
 
+        state.EquipUpdate();
+        state.TotalUpdate();
         InfoUpdate();
         info.InfoTextUpdate();
     }

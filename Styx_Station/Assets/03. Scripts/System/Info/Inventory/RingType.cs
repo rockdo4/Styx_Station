@@ -57,6 +57,18 @@ public class RingType : InventoryType
             ButtonList.infoButton &= ~InfoButton.RingInfo;
     }
 
+    public void infoUpdate()
+    {
+        foreach (var ring in customRingButtons)
+        {
+            var button = ring.GetComponent<ItemButton>();
+            if (button == null)
+                continue;
+
+            button.InfoUpdate();
+        }
+    }
+
     public void Setting(Inventory inventory)
     {
         this.inventory = inventory;

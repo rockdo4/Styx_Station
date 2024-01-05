@@ -193,7 +193,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         {
             UIManager.Instance.SetGameOverPopUpActive(true);
             SkillManager.Instance.ResetAllSkillCool();
-            UIManager.Instance.LoadScene(GameSceneName);
+            UIManager.Instance.windows[3].GetComponent<CleanWindow>().LoadScene(GameSceneName);
         }
     }
 
@@ -204,19 +204,16 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
         if(isBossRush)
         {
-            if (!IsRepeating)
-            {
-                UpdateCurrentWave();
-            }
+            UpdateCurrentWave();
             currStage = currStageList.GetStage(CurrentWave - 1);
-            clearWaveCount++;
-            timeLimit = currStage.waveTimer;
-            timer = 0f;
             if (currStage == null)
             {
                 Debug.Log("ERR: currStage is null.");
                 return;
             }
+            clearWaveCount++;
+            timeLimit = currStage.waveTimer;
+            timer = 0f;
 
             playerController.SetState(States.Move);
             MoveMonPosition();
@@ -318,6 +315,20 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
     public void SetWavePanel()
     {
+        if(CurrentWave == 0)
+        {
+            return;
+        }
+        else
+        {
+            var panel = UIManager.Instance.WavePanels;
+
+            UIManager.Instance.stageText.gameObject.SetActive(true);
+            foreach(var wavePanel in panel)
+            {
+                wavePanel.SetActive(true);
+            }
+        }
         for (int i = 0; i < CurrentWave - 1; i++)
         {
             UIManager.Instance.SetWavePanelClear(i, true);
@@ -348,7 +359,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         else
         {
             //currTileMapIndex = 0;
-            currTileMapIndex = UIManager.Instance.bossRushIndex / 30;
+            currTileMapIndex = UIManager.Instance.windows[3].GetComponent<CleanWindow>().bossRushIndex / 30;
 
             leftTileMaps[currTileMapIndex].SetActive(true);
             rightTileMaps[currTileMapIndex].SetActive(true);
@@ -402,7 +413,13 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         {
             if(isBossRush)
             {
-                UIManager.Instance.LoadScene(GameSceneName);
+                var clean = UIManager.Instance.windows[3].GetComponent<CleanWindow>();
+                if(clean.bossRushIndex == clean.openStage)
+                    clean.openStage++;
+
+                clean.currentCount--;
+                clean.LoadScene(GameSceneName);
+                clean.GetReward();
                 return;
             }
             else
@@ -609,7 +626,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         }
         else
         {
-            SetBossRushStage(UIManager.Instance.bossRushIndex);
+            SetBossRushStage(UIManager.Instance.windows[3].GetComponent<CleanWindow>().bossRushIndex);
         }
 
         for (int i = 0; i < Background.transform.childCount; i++)

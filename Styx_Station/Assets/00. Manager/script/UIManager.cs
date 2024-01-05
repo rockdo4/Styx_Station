@@ -58,18 +58,14 @@ public class UIManager : Singleton<UIManager>
     public PlayerBuffWindow playerBuffWindow;
     public DiningRoomUIManager roomUIManager;
 
-    public int bossRushIndex { get; private set; } = 0;
     [HideInInspector] public bool IsPetFristSetting;
 
-    //yyl 0102
-    public string bossRushSceneName;
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
         PrintPommeMoney();
         PrintSoulMoney();
         PrintMemoryMoney();
-
     }
     public void Open(WindowType inventoryType)
     {
@@ -816,26 +812,5 @@ public class UIManager : Singleton<UIManager>
     public void ClosePlayerBuffInfo()
     {
         playerBuffWindow.Close();
-    }
-
-    //yyl. 0102
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    public void SetBossRushIndex(int index)
-    {
-        bossRushIndex = index;
-    }
-    
-    public void LoadBossRussh(int index)
-    {
-        GameData.stageData_WaveManager = WaveManager.Instance.currStage.index;
-        OnClickClose();
-        SetBossRushIndex(index);
-        WaveManager.Instance.isWaveInProgress = false;
-        SkillManager.Instance.ResetAllSkillCool();
-        LoadScene(bossRushSceneName);
     }
 }

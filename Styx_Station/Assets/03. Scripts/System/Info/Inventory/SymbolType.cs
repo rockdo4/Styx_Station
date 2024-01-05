@@ -80,6 +80,18 @@ public class SymbolType : InventoryType
         }
     }
 
+    public void infoUpdate()
+    {
+        foreach (var symbol in customSymbolButtons)
+        {
+            var button = symbol.GetComponent<ItemButton>();
+            if (button == null)
+                continue;
+
+            button.InfoUpdate();
+        }
+    }
+
     public void AddSymbol()
     {
         Button button = Instantiate(symbolSlot, symbols.transform);

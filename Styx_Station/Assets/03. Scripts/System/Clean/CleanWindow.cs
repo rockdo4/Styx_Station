@@ -257,6 +257,7 @@ public class CleanWindow : Window
 
         // 돈 추가 및 돈 텍스트 추가해야함
 
+
         ClearInfo.SetActive(true);
     }
 

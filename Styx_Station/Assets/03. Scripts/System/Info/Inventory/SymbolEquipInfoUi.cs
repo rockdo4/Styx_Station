@@ -165,34 +165,35 @@ public class SymbolEquipInfoUi : MonoBehaviour
                         infoText.AppendLine();
                         break;
                 }
-            }
 
+            }
             itemText.text = $"{infoText} {stringTable.GetStringTableData(symbol.copyData.name + "_Info").ENG}";
 
-            upgrade.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{symbol.item.item.itemLevUpNum[symbol.item.upgradeLev]}";
 
-            switch (symbol.item.item.tier)
-            {
-                case Tier.Common:
-                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "50";
-                    break;
-
-                case Tier.Uncommon:
-                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "150";
-                    break;
-
-                case Tier.Rare:
-                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "450";
-                    break;
-
-                case Tier.Unique:
-                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "1350";
-                    break;
-
-                case Tier.Legendry:
-                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "4050";
-                    break;
             }
+        upgrade.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{symbol.item.item.itemLevUpNum[symbol.item.upgradeLev]}";
+
+        switch (symbol.item.item.tier)
+        {
+            case Tier.Common:
+                symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "50";
+                break;
+
+            case Tier.Uncommon:
+                symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "150";
+                break;
+
+            case Tier.Rare:
+                symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "450";
+                break;
+
+            case Tier.Unique:
+                symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "1350";
+                break;
+
+            case Tier.Legendry:
+                symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "4050";
+                break;
         }
     }
 

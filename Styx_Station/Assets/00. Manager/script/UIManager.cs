@@ -737,17 +737,17 @@ public class UIManager : Singleton<UIManager>
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if ((ButtonList.mainButton == ButtonType.Main))
+            if ((ButtonList.mainButton == ButtonType.Main || tutorial.GetComponent<TutorialSystem>().playTutorial))
             {
                 ButtonList.mainButton|=ButtonType.Exit;
                 Open(WindowType.Exit);
             }
-            else if ((ButtonList.mainButton & ButtonType.Exit) != 0)
+            else if ((ButtonList.mainButton & ButtonType.Exit) != 0 || tutorial.GetComponent<TutorialSystem>().playTutorial)
             {
                 ButtonList.mainButton &= ~ButtonType.Exit;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Info) != 0)
+            else if ((ButtonList.mainButton & ButtonType.Info) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
             {
                 if (ButtonList.infoButton == InfoButton.State)
                 {
@@ -775,28 +775,28 @@ public class UIManager : Singleton<UIManager>
                     windows[(int)currentWindow].Close();
                 }
             }
-            else if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
+            else if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
             {
                 ButtonList.mainButton &= ~ButtonType.DiningRoom;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Lab) != 0)
+            else if ((ButtonList.mainButton & ButtonType.Lab) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
             {
                 ButtonList.mainButton &= ~ButtonType.Lab;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
+            else if ((ButtonList.mainButton & ButtonType.Cleaning) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
             {
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Failure) != 0)
+            else if ((ButtonList.mainButton & ButtonType.Failure) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
             {
                 ButtonList.mainButton &= ~ButtonType.Failure;
                 windows[(int)currentWindow].Close();
             }
             else if ((ButtonList.mainButton & ButtonType.Shop) != 0 &&
-                ButtonList.gachaButton == gachaButton.None)
+                ButtonList.gachaButton == gachaButton.None && !tutorial.GetComponent<TutorialSystem>().playTutorial)
             {
                 ButtonList.mainButton &= ~ButtonType.Shop;
                 windows[(int)currentWindow].Close();

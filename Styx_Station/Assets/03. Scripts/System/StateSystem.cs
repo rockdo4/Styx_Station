@@ -30,6 +30,7 @@ public class StateSystem : Singleton<StateSystem>
     public ResultPlayerStats state;
 
     private bool first = false;
+    private BigInteger acquireState =new BigInteger(0);
     public void Setting()
     {
         if (first)
@@ -62,7 +63,7 @@ public class StateSystem : Singleton<StateSystem>
         var equipState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) + EquipItemState.Attack) +
         (((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)EquipItemState.AttackPer) / 100);
 
-        var acquireState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)AcquireItemState.AttackPer) / 100;
+        acquireState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)AcquireItemState.AttackPer) / 100;
 
         var passiveState = (state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)SkillState.AttackPer / 100;
 

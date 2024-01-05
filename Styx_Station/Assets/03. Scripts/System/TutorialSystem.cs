@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class TutorialSystem : MonoBehaviour
 {
@@ -278,6 +277,22 @@ public class TutorialSystem : MonoBehaviour
             case 53:
                 tutorialIndex = 46;
                 Log_26();
+                break;
+
+            case 55:
+                Log_31();
+                break;
+
+            case 56:
+                Log_32();
+                break;
+
+            case 59:
+                Log_33();
+                break;
+
+            case 60:
+                Log_34();
                 break;
 
             default:
@@ -1078,6 +1093,115 @@ public class TutorialSystem : MonoBehaviour
         text = StartCoroutine(TextCoroutine(str));
     }
 
+    private void Log_31()
+    {
+        message = true;
+
+        if (!mask[0].activeSelf)
+            mask[0].SetActive(true);
+
+        if (!textBox.activeSelf)
+            textBox.SetActive(true);
+
+        str = string.Empty;
+
+        clean = true;
+
+        if (Global.language == Language.KOR)
+            str = stringTable.GetStringTableData("Tutorial_Log31").KOR;
+        else if (Global.language == Language.ENG)
+            str = stringTable.GetStringTableData("Tutorial_Log31").ENG;
+
+        if (text != null)
+        {
+            StopCoroutine(text);
+            text = null;
+        }
+
+        text = StartCoroutine(TextCoroutine(str));
+    }
+
+    private void Log_32()
+    {
+        message = true;
+
+        if (!mask[0].activeSelf)
+            mask[0].SetActive(true);
+
+        if (!textBox.activeSelf)
+            textBox.SetActive(true);
+
+        str = string.Empty;
+
+        if (Global.language == Language.KOR)
+            str = stringTable.GetStringTableData("Tutorial_Log32").KOR;
+        else if (Global.language == Language.ENG)
+            str = stringTable.GetStringTableData("Tutorial_Log32").ENG;
+
+        if (text != null)
+        {
+            StopCoroutine(text);
+            text = null;
+        }
+
+        text = StartCoroutine(TextCoroutine(str));
+    }
+
+    private void Log_33()
+    {
+        message = true;
+
+        if (!mask[0].activeSelf)
+            mask[0].SetActive(true);
+
+        if (!textBox.activeSelf)
+            textBox.SetActive(true);
+
+        str = string.Empty;
+
+        clean = true;
+
+        if (Global.language == Language.KOR)
+            str = stringTable.GetStringTableData("Tutorial_Log33").KOR;
+        else if (Global.language == Language.ENG)
+            str = stringTable.GetStringTableData("Tutorial_Log33").ENG;
+
+        if (text != null)
+        {
+            StopCoroutine(text);
+            text = null;
+        }
+
+        text = StartCoroutine(TextCoroutine(str));
+    }
+
+    private void Log_34()
+    {
+        message = true;
+
+        if (!mask[0].activeSelf)
+            mask[0].SetActive(true);
+
+        if (!textBox.activeSelf)
+            textBox.SetActive(true);
+
+        str = string.Empty;
+
+        if (Global.language == Language.KOR)
+            str = stringTable.GetStringTableData("Tutorial_Log34").KOR;
+        else if (Global.language == Language.ENG)
+            str = stringTable.GetStringTableData("Tutorial_Log34").ENG;
+
+        if (text != null)
+        {
+            StopCoroutine(text);
+            text = null;
+        }
+
+        text = StartCoroutine(TextCoroutine(str));
+    }
+
+
     private void Quest_1()
     {
         mask[0].SetActive(false);
@@ -1204,6 +1328,10 @@ public class TutorialSystem : MonoBehaviour
             case 50:
             case 51:
             case 52:
+            case 55:
+            case 56:
+            case 59:
+            case 60:
                 finger[0].SetActive(true);
                 break;
 
@@ -2024,6 +2152,114 @@ public class TutorialSystem : MonoBehaviour
                         next = true;
                     }
                     break;
+
+                case 55:
+                    if (!message && next)
+                    {
+                        next = false;
+
+                        finger[0].SetActive(false);
+
+                        tutorialIndex++;
+
+                        FindTutorialIndex();
+                    }
+                    else if (message && !next)
+                    {
+                        StopCoroutine(text);
+                        text = null;
+
+                        crewText.text = str;
+
+                        finger[0].SetActive(true);
+
+                        message = false;
+                        next = true;
+                    }
+                    break;
+
+                case 56:
+                    if (!message && next)
+                    {
+                        next = false;
+
+                        mask[0].SetActive(false);
+                        finger[0].SetActive(false);
+                        textBox.SetActive(false);
+
+                        tutorialIndex++;
+
+                        finger[14].SetActive(true);
+                        mask[18].SetActive(true);
+                    }
+                    else if (message && !next)
+                    {
+                        StopCoroutine(text);
+                        text = null;
+
+                        crewText.text = str;
+
+                        finger[0].SetActive(true);
+
+                        message = false;
+                        next = true;
+                    }
+                    break;
+
+                case 59:
+                    if (!message && next)
+                    {
+                        next = false;
+
+                        finger[0].SetActive(false);
+
+                        tutorialIndex++;
+
+                        FindTutorialIndex();
+                    }
+                    else if (message && !next)
+                    {
+                        StopCoroutine(text);
+                        text = null;
+
+                        crewText.text = str;
+
+                        finger[0].SetActive(true);
+
+                        message = false;
+                        next = true;
+                    }
+                    break;
+
+                case 60:
+                    if (!message && next)
+                    {
+                        next = false;
+
+                        mask[0].SetActive(false);
+                        finger[0].SetActive(false);
+                        textBox.SetActive(false);
+
+                        tutorialIndex++;
+
+                        mask[28].SetActive(true);
+                        finger[22].SetActive(true);
+
+                    }
+                    else if (message && !next)
+                    {
+                        StopCoroutine(text);
+                        text = null;
+
+                        crewText.text = str;
+
+                        finger[0].SetActive(true);
+
+                        message = false;
+                        next = true;
+                    }
+                    break;
+
                 default:
                     break;
             }
@@ -2062,6 +2298,24 @@ public class TutorialSystem : MonoBehaviour
             loadTutorial = false;
 
             WaveManager.Instance.StartWave();
+        }
+    }
+
+    public void OnClickBossRush()
+    {
+        if(tutorialIndex == 61)
+        {
+            mask[28].SetActive(false);
+            finger[22].SetActive(false);
+
+            tutorialIndex++;
+
+            tutorial.SetActive(false);
+            stop = false;
+            playTutorial = false;
+            loadTutorial = false;
+
+            UIManager.Instance.windows[3].GetComponent<CleanWindow>().OnClickSlot_1();
         }
     }
 
@@ -2309,7 +2563,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickOpenTrain()
     {
-        if (tutorialIndex == 36 || tutorialIndex == 48)
+        if (tutorialIndex == 36 || tutorialIndex == 48 || tutorialIndex == 57)
         {
             mask[18].SetActive(false);
             mask[0].SetActive(true);
@@ -2336,6 +2590,20 @@ public class TutorialSystem : MonoBehaviour
         }
     }
 
+    public void OnClickCleanOpen()
+    {
+        if (tutorialIndex == 58)
+        {
+            tutorial.GetComponent<TutorialSystem>().mask[27].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().finger[21].SetActive(false);
+
+            UIManager.Instance.OnClickCleaning();
+
+            tutorialIndex++;
+
+            FindTutorialIndex();
+        }
+    }
     public void OnClickFoodInfo()
     {
         if (tutorialIndex == 43)

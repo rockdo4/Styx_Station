@@ -33,6 +33,8 @@ public class CleanWindow : Window
 
     public GameObject ClearInfo;
 
+    public BossRushMoney moneyTable;
+
     public TextMeshProUGUI clear;
     public TextMeshProUGUI reward;
 
@@ -44,6 +46,7 @@ public class CleanWindow : Window
     public TextMeshProUGUI silver;
     public TextMeshProUGUI soul;
 
+    public bool checkBool;
     public void TextUpdate()
     {
         if (Global.language == Language.KOR)
@@ -168,11 +171,13 @@ public class CleanWindow : Window
 
     public void LoadBossRussh(int index)
     {
+        checkBool = uiManager.RepeatButton.activeSelf;
         GameData.stageData_WaveManager = waveManager.currStage.index;
         uiManager.OnClickClose();
         SetBossRushIndex(index);
         waveManager.isWaveInProgress = false;
         skillManager.ResetAllSkillCool();
+        CloserUI();
         LoadScene(bossRushSceneName);
     }
     
@@ -270,6 +275,12 @@ public class CleanWindow : Window
 
 
         // 돈 추가 및 돈 텍스트 추가해야함
+        var get = moneyTable.Table[bossRushIndex];
+
+        silver.text = $"{get.silver}";
+        CurrencyManager.GetSilver(get.silver, 0);
+        soul.text = $"{get.soul}";
+        CurrencyManager.GetSilver(get.silver, 2);
 
 
         ClearInfo.SetActive(true);
@@ -290,5 +301,25 @@ public class CleanWindow : Window
 
         else if(bossRushIndex>=59)
             LoadBossRussh(59);
+    }
+
+    public void CloserUI()
+    {
+        if (checkBool)
+            uiManager.RepeatButton.SetActive(false);
+
+        uiManager.buttons.SetActive(false);
+        uiManager.questSystemUi.gameObject.SetActive(false);
+        uiManager.WavePanels[4].transform.GetChild(3).gameObject.SetActive(false);
+    }
+
+    public void OpenUI()
+    {
+        if (checkBool)
+            uiManager.RepeatButton.SetActive(true);
+
+        uiManager.buttons.SetActive(true);
+        uiManager.questSystemUi.gameObject.SetActive(true);
+        uiManager.WavePanels[4].transform.GetChild(3).gameObject.SetActive(true);
     }
 }

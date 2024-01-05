@@ -30,7 +30,10 @@ public class StateSystem : Singleton<StateSystem>
     public ResultPlayerStats state;
 
     private bool first = false;
-    private BigInteger acquireState =new BigInteger(0);
+
+    private BigInteger temp1 = new BigInteger();
+    private BigInteger temp2 = new BigInteger();
+
     public void Setting()
     {
         if (first)
@@ -60,14 +63,17 @@ public class StateSystem : Singleton<StateSystem>
     }
     public void GetPlayerInfoPower()
     {
-        var equipState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) + EquipItemState.Attack) +
-        (((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)EquipItemState.AttackPer) / 100);
+        temp1 = state.playerAttribute.attackPower;
+        temp2 = state.increaseUpgradePower;
 
-        acquireState = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)AcquireItemState.AttackPer) / 100;
+        var equipState = ((temp1 + (SharedPlayerStats.GetPlayerPower() - 1) * temp2) + EquipItemState.Attack) +
+        (((temp1 + (SharedPlayerStats.GetPlayerPower() - 1) * temp2) * (int)EquipItemState.AttackPer) / 100);
 
-        var passiveState = (state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * (int)SkillState.AttackPer / 100;
+        var acquireState = ((temp1 + (SharedPlayerStats.GetPlayerPower() - 1) * temp2) * (int)AcquireItemState.AttackPer) / 100;
 
-        var attributePower = ((state.playerAttribute.attackPower + (SharedPlayerStats.GetPlayerPower() - 1) * state.increaseUpgradePower) * GameData.labBuffData.re_Atk1) / GameData.labBuffDataPercent;
+        var passiveState = (temp1 + (SharedPlayerStats.GetPlayerPower() - 1) * temp2) * (int)SkillState.AttackPer / 100;
+
+        var attributePower = ((temp1 + (SharedPlayerStats.GetPlayerPower() - 1) * temp2) * GameData.labBuffData.re_Atk1) / GameData.labBuffDataPercent;
 
         var boost = ((SharedPlayerStats.GetPlayerPowerBoost() - 1) * state.increaseUpgradePowerBoost) / state.percentFloat;
 
@@ -108,16 +114,18 @@ public class StateSystem : Singleton<StateSystem>
 
     public void GetPlayerInfoHealth()
     {
-        var attributeHp = ((state.playerAttribute.MaxHp * GameData.labBuffData.re_Hp1) / GameData.labBuffDataPercent);
+        temp1 = state.playerAttribute.MaxHp;
+        temp2 = state.increaseUpgradeHp;
+        var attributeHp = ((temp1 * GameData.labBuffData.re_Hp1) / GameData.labBuffDataPercent);
 
         var playerHp = state.playerAttribute.MaxHp + attributeHp;
 
-        var equipState = ((playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) + EquipItemState.Health) +
+        var equipState = ((playerHp + (SharedPlayerStats.GetHp() - 1) * temp2) + EquipItemState.Health) +
             (((playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) * (int)EquipItemState.HealthPer) / 100);
 
-        var acquireState = (playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) * (int)AcquireItemState.HealthPer / 100;
+        var acquireState = (playerHp + (SharedPlayerStats.GetHp() - 1) * temp2) * (int)AcquireItemState.HealthPer / 100;
 
-        var passiveState = (playerHp + (SharedPlayerStats.GetHp() - 1) * state.increaseUpgradeHp) * (int)SkillState.HealthPer / 100;
+        var passiveState = (playerHp + (SharedPlayerStats.GetHp() - 1) * temp2) * (int)SkillState.HealthPer / 100;
 
         var labBuff = GameData.labBuffData.re_Hp2 / GameData.labBuffDataPercent;
 

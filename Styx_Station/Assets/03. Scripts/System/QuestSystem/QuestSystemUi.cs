@@ -190,6 +190,8 @@ public class QuestSystemUi : MonoBehaviour
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
         else if (MakeTableData.Instance.currentQuestIndex >= 44 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 46)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
+        else if(MakeTableData.Instance.currentQuestIndex >= 49 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 55)
+            UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
 
         switch (currentQuestType)
         {
@@ -457,6 +459,8 @@ public class QuestSystemUi : MonoBehaviour
         else if (MakeTableData.Instance.currentQuestIndex >= 23 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 34)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
         else if (MakeTableData.Instance.currentQuestIndex >= 44 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 46)
+            UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
+        else if (MakeTableData.Instance.currentQuestIndex >= 49 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 55)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
         else if (UIManager.Instance.tutorial.GetComponent<TutorialSystem>().loadTutorial)
         {

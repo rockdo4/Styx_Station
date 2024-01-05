@@ -33,8 +33,6 @@ public class SettingBox : MonoBehaviour
     public bool soundValue = true;
 
     public AudioMixer mainGameAudioMixer;
-    public AudioMixerSnapshot soundPlay;
-    public AudioMixerSnapshot soundOff;
     //12.29yyl
     public GameObject backgroundMusic;
     public void OnClickChangeLenguage()

@@ -19138,7 +19138,6 @@ RectTransform:
   - {fileID: 1640070195}
   - {fileID: 1603199481}
   - {fileID: 1523685695}
-  - {fileID: 980963019}
   m_Father: {fileID: 777815801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
@@ -29390,6 +29389,7 @@ MonoBehaviour:
   GameScene: LswGameScene
   loadingBar: {fileID: 1698988136}
   loadingBarSlider: {fileID: 0}
+  button: {fileID: 0}
 --- !u!114 &554341310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38760,6 +38760,7 @@ GameObject:
   - component: {fileID: 777815804}
   - component: {fileID: 777815803}
   - component: {fileID: 777815802}
+  - component: {fileID: 777815807}
   m_Layer: 5
   m_Name: MainGameUI
   m_TagString: Untagged
@@ -38781,6 +38782,7 @@ RectTransform:
   m_Children:
   - {fileID: 387652872}
   - {fileID: 856901165}
+  - {fileID: 980963019}
   - {fileID: 882705671}
   - {fileID: 1645436500}
   m_Father: {fileID: 0}
@@ -38867,6 +38869,8 @@ MonoBehaviour:
   playerBuffWindow: {fileID: 1220741334}
   roomUIManager: {fileID: 196083535}
   IsPetFristSetting: 0
+  settingBox: {fileID: 1640070192}
+  tapClip: {fileID: 8300000, guid: 1d6a499f7ecd8ca45a2486b99aeb9013, type: 3}
 --- !u!114 &777815804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38930,6 +38934,102 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!82 &777815807
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777815800}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 4279316353631171985, guid: 1ec49662781e8e0498ca021fb3f1878d, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 1d6a499f7ecd8ca45a2486b99aeb9013, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &779783991
 GameObject:
   m_ObjectHideFlags: 0
@@ -49220,13 +49320,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 980963018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1513946244}
-  m_Father: {fileID: 387652872}
+  m_Father: {fileID: 777815801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -63556,7 +63656,7 @@ MonoBehaviour:
   buffInfoText: {fileID: 1892201887}
   playerBuffInfoObjectArrow: {fileID: 1912747459}
   playerBuffInfoObjectTextType: {fileID: 1055196392}
-  foodBuffButton: {fileID: 1691790641}
+  foodBuffButton: {fileID: 1691790645}
 --- !u!224 &1220741335
 RectTransform:
   m_ObjectHideFlags: 0
@@ -86028,6 +86128,7 @@ MonoBehaviour:
   cheat: {fileID: 1523685694}
   couponText: {fileID: 344767711}
   soundValue: 1
+  mainGameAudioMixer: {fileID: 24100000, guid: 1ec49662781e8e0498ca021fb3f1878d, type: 2}
   backgroundMusic: {fileID: 0}
 --- !u!114 &1640070193
 MonoBehaviour:
@@ -88329,7 +88430,8 @@ GameObject:
   - component: {fileID: 1691790643}
   - component: {fileID: 1691790642}
   - component: {fileID: 1691790640}
-  - component: {fileID: 1691790641}
+  - component: {fileID: 1691790644}
+  - component: {fileID: 1691790645}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -88367,7 +88469,47 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1691790641
+--- !u!222 &1691790642
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691790639}
+  m_CullTransparentMesh: 1
+--- !u!224 &1691790643
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691790639}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1359446141}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.7187, y: 0.7187}
+  m_SizeDelta: {x: 88.7877, y: 88.7877}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1691790644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691790639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
+--- !u!114 &1691790645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88410,46 +88552,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1691790640}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1220741334}
-        m_TargetAssemblyTypeName: PlayerBuffWindow, Assembly-CSharp
-        m_MethodName: DrawBuffText
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!222 &1691790642
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691790639}
-  m_CullTransparentMesh: 1
---- !u!224 &1691790643
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1691790639}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1359446141}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.7187, y: 0.7187}
-  m_SizeDelta: {x: 88.7877, y: 88.7877}
-  m_Pivot: {x: 0.5, y: 0.5}
+      m_Calls: []
 --- !u!1 &1693944390
 GameObject:
   m_ObjectHideFlags: 0
@@ -95110,6 +95213,7 @@ MonoBehaviour:
   GameScene: Build_01.03 Game
   loadingBar: {fileID: 127337523}
   loadingBarSlider: {fileID: 127337524}
+  button: {fileID: 69900517}
 --- !u!114 &1812398048
 MonoBehaviour:
   m_ObjectHideFlags: 0

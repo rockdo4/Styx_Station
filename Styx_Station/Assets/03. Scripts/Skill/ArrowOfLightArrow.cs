@@ -15,9 +15,13 @@ public class ArrowOfLightArrow : PoolAble
 
     private List<GameObject> monsters = new List<GameObject>();
 
+    private AudioSource aoudioSourece;
+    public AudioClip arrowClip;
+
     private void Awake()
     {
         rg = GetComponent<Rigidbody2D>();
+        aoudioSourece = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -72,6 +76,9 @@ public class ArrowOfLightArrow : PoolAble
     }
     public void Fire(GameObject c, float s)
     {
+        if (aoudioSourece == null)
+            aoudioSourece = GetComponent<AudioSource>();
+        aoudioSourece.PlayOneShot(arrowClip);
         speed = s;
         caster = c;
     }

@@ -20,17 +20,26 @@ public class Meteorite : PoolAble
 
     private Vector2 DirectionPos = Vector2.zero;
     float arrivalThreshold = 0.1f;
+    private AudioSource audioSource;
+    public AudioClip meteoClip;
 
     private void Awake()
     {
         rg = GetComponent<Rigidbody2D>();
+        if(audioSource == null )
+            audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
     {
         mainCamera = Camera.main;
     }
-
+    public void AudioPlay()
+    {
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(meteoClip);
+    }
     private void OnEnable()
     {
         //isRelease = false;
@@ -86,6 +95,7 @@ public class Meteorite : PoolAble
 
     public void Fire(GameObject c, float s)
     {
+       
         speed = s;
         caster = c;
 

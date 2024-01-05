@@ -10,12 +10,21 @@ public class PiercingArrow : PoolAble
     private Rigidbody2D rg;
     private GameObject caster;
     private float speed;
-
+    private AudioSource audioSiurce;
+    public AudioClip tonato;
     private void Awake()
     {
         rg = GetComponent<Rigidbody2D>();
+            audioSiurce = GetComponent<AudioSource>();
     }
+    private void OnDisable()
+    {
+        if (audioSiurce == null)
+         audioSiurce = GetComponent<AudioSource>();
 
+        if(audioSiurce != null)
+            audioSiurce.Stop();
+    }
     private void Start()
     {
         mainCamera = Camera.main;
@@ -57,6 +66,12 @@ public class PiercingArrow : PoolAble
 
     public void Fire(GameObject c, float s)
     {
+        if (audioSiurce == null)
+            audioSiurce = GetComponent<AudioSource>();
+
+        if (audioSiurce != null)
+            audioSiurce.PlayOneShot(tonato);
+
         speed = s;
         caster = c;
     }

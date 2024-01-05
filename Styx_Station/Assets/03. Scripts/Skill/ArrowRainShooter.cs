@@ -19,10 +19,12 @@ public class ArrowRainShooter : Shooter
     private float startPosX;
 
     private GameObject castZone;
-
+    private AudioSource audioSourece;
+    public AudioClip arrwoRainClip;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        audioSourece=GetComponent<AudioSource>();
         waitForHit = new WaitForSeconds(hitBet);
     }
 
@@ -69,7 +71,10 @@ public class ArrowRainShooter : Shooter
 
     IEnumerator CastSkill()
     {
-        while(true)
+        if (audioSourece == null)
+            audioSourece = GetComponent<AudioSource>();
+        audioSourece.PlayOneShot(arrwoRainClip);
+        while (true)
         {
             var monsters = GetMonsterInZone();
             foreach (var monster in monsters)

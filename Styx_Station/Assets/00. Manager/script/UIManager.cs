@@ -63,6 +63,15 @@ public class UIManager : Singleton<UIManager>
 
     //yyl 0102
     public string bossRushSceneName;
+
+    //01.04 lsw
+    public SettingBox settingBox;
+    private AudioSource audioSource;
+    public AudioClip tapClip;
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
@@ -70,6 +79,10 @@ public class UIManager : Singleton<UIManager>
         PrintSoulMoney();
         PrintMemoryMoney();
 
+    }
+    private void OnEnable()
+    {
+        settingBox.SoundSetting();
     }
     public void Open(WindowType inventoryType)
     {
@@ -86,6 +99,7 @@ public class UIManager : Singleton<UIManager>
         currentWindow = inventoryType;
 
         windows[(int)inventoryType].Open();
+        audioSource.PlayOneShot(tapClip);
     }
 
     // 12.25 Button ¼öÁ¤ _IJ
@@ -122,6 +136,7 @@ public class UIManager : Singleton<UIManager>
             SkillButtonOff();
             Open(WindowType.Info);
             ButtonList.mainButton |= ButtonType.Info;
+            audioSource.PlayOneShot(tapClip);
         }
     }
     public void OnClickDiningRoom()
@@ -156,6 +171,7 @@ public class UIManager : Singleton<UIManager>
 
             Open(WindowType.DiningRoom);
             ButtonList.mainButton |= ButtonType.DiningRoom;
+            audioSource.PlayOneShot(tapClip);
         }
     }
 
@@ -191,6 +207,7 @@ public class UIManager : Singleton<UIManager>
 
             Open(WindowType.Lab);
             ButtonList.mainButton |= ButtonType.Lab;
+            audioSource.PlayOneShot(tapClip);
         }
     }
 
@@ -225,6 +242,7 @@ public class UIManager : Singleton<UIManager>
 
             Open(WindowType.Cleaning);
             ButtonList.mainButton |= ButtonType.Cleaning;
+            audioSource.PlayOneShot(tapClip);
         }
     }
 
@@ -259,6 +277,7 @@ public class UIManager : Singleton<UIManager>
 
             Open(WindowType.Failure);
             ButtonList.mainButton |= ButtonType.Failure;
+            audioSource.PlayOneShot(tapClip);
         }
     }
 
@@ -324,6 +343,7 @@ public class UIManager : Singleton<UIManager>
 
             windows[(int)currentWindow].Close();
             ButtonList.mainButton &= ~ButtonType.Menu;
+            audioSource.PlayOneShot(tapClip);
         }
     }
 
@@ -362,6 +382,7 @@ public class UIManager : Singleton<UIManager>
 
             Open(WindowType.Shop);
             ButtonList.mainButton |= ButtonType.Shop;
+            audioSource.PlayOneShot(tapClip);
         }
     }
 

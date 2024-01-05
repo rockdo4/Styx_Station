@@ -13,6 +13,7 @@ public class TitleScene : MonoBehaviour
     public GameObject loadingBar;
     private bool sceneLoad;
     public Slider loadingBarSlider;
+    public Button button;
     private void Awake()
     {
         //UIManager.Instance.gameObject.SetActive(false);
@@ -29,6 +30,7 @@ public class TitleScene : MonoBehaviour
         asyncLoad = SceneManager.LoadSceneAsync(GameScene);
         asyncLoad.allowSceneActivation = false; 
         sceneLoad = true;
+        button.interactable = false;
     }
     private void Update()
     {

@@ -12,15 +12,18 @@ public class MonsterAttackDamagePop : MonoBehaviour, IAttackable
 
     private MonsterStats monsterStats;
     private Transform pos;
-
+    private AudioSource audioSource;
+    public AudioClip damagedClip;
     private void Awake()
     {
         monsterStats = gameObject.GetComponent<MonsterStats>();
         pos = transform.Find("Canvas");
+        audioSource = GetComponent<AudioSource>();  
     }
 
     public void OnAttack(GameObject attacker, Attack attack)
     {
+        audioSource.PlayOneShot(damagedClip);
         //var position = transform.GetChild(2).position;
         var position = pos.position;
         var textObj = ObjectPoolManager.instance.GetGo(prefab.name);

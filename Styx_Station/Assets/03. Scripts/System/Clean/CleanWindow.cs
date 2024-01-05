@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class CleanWindow : Window
 {
@@ -115,6 +116,19 @@ public class CleanWindow : Window
         pageIndex = 0;
 
         TextUpdate();
+        if(WaveManager.Instance != null)
+        {
+            if(WaveManager.Instance.clearTime != string.Empty)
+            {
+                var prevday = DateTime.ParseExact(WaveManager.Instance.clearTime.ToString(), GameData.datetimeString, null);
+                var day = DateTime.Now.ToString(GameData.datetimeString);
+                var daydayte = DateTime.ParseExact(day.ToString(), GameData.datetimeString, null);
+                if (prevday.DayOfWeek != daydayte.DayOfWeek)
+                {
+                    currentCount = 2;
+                }
+            }
+        }
 
         base.Open();
     }

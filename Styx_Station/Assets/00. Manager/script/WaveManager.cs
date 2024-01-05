@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Newtonsoft.Json;
+using System;
 
 public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 {
@@ -63,7 +65,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public List<StageList> stages = new List<StageList>();
     public StageList currStageList;
 
-
+    public string clearTime;
     private void Start()
     {
         waitForSeconds = new WaitForSeconds(waitTime);
@@ -418,6 +420,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
                     clean.openStage++;
 
                 clean.currentCount--;
+                clearTime = DateTime.Now.ToString(GameData.datetimeString);
                 clean.LoadScene(GameSceneName);
                 clean.GetReward();
                 return;

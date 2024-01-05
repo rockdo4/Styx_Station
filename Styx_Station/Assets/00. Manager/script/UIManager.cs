@@ -58,6 +58,8 @@ public class UIManager : Singleton<UIManager>
     public PlayerBuffWindow playerBuffWindow;
     public DiningRoomUIManager roomUIManager;
 
+    public string SceneName;
+
     [HideInInspector] public bool IsPetFristSetting;
 
     //01.04 lsw
@@ -101,6 +103,9 @@ public class UIManager : Singleton<UIManager>
     // 12.25 Button ���� _IJ
     public void OnClickInfo()
     {
+        if (SceneManager.GetActiveScene().name != SceneName)
+            return;
+
         if ((ButtonList.mainButton & ButtonType.Info) == 0 &&
             (ButtonList.mainButton & ButtonType.TrainMove) == 0 &&
             move == null)
@@ -345,6 +350,9 @@ public class UIManager : Singleton<UIManager>
 
     public void OnClickShop()
     {
+        if (SceneManager.GetActiveScene().name != SceneName)
+            return;
+
         if (!tutorial.GetComponent<TutorialSystem>().shop)
             return;
 
@@ -655,6 +663,13 @@ public class UIManager : Singleton<UIManager>
             tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
             tutorial.GetComponent<TutorialSystem>().mask[22].SetActive(true);
             tutorial.GetComponent<TutorialSystem>().finger[18].SetActive(true);
+        }
+        else if (tutorial.GetComponent<TutorialSystem>().tutorialIndex == 58)
+        {
+            tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
+            tutorial.GetComponent<TutorialSystem>().mask[27].SetActive(true);
+            tutorial.GetComponent<TutorialSystem>().finger[21].SetActive(true);
         }
     }
 

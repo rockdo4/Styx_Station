@@ -194,6 +194,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             UIManager.Instance.SetGameOverPopUpActive(true);
             SkillManager.Instance.ResetAllSkillCool();
             UIManager.Instance.windows[3].GetComponent<CleanWindow>().LoadScene(GameSceneName);
+            UIManager.Instance.windows[3].GetComponent<CleanWindow>().OpenUI();
         }
     }
 
@@ -420,6 +421,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
                 clean.currentCount--;
                 clean.LoadScene(GameSceneName);
                 clean.GetReward();
+                clean.OpenUI();
                 return;
             }
             else

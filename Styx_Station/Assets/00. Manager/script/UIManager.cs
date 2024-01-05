@@ -58,11 +58,7 @@ public class UIManager : Singleton<UIManager>
     public PlayerBuffWindow playerBuffWindow;
     public DiningRoomUIManager roomUIManager;
 
-    public int bossRushIndex { get; private set; } = 0;
     [HideInInspector] public bool IsPetFristSetting;
-
-    //yyl 0102
-    public string bossRushSceneName;
 
     //01.04 lsw
     public SettingBox settingBox;
@@ -72,13 +68,13 @@ public class UIManager : Singleton<UIManager>
     {
         audioSource = GetComponent<AudioSource>();
     }
+
     private void Start() //12.20 Lsw 
     {
         PrintSliverMoney();
         PrintPommeMoney();
         PrintSoulMoney();
         PrintMemoryMoney();
-
     }
     private void OnEnable()
     {
@@ -102,7 +98,7 @@ public class UIManager : Singleton<UIManager>
         audioSource.PlayOneShot(tapClip);
     }
 
-    // 12.25 Button ¼öÁ¤ _IJ
+    // 12.25 Button ï¿½ï¿½ï¿½ï¿½ _IJ
     public void OnClickInfo()
     {
         if ((ButtonList.mainButton & ButtonType.Info) == 0 &&
@@ -511,11 +507,11 @@ public class UIManager : Singleton<UIManager>
             {
                 button.GetComponent<Button>().interactable = false;
             }
-            move = StartCoroutine(LeftMove()); // ¸Þ´º Á¢±â
+            move = StartCoroutine(LeftMove()); // ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    //12.18 À±À¯¸² ¿þÀÌºê ¹Ýº¹ ¹öÆ°
+    //12.18 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ýºï¿½ ï¿½ï¿½Æ°
     public void SetActiveRepeatButton(bool isActive)
     {
         RepeatButton.SetActive(isActive);
@@ -544,7 +540,7 @@ public class UIManager : Singleton<UIManager>
         stageText.SetText(newTxt);
     }
 
-    public void SetWavePanelClear(int index, bool clear) //clear: ¿þÀÌºê Å¬¸®¾î, false: ¿þÀÌºê Å¬¸®¾îx
+    public void SetWavePanelClear(int index, bool clear) //clear: ï¿½ï¿½ï¿½Ìºï¿½ Å¬ï¿½ï¿½ï¿½ï¿½, false: ï¿½ï¿½ï¿½Ìºï¿½ Å¬ï¿½ï¿½ï¿½ï¿½x
     {
         WavePanels[index].transform.GetChild(0).gameObject.SetActive(clear); //clear wave
         WavePanels[index].transform.GetChild(1).gameObject.SetActive(!clear); //unclearwave
@@ -837,26 +833,5 @@ public class UIManager : Singleton<UIManager>
     public void ClosePlayerBuffInfo()
     {
         playerBuffWindow.Close();
-    }
-
-    //yyl. 0102
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    public void SetBossRushIndex(int index)
-    {
-        bossRushIndex = index;
-    }
-    
-    public void LoadBossRussh(int index)
-    {
-        GameData.stageData_WaveManager = WaveManager.Instance.currStage.index;
-        OnClickClose();
-        SetBossRushIndex(index);
-        WaveManager.Instance.isWaveInProgress = false;
-        SkillManager.Instance.ResetAllSkillCool();
-        LoadScene(bossRushSceneName);
     }
 }

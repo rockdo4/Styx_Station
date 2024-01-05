@@ -236,6 +236,8 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.fail = tutorialData.failrue;
         data.gameSaveDatas.loadTutorial = tutorialData.loadTutorial;
 
+        data.gameSaveDatas.bossRushIndex = UIManager.windows[3].GetComponent<CleanWindow>().openStage;
+        data.gameSaveDatas.bossRushCount = UIManager.windows[3].GetComponent<CleanWindow>().currentCount;
         SaveLoadSystem.JsonSave(data, "Test.json");
         //Debug.Log("Save");
         Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
@@ -807,8 +809,23 @@ public class SaveLoad : MonoBehaviour
                     UiSetting.soundValue = sound;
                 }
 
+                var cleanWindow = UIManager.Instance.windows[3].GetComponent<CleanWindow>();
 
+                if (gameSaveDatas["bossRushIndex"] is JToken bossIndexToken)
+                {
+                    string str = bossIndexToken.ToString();
+                    var datas = JsonConvert.DeserializeObject<int>(str);
 
+                    cleanWindow.openStage = datas;
+                }
+
+                if (gameSaveDatas["bossRushCount"] is JToken bossCountToken)
+                {
+                    string str = bossCountToken.ToString();
+                    var datas = JsonConvert.DeserializeObject<int>(str);
+
+                    cleanWindow.currentCount = datas;
+                }
             }
             GameData.isLoad = true;
         }

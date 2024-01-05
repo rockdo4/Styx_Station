@@ -156,6 +156,8 @@ public class ArmorEquipInfoUi : MonoBehaviour
     {
         gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Armor);
 
+        state.EquipUpdate();
+        state.TotalUpdate();
         InfoUpdate();
         info.InfoTextUpdate();
     }

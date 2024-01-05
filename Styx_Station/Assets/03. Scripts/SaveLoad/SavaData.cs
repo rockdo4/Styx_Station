@@ -200,4 +200,7 @@ public class GameSaveData
     public bool clean;
     public bool fail;
     public bool loadTutorial;
+
+    public int bossRushIndex;
+    public int bossRushCount;
 }

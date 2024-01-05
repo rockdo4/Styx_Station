@@ -145,7 +145,7 @@ public class InventorySystem : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.A))
         {
-            customMaker.CreateCustomItem();
+            customMaker.CreateCustomItem(1);
         }
     }
 }

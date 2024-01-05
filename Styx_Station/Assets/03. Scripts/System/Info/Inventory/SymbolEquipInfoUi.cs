@@ -1,4 +1,5 @@
 using System.Net.NetworkInformation;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,7 +56,7 @@ public class SymbolEquipInfoUi : MonoBehaviour
             {
                 equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Dequip").KOR}";
             }
-            else if(!symbol.item.equip)
+            else if (!symbol.item.equip)
             {
                 equip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Equip").KOR}";
             }
@@ -63,12 +64,53 @@ public class SymbolEquipInfoUi : MonoBehaviour
             symbolBraek.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Ring001").KOR}";
             tier.text = $"{stringTable.GetStringTableData(symbol.item.item.tier.ToString()).KOR}";
             itemName.text = $"{stringTable.GetStringTableData(symbol.copyData.name + "_Name").KOR}";
-            string text = string.Format(stringTable.GetStringTableData(symbol.copyData.name + "_Info").KOR,
-                symbol.item.item.options[0].value + symbol.item.upgradeLev * symbol.item.item.options[0].upgradeValue,
-                symbol.item.item.addOptions[0].value + symbol.item.upgradeLev * symbol.item.item.addOptions[0].upgradeValue);
-            itemText.text = $"{text}";
+
+            StringBuilder infoText = new StringBuilder();
+            string text = string.Format(stringTable.GetStringTableData("Symbol_Status_0").KOR, 1);
+            string option = string.Format("{0:F2}", symbol.item.item.options[0].value + symbol.item.upgradeLev * symbol.item.item.options[0].upgradeValue);
+            infoText.Append(text);
+            text = string.Format(stringTable.GetStringTableData("Symbol_Status_1").KOR, option);
+            infoText.Append(text);
+            infoText.AppendLine();
+            for (int i = 0; i < symbol.item.item.addOptions.Count; ++i)
+            {
+                text = string.Format(stringTable.GetStringTableData("Symbol_Status_0").KOR, i + 2);
+                infoText.Append(text);
+                switch (symbol.item.item.addOptions[i].option)
+                {
+                    case AddOptionString.HealthPer:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_1").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.Evade:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_2").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.DamageReduction:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_3").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.CoinAcquire:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_4").KOR, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+                }
+            }
+
+            itemText.text = $"{infoText} {stringTable.GetStringTableData(symbol.copyData.name + "_Info").KOR}";
         }
-        else if(Global.language == Language.ENG)
+        else if (Global.language == Language.ENG)
         {
             if (symbol.item.equip)
             {
@@ -82,12 +124,76 @@ public class SymbolEquipInfoUi : MonoBehaviour
             symbolBraek.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{stringTable.GetStringTableData("Ring001").ENG}";
             tier.text = $"{stringTable.GetStringTableData(symbol.item.item.tier.ToString()).ENG}";
             itemName.text = $"{stringTable.GetStringTableData(symbol.copyData.name + "_Name").ENG}";
-            string text = string.Format(stringTable.GetStringTableData(symbol.copyData.name + "_Info").ENG,
-                symbol.item.item.options[0].value + symbol.item.upgradeLev * symbol.item.item.options[0].upgradeValue,
-                symbol.item.item.addOptions[0].value + symbol.item.upgradeLev * symbol.item.item.addOptions[0].upgradeValue);
-            itemText.text = $"{text}";
+            StringBuilder infoText = new StringBuilder();
+            string text = string.Format(stringTable.GetStringTableData("Symbol_Status_0").ENG, 1);
+            string option = string.Format("{0:F2}", symbol.item.item.options[0].value + symbol.item.upgradeLev * symbol.item.item.options[0].upgradeValue);
+            infoText.Append(text);
+            text = string.Format(stringTable.GetStringTableData("Symbol_Status_1").ENG, option);
+            infoText.Append(text);
+            infoText.AppendLine();
+            for (int i = 0; i < symbol.item.item.addOptions.Count; ++i)
+            {
+                text = string.Format(stringTable.GetStringTableData("Symbol_Status_0").ENG, i + 2);
+                infoText.Append(text);
+                switch (symbol.item.item.addOptions[i].option)
+                {
+                    case AddOptionString.HealthPer:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_1").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.Evade:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_2").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.DamageReduction:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_3").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+
+                    case AddOptionString.CoinAcquire:
+                        option = string.Format("{0:F2}", symbol.item.item.addOptions[i].value + symbol.item.upgradeLev * symbol.item.item.addOptions[i].upgradeValue);
+                        text = string.Format(stringTable.GetStringTableData("Symbol_Status_4").ENG, option);
+                        infoText.Append(text);
+                        infoText.AppendLine();
+                        break;
+                }
+            }
+
+            itemText.text = $"{infoText} {stringTable.GetStringTableData(symbol.copyData.name + "_Info").ENG}";
+
+            upgrade.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = $"{symbol.item.item.itemLevUpNum[symbol.item.upgradeLev]}";
+
+            switch (symbol.item.item.tier)
+            {
+                case Tier.Common:
+                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "50";
+                    break;
+
+                case Tier.Uncommon:
+                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "150";
+                    break;
+
+                case Tier.Rare:
+                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "450";
+                    break;
+
+                case Tier.Unique:
+                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "1350";
+                    break;
+
+                case Tier.Legendry:
+                    symbolBraek.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "4050";
+                    break;
+            }
         }
-        lev.text = $"Lv.{symbol.item.upgradeLev}";
     }
 
     public void OnClickSymbolEquip()
@@ -166,7 +272,11 @@ public class SymbolEquipInfoUi : MonoBehaviour
     {
         gameObject.GetComponent<Upgrade>().ItemUpgrade(selectIndex, ItemType.Symbol);
 
+        state.EquipUpdate();
+        state.TotalUpdate();
         InfoUpdate();
+        info.InfoTextUpdate(); 
+        info.inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[3].GetComponent<SymbolType>().infoUpdate();
     }
 
     public void OnClickBreak()

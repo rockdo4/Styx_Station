@@ -54,6 +54,13 @@ public class TutorialSystem : MonoBehaviour
 
         UIManager.Instance.OnClickClose();
 
+
+        if (Global.language == Language.KOR)
+            crewName.text = $"{stringTable.GetStringTableData("Semele").KOR}";
+        else if(Global.language == Language.ENG)
+            crewName.text = $"{stringTable.GetStringTableData("Semele").ENG}";
+
+
         tutorial.SetActive(true);
 
         mask[26].SetActive(false);
@@ -241,7 +248,7 @@ public class TutorialSystem : MonoBehaviour
                 tutorialIndex = 38;
                 Dining();
                 break;
-            
+
             case 45:
                 Log_25();
                 break;
@@ -735,7 +742,7 @@ public class TutorialSystem : MonoBehaviour
         if (!mask[0].activeSelf)
             mask[0].SetActive(true);
 
-        if(!textBox.activeSelf)
+        if (!textBox.activeSelf)
             textBox.SetActive(true);
 
         str = string.Empty;
@@ -951,6 +958,7 @@ public class TutorialSystem : MonoBehaviour
         str = string.Empty;
 
         lab = true;
+        CurrencyManager.GetSilver(500, 1);
 
         if (Global.language == Language.KOR)
             str = stringTable.GetStringTableData("Tutorial_Log26").KOR;
@@ -1159,13 +1167,13 @@ public class TutorialSystem : MonoBehaviour
 
     private IEnumerator TextCoroutine(string text)
     {
-        for(int i = 0; i< text.Length; i++)
+        for (int i = 0; i < text.Length; i++)
         {
             crewText.text = text.Substring(0, i);
             yield return timer;
         }
 
-        switch(tutorialIndex)
+        switch (tutorialIndex)
         {
             case 0:
             case 1:
@@ -1196,7 +1204,7 @@ public class TutorialSystem : MonoBehaviour
             case 50:
             case 51:
             case 52:
-                finger[0].SetActive(true); 
+                finger[0].SetActive(true);
                 break;
 
         }
@@ -1484,7 +1492,7 @@ public class TutorialSystem : MonoBehaviour
                         next = false;
 
                         tutorialIndex++;
-                        
+
                         finger[0].SetActive(false);
 
                         FindTutorialIndex();
@@ -2039,7 +2047,7 @@ public class TutorialSystem : MonoBehaviour
             FindTutorialIndex();
         }
         // 1차 튜토리얼 종료
-        else if(tutorialIndex == 18)
+        else if (tutorialIndex == 18)
         {
             mask[1].SetActive(false);
             finger[1].SetActive(false);
@@ -2059,7 +2067,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickInfo()
     {
-        if(tutorialIndex == 9)
+        if (tutorialIndex == 9)
         {
             mask[6].SetActive(false);
             finger[2].SetActive(false);
@@ -2074,7 +2082,7 @@ public class TutorialSystem : MonoBehaviour
 
             FindTutorialIndex();
         }
-        else if(tutorialIndex == 26)
+        else if (tutorialIndex == 26)
         {
             finger[2].SetActive(false);
             mask[6].SetActive(false);
@@ -2092,7 +2100,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickStateUpgrade()
     {
-        if(tutorialIndex == 10)
+        if (tutorialIndex == 10)
         {
             mask[7].SetActive(false);
             finger[3].SetActive(false);
@@ -2125,10 +2133,10 @@ public class TutorialSystem : MonoBehaviour
             mask[1].SetActive(true);
         }
         // 2차 튜토리얼 종료
-        else if(tutorialIndex == 33)
+        else if (tutorialIndex == 33)
         {
             mask[8].SetActive(false);
-            finger[4].SetActive(!false);
+            finger[4].SetActive(false);
 
             UIManager.Instance.OnClickClose();
 
@@ -2161,7 +2169,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickGacha()
     {
-        if(tutorialIndex == 22)
+        if (tutorialIndex == 22)
         {
             mask[10].SetActive(false);
             finger[6].SetActive(false);
@@ -2177,7 +2185,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickGachaInfoExit()
     {
-        if(tutorialIndex == 23)
+        if (tutorialIndex == 23)
         {
             mask[11].SetActive(false);
             finger[7].SetActive(false);
@@ -2193,7 +2201,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickShopExit()
     {
-        if(tutorialIndex == 24)
+        if (tutorialIndex == 24)
         {
             mask[12].SetActive(false);
             finger[8].SetActive(false);
@@ -2208,7 +2216,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickInventory()
     {
-        if(tutorialIndex == 27)
+        if (tutorialIndex == 27)
         {
             mask[13].SetActive(false);
             finger[9].SetActive(false);
@@ -2249,10 +2257,10 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickItemEquip()
     {
-        if(tutorialIndex == 29)
+        if (tutorialIndex == 29)
         {
             mask[15].SetActive(false);
-            finger[11].SetActive (false);
+            finger[11].SetActive(false);
 
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
@@ -2266,7 +2274,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickItemUpgrade()
     {
-        if(tutorialIndex == 31)
+        if (tutorialIndex == 31)
         {
             mask[16].SetActive(false);
             finger[12].SetActive(false);
@@ -2284,10 +2292,10 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickItemInfoExit()
     {
-        if(tutorialIndex == 32)
+        if (tutorialIndex == 32)
         {
             mask[17].SetActive(false);
-            finger[13].SetActive (false);
+            finger[13].SetActive(false);
             var ui = UIManager.Instance.windows[0].gameObject.GetComponent<InfoWindow>().inventorys[1].GetComponent<InventoryWindow>().inventoryTypes[0].GetComponent<WeaponType>();
 
             ui.OnClickCloseWeaponInfo();
@@ -2315,7 +2323,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickFoodOpen()
     {
-        if(tutorialIndex == 37)
+        if (tutorialIndex == 37)
         {
             mask[19].SetActive(false);
             finger[15].SetActive(false);
@@ -2330,7 +2338,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickFoodInfo()
     {
-        if(tutorialIndex==43)
+        if (tutorialIndex == 43)
         {
             mask[20].SetActive(false);
             finger[16].SetActive(false);
@@ -2346,7 +2354,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnclickFoodEat()
     {
-        if(tutorialIndex==44)
+        if (tutorialIndex == 44)
         {
             mask[21].SetActive(false);
             finger[17].SetActive(false);
@@ -2376,7 +2384,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickLabInfo()
     {
-        if(tutorialIndex==53)
+        if (tutorialIndex == 53)
         {
             mask[23].SetActive(false);
             finger[19].SetActive(false);
@@ -2397,7 +2405,7 @@ public class TutorialSystem : MonoBehaviour
 
     public void OnClickLabStart()
     {
-        if(tutorialIndex == 54)
+        if (tutorialIndex == 54)
         {
             mask[24].SetActive(false);
             finger[20].SetActive(false);
@@ -2409,6 +2417,9 @@ public class TutorialSystem : MonoBehaviour
             tutorial.SetActive(false);
             stop = false;
             playTutorial = false;
+            loadTutorial = false;
+
+            WaveManager.Instance.StartWave();
         }
     }
 }

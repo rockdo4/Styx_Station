@@ -46,14 +46,23 @@ public class CleanWindow : Window
     public TextMeshProUGUI silver;
     public TextMeshProUGUI soul;
 
+    public GameObject info;
+
+    public TextMeshProUGUI infoText;
+
     public bool checkBool;
     public void TextUpdate()
     {
         if (Global.language == Language.KOR)
+        {
             contentName.text = $"{stringTable.GetStringTableData("Cleaning001").KOR}";
+            infoText.text = $"{stringTable.GetStringTableData("CleanInfo").KOR}";
+        }
         else if (Global.language == Language.ENG)
+        {
             contentName.text = $"{stringTable.GetStringTableData("Cleaning001").ENG}";
-
+            infoText.text = $"{stringTable.GetStringTableData("CleanInfo").ENG}";
+        }
         CountUpdate();
         SlotUpdate();
     }
@@ -119,9 +128,9 @@ public class CleanWindow : Window
         pageIndex = 0;
 
         TextUpdate();
-        if(WaveManager.Instance != null)
+        if (WaveManager.Instance != null)
         {
-            if(WaveManager.Instance.clearTime != string.Empty)
+            if (WaveManager.Instance.clearTime != string.Empty)
             {
                 var prevday = DateTime.ParseExact(WaveManager.Instance.clearTime.ToString(), GameData.datetimeString, null);
                 var day = DateTime.Now.ToString(GameData.datetimeString);
@@ -139,7 +148,7 @@ public class CleanWindow : Window
     public override void Close()
     {
         pageIndex = 0;
-
+        info.SetActive(false);
         base.Close();
     }
 
@@ -191,6 +200,13 @@ public class CleanWindow : Window
         }
     }
 
+    public void OpenInfo()
+    {
+        if(info.activeSelf)
+            info.SetActive(false);
+        else
+            info.SetActive(true);
+    }
     public void OnClickNextPage()
     {
         if(pageIndex <9)

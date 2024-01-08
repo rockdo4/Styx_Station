@@ -130,12 +130,22 @@ public class CleanWindow : Window
         TextUpdate();
         if (WaveManager.Instance != null)
         {
-            if (WaveManager.Instance.clearTime != string.Empty)
+            if (WaveManager.Instance.clearTime != null)
             {
                 var prevday = DateTime.ParseExact(WaveManager.Instance.clearTime.ToString(), GameData.datetimeString, null);
-                var day = DateTime.Now.ToString(GameData.datetimeString);
+                var day = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");//DateTime.Now.ToString(GameData.datetimeString);
                 var daydayte = DateTime.ParseExact(day.ToString(), GameData.datetimeString, null);
                 if (prevday.DayOfWeek != daydayte.DayOfWeek)
+                {
+                    currentCount = 2;
+                }
+            }
+            else
+            {
+                var prevDay = DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
+                var day = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
+                var daydayte = DateTime.ParseExact(day.ToString(), GameData.datetimeString, null);
+                if (prevDay.DayOfWeek != daydayte.DayOfWeek)
                 {
                     currentCount = 2;
                 }

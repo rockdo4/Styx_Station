@@ -421,7 +421,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
                     clean.openStage++;
 
                 clean.currentCount--;
-                clearTime = DateTime.Now.ToString(GameData.datetimeString);
+                // clearTime = DateTime.Now.ToString(GameData.datetimeString);
+                clearTime = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
                 clean.LoadScene(GameSceneName);
                 clean.GetReward();
                 clean.OpenUI();

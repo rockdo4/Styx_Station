@@ -161,7 +161,8 @@ public class DiningRoomSystem : Singleton<DiningRoomSystem>
     public void CalculateTimer(int count)
     {
         var exitTime =DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
-        var nowTimeStr =DateTime.Now.ToString(GameData.datetimeString);
+        //var test = TestServerTime.Instance.GetCurrentDateTime();
+        var nowTimeStr = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");//DateTime.Now.ToString(GameData.datetimeString);
         var nowTimeSpan = DateTime.ParseExact(nowTimeStr, GameData.datetimeString, null);
 
         TimeSpan timeDifference = nowTimeSpan.Subtract(exitTime);

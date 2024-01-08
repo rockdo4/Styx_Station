@@ -142,7 +142,7 @@ public class SaveLoad : MonoBehaviour
 
         data.gameSaveDatas.language = Global.language;
 
-        data.gameSaveDatas.exitTime = DateTime.Now.ToString($"{GameData.datetimeString}");
+        data.gameSaveDatas.exitTime = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");// DateTime.Now.ToString($"{GameData.datetimeString}");
 
         data.gameSaveDatas.keyAccumulateTime = GameData.keyPrevAccumlateTime.ToString();
 
@@ -480,12 +480,16 @@ public class SaveLoad : MonoBehaviour
                     }
                     else
                     {
-                        GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
+                        var str =TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
+                        GameData.keyPrevAccumlateTime.Append(str);
+                        //GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
                     }
                 }
                 else
                 {
-                    GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
+                    var str = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
+                    GameData.keyPrevAccumlateTime.Append(str);
+                    //GameData.keyPrevAccumlateTime.Append(DateTime.Now.ToString($"{GameData.datetimeString}"));
                 }
                 if (gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
                 {

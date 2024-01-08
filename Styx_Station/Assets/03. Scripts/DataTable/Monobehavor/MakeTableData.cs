@@ -15,11 +15,14 @@ public class MakeTableData : Singleton<MakeTableData>
     private void Awake()
     {
         gameSaveLoad = gameObject.AddComponent<SaveLoad>();
-        
-        Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
+        GameObject serverTime = new GameObject();
+        serverTime.name = "ServerTime";
+        serverTime.AddComponent<TestServerTime>();
+        //StartCoroutine(TestServerTime.Instance.GetRealDateTimeFromAPI());
+        //Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
         UIManager.Instance.gameObject.SetActive(false);
-        gameSaveLoad.Load();
-        Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
+        
+        //Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
     }
     private void Start()
     {
@@ -32,8 +35,8 @@ public class MakeTableData : Singleton<MakeTableData>
         if(labTable == null)
             labTable = new LabTable();
         if(questTable == null)
-            questTable = new QuestListTable();  
-
+            questTable = new QuestListTable();
+        gameSaveLoad.Load();
         UnitConverter.InitUnitConverter();
     }
     private void Update()

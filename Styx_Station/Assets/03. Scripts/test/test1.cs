@@ -35,8 +35,8 @@ public class test1 : MonoBehaviour
 
         state.TotalUpdate();
         //WaveManager.Instance.SetWavePanel(); 
-        if(!UIManager.Instance.tutorial.GetComponent<TutorialSystem>().loadTutorial)
-            UIManager.Instance.BangchiOpen();
+        //if(!UIManager.Instance.tutorial.GetComponent<TutorialSystem>().loadTutorial)
+        //    UIManager.Instance.BangchiOpen();
         UIManager.Instance.OpenPlayerBuffInfo();
 
         MakeTableData.Instance.gameSaveLoad.waveManager = WaveManager.Instance;

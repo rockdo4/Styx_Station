@@ -51,7 +51,9 @@ public static class GameData
     {
         if(keyPrevAccumlateTime.ToString() == string.Empty)
         {
-            keyPrevAccumlateTime.Append(DateTime.Now.ToString(datetimeString));
+            var str = TestServerTime.Instance.GetCurrentDateTime().ToString($"{datetimeString}");
+            keyPrevAccumlateTime.Append(str);
+            //keyPrevAccumlateTime.Append(DateTime.Now.ToString(datetimeString));
         }
         var prevData = DateTime.ParseExact(keyPrevAccumlateTime.ToString(), datetimeString, null);
         nowTime.Clear();

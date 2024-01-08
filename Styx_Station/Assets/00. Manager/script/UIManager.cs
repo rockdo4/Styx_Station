@@ -81,6 +81,7 @@ public class UIManager : Singleton<UIManager>
     private void OnEnable()
     {
         settingBox.SoundSetting();
+        BangchiOpen();
     }
     public void Open(WindowType inventoryType)
     {
@@ -827,7 +828,7 @@ public class UIManager : Singleton<UIManager>
 
     public void BangchiOpen()
     {
-        if (!isBangchi)
+        if (!isBangchi && tutorial.GetComponent<TutorialSystem>().loadTutorial)
         {
             isBangchi = true;
             GameData.GetAccumulateOfflineEarnings();

@@ -101,6 +101,7 @@ public class SymbolType : InventoryType
         ui.inventory = inventory;
         ui.type = ItemType.Symbol;
         ui.itemIndex = customSymbolButtons.Count;
+        button.name = customSymbolButtons.Count.ToString();
         ui.image = button.transform.GetChild(0).gameObject;
         ui.itemLv = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 

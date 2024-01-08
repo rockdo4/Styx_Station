@@ -211,11 +211,13 @@ public class InfoWindow : Window
         if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
             ButtonList.infoButton &= InfoButton.SymbolInfo;
 
-        ButtonList.infoButton |= InfoButton.WeaponInfo;
+
 
         var weaponInfo = weapon.inventoryTypes[(int)weapon.currentType].GetComponent<WeaponType>();
 
         weaponInfo.weaponButtons[item.index].GetComponent<ItemButton>().OnClickWeaponOpenInfo(weaponInfo);
+
+        ButtonList.infoButton |= InfoButton.WeaponInfo;
     }
 
     public void OnClickArmorType()
@@ -244,11 +246,13 @@ public class InfoWindow : Window
         if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
             ButtonList.infoButton &= InfoButton.SymbolInfo;
 
-        ButtonList.infoButton |= InfoButton.ArmorInfo;
+
 
         var armorInfo = armor.inventoryTypes[(int)armor.currentType].GetComponent<ArmorType>();
 
         armorInfo.armorButtons[item.index].GetComponent<ItemButton>().OnClickArmorOpenInfo(armorInfo);
+
+        ButtonList.infoButton |= InfoButton.ArmorInfo;
     }
 
     public void OnClickRingType()
@@ -263,15 +267,62 @@ public class InfoWindow : Window
         if (item == null)
             return;
 
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.WeaponInfo;
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.ArmorInfo;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+            ButtonList.infoButton &= InfoButton.SymbolInfo;
+
+
+
         var ringInfo = ring.inventoryTypes[(int)ring.currentType].GetComponent<RingType>();
 
-        //ringInfo.customRingButtons[item.index].GetComponent<ItemButton>().OnClickArmorOpenInfo(ringInfo);
+        ringInfo.customRingButtons[int.Parse(item.item.name)].GetComponent<ItemButton>().OnClickRingOpenInfo(ringInfo);
 
+        ButtonList.infoButton |= InfoButton.RingInfo;
     }
 
     public void OnClickSymbolType()
     {
+        Open(InfoWindowType.Inventory);
+        var symbol = inventorys[(int)currentSubWindow].GetComponent<InventoryWindow>();
+        symbol.currentType = ItemType.Symbol;
+        symbol.Open();
 
+        var item = InventorySystem.Instance.inventory.GetEquipItem(3);
+
+        if (item == null)
+            return;
+
+        if ((ButtonList.infoButton & InfoButton.SymbolInfo) != 0)
+        {
+            return;
+        }
+
+        if ((ButtonList.infoButton & InfoButton.WeaponInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.WeaponInfo;
+
+        if ((ButtonList.infoButton & InfoButton.ArmorInfo) != 0)
+            ButtonList.infoButton &= ~InfoButton.ArmorInfo;
+
+        if ((ButtonList.infoButton & InfoButton.RingInfo) != 0)
+            ButtonList.infoButton &= InfoButton.RingInfo;
+
+
+
+        var symbolInfo = symbol.inventoryTypes[(int)symbol.currentType].GetComponent<SymbolType>();
+
+        symbolInfo.customSymbolButtons[int.Parse(item.item.name)].GetComponent<ItemButton>().OnClickSymbolOpenInfo(symbolInfo);
+
+        ButtonList.infoButton |= InfoButton.SymbolInfo;
     }
 
     private void Update()

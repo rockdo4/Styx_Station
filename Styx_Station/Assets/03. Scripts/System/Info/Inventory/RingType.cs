@@ -38,13 +38,13 @@ public class RingType : InventoryType
 
         base.Close();
     }
-    
+
     public void OnClickCloseRingInfo()
     {
         selectIndex = -1;
         info.SetActive(false);
 
-        foreach(var ring in customRingButtons)
+        foreach (var ring in customRingButtons)
         {
             var button = ring.GetComponent<ItemButton>();
             if (button == null)
@@ -101,6 +101,7 @@ public class RingType : InventoryType
         ui.inventory = inventory;
         ui.type = ItemType.Ring;
         ui.itemIndex = customRingButtons.Count;
+        button.name = customRingButtons.Count.ToString();
         ui.image = button.transform.GetChild(0).gameObject;
         ui.itemLv = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 

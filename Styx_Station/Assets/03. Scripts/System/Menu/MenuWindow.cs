@@ -1,5 +1,6 @@
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MenuWindow : Window
 {
@@ -9,8 +10,8 @@ public class MenuWindow : Window
 
     public override void Open()
     {
-        ButtonList.settingButton = SettingButton.None;
-        base.Open();
+    ButtonList.settingButton = SettingButton.None;
+    base.Open();
     }
 
     public override void Close()
@@ -36,7 +37,11 @@ public class MenuWindow : Window
     {
         if ((ButtonList.settingButton & SettingButton.SaveMode) == 0)
         {
-            Screen.sleepTimeout = SleepTimeout.SystemSetting;
+            SavePower.SaveScreenBrightness(0f);
+
+            OnDemandRendering.renderFrameInterval = 3;
+
+            SavePower.onOff = true;
 
             ButtonList.settingButton |= SettingButton.SaveMode;
         }
@@ -65,10 +70,21 @@ public class MenuWindow : Window
 
     private void Update() 
     {
+        // 절전 모드 OFF
         if(Input.anyKeyDown && (ButtonList.settingButton & SettingButton.SaveMode) != 0)
         {
-                Screen.sleepTimeout = SleepTimeout.NeverSleep;
-                ButtonList.settingButton &= ~SettingButton.SaveMode;
+            Debug.Log("절전 모드 OFF 작업 시작");
+            Debug.Log($"롤백할 밝기 : {SavePower.currentBrightness}");
+            Debug.Log($"적용 전 현재 밝기 : {Screen.brightness}");
+
+            SavePower.OnScreenBrightness();
+
+            OnDemandRendering.renderFrameInterval = 1;
+
+            SavePower.onOff = false;
+
+            ButtonList.settingButton &= ~SettingButton.SaveMode;
+            Debug.Log($"적용 후 현재 밝기 : {Screen.brightness}");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && (ButtonList.mainButton & ButtonType.Menu) != 0)

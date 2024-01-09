@@ -22,7 +22,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public int CurrentWave { get; private set; } //현재 웨이브
     public int CurrentChapter { get; private set; } //현재 챕터
     public int maxWaveLevel = 5; //최대 웨이브 레벨
-    public int maxStageLevel = 10; //최대 스테이지 레벨
+    public int maxStageLevel = 5; //최대 스테이지 레벨
 
     private bool IsRepeating = false;
     public bool haveToChangeTile = false;
@@ -75,7 +75,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             if(player !=null)
             {
                 playerController = player.GetComponent<PlayerController>();
-                SetAudio();
+                //SetAudio();
             }
         }
     }
@@ -225,11 +225,12 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
         }
         else
         {
-            int stageNum = CurrentStage % 5;
+            int stageNum = CurrentStage % 2;
             int waveNum = CurrentWave % 5;
             if (stageNum == 0 && waveNum == 0)
             {
-                currTileMapIndex = CurrentChapter;
+                currTileMapIndex = ((maxStageLevel * (CurrentChapter - 1)) + CurrentStage - 1) / 2;
+                //currTileMapIndex = CurrentChapter;
                 haveToChangeTile = true;
                 ChangeTileMap();
                 ChangeVillage();
@@ -279,11 +280,8 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             changeTileList = leftTileMaps;
         }
 
-        changeTileList[currTileMapIndex].SetActive(true);
-        if(currTileMapIndex > 0)
-        {
-            changeTileList[currTileMapIndex - 1].SetActive(false);
-        }
+        changeTileList[currTileMapIndex + 1].SetActive(true);
+        changeTileList[currTileMapIndex].SetActive(false);
     }
 
     public void ChangeVillage()
@@ -298,17 +296,14 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             changeVillageList = leftVillage;
         }
 
-        changeVillageList[currTileMapIndex].SetActive(true);
-        if (currTileMapIndex > 0)
-        {
-            changeVillageList[currTileMapIndex - 1].SetActive(false);
-        }
+        changeVillageList[currTileMapIndex + 1].SetActive(true);
+        changeVillageList[currTileMapIndex].SetActive(false);
     }
 
     public void ChangeAudio()
     {
         BackgroundMusic.StopAudio();
-        BackgroundMusic.SetAudioClip(CurrentChapter);
+        BackgroundMusic.SetAudioClip(currTileMapIndex);
     }
     public void SetStageByIndexStage(int stageIndex)
     {
@@ -351,10 +346,11 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
 
         if(!isBossRush)
         {
-            currTileMapIndex = CurrentChapter;
+            //currTileMapIndex = CurrentChapter;
+            currTileMapIndex = ((maxStageLevel * (CurrentChapter - 1)) + CurrentStage - 1 ) / 2;
 
-            leftTileMaps[currTileMapIndex - 1].SetActive(true);
-            rightTileMaps[currTileMapIndex - 1].SetActive(true);
+            leftTileMaps[currTileMapIndex].SetActive(true);
+            rightTileMaps[currTileMapIndex].SetActive(true);
 
             SetVillage();
         }
@@ -381,14 +377,14 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             leftVillage[0].SetActive(false);
             rightVillage[0].SetActive(false);
 
-            leftVillage[currTileMapIndex - 1].SetActive(true);
-            rightVillage[currTileMapIndex - 1].SetActive(true);
+            leftVillage[currTileMapIndex].SetActive(true);
+            rightVillage[currTileMapIndex].SetActive(true);
         }
     }
 
     public void SetAudio()
     {
-        BackgroundMusic.SetAudioClip(CurrentChapter - 1);
+        BackgroundMusic.SetAudioClip(currTileMapIndex);
     }
 
     public void UpdateCurrentChapter()
@@ -667,6 +663,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             SetRepeat(GameData.isRepeatData_WaveManager);
         }
         SetWavePanel();
+        SetAudio();
         isLoad = true;
     }
 

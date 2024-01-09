@@ -290,6 +290,16 @@ RectTransform:
   m_AnchoredPosition: {x: 1, y: 0.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &277957556 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2802904546241814965, guid: 15c15647cc00fb642a834be9686f187e, type: 3}
+  m_PrefabInstance: {fileID: 743766579}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &277957557 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4524213021913757789, guid: 15c15647cc00fb642a834be9686f187e, type: 3}
+  m_PrefabInstance: {fileID: 743766579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &291618839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -401,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4129169840598786021, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
       propertyPath: attackPower
-      value: 10
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5530669835995673607, guid: d1145710d8f227d4f83d9717e072d8e0, type: 3}
       propertyPath: playerAttribute
@@ -1036,10 +1046,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Village
       objectReference: {fileID: 0}
-    - target: {fileID: 6577884133022519430, guid: 15c15647cc00fb642a834be9686f187e, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1334,7 +1340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxWaveLevel: 5
-  maxStageLevel: 10
+  maxStageLevel: 5
   haveToChangeTile: 0
   spawner: {fileID: 644709681}
   aliveMonsterCount: 0
@@ -1355,6 +1361,7 @@ MonoBehaviour:
   - {fileID: 743766594}
   - {fileID: 743766593}
   - {fileID: 743766592}
+  - {fileID: 277957557}
   rightVillage:
   - {fileID: 743766591}
   - {fileID: 743766590}
@@ -1368,6 +1375,7 @@ MonoBehaviour:
   - {fileID: 743766582}
   - {fileID: 743766581}
   - {fileID: 743766580}
+  - {fileID: 277957556}
   timeLimit: 0
   timer: 0
   isWaveInPro: 0
@@ -1377,6 +1385,7 @@ MonoBehaviour:
   isBossRush: 0
   stages: []
   currStageList: {fileID: 0}
+  clearTime: 
 --- !u!4 &1016353212
 Transform:
   m_ObjectHideFlags: 0
@@ -1935,10 +1944,6 @@ PrefabInstance:
     - target: {fileID: 2841995762257636585, guid: e8231c644cf4abd4ba33edff30824df9, type: 3}
       propertyPath: m_Name
       value: Background
-      objectReference: {fileID: 0}
-    - target: {fileID: 2841995762257636585, guid: e8231c644cf4abd4ba33edff30824df9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

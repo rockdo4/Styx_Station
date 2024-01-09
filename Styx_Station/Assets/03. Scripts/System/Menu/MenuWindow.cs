@@ -39,7 +39,7 @@ public class MenuWindow : Window
         {
             SavePower.SaveScreenBrightness(0f);
 
-            OnDemandRendering.renderFrameInterval = 3;
+            OnDemandRendering.renderFrameInterval = 6;
 
             SavePower.onOff = true;
 

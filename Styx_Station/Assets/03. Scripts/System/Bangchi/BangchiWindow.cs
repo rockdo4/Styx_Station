@@ -4,7 +4,7 @@ using TMPro;
 public class BangchiWindow : Window
 {
     private long sliver=0;
-    private long pogme=0;
+    private long pogme =0;
 
     public string bangchiOverTimeStringKey;
     public string bangchiPanelNameStringKey;

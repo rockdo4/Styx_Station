@@ -127,34 +127,24 @@ public class CleanWindow : Window
 
         pageIndex = 0;
 
-        TextUpdate();
+        
         if (WaveManager.Instance != null)
         {
             if (WaveManager.Instance.clearTime != null)
             {
                 var prevday = DateTime.ParseExact(WaveManager.Instance.clearTime.ToString(), GameData.datetimeString, null);
-                var day = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");//DateTime.Now.ToString(GameData.datetimeString);
-                var daydayte = DateTime.ParseExact(day.ToString(), GameData.datetimeString, null);
-                if (prevday.DayOfWeek != daydayte.DayOfWeek)
-                {
-                    currentCount = 2;
-                }
+                CheckWeek(prevday);
             }
             else
             {
                 var prevDay = DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
-                var day = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
-                var daydayte = DateTime.ParseExact(day.ToString(), GameData.datetimeString, null);
-                if (prevDay.DayOfWeek != daydayte.DayOfWeek)
-                {
-                    currentCount = 2;
-                }
+                CheckWeek(prevDay);
             }
         }
-
+        TextUpdate();
         base.Open();
     }
-
+    
     public override void Close()
     {
         pageIndex = 0;
@@ -347,5 +337,23 @@ public class CleanWindow : Window
         uiManager.buttons.SetActive(true);
         uiManager.questSystemUi.gameObject.SetActive(true);
         uiManager.WavePanels[4].transform.GetChild(3).gameObject.SetActive(true);
+    }
+
+    private void CheckWeek(DateTime prevDay)
+    {
+        var day = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");//DateTime.Now.ToString(GameData.datetimeString);
+        var daydayte = DateTime.ParseExact(day.ToString(), GameData.datetimeString, null);
+        if (prevDay.DayOfWeek != daydayte.DayOfWeek)
+        {
+            currentCount = 2;
+        }
+        else
+        {
+            TimeSpan timeDifference = daydayte.Subtract(prevDay);
+            if(timeDifference.TotalDays >1)
+            {
+                currentCount = 2;
+            }
+        }
     }
 }

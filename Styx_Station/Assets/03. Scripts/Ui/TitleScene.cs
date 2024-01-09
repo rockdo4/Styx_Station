@@ -8,7 +8,7 @@ public class TitleScene : MonoBehaviour
 {
     public string GameScene;
     private float time;
-    private float timerDuration =3f;
+    private float timerDuration =5f;
     private AsyncOperation asyncLoad;
     public GameObject loadingBar;
     private bool sceneLoad;

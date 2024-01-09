@@ -25,7 +25,7 @@ public static class CurrencyManager
         switch(a)
         {
             case 0:
-                money1 += money + (money * (int)StateSystem.Instance.TotalState.CoinAcquire / 100);
+                money1 += money + (money * (BigInteger)StateSystem.Instance.TotalState.CoinAcquire / 100);
                 break;
             case 1:
                 money2 += money;

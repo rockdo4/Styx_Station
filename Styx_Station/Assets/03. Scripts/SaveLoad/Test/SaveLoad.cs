@@ -32,7 +32,6 @@ public class SaveLoad : MonoBehaviour
     }
     public void Save()
     {
-        Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
         SaveDataVersionCurrent data = new SaveDataVersionCurrent();
 
         data.gameSaveDatas.playerdata.playerPower = SharedPlayerStats.GetPlayerPower();
@@ -240,7 +239,6 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.bossRushCount = UIManager.windows[3].GetComponent<CleanWindow>().currentCount;
         SaveLoadSystem.JsonSave(data, "Test.json");
         //Debug.Log("Save");
-        Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
     }
     public void Load()
     {

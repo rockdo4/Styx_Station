@@ -68,8 +68,6 @@ public class TestServerTime : MonoBehaviour
             TimeData timeData = JsonUtility.FromJson<TimeData>(webRequest.downloadHandler.text);
             _currentDateTime = ParseDateTime(timeData.datetime);
             IsTimeLodaed = true;
-            Debug.Log("Success.");
-            Debug.Log($"{_currentDateTime}");
         }
     }
 
@@ -80,7 +78,6 @@ public class TestServerTime : MonoBehaviour
         string datetimeString = $"{date} {time}";
         DateTime parsedDateTime = DateTime.ParseExact(datetimeString, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         string formattedDatetime = parsedDateTime.ToString("HH:mm:ss");
-        Debug.Log(formattedDatetime);
         return parsedDateTime;
     }
 

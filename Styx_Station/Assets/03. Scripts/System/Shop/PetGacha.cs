@@ -89,6 +89,7 @@ public class PetGacha : MonoBehaviour
             ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
+        MakeTableData.Instance.GameSave();
     }
 
     public void OnClickMiddleGacha()
@@ -106,6 +107,7 @@ public class PetGacha : MonoBehaviour
             ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
+        MakeTableData.Instance.GameSave();
     }
 
     public void OnClickMaxGacha()
@@ -123,6 +125,7 @@ public class PetGacha : MonoBehaviour
             ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
+        MakeTableData.Instance.GameSave();
     }
     public void OnClickPetPer()
     {

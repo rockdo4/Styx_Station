@@ -11,7 +11,8 @@ public class MakeTableData : Singleton<MakeTableData>
     [HideInInspector] public QuestListTable questTable;
     public int currentQuestIndex = 0;
     public int loppCurrentQuestIndex = 0;
-
+    [SerializeField]private float saveTimer;
+    private float saveTimerDuration = 180f;
     private void Awake()
     {
         gameSaveLoad = gameObject.AddComponent<SaveLoad>();
@@ -20,7 +21,7 @@ public class MakeTableData : Singleton<MakeTableData>
         serverTime.AddComponent<TestServerTime>();
         //StartCoroutine(TestServerTime.Instance.GetRealDateTimeFromAPI());
         //Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
-        UIManager.Instance.gameObject.SetActive(false);
+        UIManager.Instance.panel.gameObject.SetActive(false);
         
         //Debug.Log(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss:ff"));
     }
@@ -41,16 +42,24 @@ public class MakeTableData : Singleton<MakeTableData>
     }
     private void Update()
     {
-      
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == UIManager.Instance.SceneName)
+        {
+            saveTimer += Time.deltaTime;
+        }
+        if(saveTimer > saveTimerDuration )
+        {
+            saveTimer = 0f;
+            gameSaveLoad.Save();
+            Debug.Log("Save. Succese Timer");
+        }
+    }
+    public void GameSave()
+    {
+        saveTimer = 0f;
+        gameSaveLoad.Save();
+        Debug.Log("Save. Succese Method");
     }
     private void OnApplicationQuit() => gameSaveLoad.Save();
-
-
-    private void OnApplicationPause(bool pause)
-    {
-        
-    }
-
 #if UNITY_ANDROID
     private void OnApplicationFocus(bool pauseStatus)
     {

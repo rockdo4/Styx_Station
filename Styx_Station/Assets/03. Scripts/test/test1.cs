@@ -11,12 +11,9 @@ public class test1 : MonoBehaviour
     public GameObject castZone;
     private void Awake()
     {
-        Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
-        UIManager.Instance.gameObject.SetActive(true);
-        // Áö¿ï°Í 
+        UIManager.Instance.panel.gameObject.SetActive(true);
         UIManager.Instance.gameObject.GetComponent<Canvas>().worldCamera = uiCamera;
         UIManager.Instance.HpGauge = playerController.hpBar;
-        //
 
         //WaveManager.Instance.SetStageByIndexStage(GameData.stageData_WaveManager);
         //WaveManager.Instance.SetTileMap();

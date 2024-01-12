@@ -93,6 +93,7 @@ public class ItemGacha : MonoBehaviour
             ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
+        MakeTableData.Instance.GameSave();
     }
 
     public void OnClickMiddleGacha()
@@ -114,6 +115,7 @@ public class ItemGacha : MonoBehaviour
             ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
+        MakeTableData.Instance.GameSave();
     }
 
     public void OnClickMaxGacha()
@@ -135,6 +137,7 @@ public class ItemGacha : MonoBehaviour
             ButtonList.gachaButton |= gachaButton.Info;
 
         GachaUpdate();
+        MakeTableData.Instance.GameSave();
     }
 
     public void OnClickItemPer()

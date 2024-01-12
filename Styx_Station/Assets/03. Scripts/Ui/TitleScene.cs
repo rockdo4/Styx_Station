@@ -49,7 +49,6 @@ public class TitleScene : MonoBehaviour
     {
         AsyncOperation load = SceneManager.LoadSceneAsync(GameScene);
         loadingBar.SetActive(true);
-        Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
         while (!load.isDone)
         {
             time += Time.time;

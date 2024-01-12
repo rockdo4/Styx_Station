@@ -132,8 +132,17 @@ public class CleanWindow : Window
         {
             if (WaveManager.Instance.clearTime != null)
             {
-                var prevday = DateTime.ParseExact(WaveManager.Instance.clearTime.ToString(), GameData.datetimeString, null);
-                CheckWeek(prevday);
+                if(WaveManager.Instance.clearTime == string.Empty)
+                {
+                    var prevDay = DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
+                    CheckWeek(prevDay);
+                }
+                else
+                {
+                    var prevday = DateTime.ParseExact(WaveManager.Instance.clearTime.ToString(), GameData.datetimeString, null);
+                    CheckWeek(prevday);
+                }
+               
             }
             else
             {

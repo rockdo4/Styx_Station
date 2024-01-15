@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public abstract class SaveData
 {
     public int Version { get; set; }
@@ -108,7 +110,6 @@ public class SaveDataV3 : SaveData
         v4.gameSaveDatas.exitTime = exitTime;
         v4.gameSaveDatas.keyAccumulateTime = keyAccumulateTime;
         v4.gameSaveDatas.stageIndex = stageData;
-        //v4.gameSaveDatas.stageData= stageData;
         v4.gameSaveDatas.diningRoomSaveFoodData = diningRoomSaveFoodData;
 
 
@@ -116,6 +117,7 @@ public class SaveDataV3 : SaveData
     }
 }
 
+[Serializable]
 public class SaveDataV4 : SaveData
 {
     public SaveDataV4()
@@ -131,11 +133,14 @@ public class SaveDataV4 : SaveData
 
     public override SaveData VersionUp()
     {
-        throw new System.NotImplementedException();
+        SaveDataV4 v4 = new SaveDataV4();
+        v4.gameSaveDatas = gameSaveDatas; 
+        v4.Version = GetVersion(); 
+        return v4;
     }
 }
 
-
+[Serializable]
 public class GameSaveData
 {
     public PlayerData playerdata = new PlayerData();

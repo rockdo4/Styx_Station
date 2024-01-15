@@ -9,7 +9,7 @@ public class MonsterDieState : MonsterStateBase
     private SpriteRenderer[] spriteRenderers;
     private float timer = 0f;
     private float releaseTimer = 0f;
-    private float releaseTime = 5f; 
+    private float releaseTime = 0f; 
     private float fadeDuration = 1f;
     private List<Color> colorList = new List<Color>();
     private Transform idlePos;
@@ -38,7 +38,7 @@ public class MonsterDieState : MonsterStateBase
 
     public override void Exit()
     {
-        monsterCtrl.animator.SetBool("EditChk", false);
+        monsterCtrl.animator.SetBool("EditChk", true);
     }
 
     public override void FixedUpate()
@@ -72,7 +72,7 @@ public class MonsterDieState : MonsterStateBase
             {
                 spriteRenderers[i].color = colorList[i];
             }
-            
+
             monsterCtrl.SetState(States.Idle);
 
             if(monsterCtrl.gameObject.activeSelf)

@@ -6,18 +6,24 @@ using UnityEngine.UI;
 
 public class TitleScene : MonoBehaviour
 {
+    public static TitleScene Instance;
+
     public string GameScene;
     private float time;
     private float timerDuration =5f;
     private AsyncOperation asyncLoad;
     public GameObject loadingBar;
-    private bool sceneLoad;
+    [HideInInspector] public  bool sceneLoad;
     public Slider loadingBarSlider;
     public Button button;
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         //UIManager.Instance.gameObject.SetActive(false);
-        if(!LabSystem.Instance.gameObject.activeSelf)
+        if (!LabSystem.Instance.gameObject.activeSelf)
             LabSystem.Instance.gameObject.SetActive(true);
     }
     public void GoGameScene()

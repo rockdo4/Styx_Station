@@ -753,8 +753,13 @@ public class UIManager : Singleton<UIManager>
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if ((ButtonList.mainButton == ButtonType.Main || tutorial.GetComponent<TutorialSystem>().playTutorial))
+            if ((ButtonList.mainButton == ButtonType.Main || tutorial.GetComponent<TutorialSystem>().playTutorial) )
             {
+                var exit = TitleScene.Instance;
+                if(exit != null && exit.sceneLoad)
+                {
+                    return;
+                }
                 ButtonList.mainButton|=ButtonType.Exit;
                 Open(WindowType.Exit);
             }

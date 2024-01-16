@@ -103,17 +103,11 @@ public static class SaveLoadSystem
         if (File.Exists(binaryFilePath))
         {
             string content = File.ReadAllText(binaryFilePath);
-
-            // 문자열이 널인지 확인
             if (!string.IsNullOrEmpty(content))
             {
-                // 문자열을 바이너리로 변환
                 byte[] binaryData = Encoding.UTF8.GetBytes(content);
-
-                // 이진 데이터를 새로운 파일에 쓰기
                 string binaryPath = SaveDirectory+"\\TestBinary.bin";
                 File.WriteAllBytes(binaryPath, binaryData);
-
                Debug.Log("텍스트 파일이 성공적으로 이진 파일로 변환되었습니다.");
             }
             else
@@ -140,10 +134,8 @@ public static class SaveLoadSystem
 
             Debug.Log("Binary file successfully converted to text.");
 
-            // Load the converted text file back to SaveData
             SaveDataVersionCurrent loadedData = (SaveDataVersionCurrent)JsonLoad(txtFilePath);
             return loadedData;
-            // Do something with the loaded data
         }
         else
         {

@@ -11,22 +11,11 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
     }
     public void OnAttack(GameObject attacker, Attack attack)
     {
-        //if (attacker.GetComponent<ResultPlayerStats>() != null)
-        //{
-        //    if (attacker.GetComponent<ResultPlayerStats>().playerCurrentHp <= 0)
-        //    {
-        //        return;
-        //    }
-        //}
-
         if(!WaveManager.Instance.isWaveInProgress)
         {
             return;
         }
-        //Debug.Log($"Damage: {attack.Damage}");
         stats.currHealth -= attack.Damage;
-        //Debug.Log($"Health: {stats.currHealth}");
-        //Debug.Log($"OnAttack: {attack.Damage}");
         if (stats.currHealth <= 0)
         {
             stats.currHealth = 0;
@@ -38,9 +27,6 @@ public class MonsterAttackedTakeDamage : MonoBehaviour, IAttackable
             UIManager.Instance.questSystemUi.DeathEnemyCounting();
             UIManager.Instance.PrintSliverMoney();
             UIManager.Instance.PrintPommeMoney();
-            //WaveManager.Instance.IncreaseMoney1();
-            //UIManager.instance.ReSetText();
-            //PlayerStatsUpgardeUI.Instance.ResetStringMoney();
         }
     }
 }

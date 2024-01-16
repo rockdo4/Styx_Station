@@ -18,6 +18,7 @@ public class PlayerArrow : PoolAble
     public bool isRelease = false;
     private ContactFilter2D filter2D = new ContactFilter2D();
     private Camera mainCamera;
+    private int maxCollMonCount = 20;
 
 
     private void Awake()
@@ -73,7 +74,7 @@ public class PlayerArrow : PoolAble
             ReleaseArrow();
             return;
         }
-        Collider2D[] colliders = new Collider2D[20];
+        Collider2D[] colliders = new Collider2D[maxCollMonCount];
         int count =  Physics2D.OverlapCollider(gameObject.GetComponent<Collider2D>(), filter2D, colliders);
         Collider2D attackedMon = colliders[0];
         if(colliders.Length > 1)
@@ -92,24 +93,20 @@ public class PlayerArrow : PoolAble
         }
         if (attackedMon == null)
         {
-            //Debug.Log("ERR: attackedMon Null");
             return;
         }
         if (attackedMon.GetComponent<MonsterStats>().currHealth <= 0)
         {
-            //Debug.Log("Monster Health is 0");
             return;
         }
         if (OnCollided != null)
         {
             if(attackedMon == null)
             {
-                //Debug.Log("ERR: attackedMon Null");
                 return;
             }
             OnCollided(caster, attackedMon.gameObject);
         }
-        //Debug.Log(other.name);
         ReleaseArrow();
     }
 

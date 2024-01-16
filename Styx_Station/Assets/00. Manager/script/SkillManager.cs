@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static SkillInventory;
 using UnityEngine.UI;
-using System;
 using System.Linq;
-using System.Reflection;
 
 /// <summary>
 /// 설정: skillcool |= SkillCool.skill001;
@@ -92,7 +90,8 @@ public class SkillManager : Singleton<SkillManager>
     private delegate void AutoSkillDelegate(Slider cool);
     //private AutoSkillDelegate[] useSkillArray = new AutoSkillDelegate[6];
     //private Queue<AutoSkillDelegate> autoSkillQueue = new Queue<AutoSkillDelegate>();
-    public Queue<GameObject> skillbutton = new Queue<GameObject>();
+    //public Queue<GameObject> skillbutton = new Queue<GameObject>();
+    public PriorityQueue<GameObject, int> skillButtonP = new PriorityQueue<GameObject, int>();
     public bool isAuto { get; private set; } = false;
 
     private SkillWindow skillWindow;
@@ -189,10 +188,26 @@ public class SkillManager : Singleton<SkillManager>
             {
                 return;
             }
-            SortSkillButton();
-            while (skillbutton.Count > 0)
+
+            //일반 큐 버전
+            //SortSkillButton();
+            
+            //while (skillbutton.Count > 0)
+            //{
+            //    var button = skillbutton.Dequeue();
+            //    if (button.GetComponentInChildren<NormalButton>().skillIndex < 0)
+            //    {
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        button.GetComponentInChildren<NormalButton>().AutoSkillActive(skillWindow);
+            //    }
+            //}
+
+            while (skillButtonP.Count > 0)
             {
-                var button = skillbutton.Dequeue();
+                var button = skillButtonP.Dequeue();
                 if (button.GetComponentInChildren<NormalButton>().skillIndex < 0)
                 {
                     return;
@@ -202,6 +217,8 @@ public class SkillManager : Singleton<SkillManager>
                     button.GetComponentInChildren<NormalButton>().AutoSkillActive(skillWindow);
                 }
             }
+
+
 
         }
     }
@@ -266,12 +283,6 @@ public class SkillManager : Singleton<SkillManager>
     {
         return ((skillcool & equipSkillFlags[equipIndex]) == 0);
     }
-
-    public void UseSkill()
-    {
-        //skills[9].UseSkill(player);
-        skills[10].UseSkill(player);
-    }
     public void UseSkill1(Slider cool)
     {
         if(!WaveManager.Instance.isWaveInProgress)
@@ -293,6 +304,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
+            Debug.Log("1번 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[0].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[0];
@@ -321,6 +333,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
+            Debug.Log("2번 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[1].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[1];
@@ -349,6 +362,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
+            Debug.Log("3번 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[2].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[2];
@@ -377,6 +391,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
+            Debug.Log("4번 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[3].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[3];
@@ -405,6 +420,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
+            Debug.Log("5번 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[4].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[4];
@@ -433,6 +449,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
+            Debug.Log("6번 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[5].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[5];
@@ -446,24 +463,6 @@ public class SkillManager : Singleton<SkillManager>
     }
     IEnumerator Skill1CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
-        //yield return new WaitForSeconds(cooldown);
-
-        //float timer = 0f;
-        //float updateInterval = 1f; // 1초마다 업데이트
-
-        //while (timer < cooldown)
-        //{
-        //    yield return null; // 다음 프레임까지 대기
-
-        //    timer += Time.deltaTime; // 경과 시간 업데이트
-
-        //    if (timer >= updateInterval) // updateInterval(1초)마다 실행
-        //    {
-        //        coolSl.value = Mathf.Clamp01(timer / cooldown); // coolSl 값 조정
-        //        timer -= updateInterval; // 타이머 재설정
-        //    }
-        //}
-
         float timer = 0f;
 
         while (timer < cooldown)
@@ -479,7 +478,7 @@ public class SkillManager : Singleton<SkillManager>
 
         if (!isDequip[0])
         {
-            skillbutton.Enqueue(skillWindow.slotButtons[0]);
+            skillButtonP.Enqueue(skillWindow.slotButtons[0], 0);
         }
     }
 
@@ -499,7 +498,7 @@ public class SkillManager : Singleton<SkillManager>
 
         if (!isDequip[1])
         {
-            skillbutton.Enqueue(skillWindow.slotButtons[1]);
+            skillButtonP.Enqueue(skillWindow.slotButtons[1], 1);
         }
     }
 
@@ -520,8 +519,13 @@ public class SkillManager : Singleton<SkillManager>
 
         if (!isDequip[2])
         {
-            skillbutton.Enqueue(skillWindow.slotButtons[2]);
+            skillButtonP.Enqueue(skillWindow.slotButtons[2], 2);
         }
+
+        //if (!isDequip[2])
+        //{
+        //    skillbutton.Enqueue(skillWindow.slotButtons[2]);
+        //}
     }
 
     IEnumerator Skill4CoolDown(float cooldown, SkillCool cool, Slider coolSl)
@@ -538,10 +542,16 @@ public class SkillManager : Singleton<SkillManager>
         }
         skillcool &= ~cool;
         coolSl.value = 0;
+
         if (!isDequip[3])
         {
-            skillbutton.Enqueue(skillWindow.slotButtons[3]);
+            skillButtonP.Enqueue(skillWindow.slotButtons[3], 3);
         }
+
+        //if (!isDequip[3])
+        //{
+        //    skillbutton.Enqueue(skillWindow.slotButtons[3]);
+        //}
     }
     IEnumerator Skill5CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
@@ -560,9 +570,13 @@ public class SkillManager : Singleton<SkillManager>
 
         if (!isDequip[4])
         {
-            skillbutton.Enqueue(skillWindow.slotButtons[4]);
-
+            skillButtonP.Enqueue(skillWindow.slotButtons[4], 4);
         }
+
+        //if (!isDequip[4])
+        //{
+        //    skillbutton.Enqueue(skillWindow.slotButtons[4]);
+        //}
     }
     IEnumerator Skill6CoolDown(float cooldown, SkillCool cool, Slider coolSl)
     {
@@ -581,22 +595,27 @@ public class SkillManager : Singleton<SkillManager>
 
         if (!isDequip[5])
         {
-            skillbutton.Enqueue(skillWindow.slotButtons[5]);
+            skillButtonP.Enqueue(skillWindow.slotButtons[5], 5);
         }
+
+        //if (!isDequip[5])
+        //{
+        //    skillbutton.Enqueue(skillWindow.slotButtons[5]);
+        //}
     }
 
     private void SortSkillButton()
     {
-        if (skillbutton.Count <= 0)
-            return;
+        //if (skillbutton.Count <= 0)
+        //    return;
 
-        List<GameObject> sortList = new List<GameObject>();
+        //List<GameObject> sortList = new List<GameObject>();
 
-        sortList = skillbutton.ToList();
-        sortList.Sort(
-            (x, y) => x.GetComponentInChildren<NormalButton>().equipIndex.CompareTo(y.GetComponentInChildren<NormalButton>().equipIndex));
+        //sortList = skillbutton.ToList();
+        //sortList.Sort(
+        //    (x, y) => x.GetComponentInChildren<NormalButton>().equipIndex.CompareTo(y.GetComponentInChildren<NormalButton>().equipIndex));
 
-        skillbutton = new Queue<GameObject>(sortList);
+        //skillbutton = new Queue<GameObject>(sortList);
     }
 
     public void ResetAllSkillCool()
@@ -608,7 +627,8 @@ public class SkillManager : Singleton<SkillManager>
             StopCoroutine(coroutines[i]);
             skillcool &= ~equipSkillFlags[i];
             sliders[i].value = 0;
-            skillbutton.Enqueue(skillWindow.slotButtons[i]);
+            skillButtonP.Enqueue(skillWindow.slotButtons[i], i);
+            //skillbutton.Enqueue(skillWindow.slotButtons[i]);
         }
     }
 

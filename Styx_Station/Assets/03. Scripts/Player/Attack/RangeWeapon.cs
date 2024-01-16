@@ -24,7 +24,6 @@ public class RangeWeapon : AttackDefinition
 
         var angle = Random.Range(minShotAngle, maxShotAngle + 1);
         Quaternion rotaion = Quaternion.Euler(0, 0, angle*shotAngleOffset);
-        //Debug.Log(angle * shotAngleOffset);
         var newDirection = rotaion * Vector2.right;
         var targetPos = startPos + newDirection.normalized * 10f;
 

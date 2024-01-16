@@ -230,7 +230,6 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
             if (stageNum == 0 && waveNum == 0)
             {
                 currTileMapIndex = ((maxStageLevel * (CurrentChapter - 1)) + CurrentStage - 1) / 2;
-                //currTileMapIndex = CurrentChapter;
                 haveToChangeTile = true;
                 ChangeTileMap();
                 ChangeVillage();

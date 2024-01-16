@@ -15,16 +15,12 @@ public abstract class SkillBase
 
     public Attack CreateAttackToMonster(ResultPlayerStats attacker, MonsterStats defender, float multiple)
     {
-        float criticalChance = attacker.GetCritical();   //0~100까지 치확
+        float criticalChance = attacker.GetCritical();   
         float randomFloat = Random.Range(0f, 100f);
         randomFloat = Mathf.Round(randomFloat * 10f) / 10f;
         bool isCritical = randomFloat <= criticalChance;
 
-        //var currentDamage = attacker.ResultMonsterNormalDamage(isCritical, 0);
-        //currentDamage = GetDamage(currentDamage, multiple);
-
         var currentDamage = attacker.ResultMonsterSkillDamage(isCritical, 0, multiple);
         return new Attack(currentDamage, false);
     }
-
 }

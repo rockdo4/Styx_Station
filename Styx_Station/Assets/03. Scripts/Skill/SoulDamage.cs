@@ -55,7 +55,7 @@ public class SoulDamage : SkillBase
             attackable.OnAttack(caster, attack);
         }
 
-        Debug.Log("Hit Monster in SoulDamage");
+        //Debug.Log("Hit Monster in SoulDamage");
     }
 
 }

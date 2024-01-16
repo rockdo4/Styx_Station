@@ -368,6 +368,7 @@ public class SaveLoad : MonoBehaviour
             GameData.keyPrevAccumlateTime.Append(str);
 
             Debug.Log("Non Binary");
+            GameData.isLoad = true;
         }
     }
 

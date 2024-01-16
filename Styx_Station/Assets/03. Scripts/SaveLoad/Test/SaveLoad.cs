@@ -7,9 +7,9 @@ using SaveDataVersionCurrent = SaveDataV4;
 using System.Numerics;
 using System.Linq;
 using System;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
-using System.IO.Pipes;
+using UnityEngine.Tilemaps;
+using UnityEditor.U2D.Aseprite;
+using Unity.VisualScripting;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -234,23 +234,7 @@ public class SaveLoad : MonoBehaviour
         //data.gameSaveDatas.Version = data.GetVersion();
         SaveLoadSystem.JsonSave(data, "Test.json");
 
-        BinaryFormatter formatter = new BinaryFormatter();
-        string binaryFilePath = Path.Combine(Application.persistentDataPath, "TestBinary.dat");
-        using (FileStream fileStream = File.Create(binaryFilePath))
-        {
-            try
-            {
-                formatter.Serialize(fileStream, data);
-            }
-            catch (SerializationException e)
-            {
-                Debug.LogError("데이터를 저장하는 중 오류 발생: " + e.Message);
-                /*
-                 Type 'SaveData' in Assembly 'Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null' is not marked as serializable.
-                 UnityEngine.Debug:LogError (object)
-                 */
-            }
-        }
+        SaveLoadSystem.TxtFileSave(data);
     }
     public void Load()
     {
@@ -259,495 +243,333 @@ public class SaveLoad : MonoBehaviour
         {
             diningRoomsystem = DiningRoomSystem.Instance;
         }
+        string paths = Path.Combine(SaveLoadSystem.SaveDirectory, "TestText.dat");
+        var test = SaveLoadSystem.BinaryToTxtAndJson("TestBinary.bin");
 
-        var path = Path.Combine(Application.persistentDataPath, "Test.json");
-        if (File.Exists(path))
+        if (test != null)
         {
-            var json = File.ReadAllText(path);
+            LoadByPlayerDataSet(test.gameSaveDatas.playerdata);
+            var inventory = InventorySystem.Instance;
+            LoadByInventoryWeaponData(inventory, test.gameSaveDatas.weaponData);
+            LoadByInventoryArmorData(inventory, test.gameSaveDatas.armorData);
+            inventory.inventory.CustomReset();
+            LoadByInventoryCustomRingData(inventory, test.gameSaveDatas.customRingData);
+            LoadByInventoryCustomSymbolData(inventory, test.gameSaveDatas.customSymbolData);
+            LoadByEquipItem(test.gameSaveDatas.equipItem);
+            LoadBySkillData(test.gameSaveDatas.skillData);
+            LoadByEquipSkill(test.gameSaveDatas.equipSkill);
+            LoadByPetData(test.gameSaveDatas.petData);
+            LoadByEquipPet(test.gameSaveDatas.equipPet);
+            LoadByExitTime(test.gameSaveDatas.exitTime);
+            LoadByKeyAccumulateTime(test.gameSaveDatas.keyAccumulateTime);
+            LoadByFoodUpgradeType(test.gameSaveDatas.foodTimerUpgradeLevelUp, test.gameSaveDatas.foodSelectUpgradeLevelUp);
+            LoadByDiningRoomSaveFoodData(test.gameSaveDatas.diningRoomSaveFoodData);
+            LoadByDiningRoomTimer(test.gameSaveDatas.diningRoomTimer);
+            var shop = ShopSystem.Instance;
+            LoadByItemRankAndRankUP(shop, test.gameSaveDatas.itemRank, test.gameSaveDatas.itemRankUp);
+            LoadBySkillRankAndSkillRankUp(shop, test.gameSaveDatas.skillRank, test.gameSaveDatas.skillRankUp);
+            LoadByPetRankAndPetRankUp(shop, test.gameSaveDatas.petRank, test.gameSaveDatas.petRankUp);
+            var loadState = StateSystem.Instance;
 
-            JObject jsonObject = JObject.Parse(json);
-            if (jsonObject.TryGetValue("gameSaveDatas", out JToken gameSaveDatas))
-            {
-                if (gameSaveDatas["playerdata"] is JToken data)
-                {
-                    string player = data.ToString();
-                    var playerD = JsonConvert.DeserializeObject<PlayerData>(player);
-                    SharedPlayerStats.PlayerPower = playerD.playerPower;
-                    SharedPlayerStats.PlayerPowerBoost = playerD.playerPowerboost;
-                    SharedPlayerStats.PlayerAttackSpeed = playerD.playerAttackSpeed;
-                    SharedPlayerStats.Critical = playerD.critical;
-                    SharedPlayerStats.CriticalPower = playerD.criticalPower;
-                    SharedPlayerStats.MonsterDamage = playerD.monsterDamage;
-                    SharedPlayerStats.MaxHp = playerD.maxHp;
-                    SharedPlayerStats.Healing = playerD.healing;
+            loadState.EquipUpdate();
+            loadState.AcquireUpdate();
+            loadState.SkillUpdate();
 
-                    SharedPlayerStats.CheckLimitAll();
+            LoadByPlayerBuff(test.gameSaveDatas.playerBuff);
+            LoadByBuffFoddID(test.gameSaveDatas.buffFoddID);
+            LoadByStageIndex(test.gameSaveDatas.stageIndex);
+            LoadByLanguage(test.gameSaveDatas.language);
+            LoadByIsRepeatAndIsAuto(test.gameSaveDatas.isRepeat, test.gameSaveDatas.isAuto);
+            LoadByLabSaveData(test.gameSaveDatas.Re001_Lab_SaveDatas, test.gameSaveDatas.Re002_Lab_SaveDatas, test.gameSaveDatas.Re003_Lab_SaveDatas,
+                test.gameSaveDatas.Re004_Lab_SaveDatas, test.gameSaveDatas.Re005_Lab_SaveDatas, test.gameSaveDatas.Re006_Lab_SaveDatas);
+            LoadByCurrentLavSaveData(test.gameSaveDatas.currentLavSaveData);
+            LoadByLabBuffData(test.gameSaveDatas.labBuffData);
 
-                    CurrencyManager.money1 = BigInteger.Parse(playerD.money1);
-                    CurrencyManager.money2 = BigInteger.Parse(playerD.money2);
-                    CurrencyManager.money3 = BigInteger.Parse(playerD.money3);
-                    CurrencyManager.itemAsh = BigInteger.Parse(playerD.money4);
-                }
+            var tutorialUi = UIManager.Instance.tutorial.GetComponent<TutorialSystem>();
 
-                var inventory = InventorySystem.Instance.inventory;
+            LoadByTutorialIndex(tutorialUi, test.gameSaveDatas.tutorialIndex);
+            LoadByTutorialDone(tutorialUi, test.gameSaveDatas.shop, test.gameSaveDatas.lab, test.gameSaveDatas.dining, test.gameSaveDatas.clean,
+                test.gameSaveDatas.fail, test.gameSaveDatas.loadTutorial);
+            LoadByQuestType(test.gameSaveDatas.currentQuestIndex, test.gameSaveDatas.currentQuestType, test.gameSaveDatas.currentLoopQuestIndex,
+                test.gameSaveDatas.currentQuestSystemData);
 
-                if (gameSaveDatas["weaponData"] is JToken weaponToken)
-                {
-                    string weapons = weaponToken.ToString();
-                    var wData = JsonConvert.DeserializeObject<List<InventoryData>>(weapons);
-                    foreach (var item in wData)
-                    {
-                        var itemData = inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                        if (itemData != null)
-                        {
-                            itemData.upgradeLev = item.upgradeLev;
-                            itemData.acquire = item.acquire;
-                            itemData.equip = item.equip;
-                            itemData.stock = item.stock;
-                        }
-                    }
-                }
-                if (gameSaveDatas["armorData"] is JToken armorToken)
-                {
-                    string armors = armorToken.ToString();
-                    var aData = JsonConvert.DeserializeObject<List<InventoryData>>(armors);
-                    foreach (var item in aData)
-                    {
-                        var itemData = inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
-                        if (itemData != null)
-                        {
-                            itemData.upgradeLev = item.upgradeLev;
-                            itemData.acquire = item.acquire;
-                            itemData.equip = item.equip;
-                            itemData.stock = item.stock;
-                        }
-                    }
-                }
-                inventory.CustomReset();
-                if (gameSaveDatas["customRingData"] is JToken ringToken)
-                {
-                    string customRings = ringToken.ToString();
-                    var rData = JsonConvert.DeserializeObject<List<CustomData>>(customRings);
-                    foreach (var item in rData)
-                    {
-                        var baseItem = inventory.rings.Where(x => x.item.name == item.baseName).FirstOrDefault();
-                        var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
-                        dummy.upgradeLev = item.upgradeLev;
-                    }
-                }
-                if (gameSaveDatas["customSymbolData"] is JToken symbolToken)
-                {
-                    string customSymbols = symbolToken.ToString();
-                    var sData = JsonConvert.DeserializeObject<List<CustomData>>(customSymbols);
-                    foreach (var item in sData)
-                    {
-                        var baseItem = inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
-                        var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
-                        dummy.upgradeLev = item.upgradeLev;
-                    }
-                }
+            var UiSetting = UIManager.Instance.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
+            LoadBySound(UiSetting, test.gameSaveDatas.sound);
 
-                if (gameSaveDatas["equipItem"] is JToken equipToken)
-                {
-                    string equipItem = equipToken.ToString();
-                    var equipItemData = JsonConvert.DeserializeObject<List<EquipData>>(equipItem);
+            var cleanWindow = UIManager.Instance.windows[3].GetComponent<CleanWindow>();
+            LoadByBosshInfo(cleanWindow, test.gameSaveDatas.bossRushIndex, test.gameSaveDatas.bossRushCount);
 
-                    GameData.equipItemData = equipItemData;
-                }
-                var skillInventory = InventorySystem.Instance.skillInventory;
-
-                if (gameSaveDatas["skillData"] is JToken skillToken)
-                {
-                    string skills = skillToken.ToString();
-                    var sData = JsonConvert.DeserializeObject<List<SkillData>>(skills);
-                    GameData.sData = sData;
-                }
-
-                if (gameSaveDatas["equipSkill"] is JToken equipSkillToken)
-                {
-                    string equipSkill = equipSkillToken.ToString();
-                    var equipSkillData = JsonConvert.DeserializeObject<List<EquipSkillData>>(equipSkill);
-                    GameData.equipSkillDatas = equipSkillData;
-                }
-                var petInventory = InventorySystem.Instance.petInventory;
-
-                if (gameSaveDatas["petData"] is JToken petToken)
-                {
-                    string pets = petToken.ToString();
-                    var pData = JsonConvert.DeserializeObject<List<PetData>>(pets);
-                    GameData.pData = pData;
-                }
-
-                if (gameSaveDatas["equipPet"] is JToken equipPetToken)
-                {
-                    string equipPet = equipPetToken.ToString();
-                    var equipPetData = JsonConvert.DeserializeObject<List<EquipPetData>>(equipPet);
-                    GameData.equipPetData = equipPetData;
-                }
-
-
-
-                if (gameSaveDatas["exitTime"] is JToken exitTime)
-                {
-                    string exit = exitTime.ToString();
-                    GameData.exitTime.Clear();
-                    GameData.exitTime.Append(exit);
-                }
-
-                if (gameSaveDatas["keyAccumulateTime"] is JToken accumlateTime)
-                {
-                    string accumlatesString = accumlateTime.ToString();
-                    if (accumlatesString != string.Empty)
-                    {
-                        GameData.keyPrevAccumlateTime.Clear();
-                        GameData.keyPrevAccumlateTime.Append(accumlatesString);
-                    }
-                    else
-                    {
-                        var str = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
-                        GameData.keyPrevAccumlateTime.Append(str);
-                    }
-                }
-                else
-                {
-                    var str = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
-                    GameData.keyPrevAccumlateTime.Append(str);
-                }
-                if (gameSaveDatas["foodTimerUpgradeLevelUp"] is JToken foodtimerUpgradeLevel)
-                {
-                    diningRoomsystem.timerUpgradeLevel = int.Parse(foodtimerUpgradeLevel.ToString());
-                }
-                if (gameSaveDatas["foodSelectUpgradeLevelUp"] is JToken foodSelect)
-                {
-                    var t = int.Parse(foodSelect.ToString());
-                    if (t <= 0)
-                        t = 1;
-
-                    diningRoomsystem.selectFoodCount = t;
-                }
-                if (gameSaveDatas["diningRoomSaveFoodData"] is JToken diningRoomSaveFoodDatats)
-                {
-                    string str = diningRoomSaveFoodDatats.ToString();
-                    var saveFoodData = JsonConvert.DeserializeObject<SaveFoodData[]>(str);
-                    for (int i = 0; i < saveFoodData.Length; i++)
-                    {
-                        if (saveFoodData[i] != null)
-                        {
-                            diningRoomsystem.LoadFoodData(saveFoodData[i], i);
-                        }
-                    }
-
-                }
-                if (gameSaveDatas["diningRoomTimer"] is JToken timer)
-                {
-                    string str = timer.ToString();
-                    var timerData = JsonConvert.DeserializeObject<float>(str);
-                    if (timerData <= 0f)
-                    {
-                        diningRoomsystem.isLoad = false;
-                    }
-                    else
-                    {
-                        diningRoomsystem.timer = timerData;
-                        diningRoomsystem.isLoad = true;
-                    }
-                    int count = 0;
-                    for (int i = 0; i < DiningRoomSystem.Instance.saveFood.Length; ++i)
-                    {
-                        if (DiningRoomSystem.Instance.saveFood[i] != null)
-                        {
-                            count++;
-                        }
-                    }
-                    if (count >= DiningRoomSystem.Instance.selectFoodCount)
-                    {
-                        diningRoomsystem.timer = 0f;
-                        diningRoomsystem.isFullFood = true;
-                        diningRoomsystem.isLoad = true;
-                    }
-                    diningRoomsystem.LoadMaxTimer();
-
-                    diningRoomsystem.CalculateTimer(count);
-                }
-                var shop = ShopSystem.Instance;
-
-                if (gameSaveDatas["itemRank"] is JToken rank)
-                {
-                    string str = rank.ToString();
-                    var itemRank = JsonConvert.DeserializeObject<int>(str);
-                    shop.currentItemRank = itemRank;
-                }
-                if (gameSaveDatas["itemRankUp"] is JToken rankUp)
-                {
-                    string str = rankUp.ToString();
-                    var itemRankUp = JsonConvert.DeserializeObject<int>(str);
-                    shop.currentItemRankUp = itemRankUp;
-                }
-                if (gameSaveDatas["skillRank"] is JToken rank_s)
-                {
-                    string str = rank_s.ToString();
-                    var skillRank = JsonConvert.DeserializeObject<int>(str);
-                    shop.currentSkillRank = skillRank;
-                }
-                if (gameSaveDatas["skillRankUp"] is JToken rankUp_s)
-                {
-                    string str = rankUp_s.ToString();
-                    var skillRankUp = JsonConvert.DeserializeObject<int>(str);
-                    shop.currentSkillRankUp = skillRankUp;
-                }
-                if (gameSaveDatas["petRank"] is JToken rank_p)
-                {
-                    string str = rank_p.ToString();
-                    var petRank = JsonConvert.DeserializeObject<int>(str);
-                    shop.currentPetRank = petRank;
-                }
-                if (gameSaveDatas["petRankUp"] is JToken rankUp_p)
-                {
-                    string str = rankUp_p.ToString();
-                    var petRankUp = JsonConvert.DeserializeObject<int>(str);
-                    shop.currentPetRankUp = petRankUp;
-                }
-
-                var loadState = StateSystem.Instance;
-
-                loadState.EquipUpdate();
-                loadState.AcquireUpdate();
-                loadState.SkillUpdate();
-
-                if (gameSaveDatas["playerBuff"] is JToken buffTimer)
-                {
-                    string str = buffTimer.ToString();
-                    var buffData = JsonConvert.DeserializeObject<PlayerBuffData>(str);
-                    if (buffData.isEatFood)
-                        PlayerBuff.Instance.buffData = buffData;
-                    else
-                    {
-                        PlayerBuff.Instance.Reset();
-                    }
-
-                }
-                if (gameSaveDatas["buffFoddID"] is JToken buffFoddID)
-                {
-                    string str = buffFoddID.ToString();
-                    if (str != string.Empty)
-                    {
-                        PlayerBuff.Instance.SetFoodId(str);
-                    }
-                }
-
-                if (gameSaveDatas["stageIndex"] is JToken stageIndex)
-                {
-                    string str = stageIndex.ToString();
-                    var stageData = JsonConvert.DeserializeObject<int>(str);
-
-                    GameData.stageData_WaveManager = stageData;
-                }
-
-                if (gameSaveDatas["language"] is JToken languageToken)
-                {
-                    var language = languageToken.ToString();
-                    var languageValue = JsonConvert.DeserializeObject<Language>(language);
-                    Global.language = languageValue;
-                }
-
-                if (gameSaveDatas["isRepeat"] is JToken isRepeat)
-                {
-                    var isRepeatData = isRepeat.Value<bool>();
-
-                    GameData.isRepeatData_WaveManager = isRepeatData;
-                }
-
-                if (gameSaveDatas["isAuto"] is JToken isAuto)
-                {
-                    var isAutoData = isAuto.Value<bool>();
-                    GameData.isAutoData = isAutoData;
-                }
-
-                if (gameSaveDatas["Re001_Lab_SaveDatas"] is JToken labATK1)
-                {
-                    string str = labATK1.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-
-                    GameData.Re_AtkSaveDataList = labData;
-                }
-                if (gameSaveDatas["Re002_Lab_SaveDatas"] is JToken labHp1)
-                {
-                    string str = labHp1.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_HPSaveDataList = labData;
-                }
-                if (gameSaveDatas["Re003_Lab_SaveDatas"] is JToken labCri)
-                {
-                    string str = labCri.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_CriSaveDataList = labData;
-                }
-                if (gameSaveDatas["Re004_Lab_SaveDatas"] is JToken labSil)
-                {
-                    string str = labSil.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_SilupSaveDataList = labData;
-                }
-                if (gameSaveDatas["Re005_Lab_SaveDatas"] is JToken labATK2)
-                {
-                    string str = labATK2.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_MidAtkSaveDataList = labData;
-                }
-                if (gameSaveDatas["Re006_Lab_SaveDatas"] is JToken labHp2)
-                {
-                    string str = labHp2.ToString();
-                    var labData = JsonConvert.DeserializeObject<List<LabSaveData>>(str);
-                    GameData.Re_MidHPSaveDataList = labData;
-                }
-                if (gameSaveDatas["currentLavSaveData"] is JToken currentLabSaveData)
-                {
-                    string str = currentLabSaveData.ToString();
-                    var currentLab = JsonConvert.DeserializeObject<CurrentLavSaveData>(str);
-
-                    if (currentLab.isResearching)
-                    {
-                        GameData.currnetLabSaveData = currentLab;
-                        LabSystem.Instance.maxTimerTic = currentLab.maxTimer;
-                        LabSystem.Instance.isResearching = currentLab.isResearching;
-
-                        var exitTimer = DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
-                        var nowTimeStr = DateTime.Now.ToString(GameData.datetimeString);
-                        var nowTimeSpan = DateTime.ParseExact(nowTimeStr, GameData.datetimeString, null);
-
-                        TimeSpan timeDifference = nowTimeSpan.Subtract(exitTimer);
-                        var tic = GameData.tic;
-                        if (timeDifference.TotalSeconds > 0)
-                        {
-                            if (timeDifference.TotalSeconds < (currentLab.maxTimer / tic))
-                                currentLab.timer -= (int)(timeDifference.TotalSeconds * tic);
-                        }
-                        if (currentLab.timer <= 0)
-                        {
-                            currentLab.timer = 0;
-                            LabSystem.Instance.isTimerZero = true;
-                        }
-
-                        LabSystem.Instance.timerTic = currentLab.timer;
-                        LabSystem.Instance.labType = (LabType)currentLab.LabType;
-                        LabSystem.Instance.level = currentLab.level;
-
-                        LabSystem.Instance.SaveDataSet(currentLab.labTypeNameStringDatas, currentLab.labTypeBuffStringDatas, currentLab.labTableData);
-                    }
-                }
-
-                if (gameSaveDatas["labBuffData"] is JToken labBuffData)
-                {
-                    string str = labBuffData.ToString();
-                    var datas = JsonConvert.DeserializeObject<LabBuffData>(str);
-
-                    GameData.labBuffData = datas;
-                }
-
-
-                var tutorialUi = UIManager.Instance.tutorial.GetComponent<TutorialSystem>();
-
-                if (gameSaveDatas["tutorialIndex"] is JToken indexToken)
-                {
-                    string str = indexToken.ToString();
-                    var datas = JsonConvert.DeserializeObject<int>(str);
-
-                    tutorialUi.tutorialIndex = datas;
-                }
-
-                if (gameSaveDatas["shop"] is JToken shopBool)
-                {
-                    var datas = shopBool.Value<bool>();
-                    tutorialUi.shop = datas;
-                }
-
-                if (gameSaveDatas["lab"] is JToken labBool)
-                {
-                    var datas = labBool.Value<bool>();
-                    tutorialUi.lab = datas;
-                }
-
-                if (gameSaveDatas["dining"] is JToken diningBool)
-                {
-                    var datas = diningBool.Value<bool>();
-                    tutorialUi.dining = datas;
-                }
-
-                if (gameSaveDatas["clean"] is JToken cleanBool)
-                {
-                    var datas = cleanBool.Value<bool>();
-                    tutorialUi.clean = datas;
-                }
-
-                if (gameSaveDatas["fail"] is JToken failBool)
-                {
-                    var datas = failBool.Value<bool>();
-                    tutorialUi.failrue = datas;
-                }
-
-                if (gameSaveDatas["loadTutorial"] is JToken loadTutorialBool)
-                {
-                    var datas = loadTutorialBool.Value<bool>();
-                    tutorialUi.loadTutorial = datas;
-                }
-
-                if (gameSaveDatas["currentQuestIndex"] is JToken currentQuestIndex)
-                {
-                    string str = currentQuestIndex.ToString();
-                    var datas = JsonConvert.DeserializeObject<int>(str);
-
-                    MakeTableData.Instance.currentQuestIndex = datas;
-                }
-                if (gameSaveDatas["currentQuestType"] is JToken currentQuestType)
-                {
-                    string str = currentQuestType.ToString();
-                    var datas = JsonConvert.DeserializeObject<int>(str);
-
-                    UIManager.Instance.questSystemUi.currentQuestType = (QuestType)datas;
-                }
-
-                if (gameSaveDatas["currentLoopQuestIndex"] is JToken currentLoopQuestIndex)
-                {
-                    string str = currentLoopQuestIndex.ToString();
-                    var datas = JsonConvert.DeserializeObject<int>(str);
-
-                    MakeTableData.Instance.loppCurrentQuestIndex = datas;
-                }
-                if (gameSaveDatas["currentQuestSystemData"] is JToken currentQuestSystemData)
-                {
-                    string str = currentQuestSystemData.ToString();
-                    var datas = JsonConvert.DeserializeObject<QuestSystemData>(str);
-
-                    UIManager.Instance.questSystemUi.QuestLoad(datas);
-                }
-
-                var UiSetting = UIManager.Instance.windows[5].gameObject.GetComponent<MenuWindow>().settingBox.GetComponent<SettingBox>();
-
-                if (gameSaveDatas["sound"] is JToken soundToken)
-                {
-                    var sound = soundToken.Value<bool>();
-                    UiSetting.soundValue = sound;
-                }
-
-                var cleanWindow = UIManager.Instance.windows[3].GetComponent<CleanWindow>();
-
-                if (gameSaveDatas["bossRushIndex"] is JToken bossIndexToken)
-                {
-                    string str = bossIndexToken.ToString();
-                    var datas = JsonConvert.DeserializeObject<int>(str);
-
-                    cleanWindow.openStage = datas;
-                }
-
-                if (gameSaveDatas["bossRushCount"] is JToken bossCountToken)
-                {
-                    string str = bossCountToken.ToString();
-                    var datas = JsonConvert.DeserializeObject<int>(str);
-
-                    cleanWindow.currentCount = datas;
-                }
-            }
             GameData.isLoad = true;
         }
+        else
+        {
+            var str = TestServerTime.Instance.GetCurrentDateTime().ToString($"{GameData.datetimeString}");
+            GameData.keyPrevAccumlateTime.Append(str);
+
+            Debug.Log("Non Binary");
+        }
+    }
+
+
+
+    private void LoadByPlayerDataSet(PlayerData playerData)
+    {
+        SharedPlayerStats.PlayerPower = playerData.playerPower;
+        SharedPlayerStats.PlayerPowerBoost = playerData.playerPowerboost;
+        SharedPlayerStats.PlayerAttackSpeed = playerData.playerAttackSpeed;
+        SharedPlayerStats.Critical = playerData.critical;
+        SharedPlayerStats.CriticalPower = playerData.criticalPower;
+        SharedPlayerStats.MonsterDamage = playerData.monsterDamage;
+        SharedPlayerStats.MaxHp = playerData.maxHp;
+        SharedPlayerStats.Healing = playerData.healing;
+
+        SharedPlayerStats.CheckLimitAll();
+
+        CurrencyManager.money1 = BigInteger.Parse(playerData.money1);
+        CurrencyManager.money2 = BigInteger.Parse(playerData.money2);
+        CurrencyManager.money3 = BigInteger.Parse(playerData.money3);
+        CurrencyManager.itemAsh = BigInteger.Parse(playerData.money4);
+    }
+
+    private void LoadByInventoryWeaponData(InventorySystem inventory, List<InventoryData> wData)
+    {
+        foreach (var item in wData)
+        {
+            var itemData = inventory.inventory.weapons.Where(x => x.item.name == item.itemName).FirstOrDefault();
+            if (itemData != null)
+            {
+                itemData.upgradeLev = item.upgradeLev;
+                itemData.acquire = item.acquire;
+                itemData.equip = item.equip;
+                itemData.stock = item.stock;
+            }
+        }
+    }
+    private void LoadByInventoryArmorData(InventorySystem inventory, List<InventoryData> aData)
+    {
+        foreach (var item in aData)
+        {
+            var itemData = inventory.inventory.armors.Where(x => x.item.name == item.itemName).FirstOrDefault();
+            if (itemData != null)
+            {
+                itemData.upgradeLev = item.upgradeLev;
+                itemData.acquire = item.acquire;
+                itemData.equip = item.equip;
+                itemData.stock = item.stock;
+            }
+        }
+    }
+    private void LoadByInventoryCustomRingData(InventorySystem inventory, List<CustomData> rData)
+    {
+        foreach (var item in rData)
+        {
+            var baseItem = inventory.inventory.rings.Where(x => x.item.name == item.baseName).FirstOrDefault();
+            var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
+            dummy.upgradeLev = item.upgradeLev;
+        }
+    }
+    private void LoadByInventoryCustomSymbolData(InventorySystem inventory, List<CustomData> rData)
+    {
+        foreach (var item in rData)
+        {
+            var baseItem = inventory.inventory.symbols.Where(x => x.item.name == item.baseName).FirstOrDefault();
+            var dummy = InventorySystem.Instance.LoadCustom(baseItem.item, item.addOptions);
+            dummy.upgradeLev = item.upgradeLev;
+        }
+    }
+    private void LoadByEquipItem(List<EquipData> equipItemData)
+    {
+        GameData.equipItemData = equipItemData;
+    }
+    private void LoadBySkillData(List<SkillData> sData)
+    {
+        GameData.sData = sData;
+    }
+    private void LoadByEquipSkill(List<EquipSkillData> equipSkillData)
+    {
+        GameData.equipSkillDatas = equipSkillData;
+    }
+    private void LoadByPetData(List<PetData> petData)
+    {
+        GameData.pData = petData;
+    }
+    private void LoadByEquipPet(List<EquipPetData> equipPetData)
+    {
+        GameData.equipPetData = equipPetData;
+    }
+    private void LoadByExitTime(string exit)
+    {
+        GameData.exitTime.Clear();
+        GameData.exitTime.Append(exit);
+    }
+    private void LoadByKeyAccumulateTime(string accumlatesString)
+    {
+        GameData.keyPrevAccumlateTime.Clear();
+        GameData.keyPrevAccumlateTime.Append(accumlatesString);
+    }
+    private void LoadByFoodUpgradeType(int timerLevel, int selectCount)
+    {
+        diningRoomsystem.timerUpgradeLevel = timerLevel;
+        diningRoomsystem.selectFoodCount = selectCount; ;
+    }
+    private void LoadByDiningRoomSaveFoodData(SaveFoodData[] saveFoodData)
+    {
+        for (int i = 0; i < saveFoodData.Length; i++)
+        {
+            if (saveFoodData[i] != null)
+            {
+                diningRoomsystem.LoadFoodData(saveFoodData[i], i);
+            }
+        }
+    }
+    private void LoadByDiningRoomTimer(float timerData)
+    {
+        if (timerData <= 0f)
+        {
+            diningRoomsystem.isLoad = false;
+        }
+        else
+        {
+            diningRoomsystem.timer = timerData;
+            diningRoomsystem.isLoad = true;
+        }
+        int count = 0;
+        for (int i = 0; i < DiningRoomSystem.Instance.saveFood.Length; ++i)
+        {
+            if (DiningRoomSystem.Instance.saveFood[i] != null)
+            {
+                count++;
+            }
+        }
+        if (count >= DiningRoomSystem.Instance.selectFoodCount)
+        {
+            diningRoomsystem.timer = 0f;
+            diningRoomsystem.isFullFood = true;
+            diningRoomsystem.isLoad = true;
+        }
+        diningRoomsystem.LoadMaxTimer();
+
+        diningRoomsystem.CalculateTimer(count);
+    }
+    private void LoadByItemRankAndRankUP(ShopSystem shop, int itemRank, int itemRankUp)
+    {
+        shop.currentItemRank = itemRank;
+        shop.currentItemRankUp = itemRankUp;
+    }
+    private void LoadBySkillRankAndSkillRankUp(ShopSystem shop, int skillRank, int skillRankUp)
+    {
+        shop.currentSkillRank = skillRank;
+        shop.currentSkillRankUp = skillRankUp;
+    }
+    private void LoadByPetRankAndPetRankUp(ShopSystem shop, int petRank, int petRankUp)
+    {
+        shop.currentPetRank = petRank;
+        shop.currentPetRankUp = petRankUp;
+    }
+    private void LoadByPlayerBuff(PlayerBuffData buffData)
+    {
+        if (buffData.isEatFood)
+            PlayerBuff.Instance.buffData = buffData;
+        else
+        {
+            PlayerBuff.Instance.Reset();
+        }
+    }
+    private void LoadByBuffFoddID(string str)
+    {
+        if (str != string.Empty)
+        {
+            PlayerBuff.Instance.SetFoodId(str);
+        }
+    }
+    private void LoadByStageIndex(int stageData)
+    {
+        GameData.stageData_WaveManager = stageData;
+    }
+    private void LoadByLanguage(Language languageValue)
+    {
+        Global.language = languageValue;
+    }
+    private void LoadByIsRepeatAndIsAuto(bool isRepeatData, bool isAuto)
+    {
+        GameData.isRepeatData_WaveManager = isRepeatData;
+        GameData.isAutoData = isAuto;
+    }
+    private void LoadByLabSaveData(List<LabSaveData> a, List<LabSaveData> b, List<LabSaveData> c, List<LabSaveData> d, List<LabSaveData> e, List<LabSaveData> f)
+    {
+        GameData.Re_AtkSaveDataList = a;
+        GameData.Re_HPSaveDataList = b;
+        GameData.Re_CriSaveDataList = c;
+        GameData.Re_SilupSaveDataList = d;
+        GameData.Re_MidAtkSaveDataList = e;
+        GameData.Re_MidHPSaveDataList = f;
+    }
+    private void LoadByCurrentLavSaveData(CurrentLavSaveData currentLab)
+    {
+        if (currentLab.isResearching)
+        {
+            GameData.currnetLabSaveData = currentLab;
+            LabSystem.Instance.maxTimerTic = currentLab.maxTimer;
+            LabSystem.Instance.isResearching = currentLab.isResearching;
+
+            var exitTimer = DateTime.ParseExact(GameData.exitTime.ToString(), GameData.datetimeString, null);
+            var nowTimeStr = DateTime.Now.ToString(GameData.datetimeString);
+            var nowTimeSpan = DateTime.ParseExact(nowTimeStr, GameData.datetimeString, null);
+
+            TimeSpan timeDifference = nowTimeSpan.Subtract(exitTimer);
+            var tic = GameData.tic;
+            if (timeDifference.TotalSeconds > 0)
+            {
+                if (timeDifference.TotalSeconds < (currentLab.maxTimer / tic))
+                    currentLab.timer -= (int)(timeDifference.TotalSeconds * tic);
+            }
+            if (currentLab.timer <= 0)
+            {
+                currentLab.timer = 0;
+                LabSystem.Instance.isTimerZero = true;
+            }
+
+            LabSystem.Instance.timerTic = currentLab.timer;
+            LabSystem.Instance.labType = (LabType)currentLab.LabType;
+            LabSystem.Instance.level = currentLab.level;
+
+            LabSystem.Instance.SaveDataSet(currentLab.labTypeNameStringDatas, currentLab.labTypeBuffStringDatas, currentLab.labTableData);
+        }
+    }
+    private void LoadByLabBuffData(LabBuffData datas)
+    {
+        GameData.labBuffData = datas;
+    }
+
+    private void LoadByTutorialIndex(TutorialSystem tutorialUi, int datas)
+    {
+        tutorialUi.tutorialIndex = datas;
+    }
+
+    private void LoadByTutorialDone(TutorialSystem tutorialUi, bool a, bool b, bool c, bool d, bool e, bool f)
+    {
+        tutorialUi.shop = a;
+        tutorialUi.lab = b;
+        tutorialUi.dining = c;
+        tutorialUi.clean = d;
+        tutorialUi.failrue = e;
+        tutorialUi.loadTutorial = f;
+    }
+    private void LoadByQuestType(int currentQuestIndex, int currentQuestType, int loppCurrentQuestIndex, QuestSystemData datas)
+    {
+        MakeTableData.Instance.currentQuestIndex = currentQuestIndex;
+        UIManager.Instance.questSystemUi.currentQuestType = (QuestType)currentQuestType;
+        MakeTableData.Instance.loppCurrentQuestIndex = loppCurrentQuestIndex;
+        UIManager.Instance.questSystemUi.QuestLoad(datas);
+    }
+    private void LoadBySound(SettingBox UiSetting, bool sound)
+    {
+        UiSetting.soundValue = sound;
+    }
+
+    private void LoadByBosshInfo(CleanWindow cleanWindow,int openStage, int currentCount)
+    {
+        cleanWindow.openStage = openStage;
+        cleanWindow.currentCount = currentCount;
     }
 }

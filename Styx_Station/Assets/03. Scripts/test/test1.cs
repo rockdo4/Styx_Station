@@ -25,6 +25,8 @@ public class test1 : MonoBehaviour
 
         var button = UIManager.Instance.RepeatButton.transform.GetChild(3).GetComponent<Button>();
         button.onClick.AddListener(() => WaveManager.Instance.SetRepeat(false));
+
+        UIManager.Instance.BangchiOpen();
     }
     private void OnEnable()
     {

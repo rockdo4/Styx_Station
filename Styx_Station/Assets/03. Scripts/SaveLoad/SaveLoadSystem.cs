@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Text;
 using SaveDataVersionCurrent = SaveDataV4;
+using System.Security.Cryptography;
+using System.Net.NetworkInformation;
 
 public static class SaveLoadSystem
 {
@@ -108,7 +110,7 @@ public static class SaveLoadSystem
                 byte[] binaryData = Encoding.UTF8.GetBytes(content);
                 string binaryPath = SaveDirectory+"\\TestBinary.bin";
                 File.WriteAllBytes(binaryPath, binaryData);
-               Debug.Log("텍스트 파일이 성공적으로 이진 파일로 변환되었습니다.");
+                Debug.Log("텍스트 파일이 성공적으로 이진 파일로 변환되었습니다.");
             }
             else
             {
@@ -121,12 +123,13 @@ public static class SaveLoadSystem
         }
     }
 
-    public static SaveDataVersionCurrent BinaryToTxtAndJson(string binaryFileName)
+    public static SaveDataVersionCurrent BinaryToTxt(string binaryFileName)
     {
         var binaryPath = Path.Combine(SaveDirectory, binaryFileName);
         if (File.Exists(binaryPath))
         {
             byte[] binaryData = File.ReadAllBytes(binaryPath);
+
             string content = Encoding.UTF8.GetString(binaryData);
 
             string txtFilePath = Path.Combine(SaveDirectory, "TestText.txt");
@@ -144,3 +147,4 @@ public static class SaveLoadSystem
         return null;
     }
 }
+

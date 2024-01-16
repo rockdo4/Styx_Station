@@ -651,27 +651,31 @@ public class UIManager : Singleton<UIManager>
         ButtonList.mainButton |= ButtonType.Train;
         ButtonList.mainButton &= ~ButtonType.TrainMove;
 
-        if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 37)
+        if(tutorial.GetComponent<TutorialSystem>().playTutorial)
         {
-            tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
-            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
-            tutorial.GetComponent<TutorialSystem>().mask[19].SetActive(true);
-            tutorial.GetComponent<TutorialSystem>().finger[15].SetActive(true);
+            tutorial.GetComponent<TutorialSystem>().TutorialNext();
         }
-        else if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 49)
-        {
-            tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
-            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
-            tutorial.GetComponent<TutorialSystem>().mask[22].SetActive(true);
-            tutorial.GetComponent<TutorialSystem>().finger[18].SetActive(true);
-        }
-        else if (tutorial.GetComponent<TutorialSystem>().tutorialIndex == 58)
-        {
-            tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
-            tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
-            tutorial.GetComponent<TutorialSystem>().mask[27].SetActive(true);
-            tutorial.GetComponent<TutorialSystem>().finger[21].SetActive(true);
-        }
+        //if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 37)
+        //{
+        //    tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+        //    tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
+        //    tutorial.GetComponent<TutorialSystem>().mask[19].SetActive(true);
+        //    tutorial.GetComponent<TutorialSystem>().finger[15].SetActive(true);
+        //}
+        //else if(tutorial.GetComponent<TutorialSystem>().tutorialIndex == 49)
+        //{
+        //    tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+        //    tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
+        //    tutorial.GetComponent<TutorialSystem>().mask[22].SetActive(true);
+        //    tutorial.GetComponent<TutorialSystem>().finger[18].SetActive(true);
+        //}
+        //else if (tutorial.GetComponent<TutorialSystem>().tutorialIndex == 58)
+        //{
+        //    tutorial.GetComponent<TutorialSystem>().mask[0].SetActive(false);
+        //    tutorial.GetComponent<TutorialSystem>().finger[14].SetActive(false);
+        //    tutorial.GetComponent<TutorialSystem>().mask[27].SetActive(true);
+        //    tutorial.GetComponent<TutorialSystem>().finger[21].SetActive(true);
+        //}
     }
 
     public void SetGameOverPopUpActive(bool isActive)
@@ -751,9 +755,13 @@ public class UIManager : Singleton<UIManager>
             tu.playTutorial = true;
             tu.StartTutorial();
         }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if ((ButtonList.mainButton == ButtonType.Main || tutorial.GetComponent<TutorialSystem>().playTutorial) )
+            if (tutorial.GetComponent<TutorialSystem>().playTutorial)
+                return;
+
+            if (ButtonList.mainButton == ButtonType.Main)
             {
                 var exit = TitleScene.Instance;
                 if(exit != null && exit.sceneLoad)
@@ -763,12 +771,12 @@ public class UIManager : Singleton<UIManager>
                 ButtonList.mainButton|=ButtonType.Exit;
                 Open(WindowType.Exit);
             }
-            else if ((ButtonList.mainButton & ButtonType.Exit) != 0 || tutorial.GetComponent<TutorialSystem>().playTutorial)
+            else if ((ButtonList.mainButton & ButtonType.Exit) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Exit;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Info) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
+            else if ((ButtonList.mainButton & ButtonType.Info) != 0)
             {
                 if (ButtonList.infoButton == InfoButton.State)
                 {
@@ -796,28 +804,28 @@ public class UIManager : Singleton<UIManager>
                     windows[(int)currentWindow].Close();
                 }
             }
-            else if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
+            else if ((ButtonList.mainButton & ButtonType.DiningRoom) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.DiningRoom;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Lab) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
+            else if ((ButtonList.mainButton & ButtonType.Lab) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Lab;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Cleaning) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
+            else if ((ButtonList.mainButton & ButtonType.Cleaning) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Cleaning;
                 windows[(int)currentWindow].Close();
             }
-            else if ((ButtonList.mainButton & ButtonType.Failure) != 0 && !tutorial.GetComponent<TutorialSystem>().playTutorial)
+            else if ((ButtonList.mainButton & ButtonType.Failure) != 0)
             {
                 ButtonList.mainButton &= ~ButtonType.Failure;
                 windows[(int)currentWindow].Close();
             }
             else if ((ButtonList.mainButton & ButtonType.Shop) != 0 &&
-                ButtonList.gachaButton == gachaButton.None && !tutorial.GetComponent<TutorialSystem>().playTutorial)
+                ButtonList.gachaButton == gachaButton.None)
             {
                 ButtonList.mainButton &= ~ButtonType.Shop;
                 windows[(int)currentWindow].Close();

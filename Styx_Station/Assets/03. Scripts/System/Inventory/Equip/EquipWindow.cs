@@ -63,7 +63,6 @@ public class EquipWindow : Window
             if (equipItem != null)
             {
                 equipUi.itemIndex = equipItem.index;
-                equipUi.itemname.text = equipItem.item.itemName;
             }
             else
             {
@@ -97,7 +96,6 @@ public class EquipWindow : Window
             if (equipItem != null)
             {
                 equipUi.itemIndex = equipItem.index;
-                equipUi.itemname.text = equipItem.item.itemName;
             }
             else
             {
@@ -159,7 +157,6 @@ public class EquipWindow : Window
             var ui = Button.GetComponent<ItemButton>();
             ui.inventory = inventory;
             ui.type = ItemType.Weapon;
-            ui.itemExp.text = inventory.weapons[i].item.itemName;
             ui.itemIndex = i;
             ui.AcqurieItem();
             Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[0].gameObject));
@@ -193,7 +190,6 @@ public class EquipWindow : Window
             var ui = Button.GetComponent<ItemButton>();
             ui.inventory = inventory;
             ui.type = ItemType.Armor;
-            ui.itemExp.text = inventory.armors[i].item.itemName;
             ui.itemIndex = i;
             ui.AcqurieItem();
             Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[1].gameObject));
@@ -227,7 +223,6 @@ public class EquipWindow : Window
             var ui = Button.GetComponent<ItemButton>();
             ui.inventory = inventory;
             ui.type = ItemType.Ring;
-            ui.itemExp.text = inventory.customRings[i].item.item.itemName;
             ui.itemIndex = i;
             ui.AcqurieItem();
             Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[2].gameObject));
@@ -261,7 +256,6 @@ public class EquipWindow : Window
             var ui = Button.GetComponent<ItemButton>();
             ui.inventory = inventory;
             ui.type = ItemType.Symbol;
-            ui.itemExp.text = inventory.customSymbols[i].item.item.itemName;
             ui.itemIndex = i;
             ui.AcqurieItem();
             Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[3].gameObject));
@@ -278,7 +272,6 @@ public class EquipWindow : Window
         var ui = Button.GetComponent<ItemButton>();
         ui.inventory = inventory;
         ui.type = ItemType.Ring;
-        ui.itemExp.text = inventory.rings[baseIndex].item.itemName;
         ui.itemIndex = itemIndex;
         ui.AcqurieItem();
         Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[2].gameObject));
@@ -295,7 +288,6 @@ public class EquipWindow : Window
         var ui = Button.GetComponent<ItemButton>();
         ui.inventory = inventory;
         ui.type = ItemType.Symbol;
-        ui.itemExp.text = inventory.symbols[baseIndex].item.itemName;
         ui.itemIndex = itemIndex;
         ui.AcqurieItem();
         Button.onClick.AddListener(() => ui.OnClickEquip(equipButtons[3].gameObject));

@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Pets/Pet")]
 public class Pet : ScriptableObject
 {
-    public string Pet_Name;
-
     public Tier Pet_Tier;
 
     public Enchant Pet_Enchant;

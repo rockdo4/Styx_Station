@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="Skills/Skill")]
 public class Skill : ScriptableObject
 {
-    public string Skill_Name;
-
     public SkillType Skill_Type;
 
     public Tier Skill_Tier;

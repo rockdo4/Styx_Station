@@ -5,6 +5,7 @@ using static SkillInventory;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using System.Reflection;
 
 /// <summary>
 /// 설정: skillcool |= SkillCool.skill001;
@@ -36,28 +37,28 @@ public enum SkillCool
 
 public class SkillManager : Singleton<SkillManager>
 {
-    private SkillCool[] skillCools = new SkillCool[] 
-    { 
-        SkillCool.None,
-        SkillCool.skill001,
-        SkillCool.skill002,
-        SkillCool.skill003,
-        SkillCool.skill004,
-        SkillCool.skill005,
-        SkillCool.skill006,
-        SkillCool.skill007,
-        SkillCool.skill008,
-        SkillCool.skill009,
-        SkillCool.skill010,
-        SkillCool.skill011,
-        SkillCool.skill012,
-        SkillCool.skill013,
-        SkillCool.skill014,
-        SkillCool.skill015,
-        SkillCool.skill016,
-        SkillCool.skill017,
-        SkillCool.skill018,
-    };
+    //private SkillCool[] skillCools = new SkillCool[] 
+    //{ 
+    //    SkillCool.None,
+    //    SkillCool.skill001,
+    //    SkillCool.skill002,
+    //    SkillCool.skill003,
+    //    SkillCool.skill004,
+    //    SkillCool.skill005,
+    //    SkillCool.skill006,
+    //    SkillCool.skill007,
+    //    SkillCool.skill008,
+    //    SkillCool.skill009,
+    //    SkillCool.skill010,
+    //    SkillCool.skill011,
+    //    SkillCool.skill012,
+    //    SkillCool.skill013,
+    //    SkillCool.skill014,
+    //    SkillCool.skill015,
+    //    SkillCool.skill016,
+    //    SkillCool.skill017,
+    //    SkillCool.skill018,
+    //};
 
     private SkillCool skillcool = SkillCool.None;
     private SkillInventory inventory;
@@ -214,7 +215,11 @@ public class SkillManager : Singleton<SkillManager>
             {
                 continue;
             }
-            equipSkillFlags[i] = skillCools[equipSkills[i].skillIndex + 1];
+            //equipSkillFlags[i] = skillCools[equipSkills[i].skillIndex + 1];
+            //equipSkillFlags[i] = SkillCool.None + equipSkills[i].skillIndex + 1;
+
+            SkillCool temp = (SkillCool)(1 << equipSkills[i].skillIndex);
+            equipSkillFlags[i] = temp;
         }
     }
 
@@ -236,7 +241,10 @@ public class SkillManager : Singleton<SkillManager>
             equipSkills = inventory.equipSkills;
 
         equipSkills[index] = inventory.equipSkills[index];
-        equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
+        //equipSkillFlags[index] = skillCools[equipSkills[index].skillIndex + 1];
+        //equipSkillFlags[index] = SkillCool.None + equipSkills[index].skillIndex + 1;
+        SkillCool temp = (SkillCool)(1 << equipSkills[index].skillIndex);
+        equipSkillFlags[index] = temp;
 
         if (skillWindow == null)
             skillWindow = UIManager.Instance.skill.GetComponent<SkillWindow>();
@@ -421,7 +429,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         if ((skillcool & equipSkillFlags[5]) != 0)
         {
-            Debug.Log("스킬 쿨 대기 중");
+            //Debug.Log("스킬 쿨 대기 중");
         }
         else
         {

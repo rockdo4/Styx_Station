@@ -14,9 +14,10 @@ public class InventorySystem : MonoBehaviour
                 GameObject go = new GameObject("InventorySystem");
                 instance = go.AddComponent<InventorySystem>();
                 instance.item = Resources.Load<ItemTable>("Table/ItemTable");
-                instance.optionTable = Resources.Load<CustomOptionTable>("Table/CustomOptionTable");
                 instance.skill = Resources.Load<SkillTable>("Table/SkillTable");
                 instance.pet = Resources.Load<PetTable>("Table/PetTable");
+
+                instance.optionTable = Resources.Load<CustomOptionTable>("Table/CustomOptionTable");
                 instance.inventory = go.AddComponent<Inventory>();
                 instance.skillInventory = go.AddComponent<SkillInventory>();
                 instance.petInventory = go.AddComponent<PetInventory>();

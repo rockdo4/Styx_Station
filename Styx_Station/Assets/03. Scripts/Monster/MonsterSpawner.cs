@@ -214,6 +214,7 @@ public class MonsterSpawner : MonoBehaviour
 
             monsterController.SetExcuteHit();
             monsterController.SetSpawnPosition(spawnYPosCount, spawnYPosSpacing);
+
             monsterController.SetIdlePoint(idlePoint);
             monsterController.isTargetDie = false;
             monsterController.transform.localScale = new UnityEngine.Vector3(spawnSize, spawnSize, 1);

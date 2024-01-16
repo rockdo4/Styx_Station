@@ -35,7 +35,7 @@ public class MenuWindow : Window
 
     public void OnClickSaveMode()
     {
-        if ((ButtonList.settingButton & SettingButton.SaveMode) == 0)
+        if ((ButtonList.settingButton & SettingButton.SaveMode) == 0 && !SavePower.onOff)
         {
             SavePower.SaveScreenBrightness(0f);
 
@@ -71,12 +71,8 @@ public class MenuWindow : Window
     private void Update() 
     {
         // 절전 모드 OFF
-        if(Input.anyKeyDown && (ButtonList.settingButton & SettingButton.SaveMode) != 0)
+        if(Input.anyKeyDown && (ButtonList.settingButton & SettingButton.SaveMode) != 0 && SavePower.onOff)
         {
-            Debug.Log("절전 모드 OFF 작업 시작");
-            Debug.Log($"롤백할 밝기 : {SavePower.currentBrightness}");
-            Debug.Log($"적용 전 현재 밝기 : {Screen.brightness}");
-
             SavePower.OnScreenBrightness();
 
             OnDemandRendering.renderFrameInterval = 1;
@@ -84,7 +80,6 @@ public class MenuWindow : Window
             SavePower.onOff = false;
 
             ButtonList.settingButton &= ~SettingButton.SaveMode;
-            Debug.Log($"적용 후 현재 밝기 : {Screen.brightness}");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && (ButtonList.mainButton & ButtonType.Menu) != 0)

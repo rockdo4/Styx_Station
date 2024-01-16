@@ -228,7 +228,6 @@ public class Inventory : MonoBehaviour
     {
         Item dummy = ScriptableObject.CreateInstance<Item>();
 
-        dummy.itemName = dummyDate.itemName;
         dummy.type = dummyDate.type;
         dummy.tier = dummyDate.tier;
         dummy.enchant = dummyDate.enchant;

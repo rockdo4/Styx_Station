@@ -387,19 +387,15 @@ public class ItemButton : MonoBehaviour
         {
             case ItemType.Weapon:
                 equip.itemIndex = itemIndex;
-                equip.itemname.text = inventory.weapons[itemIndex].item.itemName;
                 break;
             case ItemType.Armor:
                 equip.itemIndex = itemIndex;
-                equip.itemname.text = inventory.armors[itemIndex].item.itemName;
                 break;
             case ItemType.Ring:
                 equip.itemIndex = itemIndex;
-                equip.itemname.text = inventory.customRings[itemIndex].item.item.itemName;
                 break;
             case ItemType.Symbol:
                 equip.itemIndex = itemIndex;
-                equip.itemname.text = inventory.customSymbols[itemIndex].item.item.itemName;
                 break;
         }
 

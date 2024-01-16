@@ -10,6 +10,8 @@ using System;
 using UnityEngine.Tilemaps;
 using UnityEditor.U2D.Aseprite;
 using Unity.VisualScripting;
+using UnityEngine.AI;
+using static Tutorial;
 
 public class SaveLoad : MonoBehaviour
 {
@@ -346,7 +348,7 @@ public class SaveLoad : MonoBehaviour
 
             var tutorialUi = UIManager.Instance.tutorial.GetComponent<TutorialSystem>();
 
-            LoadByTutorialIndex(tutorialUi, test.gameSaveDatas.tutorialIndex);
+            LoadByTutorialIndex(tutorialUi, test.gameSaveDatas.tutorialIndex,test.gameSaveDatas.playIndex);
             LoadByTutorialDone(tutorialUi, test.gameSaveDatas.shop, test.gameSaveDatas.lab, test.gameSaveDatas.dining, test.gameSaveDatas.clean,
                 test.gameSaveDatas.fail, test.gameSaveDatas.loadTutorial);
             LoadByQuestType(test.gameSaveDatas.currentQuestIndex, test.gameSaveDatas.currentQuestType, test.gameSaveDatas.currentLoopQuestIndex,
@@ -600,9 +602,10 @@ public class SaveLoad : MonoBehaviour
         GameData.labBuffData = datas;
     }
 
-    private void LoadByTutorialIndex(TutorialSystem tutorialUi, int datas)
+    private void LoadByTutorialIndex(TutorialSystem tutorialUi, int tutorialIndex, int playIndex)
     {
-        tutorialUi.tutorialIndex = datas;
+        tutorialUi.tutorialIndex = tutorialIndex;
+        tutorialUi.playIndex = playIndex;
     }
 
     private void LoadByTutorialDone(TutorialSystem tutorialUi, bool a, bool b, bool c, bool d, bool e, bool f)

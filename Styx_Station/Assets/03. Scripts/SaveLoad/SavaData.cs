@@ -194,6 +194,7 @@ public class GameSaveData
     public QuestSystemData currentQuestSystemData;
 
     public int tutorialIndex;
+    public int playIndex;
     public bool shop;
     public bool dining;
     public bool lab;

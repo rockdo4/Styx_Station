@@ -182,15 +182,15 @@ public class QuestSystemUi : MonoBehaviour
         SetQuestTextMeshProUGUI(data);
         questLevel.text = $"Quest {MakeTableData.Instance.currentQuestIndex + 1 + MakeTableData.Instance.loppCurrentQuestIndex:D2}";
 
-        if (MakeTableData.Instance.currentQuestIndex == 0 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 0)
+        if (MakeTableData.Instance.currentQuestIndex == 0 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex==0)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if (MakeTableData.Instance.currentQuestIndex >= 11 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 19)
+        else if (MakeTableData.Instance.currentQuestIndex >= 11 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 1)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if (MakeTableData.Instance.currentQuestIndex >= 23 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 34)
+        else if (MakeTableData.Instance.currentQuestIndex >= 23 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 2)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if (MakeTableData.Instance.currentQuestIndex >= 44 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 46)
+        else if (MakeTableData.Instance.currentQuestIndex >= 44 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 3)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if(MakeTableData.Instance.currentQuestIndex >= 49 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 55)
+        else if(MakeTableData.Instance.currentQuestIndex >= 49 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 4)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
 
         switch (currentQuestType)
@@ -454,13 +454,13 @@ public class QuestSystemUi : MonoBehaviour
 
         if (MakeTableData.Instance.currentQuestIndex == 0 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 0)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if (MakeTableData.Instance.currentQuestIndex >= 11 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 19)
+        else if (MakeTableData.Instance.currentQuestIndex >= 11 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 1)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if (MakeTableData.Instance.currentQuestIndex >= 23 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 34)
+        else if (MakeTableData.Instance.currentQuestIndex >= 23 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 2)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if (MakeTableData.Instance.currentQuestIndex >= 44 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 46)
+        else if (MakeTableData.Instance.currentQuestIndex >= 44 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 3)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
-        else if (MakeTableData.Instance.currentQuestIndex >= 49 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 55)
+        else if (MakeTableData.Instance.currentQuestIndex >= 49 && UIManager.Instance.tutorial.GetComponent<TutorialSystem>().tutorialIndex == 4)
             UIManager.Instance.tutorial.GetComponent<TutorialSystem>().stop = true;
         else if (UIManager.Instance.tutorial.GetComponent<TutorialSystem>().loadTutorial)
         {

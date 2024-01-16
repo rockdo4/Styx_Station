@@ -36,7 +36,7 @@ public class ItemDrop: ScriptableObject
 
         var random = Random.Range(0, sum);
 
-        for(int i =0; i< items.Count; ++i)
+        for(int i = 0; i< items.Count; ++i)
         {
             var item = items[i];
             if (item.weight > random)

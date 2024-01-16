@@ -228,7 +228,66 @@ public class SaveLoad : MonoBehaviour
         data.gameSaveDatas.currentQuestSystemData = UIManager.questSystemUi.questData;
 
         var tutorialData = UIManager.tutorial.GetComponent<TutorialSystem>();
-        data.gameSaveDatas.tutorialIndex = tutorialData.tutorialIndex;
+        if (tutorialData.tutorialIndex == 0 && tutorialData.playIndex < 3)
+        {
+            data.gameSaveDatas.tutorialIndex = 0;
+            data.gameSaveDatas.playIndex = 0;
+        }
+        else if (tutorialData.tutorialIndex == 0 && tutorialData.playIndex >= 3 && tutorialData.playIndex < 11)
+        {
+            data.gameSaveDatas.tutorialIndex = 0;
+            data.gameSaveDatas.playIndex = 3;
+        }
+        else if (tutorialData.tutorialIndex == 0 && tutorialData.playIndex >= 11 && tutorialData.playIndex < 14)
+        {
+            data.gameSaveDatas.tutorialIndex = 0;
+            data.gameSaveDatas.playIndex = 14;
+        }
+        else if (tutorialData.tutorialIndex == 0 && tutorialData.playIndex >= 15 && tutorialData.playIndex < 19)
+        {
+            data.gameSaveDatas.tutorialIndex = 0;
+            data.gameSaveDatas.playIndex = 15;
+        }
+        else if (tutorialData.tutorialIndex == 1 && tutorialData.playIndex < 4)
+        {
+            data.gameSaveDatas.tutorialIndex = 1;
+            data.gameSaveDatas.playIndex = 0;
+        }
+        else if (tutorialData.tutorialIndex == 1 && tutorialData.playIndex >= 4 && tutorialData.playIndex < 11)
+        {
+            data.gameSaveDatas.tutorialIndex = 1;
+            data.gameSaveDatas.playIndex = 6;
+        }
+        else if (tutorialData.tutorialIndex == 1 && tutorialData.playIndex >= 11)
+        {
+            data.gameSaveDatas.tutorialIndex = 2;
+            data.gameSaveDatas.playIndex = 0;
+        }
+        else if (tutorialData.tutorialIndex == 2 && tutorialData.playIndex <10)
+        {
+            data.gameSaveDatas.tutorialIndex = 2;
+            data.gameSaveDatas.playIndex = 0;
+        }
+        else if (tutorialData.tutorialIndex == 2 && tutorialData.playIndex >= 10)
+        {
+            data.gameSaveDatas.tutorialIndex = 3;
+            data.gameSaveDatas.playIndex = 0;
+        }
+        else if (tutorialData.tutorialIndex == 3 && tutorialData.playIndex < 9)
+        {
+            data.gameSaveDatas.tutorialIndex = 3;
+            data.gameSaveDatas.playIndex = 0;
+        }
+        else if (tutorialData.tutorialIndex == 4 && tutorialData.playIndex < 6)
+        {
+            data.gameSaveDatas.tutorialIndex = 4;
+            data.gameSaveDatas.playIndex = 0;
+        }
+        else if(tutorialData.tutorialIndex == 5)
+        {
+            data.gameSaveDatas.tutorialIndex = 5;
+            data.gameSaveDatas.playIndex = 0;
+        }
         data.gameSaveDatas.shop = tutorialData.shop;
         data.gameSaveDatas.dining = tutorialData.dining;
         data.gameSaveDatas.lab = tutorialData.lab;

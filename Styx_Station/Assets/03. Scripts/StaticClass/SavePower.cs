@@ -8,10 +8,11 @@ public static class SavePower
     public static void Setting()
     {
         Application.targetFrameRate = 60;
+#if UNITY_ANDROID
         BrightnessSetting();
+#endif
     }
 
-#if UNITY_ANDROID
     public static void BrightnessSetting()
     {
         currentBrightness = Screen.brightness;
@@ -29,5 +30,5 @@ public static class SavePower
     {
         Screen.brightness = currentBrightness;
     }
-#endif
+
 }

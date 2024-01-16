@@ -304,7 +304,6 @@ public class SkillManager : Singleton<SkillManager>
         }
         else
         {
-            Debug.Log("1번 스킬 사용");
             cool.value = 1;
             FindeSkillBase(equipSkills[0].skillIndex).UseSkill(player);
             skillcool |= equipSkillFlags[0];

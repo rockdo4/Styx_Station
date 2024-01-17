@@ -64,6 +64,7 @@ public class MonsterDieState : MonsterStateBase
             monsterCtrl.gameObject.transform.position = idlePos.position;
             if(!monsterCtrl.animator.GetBool("EditChk"))
                 monsterCtrl.animator.SetBool("EditChk", true);
+            monsterCtrl.animator.Play("RunState");
         }
         if(timer >= releaseTime + fadeDuration)
         {

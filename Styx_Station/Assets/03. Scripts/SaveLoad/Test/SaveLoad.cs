@@ -305,7 +305,7 @@ public class SaveLoad : MonoBehaviour
             diningRoomsystem = DiningRoomSystem.Instance;
         }
         string paths = Path.Combine(SaveLoadSystem.SaveDirectory, "TestText.dat");
-        var test = SaveLoadSystem.BinaryToTxtAndJson("TestBinary.bin");
+        var test = SaveLoadSystem.BinaryToTxt("TestBinary.bin");
 
         if (test != null)
         {
@@ -368,6 +368,7 @@ public class SaveLoad : MonoBehaviour
             GameData.keyPrevAccumlateTime.Append(str);
 
             Debug.Log("Non Binary");
+            GameData.isLoad = true;
         }
     }
 

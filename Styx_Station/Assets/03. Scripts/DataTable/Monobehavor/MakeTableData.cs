@@ -37,7 +37,6 @@ public class MakeTableData : Singleton<MakeTableData>
             labTable = new LabTable();
         if(questTable == null)
             questTable = new QuestListTable();
-        gameSaveLoad.Load();
         UnitConverter.InitUnitConverter();
     }
     private void Update()

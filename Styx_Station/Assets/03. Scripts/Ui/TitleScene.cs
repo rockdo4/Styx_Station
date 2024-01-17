@@ -10,7 +10,7 @@ public class TitleScene : MonoBehaviour
 
     public string GameScene;
     private float time;
-    private float timerDuration =5f;
+    private float timerDuration =10f;
     private AsyncOperation asyncLoad;
     public GameObject loadingBar;
     [HideInInspector] public  bool sceneLoad;
@@ -43,7 +43,11 @@ public class TitleScene : MonoBehaviour
         if(sceneLoad)
         {
             time += Time.unscaledDeltaTime;
-            loadingBarSlider.value =time/timerDuration; 
+            loadingBarSlider.value =time/timerDuration;
+            if(!GameData.isLoad)
+            {
+                MakeTableData.Instance.gameSaveLoad.Load();
+            }
             if ((time >= timerDuration ) || asyncLoad.allowSceneActivation)
             {
                 loadingBarSlider.value = 1f;

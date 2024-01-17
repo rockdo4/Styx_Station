@@ -47,27 +47,29 @@ public class NormalButton : MonoBehaviour
             if (skillIndex < 0)
                 return;
 
-            switch (equipIndex)
-            {
-                case 0:
-                    skillManager.UseSkill1(cool);
-                    break;
-                case 1:
-                    skillManager.UseSkill2(cool);
-                    break;
-                case 2:
-                    skillManager.UseSkill3(cool);
-                    break;
-                case 3:
-                    skillManager.UseSkill4(cool);
-                    break;
-                case 4:
-                    skillManager.UseSkill5(cool);
-                    break;
-                case 5:
-                    skillManager.UseSkill6(cool);
-                    break;
-            }
+            skillManager.UseSkill(cool, equipIndex);
+
+            //switch (equipIndex)
+            //{
+            //    case 0:
+            //        skillManager.UseSkill1(cool);
+            //        break;
+            //    case 1:
+            //        skillManager.UseSkill2(cool);
+            //        break;
+            //    case 2:
+            //        skillManager.UseSkill3(cool);
+            //        break;
+            //    case 3:
+            //        skillManager.UseSkill4(cool);
+            //        break;
+            //    case 4:
+            //        skillManager.UseSkill5(cool);
+            //        break;
+            //    case 5:
+            //        skillManager.UseSkill6(cool);
+            //        break;
+            //}
         }
     }
 
@@ -76,27 +78,29 @@ public class NormalButton : MonoBehaviour
         if (skillIndex < 0)
             return;
 
-        switch (equipIndex)
-        {
-            case 0:
-                skillManager.UseSkill1(cool);
-                break;
-            case 1:
-                skillManager.UseSkill2(cool);
-                break;
-            case 2:
-                skillManager.UseSkill3(cool);
-                break;
-            case 3:
-                skillManager.UseSkill4(cool);
-                break;
-            case 4:
-                skillManager.UseSkill5(cool);
-                break;
-            case 5:
-                skillManager.UseSkill6(cool);
-                break;
-        }
+        skillManager.UseSkill(cool, equipIndex);
+
+        //switch (equipIndex)
+        //{
+        //    case 0:
+        //        skillManager.UseSkill1(cool);
+        //        break;
+        //    case 1:
+        //        skillManager.UseSkill2(cool);
+        //        break;
+        //    case 2:
+        //        skillManager.UseSkill3(cool);
+        //        break;
+        //    case 3:
+        //        skillManager.UseSkill4(cool);
+        //        break;
+        //    case 4:
+        //        skillManager.UseSkill5(cool);
+        //        break;
+        //    case 5:
+        //        skillManager.UseSkill6(cool);
+        //        break;
+        //}
     }
 
     public void OnClickEquip(SkillWindow window)

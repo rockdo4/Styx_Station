@@ -283,13 +283,14 @@ public class SkillManager : Singleton<SkillManager>
     {
         return ((skillcool & equipSkillFlags[equipIndex]) == 0);
     }
-    public void UseSkill1(Slider cool)
+
+    public void UseSkill(Slider cool, int slot)
     {
-        if(!WaveManager.Instance.isWaveInProgress)
+        if (!WaveManager.Instance.isWaveInProgress)
         {
             return;
         }
-        if (equipSkills[0] == null)
+        if (equipSkills[slot] == null)
         {
             return;
         }
@@ -298,161 +299,16 @@ public class SkillManager : Singleton<SkillManager>
             Debug.Log("ERR: Player is Null");
             return;
         }
-        if ((skillcool & equipSkillFlags[0]) != 0)
+        if ((skillcool & equipSkillFlags[slot]) != 0)
         {
             Debug.Log("스킬 쿨 대기 중");
         }
         else
         {
             cool.value = 1;
-            FindeSkillBase(equipSkills[0].skillIndex).UseSkill(player);
-            skillcool |= equipSkillFlags[0];
-            coroutines[0] = StartCoroutine(Skill1CoolDown(equipSkills[0].skill.Skill_Cool, equipSkillFlags[0], cool));
-        }
-    }
-
-    public void UseSkill2(Slider cool)
-    {
-        if (!WaveManager.Instance.isWaveInProgress)
-        {
-            return;
-        }
-        if (equipSkills[1] == null)
-        {
-            return;
-        }
-        if (player == null)
-        {
-            Debug.Log("ERR: Player is Null");
-            return;
-        }
-        if ((skillcool & equipSkillFlags[1]) != 0)
-        {
-            Debug.Log("스킬 쿨 대기 중");
-        }
-        else
-        {
-            Debug.Log("2번 스킬 사용");
-            cool.value = 1;
-            FindeSkillBase(equipSkills[1].skillIndex).UseSkill(player);
-            skillcool |= equipSkillFlags[1];
-            coroutines[1] = StartCoroutine(Skill2CoolDown(equipSkills[1].skill.Skill_Cool, equipSkillFlags[1], cool));
-        }
-    }
-
-    public void UseSkill3(Slider cool)
-    {
-        if (!WaveManager.Instance.isWaveInProgress)
-        {
-            return;
-        }
-        if (equipSkills[2] == null)
-        {
-            return;
-        }
-        if (player == null)
-        {
-            Debug.Log("ERR: Player is Null");
-            return;
-        }
-        if ((skillcool & equipSkillFlags[2]) != 0)
-        {
-            Debug.Log("스킬 쿨 대기 중");
-        }
-        else
-        {
-            Debug.Log("3번 스킬 사용");
-            cool.value = 1;
-            FindeSkillBase(equipSkills[2].skillIndex).UseSkill(player);
-            skillcool |= equipSkillFlags[2];
-            coroutines[2] = StartCoroutine(Skill3CoolDown(equipSkills[2].skill.Skill_Cool, equipSkillFlags[2], cool));
-        }
-    }
-
-    public void UseSkill4(Slider cool)
-    {
-        if (!WaveManager.Instance.isWaveInProgress)
-        {
-            return;
-        }
-        if (equipSkills[3] == null)
-        {
-            return;
-        }
-        if (player == null)
-        {
-            Debug.Log("ERR: Player is Null");
-            return;
-        }
-        if ((skillcool & equipSkillFlags[3]) != 0)
-        {
-            Debug.Log("스킬 쿨 대기 중");
-        }
-        else
-        {
-            Debug.Log("4번 스킬 사용");
-            cool.value = 1;
-            FindeSkillBase(equipSkills[3].skillIndex).UseSkill(player);
-            skillcool |= equipSkillFlags[3];
-            coroutines[3] = StartCoroutine(Skill4CoolDown(equipSkills[3].skill.Skill_Cool, equipSkillFlags[3], cool));
-        }
-    }
-
-    public void UseSkill5(Slider cool)
-    {
-        if (!WaveManager.Instance.isWaveInProgress)
-        {
-            return;
-        }
-        if (equipSkills[4] == null)
-        {
-            return;
-        }
-        if (player == null)
-        {
-            Debug.Log("ERR: Player is Null");
-            return;
-        }
-        if ((skillcool & equipSkillFlags[4]) != 0)
-        {
-            Debug.Log("스킬 쿨 대기 중");
-        }
-        else
-        {
-            Debug.Log("5번 스킬 사용");
-            cool.value = 1;
-            FindeSkillBase(equipSkills[4].skillIndex).UseSkill(player);
-            skillcool |= equipSkillFlags[4];
-            coroutines[4] = StartCoroutine(Skill5CoolDown(equipSkills[4].skill.Skill_Cool, equipSkillFlags[4], cool));
-        }
-    }
-
-    public void UseSkill6(Slider cool)
-    {
-        if (!WaveManager.Instance.isWaveInProgress)
-        {
-            return;
-        }
-        if (equipSkills[5] == null)
-        {
-            return;
-        }
-        if (player == null)
-        {
-            Debug.Log("ERR: Player is Null");
-            return;
-        }
-        if ((skillcool & equipSkillFlags[5]) != 0)
-        {
-            //Debug.Log("스킬 쿨 대기 중");
-        }
-        else
-        {
-            Debug.Log("6번 스킬 사용");
-            cool.value = 1;
-            FindeSkillBase(equipSkills[5].skillIndex).UseSkill(player);
-            skillcool |= equipSkillFlags[5];
-            coroutines[5] = StartCoroutine(Skill6CoolDown(equipSkills[5].skill.Skill_Cool, equipSkillFlags[5], cool));
+            FindeSkillBase(equipSkills[slot].skillIndex).UseSkill(player);
+            skillcool |= equipSkillFlags[slot];
+            coroutines[slot] = StartCoroutine(cooldownCoroutines[slot](equipSkills[slot].skill.Skill_Cool, equipSkillFlags[slot], cool));
         }
     }
     

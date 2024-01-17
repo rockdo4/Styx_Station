@@ -62,8 +62,8 @@ public class BangchiWindow : Window
         }
         else
         {
-            sliver = WaveManager.Instance.currStage.monster1.monster_coin * GameData.GetCompensationTime();
-            pogme = WaveManager.Instance.currStage.monster1.monster_pommegrande * GameData.GetCompensationTime();
+            sliver = WaveManager.Instance.currStage.monsterList[0].monster_coin * GameData.GetCompensationTime();
+            pogme = WaveManager.Instance.currStage.monsterList[0].monster_pommegrande * GameData.GetCompensationTime();
         }
        
         if(pogme ==0)

@@ -9,15 +9,10 @@ public class MonsterDieState : MonsterStateBase
     private SpriteRenderer[] spriteRenderers;
     private float timer = 0f;
     private float releaseTimer = 0f;
-    private float releaseTime = 0f; 
+    private float releaseTime = 1f; 
     private float fadeDuration = 1f;
     private List<Color> colorList = new List<Color>();
     private Transform idlePos;
-
-    /// <summary>
-    /// 임시 사용, 유아이 매니저 제작 시 이동 예정
-    /// </summary>
-    
 
     public MonsterDieState(MonsterController monsterCtrl) : base(monsterCtrl)
     {
@@ -62,9 +57,8 @@ public class MonsterDieState : MonsterStateBase
         if(timer > fadeDuration && timer < releaseTime + fadeDuration)
         {
             monsterCtrl.gameObject.transform.position = idlePos.position;
-            if(!monsterCtrl.animator.GetBool("EditChk"))
+            if (!monsterCtrl.animator.GetBool("EditChk"))
                 monsterCtrl.animator.SetBool("EditChk", true);
-            monsterCtrl.animator.Play("RunState");
         }
         if(timer >= releaseTime + fadeDuration)
         {

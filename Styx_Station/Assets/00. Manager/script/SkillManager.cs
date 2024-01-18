@@ -208,13 +208,13 @@ public class SkillManager : Singleton<SkillManager>
             while (skillButtonP.Count > 0)
             {
                 var button = skillButtonP.Dequeue();
-                if (button.GetComponentInChildren<NormalButton>().skillIndex < 0)
+                if (button.Item2.GetComponentInChildren<NormalButton>().skillIndex < 0)
                 {
                     return;
                 }
                 else
                 {
-                    button.GetComponentInChildren<NormalButton>().AutoSkillActive(skillWindow);
+                    button.Item2.GetComponentInChildren<NormalButton>().AutoSkillActive(skillWindow);
                 }
             }
 

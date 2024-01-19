@@ -22,7 +22,6 @@ public class TitleScene : MonoBehaviour
         {
             Instance = this;
         }
-        //UIManager.Instance.gameObject.SetActive(false);
         if (!LabSystem.Instance.gameObject.activeSelf)
             LabSystem.Instance.gameObject.SetActive(true);
     }

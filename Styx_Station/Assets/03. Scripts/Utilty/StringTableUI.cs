@@ -18,9 +18,9 @@ public class StringTableUI : MonoBehaviour
     {
         SetStrintTable();
     }
-    public void SettingTextLanague()
+    private void OnEnable()
     {
-        if(currentLang != Global.language)
+        if (currentLang != Global.language)
         {
             SetStrintTable();
         }

@@ -7,10 +7,6 @@ using SaveDataVersionCurrent = SaveDataV4;
 using System.Numerics;
 using System.Linq;
 using System;
-using UnityEngine.Tilemaps;
-using UnityEditor.U2D.Aseprite;
-using Unity.VisualScripting;
-using UnityEngine.AI;
 using static Tutorial;
 
 public class SaveLoad : MonoBehaviour

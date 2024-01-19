@@ -16,6 +16,8 @@ public class TitleScene : MonoBehaviour
     [HideInInspector] public  bool sceneLoad;
     public Slider loadingBarSlider;
     public Button button;
+
+    public GameObject panel;
     private void Awake()
     {
         if (Instance == null)
@@ -24,8 +26,14 @@ public class TitleScene : MonoBehaviour
         }
         if (!LabSystem.Instance.gameObject.activeSelf)
             LabSystem.Instance.gameObject.SetActive(true);
+
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            Debug.LogError("네트워크에 연결되어 있지 않습니다.");
+            panel.SetActive(true);
+        }
     }
-    public void GoGameScene()
+        public void GoGameScene()
     {
         //Debug.Log(DateTime.Now.ToString("hh:mm::ss:ff"));
         //SceneManager.LoadScene(GameScene);

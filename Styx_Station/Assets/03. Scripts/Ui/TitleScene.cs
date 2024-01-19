@@ -29,7 +29,7 @@ public class TitleScene : MonoBehaviour
 
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            Debug.LogError("네트워크에 연결되어 있지 않습니다.");
+            //Debug.LogError("네트워크에 연결되어 있지 않습니다.");
             panel.SetActive(true);
         }
     }

@@ -67,7 +67,6 @@ public class ObjectPoolManager : MonoBehaviour
 
         }
 
-        Debug.Log("Object Pool is Ready");
         IsReady = true;
     }
 

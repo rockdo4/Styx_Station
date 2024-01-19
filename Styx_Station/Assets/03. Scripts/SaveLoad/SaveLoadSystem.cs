@@ -117,16 +117,16 @@ public static class SaveLoadSystem
                 string binaryPath = Path.Combine(SaveDirectory, "TestBinary.bin");
                 File.WriteAllBytes(binaryPath, binaryData);
 
-                Debug.Log("텍스트 파일이 성공적으로 암호화되어 이진 파일로 변환되었습니다.");
+                //Debug.Log("텍스트 파일이 성공적으로 암호화되어 이진 파일로 변환되었습니다.");
             }
             else
             {
-                Debug.Log("텍스트 파일의 내용이 비어있습니다.");
+                //Debug.Log("텍스트 파일의 내용이 비어있습니다.");
             }
         }
         else
         {
-            Debug.Log("지정된 텍스트 파일이 존재하지 않습니다.");
+            //Debug.Log("지정된 텍스트 파일이 존재하지 않습니다.");
         }
     }
 
@@ -141,7 +141,7 @@ public static class SaveLoadSystem
             string txtFilePath = Path.Combine(SaveDirectory, "TestText.txt");
             File.WriteAllText(txtFilePath, content);
 
-            Debug.Log("암호화된 바이너리 파일이 성공적으로 복호화되어 텍스트 파일로 변환되었습니다.");
+            //Debug.Log("암호화된 바이너리 파일이 성공적으로 복호화되어 텍스트 파일로 변환되었습니다.");
 
             SaveDataVersionCurrent loadedData = (SaveDataVersionCurrent)JsonLoad(txtFilePath);
             return loadedData;
@@ -159,7 +159,7 @@ public static class SaveLoadSystem
         }
         else
         {
-            Debug.Log("Specified binary file does not exist.");
+            //Debug.Log("Specified binary file does not exist.");
         }
         return null;
     }

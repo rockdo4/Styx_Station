@@ -49,21 +49,21 @@ public class PriorityQueue<TElement, TPriority> where TPriority : IComparable<TP
     //    get { return priorityQueue.Count == 0; }
     //}
 
-    private List<Tuple<TPriority, TElement>> heap;
+    private List<Tuple<TPriority, TElement>> tree;
 
     public PriorityQueue()
     {
-        heap = new List<Tuple<TPriority, TElement>>();
+        tree = new List<Tuple<TPriority, TElement>>();
     }
 
     public int Count
     {
-        get { return heap.Count; }
+        get { return tree.Count; }
     }
 
     public void Enqueue(TElement element, TPriority priority)
     {
-        heap.Add(new Tuple<TPriority, TElement>(priority, element));
+        tree.Add(new Tuple<TPriority, TElement>(priority, element));
         HeapifyUp();
     }
 
@@ -74,11 +74,11 @@ public class PriorityQueue<TElement, TPriority> where TPriority : IComparable<TP
             throw new InvalidOperationException("PriorityQueue is empty");
         }
 
-        Tuple<TPriority, TElement> frontItem = heap[0];
+        Tuple<TPriority, TElement> frontItem = tree[0];
         int lastIndex = Count - 1;
 
-        heap[0] = heap[lastIndex];
-        heap.RemoveAt(lastIndex);
+        tree[0] = tree[lastIndex];
+        tree.RemoveAt(lastIndex);
 
         if (Count > 1)
         {
@@ -96,7 +96,7 @@ public class PriorityQueue<TElement, TPriority> where TPriority : IComparable<TP
         {
             int parentIndex = (childIndex - 1) / 2;
 
-            if (heap[childIndex].Item1.CompareTo(heap[parentIndex].Item1) >= 0)
+            if (tree[childIndex].Item1.CompareTo(tree[parentIndex].Item1) >= 0)
             {
                 break;
             }
@@ -117,12 +117,12 @@ public class PriorityQueue<TElement, TPriority> where TPriority : IComparable<TP
 
             int smallestChildIndex = currentIndex;
 
-            if (leftChildIndex < Count && heap[leftChildIndex].Item1.CompareTo(heap[smallestChildIndex].Item1) < 0)
+            if (leftChildIndex < Count && tree[leftChildIndex].Item1.CompareTo(tree[smallestChildIndex].Item1) < 0)
             {
                 smallestChildIndex = leftChildIndex;
             }
 
-            if (rightChildIndex < Count && heap[rightChildIndex].Item1.CompareTo(heap[smallestChildIndex].Item1) < 0)
+            if (rightChildIndex < Count && tree[rightChildIndex].Item1.CompareTo(tree[smallestChildIndex].Item1) < 0)
             {
                 smallestChildIndex = rightChildIndex;
             }
@@ -139,8 +139,8 @@ public class PriorityQueue<TElement, TPriority> where TPriority : IComparable<TP
 
     private void SwapElements(int index1, int index2)
     {
-        Tuple<TPriority, TElement> temp = heap[index1];
-        heap[index1] = heap[index2];
-        heap[index2] = temp;
+        Tuple<TPriority, TElement> temp = tree[index1];
+        tree[index1] = tree[index2];
+        tree[index2] = temp;
     }
 }

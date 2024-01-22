@@ -301,7 +301,7 @@ public class SkillManager : Singleton<SkillManager>
         }
         if ((skillcool & equipSkillFlags[slot]) != 0)
         {
-            Debug.Log("스킬 쿨 대기 중");
+            //Debug.Log("스킬 쿨 대기 중");
         }
         else
         {

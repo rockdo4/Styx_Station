@@ -63,24 +63,24 @@ public class LabSystem : Singleton<LabSystem>
 
     private void Update()
     {
-        if (isLoad)
-        {
-            StartResearching();
-            IsClearRe001();
-            IsClearRe002();
-            IsClearRe003();
-            IsClearRe004();
-            IsClearRe005();
-            IsClearRe006();
-            isLoad = false;
-        }
+        //if (isLoad)
+        //{
+        //    StartResearching();
+        //    IsClearRe001();
+        //    IsClearRe002();
+        //    IsClearRe003();
+        //    IsClearRe004();
+        //    IsClearRe005();
+        //    IsClearRe006();
+        //    isLoad = false;
+        //}
         if (isAwakeSet && !isResearching)
         {
             AllCheckEdges();
         }
         else
         {
-            isAwakeSet=false;
+            isAwakeSet = false;
         }
         if (isResearching && timerTic > 0)
         {
@@ -540,5 +540,17 @@ public class LabSystem : Singleton<LabSystem>
 
         isLoad =true;
         isAwakeSet = true;
+
+        if (isLoad)
+        {
+            StartResearching();
+            IsClearRe001();
+            IsClearRe002();
+            IsClearRe003();
+            IsClearRe004();
+            IsClearRe005();
+            IsClearRe006();
+            isLoad = false;
+        }
     }
 }

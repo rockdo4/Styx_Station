@@ -58,7 +58,11 @@ public class MakeTableData : Singleton<MakeTableData>
         gameSaveLoad.Save();
         Debug.Log("Save. Succese Method");
     }
-    private void OnApplicationQuit() => gameSaveLoad.Save();
+    private void OnApplicationQuit()
+    {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == UIManager.Instance.SceneName)
+            gameSaveLoad.Save();
+    }
 #if UNITY_ANDROID
     private void OnApplicationFocus(bool pauseStatus)
     {

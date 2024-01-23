@@ -60,7 +60,7 @@ public class MakeTableData : Singleton<MakeTableData>
     }
     private void OnApplicationQuit()
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == UIManager.Instance.SceneName)
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Build_01.03 Game")
             gameSaveLoad.Save();
     }
 #if UNITY_ANDROID

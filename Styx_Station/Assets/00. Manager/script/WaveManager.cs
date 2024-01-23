@@ -265,7 +265,7 @@ public class WaveManager : Singleton<WaveManager> //MonoBehaviour
     public void ChangeAudio()
     {
         BackgroundMusic.StopAudio();
-        BackgroundMusic.SetAudioClip(currTileMapIndex);
+        BackgroundMusic.SetAudioClip(currTileMapIndex + 1);
     }
     public void SetStageByIndexStage(int stageIndex)
     {

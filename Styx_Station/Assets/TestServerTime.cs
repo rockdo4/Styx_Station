@@ -8,7 +8,6 @@ using UnityEngine.Networking;
 public class TestServerTime : MonoBehaviour
 {
     public static TestServerTime Instance;
-
     void Awake()
     {
         if (Instance == null)
@@ -39,10 +38,6 @@ public class TestServerTime : MonoBehaviour
 
     private DateTime _currentDateTime = DateTime.Now;    
 
-    void Start()
-    {
-        
-    }
 
     public DateTime GetCurrentDateTime()
     {
@@ -50,7 +45,18 @@ public class TestServerTime : MonoBehaviour
         // just add elapsed time since the game start to _currentDateTime
         StopCoroutine(GetRealDateTimeFromAPI());
         StartCoroutine(GetRealDateTimeFromAPI());
-        return _currentDateTime;
+
+        if (IsTimeLodaed)
+        {
+            var str = DateTime.Now.ToString();
+            _currentDateTime = DateTime.ParseExact(str, "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+
+            return _currentDateTime;
+        }
+        else
+        {
+            return _currentDateTime;
+        }
     }
 
     public IEnumerator GetRealDateTimeFromAPI()
@@ -58,10 +64,11 @@ public class TestServerTime : MonoBehaviour
         UnityWebRequest webRequest = UnityWebRequest.Get(API_URL);
 
         yield return webRequest.SendWebRequest();
-
+        IsTimeLodaed = false;
         if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.Log("Error: " + webRequest.error);
+            IsTimeLodaed = true;
+            //Debug.Log("Error: " + webRequest.error);
         }
         else
         {

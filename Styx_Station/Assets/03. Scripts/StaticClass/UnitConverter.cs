@@ -18,10 +18,7 @@ public static class UnitConverter
 
     private static BigInteger a1 = new BigInteger(1000);
     private static BigInteger[] units = new BigInteger[702];
-    //private static BigInteger[] units = new BigInteger[52];
-    //private static string[] unitNames = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
-    //    "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z","AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", 
-    //    "AL", "AM", "AN","AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"};
+
     private static string[] unitNames;
     public static void InitUnitConverter()
     {

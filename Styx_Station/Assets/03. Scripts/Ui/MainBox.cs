@@ -13,7 +13,6 @@ public class MainBox : MonoBehaviour
         if (currentAspectRatio == fixedAspectRatio)
         {
             cam.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-            return;
         }
         else if (currentAspectRatio > fixedAspectRatio)
         {
